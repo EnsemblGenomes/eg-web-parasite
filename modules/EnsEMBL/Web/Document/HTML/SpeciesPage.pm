@@ -167,8 +167,8 @@ sub render {
 
 	  my $dir = $info->{'dir'};
 
-	  (my $name = $dir) =~ s/_/ /;
-	  $name =~ s/_PRJ.*//; # Remove the BioProject ID from the name
+	  (my $name = $dir) =~ s/_/ /g;
+	  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
           my $link_text = $common =~ /\./ ? $name : $common;
 
 	  $html .= qq(<td style="width:8%;text-align:right;padding-bottom:1em">);
