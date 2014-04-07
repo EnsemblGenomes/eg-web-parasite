@@ -171,14 +171,15 @@ sub render {
 	  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
           my $link_text = $common =~ /\./ ? $name : $common;
 
-	  $html .= qq(<td style="width:8%;text-align:right;padding-bottom:1em">);
-	  if ($dir) {
-	      $html .= qq(<img class="species-img" style="width:40px;height:40px" src="/i/species/48/$dir.png" alt="$name">);
-	  }
-	  else {
-	      $html .= '&nbsp;';
-	  }
-	  $html .= qq(</td><td style="width:25%;padding:2px;padding-bottom:1em">);
+	  #$html .= qq(<td style="width:8%;text-align:right;padding-bottom:1em">);
+	  #if ($dir) {
+	  #    $html .= qq(<img class="species-img" style="width:40px;height:40px" src="/i/species/48/$dir.png" alt="$name">);
+	  #}
+	  #else {
+	  #    $html .= '&nbsp;';
+	  #}
+	  #$html .= qq(</td><td style="width:25%;padding:2px;padding-bottom:1em">);
+          $html .= qq(<td style="width:33%;padding:2px;padding-bottom:1em">); # Removal of species image
 
 	  if ($dir) {
               $html .= qq(<a href="/$dir/Info/Index/"  style="$link_style">$link_text</a>);
