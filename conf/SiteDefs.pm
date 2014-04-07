@@ -110,6 +110,7 @@ $SiteDefs::__species_aliases{'Teladorsagia_circumcincta_PRJNA72569'} = [qw(Telad
 $SiteDefs::__species_aliases{'Thelazia_callipaeda_PRJEB1205'} = [qw(Thelazia_callipaeda_PRJEB1205)];
 $SiteDefs::__species_aliases{'Toxocara_canis_PRJEB533'} = [qw(Toxocara_canis_PRJEB533)];
 $SiteDefs::__species_aliases{'Trichinella_nativa_PRJNA179527'} = [qw(Trichinella_nativa_PRJNA179527)];
+$SiteDefs::__species_aliases{'Trichobilharzia_regenti_PRJEB4662'} = [qw(Trichobilharzia_regenti_PRJEB4662)];
 $SiteDefs::__species_aliases{'Trichinella_spiralis_PRJNA12603'} = [qw(Trichinella_spiralis_PRJNA12603)];
 $SiteDefs::__species_aliases{'Trichuris_muris_PRJEB126'} = [qw(Trichuris_muris_PRJEB126)];
 $SiteDefs::__species_aliases{'Trichuris_suis_PRJNA179528'} = [qw(Trichuris_suis_PRJNA179528)];
