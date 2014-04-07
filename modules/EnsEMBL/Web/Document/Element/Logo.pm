@@ -35,7 +35,7 @@ sub content {
   } 
 
   return sprintf( '%s<a href="%s">%s</a>%s%s',
-    $self->e_logo, $url, $self->logo_img, $self->logo_print, $self->site_menu
+    $self->e_logo, $url, $self->logo_img, $self->logo_print, $self->site_menu # Removes drop-down menu and e! logo
   );
 }
 
@@ -60,20 +60,21 @@ sub e_logo {
 }
 
 sub site_menu {
-  return q{
-    <span class="print_hide">
-      <span id="site_menu_button">&#9660;</span>
-      <ul id="site_menu" style="display:none">
-        <li><a href="http://www.ensemblgenomes.org">WormBase-ParaSite</a></li>
-        <li><a href="http://bacteria.ensembl.org">Ensembl Bacteria</a></li>
-        <li><a href="http://protists.ensembl.org">Ensembl Protists</a></li>
-        <li><a href="http://fungi.ensembl.org">Ensembl Fungi</a></li>
-        <li><a href="http://plants.ensembl.org">Ensembl Plants</a></li>
-        <li><a href="http://metazoa.ensembl.org">Ensembl Metazoa</a></li>
-        <li><a href="http://www.ensembl.org">Ensembl (vertebrates)</a></li>
-      </ul>
-    </span>
-  };
+  #return q{
+  #  <span class="print_hide">
+  #    <span id="site_menu_button">&#9660;</span>
+  #    <ul id="site_menu" style="display:none">
+  #      <li><a href="http://www.ensemblgenomes.org">WormBase-ParaSite</a></li>
+  #      <li><a href="http://bacteria.ensembl.org">Ensembl Bacteria</a></li>
+  #      <li><a href="http://protists.ensembl.org">Ensembl Protists</a></li>
+  #      <li><a href="http://fungi.ensembl.org">Ensembl Fungi</a></li>
+  #      <li><a href="http://plants.ensembl.org">Ensembl Plants</a></li>
+  #      <li><a href="http://metazoa.ensembl.org">Ensembl Metazoa</a></li>
+  #      <li><a href="http://www.ensembl.org">Ensembl (vertebrates)</a></li>
+  #    </ul>
+  #  </span>
+  #};
+  return q{};
 }
 
 1;
