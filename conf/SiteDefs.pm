@@ -31,7 +31,7 @@ sub update_conf {
 
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
 
-    $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Acanthocheilonema_viteae_PRJEB4306'; ## Default species
+    $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Onchocerca_volvulus_PRJEB513'; ## Default species
     $SiteDefs::ENSEMBL_SECONDARY_SPECIES  = 'Ancylostoma_caninum_PRJNA72585'; ## Default species
     
 # ParaSite Specific Species
