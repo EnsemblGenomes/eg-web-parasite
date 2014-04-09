@@ -134,7 +134,7 @@ $SiteDefs::__species_aliases{'Trichuris_suis_PRJNA208416'} = [qw(Trichuris_suis_
     @SiteDefs::ENSEMBL_PERL_DIRS    = (
                                            $SiteDefs::ENSEMBL_WEBROOT.'/perl',
                                            $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-common/perl',
-                                           $SiteDefs::ENSEMBL_SERVERROOT.'/ps-web/perl',
+                                           $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/perl',
 				       );
 
     $SiteDefs::SITE_NAME = 'WormBase-ParaSite';
@@ -142,7 +142,7 @@ $SiteDefs::__species_aliases{'Trichuris_suis_PRJNA208416'} = [qw(Trichuris_suis_
     $SiteDefs::SITE_FTP= 'ftp://ftp.ensemblgenomes.org/pub/metazoa';
     push @SiteDefs::ENSEMBL_HTDOCS_DIRS,  $SiteDefs::ENSEMBL_SERVERROOT.'/../biomarts/parasite/biomart-perl/htdocs';
     
-    $SiteDefs::DOCSEARCH_INDEX_DIR = $SiteDefs::ENSEMBL_SERVERROOT.'/ps-web/data/docsearch';
+    $SiteDefs::DOCSEARCH_INDEX_DIR = $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/data/docsearch';
 
     $SiteDefs::ENA_COLLECTION_ID = 223;
 
