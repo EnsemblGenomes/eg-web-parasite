@@ -185,7 +185,7 @@ sub render {
 	  if ($dir) {
               $html .= qq(<a href="/$dir/Info/Index/"  style="$link_style">$link_text</a>);
 	      $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
-	      unless ($common =~ /\./) {
+	      #unless ($common =~ /\./) { # This prevents the provider and strain from showing if there is a full-stop in the species name (i.e. if sp. or spp. has been used)
 		      my $provider = $info->{'provider'};
 		      my $url  = $info->{'provider_url'};
 
@@ -219,7 +219,7 @@ sub render {
 		      } else {
 		          $html .= qq{<br /><i>$name</i>};
 		      }
-	      }
+	      #}
         if($info->{'taxid'}){
           (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
           $html .= sprintf(' | <a href="%s" title="Taxonomy ID: %s">%s</a>',$uniprot_url, $info->{'taxid'}, $info->{'taxid'});
