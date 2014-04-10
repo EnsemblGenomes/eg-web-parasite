@@ -169,7 +169,8 @@ sub render {
 
 	  (my $name = $dir) =~ s/_/ /g;
 	  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
-          my $link_text = $common =~ /\./ ? $name : $common;
+          #my $link_text = $common =~ /\./ ? $name : $common;
+          my $link_text = $common; # Use the common name from the database rather than the directory name
 
 	  #$html .= qq(<td style="width:8%;text-align:right;padding-bottom:1em">);
 	  #if ($dir) {
