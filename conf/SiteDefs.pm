@@ -123,6 +123,7 @@ $SiteDefs::__species_aliases{'Ascaris_suum_PRJNA80881'} = [qw(Ascaris_suum_PRJNA
 $SiteDefs::__species_aliases{'Dictyocaulus_viviparus_PRJEB5116'} = [qw(Dictyocaulus_viviparus_PRJEB5116)];
 $SiteDefs::__species_aliases{'Haemonchus_contortus_PRJNA205202'} = [qw(Haemonchus_contortus_PRJNA205202)];
 $SiteDefs::__species_aliases{'Heterorhabditis_bacteriophora_PRJNA13977'} = [qw(Heterorhabditis_bacteriophora_PRJNA13977)];
+$SiteDefs::__soecies_aliases{'Onchocerca_ochengi_PRJEB1204'} = [qw(Onchocerca_ochengi_PRJEB1204)];
 $SiteDefs::__species_aliases{'Meloidogyne_floridensis_PRJEB2953'} = [qw(Meloidogyne_floridensis_PRJEB2953)];
 $SiteDefs::__species_aliases{'Meloidogyne_incognita_PRJEA28837'} = [qw(Meloidogyne_incognita_PRJEA28837)];
 $SiteDefs::__species_aliases{'Trichuris_suis_PRJNA208415'} = [qw(Trichuris_suis_PRJNA208415)];
