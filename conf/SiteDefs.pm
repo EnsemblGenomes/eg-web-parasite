@@ -122,7 +122,6 @@ $SiteDefs::__species_aliases{'Ancylostoma_ceylanicum_PRJNA231479'} = [qw(Ancylos
 $SiteDefs::__species_aliases{'Ascaris_suum_PRJNA80881'} = [qw(Ascaris_suum_PRJNA80881)];
 $SiteDefs::__species_aliases{'Dictyocaulus_viviparus_PRJEB5116'} = [qw(Dictyocaulus_viviparus_PRJEB5116)];
 $SiteDefs::__species_aliases{'Haemonchus_contortus_PRJNA205202'} = [qw(Haemonchus_contortus_PRJNA205202)];
-$SiteDefs::__species_aliases{'Heterodera_glycines_PRJNA28939'} = [qw(Heterodera_glycines_PRJNA28939)];
 $SiteDefs::__species_aliases{'Heterorhabditis_bacteriophora_PRJNA13977'} = [qw(Heterorhabditis_bacteriophora_PRJNA13977)];
 $SiteDefs::__species_aliases{'Meloidogyne_floridensis_PRJEB2953'} = [qw(Meloidogyne_floridensis_PRJEB2953)];
 $SiteDefs::__species_aliases{'Meloidogyne_incognita_PRJEA28837'} = [qw(Meloidogyne_incognita_PRJEA28837)];
