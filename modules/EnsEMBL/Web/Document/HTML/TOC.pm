@@ -48,7 +48,7 @@ sub render {
     
     my $title        = $section->{'_title'} || ucfirst $dir;
         # EG:
-#       next unless $title =~ /Using this website|Accessing WormBase-ParaSite Data|About the WormBase-ParaSite project|WormBase-ParaSite Documentation/;
+#       next unless $title =~ /Using this website|Accessing WormBase ParaSite Data|About the WormBase ParaSite project|WormBase ParaSite Documentation/;
         # EG
     my @second_level = @{$self->create_links($section, ' class="bold"')};
 
