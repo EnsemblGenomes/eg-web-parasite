@@ -27,8 +27,6 @@ sub update_conf {
     $SiteDefs::SITE_RELEASE_VERSION = '1';
     $SiteDefs::SITE_RELEASE_DATE = '[Insert release date here in eg-web-parasite/conf/SiteDefs.pm]';
 
-    $SiteDefs::SITE_MISSION = 'Blurb about ParaSite here in eg-web-parasite/conf/SiteDefs.pm';
-
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
 
     $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Onchocerca_volvulus_PRJEB513'; ## Default species
