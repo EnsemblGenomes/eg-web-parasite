@@ -39,9 +39,8 @@ sub content {
   push @links,   '<a class="constant" href="/tools.html">Tools</a>';
   push @links,   '<a class="constant" href="/downloads.html">Downloads</a>';
 ### EG
-#  push @links,   '<a class="constant" href="/info/">Help &amp; Documentation</a>';
-  push @links,   '<a class="constant" href="/info/website/index.html">Help</a>';
-  push @links,   '<a class="constant" href="http://www.ensemblgenomes.org/info">Documentation</a>';
+  push @links,   '<a class="constant" href="/info/">Help &amp; Documentation</a>';
+#  push @links,   '<a class="constant" href="http://www.ensemblgenomes.org/info">Documentation</a>';
 ### 
   push @links,   '<a class="constant modal_link" href="/Help/Mirrors">Mirrors</a>' if keys %{$hub->species_defs->ENSEMBL_MIRRORS || {}};
 
