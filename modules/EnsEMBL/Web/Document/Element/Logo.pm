@@ -42,10 +42,7 @@ sub content {
 sub logo_img {
 ### a
   my $self = shift;
-  return sprintf(
-    '<img src="%s%s" alt="%s" title="%s" class="print_hide" style="width:%spx;height:%spx" />',
-    $self->img_url, $self->image, $self->alt, $self->alt, $self->width, $self->height
-  );
+  return 'WormBase ParaSite'; 
 }
 
 sub e_logo {

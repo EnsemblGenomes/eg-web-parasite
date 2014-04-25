@@ -523,7 +523,6 @@ sub html_template {
         <input type="hidden" class="panel_type" value="Masthead" />
         <div class="logo_holder">$elements->{'logo'}</div>
         <div class="mh print_hide">
-          <div class="account_holder">$elements->{'account'}</div>
           <div class="tools_holder">$elements->{'tools'}</div>
           <div class="search_holder print_hide">$elements->{'search_box'}</div>
         </div>

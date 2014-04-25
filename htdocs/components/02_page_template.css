@@ -32,16 +32,16 @@ body.static #widemain { margin-left: 0; }
 
 
 /* Masthead */
-#masthead                                 { background-color: [[MH_BG]]; color: [[MH_TEXT]]; height: 80px; position: relative; }
+#masthead                                 { background-color: [[MH_BG]]; color: [[MH_TEXT]]; height: 54px; padding: 6px 8px; position: relative; }
 #masthead div                             { background-color: [[MH_BG]] important; }
 #masthead a,
 #masthead span.disabled                   { color: [[MH_LINK]]; text-decoration: none; outline: none; }
 #masthead a:hover,
-#masthead span.disabled.toggle:hover      { color: [[MH_HOVER]] !important; }
+#masthead span.disabled.toggle:hover      { color: [[MH_HOVER]]; }
 #masthead ul                              { list-style: none; margin: 0; padding: 0 }
 #masthead li                              { list-style: none; float: left; text-align: center; white-space: nowrap; }
 #masthead .mh                             { float: left; }
-#masthead ul.tools                        { margin: 19px 0 0 -5px; height: 16px; overflow: hidden; }
+#masthead ul.tools                        { margin: 1px 0 0 20px; height: 16px; overflow: hidden; }
 #masthead ul.tools li                     { padding: 0 10px; border-right: 1px solid [[MH_TEXT]]; margin: 0; }
 #masthead ul.tools li.last                { border: 0; }
 #masthead ul.tabs                         { margin: 0; padding: 0; width: 100%; }
@@ -66,11 +66,15 @@ body.static #widemain { margin-left: 0; }
 #masthead div.dropdown ul li a.bold       { font-weight: bold; font-size: 90%; }
 #masthead div.dropdown.species            { width: 505px; }
 #masthead div.dropdown.species ul li      { width: 130px; float: left; }
-#masthead .logo_holder                    { position: relative; top: 6px; margin-left: 6px; float: left; }
+#masthead .logo_holder                    { position: relative; top: 6px; margin-left: 6px; float: left; font-size: 26px; font-family: Helvetica, sans-serif; font-weight: bold; text-decoration: none }
 #masthead .logo_holder .logo-header       { background: url(/i/[[SITE_LOGO]]) no-repeat 0 0; display: inline-block; width: [[SITE_LOGO_WIDTH]]px; height: [[SITE_LOGO_HEIGHT]]px; }
+#masthead .logo_holder a                  { color: [[MH_LOGO_LINK]] !important; }
+#masthead .logo_holder a:hover            { color: [[MH_LOGO_HOVER]] !important; }
 #masthead .tools_holder                   { position: relative; top: 10px; }
 #masthead .tools_holder .arrow            { font-size: 8px; position: relative; top: -1px; padding-left: 1px; }
-#masthead .search_holder                  { position: absolute; top: 24px; right: 6px; margin-left: 6px; }
+#masthead .tools_holder a                 { color: [[MH_TOOLS_LINK]] !important; }
+#masthead .tools_holder a:hover           { color: [[MH_TOOLS_HOVER]] !important; }
+#masthead .search_holder                  { position: absolute; top: 10px; right: 6px; margin-left: 6px; }
 #masthead .tabs_holder                    { position: absolute; bottom: 0; clear: both; }
 #masthead div.more                        { display: none; float: left; margin: -16px 7px 0; position: relative; z-index: 250; }
 #masthead div.more a                      { outline: 0; padding: 2px 4px; }
