@@ -48,7 +48,7 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Brugia_pahangi_PRJEB497'} = [qw(Brugia_pahangi_PRJEB497)];
 	$SiteDefs::__species_aliases{'Brugia_timori_PRJEB4663'} = [qw(Brugia_timori_PRJEB4663)];
 	$SiteDefs::__species_aliases{'Bursaphelenchus_xylophilus_PRJEA64437'} = [qw(Bursaphelenchus_xylophilus_PRJEA64437)];
-	$SiteDefs::__species_aliases{'Clonorchis_sinensis_PRJNA33229'} = [qw(Clonorchis_sinensis_PRJNA33229)];
+	$SiteDefs::__species_aliases{'Clonorchis_sinensis_PRJDA72781'} = [qw(Clonorchis_sinensis_PRJDA72781)];
 	$SiteDefs::__species_aliases{'Cylicostephanus_goldi_PRJEB498'} = [qw(Cylicostephanus_goldi_PRJEB498)];
 	$SiteDefs::__species_aliases{'Dictyocaulus_viviparus_PRJNA72587'} = [qw(Dictyocaulus_viviparus_PRJNA72587)];
 	$SiteDefs::__species_aliases{'Diphyllobothrium_latum_PRJEB1206'} = [qw(Diphyllobothrium_latum_PRJEB1206)];
