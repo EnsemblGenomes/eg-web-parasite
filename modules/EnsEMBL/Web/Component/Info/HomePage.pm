@@ -195,7 +195,7 @@ sub content {
   
   my $about_text = $self->_other_text('about', $species);
   if ($about_text) {
-    $html .= '<div class="column-wrapper"><div class="round-box tinted-box unbordered">'; 
+    $html .= '<div class="column-wrapper"><div class="round-box tinted-box">'; 
     $html .= $about_text;
     $html .= qq(<p><a href="/$species/Info/Annotation/#about" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
     $html .= '</div></div>';
@@ -235,7 +235,7 @@ sub content {
   my @box_class = ('box-left', 'box-right');
   my $side = 0;
   for my $section (@sections){
-    $html .= sprintf(qq{<div class="%s"><div class="round-box tinted-box unbordered">%s</div></div>}, $box_class[$side++ %2],$section);
+    $html .= sprintf(qq{<div class="%s"><div class="round-box tinted-box">%s</div></div>}, $box_class[$side++ %2],$section);
   }
     
 
@@ -292,6 +292,8 @@ sub _assembly_text {
  #my %archive          = %{$species_defs->get_config($species, 'ENSEMBL_ARCHIVES') || {}};
   my %assemblies       = %{$species_defs->get_config($species, 'ASSEMBLIES') || {}};
   my $previous         = $current_assembly;
+  my $assembly_description = $self->_other_text('assembly', $species);
+  $assembly_description =~ s/<h2>.*<\/h2>//; # Remove the header
 
   my $html = '<div class="homepage-icon">';
 
@@ -310,7 +312,7 @@ sub _assembly_text {
     $assembly = $hub->get_ExtURL_link($current_assembly, 'ENA', $accession);
   }
   $html .= "<h2>Genome assembly: $assembly</h2>";
-  $html .= qq(<p><a href="/$species/Info/Annotation/#assembly" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
+  $html .= "<p>$assembly_description</p>";
 
   # Link to FTP site
   if ($species_defs->ENSEMBL_FTP_URL) {
@@ -380,6 +382,8 @@ sub _genebuild_text {
   my $ensembl_version = $self->_site_release;
   my $vega            = $species_defs->get_config('MULTI', 'ENSEMBL_VEGA');
   my $has_vega        = $vega->{$species};
+  my $annotation_description = $self->_other_text('annotation', $species);
+  $annotation_description =~ s/<h2>.*<\/h2>//; # Remove the header
 
   my $html = '<div class="homepage-icon">';
 
@@ -393,8 +397,7 @@ sub _genebuild_text {
 
   $html .= '</div>'; #homepage-icon
 
-  $html .= '<h2>Gene annotation</h2><p><strong>What can I find?</strong> Protein-coding and non-coding genes, splice variants, cDNA and protein sequences, non-coding RNAs.</p>';
-  $html .= qq(<p><a href="/$species/Info/Annotation/#genebuild" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about this genebuild</a></p>);
+  $html .= "<h2>Gene annotation</h2><p>$annotation_description</p><p><strong>What can I find?</strong> Protein-coding and non-coding genes, splice variants, cDNA and protein sequences, non-coding RNAs.</p>";
 
   if ($species_defs->ENSEMBL_FTP_URL) {
     my $fasta_url = $hub->get_ExtURL('SPECIES_FTP_URL',{GENOMIC_UNIT=>$species_defs->GENOMIC_UNIT,VERSION=>$ensembl_version, FORMAT=>'fasta', SPECIES=> $self->is_bacteria ? $species_defs->SPECIES_DATASET . "_collection/" . lc $species : lc $species},{class=>'nodeco'});
@@ -559,7 +562,7 @@ sub _variation_text {
     }
   }
   else {
-    $html .= '<h2>Variation</h2><p>This species currently has no variation database. However you can process your own variants using the Variant Effect Predictor:</p>';
+    $html .= '<h2>Variation</h2><p>Process your own variants using the Variant Effect Predictor:</p>';
   }
 
   my $vep_url = $hub->url({'type' => 'UserData', 'action' => 'UploadVariations'});
