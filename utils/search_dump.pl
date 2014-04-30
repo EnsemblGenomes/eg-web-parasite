@@ -174,8 +174,8 @@ sub get_databases {
     if ( ($db_type, $db_release) = $dbname =~ /^ensembl_compara_(\w+)_(\d+)_\w+/ ) {
        
       $compara_hash->{$db_type}->{$db_release} = $dbname;
-    
-    } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {
+
+    } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {    
 
       $db_species =~ s/_collection$//;
       $latest_release = $db_release if ( $db_release > $latest_release );
