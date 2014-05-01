@@ -218,7 +218,9 @@ sub content {
  #  $side++;
   }
 
-  push(@sections, $self->_variation_text);
+  if ($hub->database('variation')) {
+    push(@sections, $self->_variation_text);
+  }
  #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box tinted-box unbordered">' . $self->_variation_text . '</div></div>';
  #$side++;
 
@@ -227,6 +229,8 @@ sub content {
   # $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box tinted-box unbordered">' . $self->_funcgen_text . '</div></div>';
   # $side++;
   }
+
+  push(@sections, $self->_resources_text);
 
   my $other_text = $self->_other_text('other', $species);
   push(@sections, $other_text) if $other_text =~ /\w/;
@@ -561,12 +565,6 @@ sub _variation_text {
       $html .= qq[<p><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download all variants - $links</p>];
     }
   }
-  else {
-    $html .= '<h2>Variation</h2><p>Process your own variants using the Variant Effect Predictor:</p>';
-  }
-
-  my $vep_url = $hub->url({'type' => 'UserData', 'action' => 'UploadVariations'});
-  $html .= qq(<p><a href="$vep_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Variant Effect Predictor<img src="${img_url}vep_logo_sm.png" style="vertical-align:top;margin-left:12px" /></a></p>);
 
   return $html;
 }
@@ -623,6 +621,32 @@ sub _funcgen_text {
   }
 
   return $html;
+}
+
+# ParaSite specific Resources section
+sub _resources_text {
+  my $self            = shift;
+  my $hub             = $self->hub;
+  my $species_defs    = $hub->species_defs;
+  my $species         = $hub->species;
+  my $img_url         = $self->img_url;
+  my $sample_data     = $species_defs->SAMPLE_DATA;
+  my $ensembl_version = $species_defs->ENSEMBL_VERSION;
+  my $site            = $species_defs->ENSEMBL_SITETYPE;
+  my $html;
+  my $imported_resources = $self->_other_text('resources', $species);
+  $imported_resources =~ s/<h2>.*<\/h2>//; # Remove the header
+
+  $html .= '<h2>Resources</h2>';
+
+  $html .= $imported_resources;
+
+  $html .= '<p>Process your own variants using the Variant Effect Predictor:</p>';
+  my $vep_url = $hub->url({'type' => 'UserData', 'action' => 'UploadVariations'});
+  $html .= qq(<p><a href="$vep_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Variant Effect Predictor<img src="${img_url}vep_logo_sm.png" style="vertical-align:top;margin-left:12px" /></a></p>);
+  
+  return $html;
+  
 }
 
 # EG
