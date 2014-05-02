@@ -79,6 +79,7 @@ sub psychic {
   return $hub->redirect("http://www.ebi.ac.uk/ebisearch/search.ebi?db=allebi&query=$query")                          if $dest_site eq 'ebi';
   return $hub->redirect("http://www.sanger.ac.uk/search?db=allsanger&t=$query")                                      if $dest_site eq 'sanger';
   return $hub->redirect("http://www.ensemblgenomes.org/search/eg/$query") if $dest_site eq 'ensembl_genomes';
+  return $hub->redirect("http://www.wormbase.org/search/all/$query") if $dest_site eq 'wormbase';
 
   if ($dest_site =~ /vega/) {
     if ($site_type eq 'vega') {
