@@ -28,6 +28,7 @@ sub content {
   my $species = $hub->species;
      $species = !$species || $species eq 'Multi' || $species eq 'common' ? 'Multi' : $species;
   my @links; # = sprintf '<a class="constant" href="%s">Home</a>', $self->home;
+  push @links, qq(<a class="constant" href="/info/about/species.html">Species List</a>);
   push @links, qq{<a class="constant" href="/$species/blastview">BLAST</a>} if $self->blast;
 ###EG  
   if ($self->hub->species_defs->ENSEMBL_ENASEARCH_ENABLED) {
