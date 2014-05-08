@@ -35,7 +35,7 @@ body.static dl.striped dd  { padding: 8px 8px 8px 300px; }
 body.static dl.striped dd p { margin: 0; }
 
 body.static h1     { color: [[PAGE_HEADER]];  }
-body.static h2     { color: [[CONTRAST_HEADER]]; }
+body.static h2     { color: [[PAGE_HEADER]]; }
 body.static h3     { color: [[CONTRAST_HEADER]]; }
 body.static h4     { color: [[CONTRAST_HEADER]]; }
 

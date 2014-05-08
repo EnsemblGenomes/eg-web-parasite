@@ -37,7 +37,7 @@ sub render {
   
   my $html_before = '<div class="static_all_species clear">
   <form action="#">
-    <h3>All genomes</h3>
+    <h2>All genomes</h2>
     <p>';
   my $html = '
     <select name="species" class="dropdown_redirect">
