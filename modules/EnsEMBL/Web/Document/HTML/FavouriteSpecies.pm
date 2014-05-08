@@ -61,12 +61,10 @@ sub render_species_list {
   
   # output list
   my $star = '<img src="/i/16/star.png" style="vertical-align:middle;margin-right:4px" />';
-  my $html = sprintf qq{<div class="static_favourite_species"><h3>%s genomes</h3><div class="species_list_container species-list">$fav_html</div>%s</div>}, 
+  my $html = sprintf qq{<div class="static_favourite_species"><h3>%s genomes</h3><div class="species_list_container species-list">$fav_html</div></div>}, 
     $logins && $user && scalar(@ok_faves) ? 'Favourite' : 'Popular',
     $logins
-      ? sprintf('<p class="customise-species-list">%s</p>', $user
-        ? qq(<span class="link toggle_link">${star}Change favourites</span>)
-        : qq(<a href="/Account/Login" class="modal_link modal_title_Login/Register">${star}Log in to customize this list</a>)
+      ? sprintf('<p class="customise-species-list">%s</p>'
       )
     : ''
   ;
