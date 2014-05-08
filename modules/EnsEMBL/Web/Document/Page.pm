@@ -536,10 +536,10 @@ sub html_template {
           $elements->{'content'}
           $elements->{'mobile_nav'}
         </div>
-        <div id="$footer_id">
-          <div class="column-wrapper">$elements->{'copyright'}$elements->{'footerlinks'}
-            <p class="invisible">.</p>
-          </div>
+      </div>
+      <div id="$footer_id">
+        <div class="column-wrapper">$elements->{'copyright'}$elements->{'footerlinks'}
+          <p class="invisible">.</p>
         </div>
       </div>
     </div>
