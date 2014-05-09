@@ -70,6 +70,7 @@ body.static #widemain { margin-left: 0; }
 #masthead .logo_holder .logo-header       { background: url(/i/[[SITE_LOGO]]) no-repeat 0 0; display: inline-block; width: [[SITE_LOGO_WIDTH]]px; height: [[SITE_LOGO_HEIGHT]]px; }
 #masthead .logo_holder a                  { color: [[MH_LOGO_LINK]] !important; }
 #masthead .logo_holder a:hover            { color: [[MH_LOGO_HOVER]] !important; }
+#masthead .small_logo                     { position: relative; top: 18px; margin-left: 6px; float: left; font-size: 12px; font-family: Helvetica, sans-serif; text-decoration: none }
 #masthead .tools_holder                   { position: relative; top: 10px; }
 #masthead .tools_holder .arrow            { font-size: 8px; position: relative; top: -1px; padding-left: 1px; }
 #masthead .tools_holder a                 { color: [[MH_TOOLS_LINK]] !important; }
