@@ -165,7 +165,9 @@ sub content {
       <div class="box-left">
         <div class="species-badge">';
 
-  $html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$sound" />) unless $self->is_bacteria;
+  if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species.png") {  # Check if the image exists
+  	$html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$sound" />) unless $self->is_bacteria;
+  }
 
   if ($common_name =~ /\./) {
     $html .= qq(<h1>$display_name</h1>);
