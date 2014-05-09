@@ -113,13 +113,14 @@ sub render {
 
     my $common = $species_defs->get_config($species, "SPECIES_COMMON_NAME");
     my $info = {
-          'dir'     => $species,
-          'status'  => 'live',
-	  'provider' => $species_defs->get_config($species, "PROVIDER_NAME") || '',
-	  'provider_url' => $species_defs->get_config($species, "PROVIDER_URL") || '',
-	  'strain' => $species_defs->get_config($species, "SPECIES_STRAIN") || '',
-	  'group' => $group,
-	  'taxid' => $species_defs->get_config($species, "TAXONOMY_ID") || '',
+      'dir'          => $species,
+      'status'       => 'live',
+      'provider'     => $species_defs->get_config($species, "PROVIDER_NAME") || '',
+      'provider_url' => $species_defs->get_config($species, "PROVIDER_URL") || '',
+      'strain'       => $species_defs->get_config($species, "SPECIES_STRAIN") || '',
+      'group'        => $group,
+      'taxid'        => $species_defs->get_config($species, "TAXONOMY_ID") || '',
+      'assembly'     => $species_defs->get_config($species, "ASSEMBLY_NAME") || '',
     };
     $info->{'status'} = 'pre' if($pre_species && exists $pre_species->{$species});
 
@@ -127,126 +128,92 @@ sub render {
   }
   my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;';
 
-  my $html = qq(
-<div class="column-wrapper"><div class="box-left" style="width:auto"><h2>$sitename Species</h2></div>
-	       );
+  my $html = qq(<div class="column-wrapper"><div class="box-left" style="width:auto"><h2>$sitename Species</h2></div>);
 
   my %groups = map {$species{$_}->{group} => 1} keys %species;
+  
+  $html .= qq{<div class="round-box tinted-box clear"><h2>Contents</h2><p>};
+  foreach my $gr (@groups) {
+		$html .= qq{<a href="#$gr">$gr</a><br />};
+  }
+  $html .= qq{</p></div>};
  
   foreach my $gr (@groups) {  # (sort keys %groups) {
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
-   
+
+      $html .= qq{<div class="round-box tinted-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>BioProject ID</th><th>Provider</th><th>Assembly</th><th>Strain</th><th>Taxonomy ID</th></tr>};
+                 
       my $total = scalar(@species);
-      my $break = int($total / 3);
-      $break++ if $total % 3;
-      my $colspan = $break * 2;
+      
+      for(my $i = 0; $i < $total; $i++) {
 
+		  my $common = $species[$i];
+		  next unless $common;
+		  my $info = $species{$common};
 
-      $html .= qq{<table style="width:100%">
-                    <tr>
-                      <td colspan="$colspan" style="width:50%;padding-top:1em">
-                       <h3>$gr</h3>
-                      </td>
-                 };
+		  my $dir = $info->{'dir'};
 
-      ## Reset total to number of cells required for a complete table
-      $total = $break * 3;
-      my $cell_count = 0;
-      for (my $i=0; $i < $total; $i++) {
-	  my $col = int($i % 3);
-	  if ($col == 0 && $i < ($total - 1)) {
-	      $html .= qq(</tr>\n<tr>);
-	  }
-	  my $row = int($i/3);
-	  my $j = $row + $break * $col;
-#	  warn "$i * $col * $row * $break => $j \n";
+		  (my $name = $dir) =~ s/_/ /g;
+		  my ($bioproj) = $name =~ m/(PRJ.*)/; # Get the BioProject ID
+		  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
+		  my $link_text = $common; # Use the common name from the database rather than the directory name
+		  
+		  my $bgcol = $i % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
 
-	  my $common = $species[$j];
-	  next unless $common;
-	  my $info = $species{$common};
+		  $html .= qq(<tr style="background-color:$bgcol">);
 
-	  my $dir = $info->{'dir'};
+		  if ($dir) {
+			  $html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td><td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>);
+			  $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
+			  my $provider = $info->{'provider'};
+			  my $url  = $info->{'provider_url'};
 
-	  (my $name = $dir) =~ s/_/ /g;
-	  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
-          #my $link_text = $common =~ /\./ ? $name : $common;
-          my $link_text = $common; # Use the common name from the database rather than the directory name
-
-	  #$html .= qq(<td style="width:8%;text-align:right;padding-bottom:1em">);
-	  #if ($dir) {
-	  #    $html .= qq(<img class="species-img" style="width:40px;height:40px" src="/i/species/48/$dir.png" alt="$name">);
-	  #}
-	  #else {
-	  #    $html .= '&nbsp;';
-	  #}
-	  #$html .= qq(</td><td style="width:25%;padding:2px;padding-bottom:1em">);
-          $html .= qq(<td style="width:33%;padding:2px;padding-bottom:1em">); # Removal of species image
-
-	  if ($dir) {
-              $html .= qq(<a href="/$dir/Info/Index/"  style="$link_style">$link_text</a>);
-	      $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
-	      #unless ($common =~ /\./) { # This prevents the provider and strain from showing if there is a full-stop in the species name (i.e. if sp. or spp. has been used)
-		      my $provider = $info->{'provider'};
-		      my $url  = $info->{'provider_url'};
-
-		      my $strain = $info->{'strain'} ? " $info->{'strain'}" : '';
-		      $name .= $strain;
-
-		      if ($provider) {
-                          if (ref $provider eq 'ARRAY') {
-                              my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
-                              my $phtml;
-
-                              foreach my $pr (@$provider) {
-                                  my $u = shift @urls;
-                                  if ($u) {
-                                      $u = "http://$u" unless ($u =~ /http/);
-                                      $phtml .= qq{<a href="$u" title="Provider: $pr">$pr</a> &nbsp;};
-                                  } else {
-                                      $phtml .= qq{$pr &nbsp;};
-                                  }
-                              }
-
-                              $html .= qq{<br />$phtml | <i>$name</i>};
-                          } else {
-                              if ($url) {
-                                  $url = "http://$url" unless ($url =~ /http/);
-                                  $html .= qq{<br /><a href="$url" title="Provider: $provider">$provider</a> | <i>$name</i>};
-                              } else {
-                                  $html .= qq{<br />$provider | <i>$name</i>};
-                              }
-                          }
-		      } else {
-		          $html .= qq{<br /><i>$name</i>};
-		      }
-	      #}
-        if($info->{'taxid'}){
-          (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
-          $html .= sprintf(' | <a href="%s" title="Taxonomy ID: %s">%s</a>',$uniprot_url, $info->{'taxid'}, $info->{'taxid'});
-        }
-	  }
-	  else {
-	      $html .= '&nbsp;';
-	  }
-	  $html .= '</td>';
-          $cell_count++;
+			  my $strain = $info->{'strain'} ? " $info->{'strain'}" : '';
+			  $name .= $strain;
+			  my $assembly = $info->{'assembly'} ? " $info->{'assembly'}" : '';
+			  if ($provider) {
+						  if (ref $provider eq 'ARRAY') {
+							  my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
+							  my $phtml;
+							  foreach my $pr (@$provider) {
+								  my $u = shift @urls;
+								  if ($u) {
+									  $u = "http://$u" unless ($u =~ /http/);
+									  $phtml .= qq{<a href="$u">$pr</a> &nbsp;};
+								  } else {
+									  $phtml .= qq{$pr &nbsp;};
+								  }
+							  }
+							  $html .= qq{<td>$phtml</td><td style="width:100px">$assembly</td>};
+						  } else {
+							  if ($url) {
+								  $url = "http://$url" unless ($url =~ /http/);
+								  $html .= qq{<td style="width:100px"><a href="$url">$provider</a></td><td style="width:100px">$assembly</td>};
+							  } else {
+								  $html .= qq{<td style="width:100px">$provider</td><td style="width:100px">$assembly</td>};
+							  }
+						  }
+			  } else {
+				  $html .= qq{<td style="width:100px"></td><td style="width:100px">$assembly</td>};
+			  }
+			  $html .= qq{<td style="width: 130px">$strain</td>};
+			  if($info->{'taxid'}){
+			   (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
+			   $html .= sprintf('<td style="width:100px"><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
+			  }
+			  $html .= '</td>';
+		  } else {
+			  $html .= '&nbsp;';
+		  }
+		  $html .= '</tr>';
+		  
       }
 
-      # add empty cells to the row if needed: 
-      if($cell_count < 3) {
-        for (my $i = $cell_count; $i < 3; $i++) {
-	    $html .= qq(<td>&nbsp;</td><td>&nbsp;</td>);
-        }
-      }
-
-      $html .= qq(
-		  </tr>
-		  </table>);
+      $html .= '</tr></table></div>';
   }
 
   return $html;
 
 }
-
 
 1;
