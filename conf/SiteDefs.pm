@@ -136,7 +136,6 @@ sub update_conf {
 	$SiteDefs::SITE_NAME = 'WormBase ParaSite';
 	$SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
 	$SiteDefs::SITE_FTP= 'ftp://ftp.ensemblgenomes.org/pub/metazoa';
-	push @SiteDefs::ENSEMBL_HTDOCS_DIRS,  $SiteDefs::ENSEMBL_SERVERROOT.'/../biomarts/parasite/biomart-perl/htdocs';
 
 	$SiteDefs::DOCSEARCH_INDEX_DIR = $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/data/docsearch';
 
