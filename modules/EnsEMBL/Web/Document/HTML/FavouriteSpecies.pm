@@ -107,10 +107,14 @@ sub render_with_images {
   my $html;
 
   foreach (@species_list) {
+    my $img_html;
+    if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/i/species/48/$_->{'key'}.png") {  # Check if the image exists
+      $img_html = qq(<img src="$static_server/i/species/48/$_->{'key'}.png" title="Browse $_->{'name'}" height="48" width="48" />);
+    }      
     $html .= qq(
       <div class="species-box">
         <a href="$_->{'key'}/Info/Index">
-          <span class="sp-img"><img src="$static_server/i/species/48/$_->{'key'}.png" alt="$_->{'name'}" title="Browse $_->{'name'}" height="48" width="48" /></span>
+          <span class="sp-img">$img_html</span>
           <span>$_->{'common'}</span>
         </a>
         <span>$_->{'assembly'}</span>
