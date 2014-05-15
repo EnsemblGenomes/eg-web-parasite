@@ -32,7 +32,7 @@ sub content {
   push @links, qq{<a class="constant" href="/$species/blastview">BLAST</a>} if $self->blast;
 ###EG  
   if ($self->hub->species_defs->ENSEMBL_ENASEARCH_ENABLED) {
-      push @links,   '<a class="constant" href="/Multi/enasearch">Sequence Search</a>';
+      #push @links,   '<a class="constant" href="/Multi/enasearch">Sequence Search</a>';
   }
 
   #push @links,   '<a class="constant" href="/biomart/martview">BioMart</a>';
