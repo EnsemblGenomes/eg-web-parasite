@@ -16,7 +16,7 @@ limitations under the License.
 
 =cut
 
-package EnsEMBL::Web::Document::HTML::SpeciesPage;
+package EnsEMBL::Web::Document::HTML::AllSpeciesPage;
 
 ### Renders the content of the  "Find a species page" linked to from the SpeciesList module
 
@@ -129,15 +129,9 @@ sub render {
   }
   my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;';
 
-  my $html = qq(<div class="column-wrapper"><div class="box-left" style="width:auto"><h2>$sitename Species</h2></div>);
+  my $html = qq(<div class="column-wrapper">);
 
   my %groups = map {$species{$_}->{group} => 1} keys %species;
-  
-  $html .= qq{<div class="round-box tinted-box clear"><h2>Contents</h2><p>};
-  foreach my $gr (@groups) {
-		$html .= qq{<a href="#$gr">$gr</a><br />};
-  }
-  $html .= qq{</p></div>};
  
   foreach my $gr (@groups) {  # (sort keys %groups) {
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
