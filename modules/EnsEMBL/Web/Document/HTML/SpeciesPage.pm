@@ -121,6 +121,7 @@ sub render {
       'group'        => $group,
       'taxid'        => $species_defs->get_config($species, "TAXONOMY_ID") || '',
       'assembly'     => $species_defs->get_config($species, "ASSEMBLY_NAME") || '',
+      'scientific'   => $species_defs->get_config($species, "SPECIES_SCIENTIFIC_NAME"),
     };
     $info->{'status'} = 'pre' if($pre_species && exists $pre_species->{$species});
 
@@ -141,7 +142,7 @@ sub render {
   foreach my $gr (@groups) {  # (sort keys %groups) {
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
 
-      $html .= qq{<div class="round-box tinted-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>BioProject ID</th><th>Provider</th><th>Assembly</th><th>Strain</th><th>Taxonomy ID</th></tr>};
+      $html .= qq{<div class="round-box tinted-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>Strain</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
                  
       my $total = scalar(@species);
       
@@ -156,14 +157,14 @@ sub render {
 		  (my $name = $dir) =~ s/_/ /g;
 		  my ($bioproj) = $name =~ m/(PRJ.*)/; # Get the BioProject ID
 		  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
-		  my $link_text = $common; # Use the common name from the database rather than the directory name
+		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
 		  
 		  my $bgcol = $i % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
 
 		  $html .= qq(<tr style="background-color:$bgcol">);
 
 		  if ($dir) {
-			  $html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td><td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>);
+			  $html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
 			  $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
 			  my $provider = $info->{'provider'};
 			  my $url  = $info->{'provider_url'};
@@ -197,6 +198,7 @@ sub render {
 				  $html .= qq{<td style="width:100px"></td><td style="width:100px">$assembly</td>};
 			  }
 			  $html .= qq{<td style="width: 130px">$strain</td>};
+			  $html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
 			  if($info->{'taxid'}){
 			   (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
 			   $html .= sprintf('<td style="width:100px"><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
