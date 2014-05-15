@@ -44,11 +44,11 @@ sub render {
       <option value="/">-- Select a species --</option>
   ';
   
-  if (scalar @$favourites) {
-    $html .= qq{<optgroup label="Favourite species">\n};
-    $html .= sprintf qq{<option value="%s/Info/Index">%s</option>\n}, encode_entities($_->{'key'}), encode_entities($_->{'common'}) for map $species_info->{$_}, @$favourites;
-    $html .= "</optgroup>\n";
-  }
+  #if (scalar @$favourites) {
+  #  $html .= qq{<optgroup label="Favourite species">\n};
+  #  $html .= sprintf qq{<option value="%s/Info/Index">%s</option>\n}, encode_entities($_->{'key'}), encode_entities($_->{'common'}) for map $species_info->{$_}, @$favourites;
+  #  $html .= "</optgroup>\n";
+  #}
   
   foreach my $taxon (@{$species_defs->TAXON_ORDER || []}) {
     my $label = $labels->{$taxon} || $taxon;
