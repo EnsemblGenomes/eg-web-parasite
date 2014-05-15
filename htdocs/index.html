@@ -1,24 +1,33 @@
 <html>
-<head>
-<title>[[SPECIESDEFS::SITE_NAME]]</title>           
-</head>
-<body><div class="column-wrapper">
-<div class="column-two">
-<div class="column-padding no-left-margin">
-<div class="round-box tinted-box no-top-margin"><h2>Search</h2> [[SCRIPT::EnsEMBL::Web::Document::HTML::HomeSearch]]</div>
-<div class="round-box tinted-box no-top-margin">
-<div class="js_panel"> [[SCRIPT::EnsEMBL::Web::Document::HTML::FavouriteSpecies]] </div>
-</div>
-<div class="round-box tinted-box no-top-margin">
-<div class="js_panel"><input class="panel_type" type="hidden" value="SpeciesList" /> [[SCRIPT::EnsEMBL::Web::Document::HTML::SpeciesList]] </div>
-</div>
-<div class="round-box tinted-box no-top-margin">
-[[INCLUDE::/ssi/credits.inc]]
-</div>
-<p>[[INCLUDE::/ssi/left_1.inc]] [[INCLUDE::/ssi/left_2.inc]]</p></div>
-</div>
-<div class="column-two">
-<div class="column-padding no-right-margin">[[INCLUDE::/ssi/right_2.inc]] [[INCLUDE::/ssi/outline.inc]] [[INCLUDE::/ssi/right_1.inc]] [[INCLUDE::/ssi/right_3.inc]] [[INCLUDE::/ssi/right_4.inc]]</div>
-</div>
-</div>
-</body></html>
+	<head>
+		<title>[[SPECIESDEFS::SITE_NAME]]</title>           
+	</head>
+	<body>
+		<div class="column-wrapper">
+			<div class="column-two">
+				<div class="column-padding no-left-margin">
+					[[SCRIPT::EnsEMBL::Web::Document::HTML::AllSpeciesPage]]
+					<p>
+						[[INCLUDE::/ssi/left_1.inc]]
+						[[INCLUDE::/ssi/left_2.inc]]
+					</p>
+				</div>
+			</div>
+			<div class="column-two">
+				<div class="column-padding no-right-margin">
+					<div class="round-box tinted-box no-top-margin">
+						<h2>Search</h2> [[SCRIPT::EnsEMBL::Web::Document::HTML::HomeSearch]]
+					</div>
+					[[INCLUDE::/ssi/right_2.inc]]
+					[[INCLUDE::/ssi/outline.inc]]
+					[[INCLUDE::/ssi/right_1.inc]]
+					[[INCLUDE::/ssi/right_3.inc]]
+					[[INCLUDE::/ssi/right_4.inc]]
+					<div class="round-box tinted-box no-top-margin">
+						[[INCLUDE::/ssi/credits.inc]]
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
