@@ -52,7 +52,7 @@ sub update_conf {
 	#$SiteDefs::__species_aliases{'Cylicostephanus_goldi_PRJEB498'} = [qw(Cylicostephanus_goldi_PRJEB498)];
 	#$SiteDefs::__species_aliases{'Dictyocaulus_viviparus_PRJNA72587'} = [qw(Dictyocaulus_viviparus_PRJNA72587)];
 	#$SiteDefs::__species_aliases{'Diphyllobothrium_latum_PRJEB1206'} = [qw(Diphyllobothrium_latum_PRJEB1206)];
-	$SiteDefs::__species_aliases{'Dirofilaria_immitis_PRJEB593'} = [qw(Dirofilaria_immitis_PRJEB593)];
+	$SiteDefs::__species_aliases{'Dirofilaria_immitis_PRJEB1797'} = [qw(Dirofilaria_immitis_PRJEB1797)];
 	#$SiteDefs::__species_aliases{'Dracunculus_medinensis_PRJEB500'} = [qw(Dracunculus_medinensis_PRJEB500)];
 	#$SiteDefs::__species_aliases{'Echinococcus_granulosus_PRJEB121'} = [qw(Echinococcus_granulosus_PRJEB121)];
 	#$SiteDefs::__species_aliases{'Echinococcus_multilocularis_PRJEB122'} = [qw(Echinococcus_multilocularis_PRJEB122)];
