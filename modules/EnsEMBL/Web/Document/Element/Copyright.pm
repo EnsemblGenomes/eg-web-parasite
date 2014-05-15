@@ -28,12 +28,20 @@ sub content {
   my $sd = $self->species_defs;
 
   return sprintf( qq(
-  <div class="column-two left">
-		   %s release %d - %s
-		  &copy; <span class="print_hide"><a href="http://www.ebi.ac.uk/" style="white-space:nowrap">EBI</a> & <a href="http://www.sanger.ac.uk/" style="white-space:nowrap">WTSI</a></span>
-      <span class="screen_hide_inline">EBI & WTSI</span>
-  </div>),     $sd->SITE_NAME, $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE
-	       );
+    <div class="column-two left">
+                    %s release %s - %s
+                   &copy; <span class="print_hide"><a href="http://www.ebi.ac.uk/" style="white-space:nowrap">EBI</a> & <a href="http://www.sanger.ac.uk/" style="white-space:nowrap">WTSI</a></span>
+        <span class="screen_hide_inline">EBI & WTSI</span>
+    </div>),     $sd->SITE_NAME, "0.1-beta", $sd->SITE_RELEASE_DATE
+                );
+
+#  return sprintf( qq(
+#  <div class="column-two left">
+#		   %s release %d - %s
+#		  &copy; <span class="print_hide"><a href="http://www.ebi.ac.uk/" style="white-space:nowrap">EBI</a> & <a href="http://www.sanger.ac.uk/" style="white-space:nowrap">WTSI</a></span>
+#      <span class="screen_hide_inline">EBI & WTSI</span>
+#  </div>),     $sd->SITE_NAME, $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE
+#	       );
 }
 
 1;
