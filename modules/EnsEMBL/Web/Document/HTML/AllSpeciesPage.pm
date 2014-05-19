@@ -149,8 +149,9 @@ sub render {
 		  my $dir = $info->{'dir'};
 
 		  (my $name = $dir) =~ s/_/ /g;
-		  my ($bioproj) = $name =~ m/(PRJ.*)/; # Get the BioProject ID
-		  $name =~ s/PRJ.*//; # Remove the BioProject ID from the name
+		  my ($bioproj) = $name =~ m/(prj.*)/; # Get the BioProject ID
+		  $bioproj = uc($bioproj);
+                  $name =~ s/prj.*//; # Remove the BioProject ID from the name
 		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
 		  
 		  my $bgcol = $i % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
