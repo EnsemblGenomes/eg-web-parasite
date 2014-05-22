@@ -39,7 +39,7 @@ sub render {
   my $species_info = {};
   
   my $html = qq(<div class="column-wrapper">);
-  $html .= qq{<div class="round-box tinted-box clear scroll-box"><a name="all"></a><h2>All Species</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
+  $html .= qq{<div class="round-box tinted-box clear scroll-box species-box"><a name="all"></a><h2>All Species</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>Phylum</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
 
   my $i = 0;
   foreach ($species_defs->valid_species) {
@@ -79,7 +79,7 @@ sub render {
 	$html .= qq(<tr style="background-color:$bgcol">);
 
 	if ($dir) {
-		$html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
+		$html .= qq(<td><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
 		$html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
 		my $provider = $info->{'provider'};
 		my $url  = $info->{'provider_url'};
@@ -100,22 +100,24 @@ sub render {
 					  $phtml .= qq{$pr &nbsp;};
 				  }
 			  }
-			  $html .= qq{<td>$phtml</td><td style="width:100px">$assembly</td>};
+			  $html .= qq{<td>$phtml</td><td>$assembly</td>};
 			} else {
 			  if ($url) {
 				  $url = "http://$url" unless ($url =~ /http/);
-				  $html .= qq{<td style="width:100px"><a href="$url">$provider</a></td><td style="width:100px">$assembly</td>};
+				  $html .= qq{<td><a href="$url">$provider</a></td><td>$assembly</td>};
 			  } else {
-				  $html .= qq{<td style="width:100px">$provider</td><td style="width:100px">$assembly</td>};
+				  $html .= qq{<td>$provider</td><td style="width:100px">$assembly</td>};
 			  }
 			}
 		} else {
-			$html .= qq{<td style="width:100px"></td><td style="width:100px">$assembly</td>};
+			$html .= qq{<td></td><td>$assembly</td>};
 		}
-		$html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
+		my $group = $info->{'group'};
+		$html .= qq{<td>$group</td>};
+		$html .= qq{<td><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
 		if($info->{'taxid'}){
 			(my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
-				 $html .= sprintf('<td style="width:100px"><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
+				 $html .= sprintf('<td><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
 		}
 		$html .= '</td>';
 	} else {
