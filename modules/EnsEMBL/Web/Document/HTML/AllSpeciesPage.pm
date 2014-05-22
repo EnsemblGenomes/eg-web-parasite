@@ -136,7 +136,7 @@ sub render {
   foreach my $gr (@groups) {  # (sort keys %groups) {
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
 
-      $html .= qq{<div class="round-box tinted-box clear scroll-box"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>Strain</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
+      $html .= qq{<div class="round-box tinted-box clear scroll-box"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
                  
       my $total = scalar(@species);
       
@@ -192,7 +192,6 @@ sub render {
 			  } else {
 				  $html .= qq{<td style="width:100px"></td><td style="width:100px">$assembly</td>};
 			  }
-			  $html .= qq{<td style="width: 130px">$strain</td>};
 			  $html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
 			  if($info->{'taxid'}){
 			   (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
