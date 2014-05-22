@@ -196,12 +196,12 @@ sub content {
   $html .= '</div>'; # column-wrapper
   
   my $about_text = $self->_other_text('about', $species);
-  if ($about_text) {
+  #if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box tinted-box">'; 
     $html .= $about_text;
     $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
     $html .= '</div></div>';
-  }
+  #}
 
   my (@sections);
   
