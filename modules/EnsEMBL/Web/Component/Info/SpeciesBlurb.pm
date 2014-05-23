@@ -49,11 +49,13 @@ sub content {
   my %assemblies        = %{$species_defs->get_config($species, 'ASSEMBLIES')       || {}};
   my $previous          = $current_assembly;
 
+  my $img_string = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/i/species/48/$species.png") ? qq(<img src="/i/species/48/$species.png" class="species-img float-left" alt="" />) : ''; # Check if the image exists
+
   my $html = qq(
 <div class="column-wrapper">  
   <div class="column-one">
     <div class="column-padding no-left-margin">
-      <img src="/i/species/48/$species.png" class="species-img float-left" alt="" />
+      $img_string
       <h1 style="margin-bottom:0">$common_name Assembly and Gene Annotation</h1>
     </div>
   </div>
