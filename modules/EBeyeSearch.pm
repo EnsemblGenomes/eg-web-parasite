@@ -347,7 +347,7 @@ sub species_path {
   my $path         = $species_defs->species_path(ucfirst($species));
   if ($path =~ /^\/$species/i and !$species_defs->valid_species(ucfirst $species) and $genomic_unit) {
     # there was no direct mapping in current unit, use the genomic_unit to add the subdomin
-    my $url = ($SiteDefs::ENSEMBL_PORT == 80) ? $SiteDefs::ENSEMBL_SERVERNAME : "$SiteDefs::ENSEMBL_SERVERNAME\:$SiteDefs::ENSEMBL_PORT";
+    my $url = ($SiteDefs::ENSEMBL_PROXY_PORT == 80) ? $SiteDefs::ENSEMBL_SERVERNAME : "$SiteDefs::ENSEMBL_SERVERNAME\:$SiteDefs::ENSEMBL_PORT";
     $path = sprintf 'http://$url/%s', $genomic_unit, $species;
   } 
   # If species is in both Ensembl and EG, then $species_defs->species_path will 
@@ -364,7 +364,7 @@ sub feature2url {
     'GENE' => sub { 
       my $hit = shift;
       my $transcript = ref $hit->{transcript} eq 'ARRAY' ? $hit->{transcript}->[0] : (split /\n/, $hit->{transcript})[0];
-      my $url = ($SiteDefs::ENSEMBL_PORT == 80) ? $SiteDefs::ENSEMBL_SERVERNAME : "$SiteDefs::ENSEMBL_SERVERNAME\:$SiteDefs::ENSEMBL_PORT";
+      my $url = ($SiteDefs::ENSEMBL_PROXY_PORT == 80) ? $SiteDefs::ENSEMBL_SERVERNAME : "$SiteDefs::ENSEMBL_SERVERNAME\:$SiteDefs::ENSEMBL_PORT";
       my $url = "http://$url/$species/Gene/Summary?g=$hit->{id}";
       $url .= ";r=$hit->{location}" if $hit->{location};
       $url .= ";t=$transcript" if $transcript;
