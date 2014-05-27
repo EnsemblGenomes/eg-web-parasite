@@ -62,7 +62,8 @@ sub render {
     $examples = join ' or ', map { $sample_data->{$_}
       ? qq(<a class="nowrap" href="$search_url?q=$sample_data->{$_}">$sample_data->{$_}</a>)
       : ()
-    } qw(GENE_TEXT LOCATION_TEXT SEARCH_TEXT);
+    #} qw(GENE_TEXT LOCATION_TEXT SEARCH_TEXT);
+    } qw(GENE_TEXT SEARCH_TEXT);
     $examples = qq(<p class="search-example">e.g. $examples</p>) if $examples;
   }
 
