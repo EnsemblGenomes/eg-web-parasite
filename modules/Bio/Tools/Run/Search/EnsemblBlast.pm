@@ -143,13 +143,21 @@ sub command{
   my $unit = $SPECIES_DEFS->GENOMIC_UNIT;  
   
   my $ebi_blast_database;
-  
+
   if ($unit eq 'bacteria') {
       my $collection  = ucfirst($SPECIES_DEFS->get_config( $bits[0], "SPECIES_DATASET" )) || die "Can't parse Collection name from database path: [$database]";
       #$ebi_blast_database = "ensemblgenomes/$unit/$collection/$bits[0]/$database";
       $ebi_blast_database = "ensemblgenomes/$unit/$collection/$database";
+  } elsif ($unit eq 'parasite') {
+      $ebi_blast_database = "wormbase-parasite/$database";
   } else {
       $ebi_blast_database = "ensemblgenomes/$unit/$database";
+  }
+
+  if($unit eq 'parasite') { # Add the Ensembl version to the ParaSite database names
+    my @parts = split(/\./, $ebi_blast_database);
+    my $length = scalar(@parts);
+    $ebi_blast_database = join('.', @parts[0..($length-3)], "$SiteDefs::ENSEMBL_VERSION", @parts[($length-2)..($length-1)]);
   }
 
   #  die "XXXXXXXXXXXX $ebi_blast_database";
