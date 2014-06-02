@@ -197,9 +197,11 @@ sub node_to_dynatree {
   
   if (@{$node->dba}) {
     foreach my $dba (@{$node->dba}) {
+      my @parts = split("_", $dba->species);
+      my $bioproj = uc($parts[2]);  # Extract the BioProject ID from the species key
       push @output, {  
         key   => $dba->species,
-        title => $name
+        title => "$name ($bioproj)",
       };
     }
   }  
