@@ -20,9 +20,6 @@ package EG::Web::ParaSite::SiteDefs;
 use strict;
 
 sub update_conf {
-    $SiteDefs::ENSEMBL_PORT           = 9101;
-
-    $SiteDefs::ENSEMBL_SERVERNAME     = 'gunpowder.ebi.ac.uk';
 
     $SiteDefs::SITE_RELEASE_VERSION = '1';
     $SiteDefs::SITE_RELEASE_DATE = 'June 2014';
