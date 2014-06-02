@@ -9,11 +9,11 @@ taxonTreeData = [
                   "isFolder" : true,
                   "children" : [
                      {
-                        "title" : "Ascaris suum",
+                        "title" : "Ascaris suum (PRJNA62057)",
                         "key" : "ascaris_suum_prjna62057"
                      },
                      {
-                        "title" : "Ascaris suum",
+                        "title" : "Ascaris suum (PRJNA80881)",
                         "key" : "ascaris_suum_prjna80881"
                      }
                   ],
@@ -27,7 +27,7 @@ taxonTreeData = [
                         "isFolder" : true,
                         "children" : [
                            {
-                              "title" : "Heterorhabditis bacteriophora",
+                              "title" : "Heterorhabditis bacteriophora (PRJNA13977)",
                               "key" : "heterorhabditis_bacteriophora_prjna13977"
                            }
                         ],
@@ -47,7 +47,7 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
-                                                "title" : "Ancylostoma ceylanicum",
+                                                "title" : "Ancylostoma ceylanicum (PRJNA231479)",
                                                 "key" : "ancylostoma_ceylanicum_prjna231479"
                                              }
                                           ],
@@ -58,7 +58,7 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
-                                                "title" : "Necator americanus",
+                                                "title" : "Necator americanus (PRJNA72135)",
                                                 "key" : "necator_americanus_prjna72135"
                                              }
                                           ],
@@ -77,11 +77,11 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Haemonchus contortus",
+                                    "title" : "Haemonchus contortus (PRJEB506)",
                                     "key" : "haemonchus_contortus_prjeb506"
                                  },
                                  {
-                                    "title" : "Haemonchus contortus",
+                                    "title" : "Haemonchus contortus (PRJNA205202)",
                                     "key" : "haemonchus_contortus_prjna205202"
                                  }
                               ],
@@ -106,7 +106,7 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Brugia malayi",
+                                    "title" : "Brugia malayi (PRJNA10729)",
                                     "key" : "brugia_malayi_prjna10729"
                                  }
                               ],
@@ -117,7 +117,7 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Dirofilaria immitis",
+                                    "title" : "Dirofilaria immitis (PRJEB1797)",
                                     "key" : "dirofilaria_immitis_prjeb1797"
                                  }
                               ],
@@ -128,7 +128,7 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Loa loa",
+                                    "title" : "Loa loa (PRJNA60051)",
                                     "key" : "loa_loa_prjna60051"
                                  }
                               ],
@@ -139,7 +139,7 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Onchocerca volvulus",
+                                    "title" : "Onchocerca volvulus (PRJEB513)",
                                     "key" : "onchocerca_volvulus_prjeb513"
                                  }
                               ],
@@ -161,7 +161,7 @@ taxonTreeData = [
                         "isFolder" : true,
                         "children" : [
                            {
-                              "title" : "Bursaphelenchus xylophilus",
+                              "title" : "Bursaphelenchus xylophilus (PRJEA64437)",
                               "key" : "bursaphelenchus_xylophilus_prjea64437"
                            }
                         ],
@@ -175,14 +175,14 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Meloidogyne hapla",
+                                    "title" : "Meloidogyne hapla (PRJNA29083)",
                                     "key" : "meloidogyne_hapla_prjna29083"
                                  },
                                  {
                                     "isFolder" : true,
                                     "children" : [
                                        {
-                                          "title" : "Meloidogyne incognita",
+                                          "title" : "Meloidogyne incognita (PRJEA28837)",
                                           "key" : "meloidogyne_incognita_prjea28837"
                                        }
                                     ],
@@ -215,7 +215,7 @@ taxonTreeData = [
                         "isFolder" : true,
                         "children" : [
                            {
-                              "title" : "Trichinella spiralis",
+                              "title" : "Trichinella spiralis (PRJNA12603)",
                               "key" : "trichinella_spiralis_prjna12603"
                            }
                         ],
@@ -226,12 +226,12 @@ taxonTreeData = [
                         "isFolder" : true,
                         "children" : [
                            {
-                              "title" : "Trichuris suis",
-                              "key" : "trichuris_suis_prjna208416"
+                              "title" : "Trichuris suis (PRJNA208415)",
+                              "key" : "trichuris_suis_prjna208415"
                            },
                            {
-                              "title" : "Trichuris suis",
-                              "key" : "trichuris_suis_prjna208415"
+                              "title" : "Trichuris suis (PRJNA208416)",
+                              "key" : "trichuris_suis_prjna208416"
                            }
                         ],
                         "title" : "Trichuridae (1)",
