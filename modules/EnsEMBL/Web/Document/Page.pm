@@ -519,13 +519,16 @@ sub html_template {
 <body $body_attrs>
   <div id="min_width_container">
     <div id="min_width_holder">
-      <div id="masthead" class="js_panel">
+      <div id="masthead" class="js_panel" style="height: 69px">
         <input type="hidden" class="panel_type" value="Masthead" />
         <div class="logo_holder">$elements->{'logo'}</div>
         <div class="small_logo">Beta</div>
         <div class="mh print_hide">
           <div class="tools_holder">$elements->{'tools'}</div>
           <div class="search_holder print_hide">$elements->{'search_box'}</div>
+        </div>
+        <div style="width: 100%; background-color: #FF0000; color: #FFFFFF; font-weight: bold; font-size: 13px; position: relative; top: 35px">
+          PLEASE NOTE: WORMBASE PARASITE IS CURRENTLY BETA
         </div>
         $tabs
       </div>
