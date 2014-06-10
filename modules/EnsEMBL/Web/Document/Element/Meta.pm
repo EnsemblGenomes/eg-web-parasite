@@ -22,7 +22,7 @@ sub init {
   my $self = shift;
   $self->add('description', 'Ensembl Metazoa is a genome-centric portal for metazoan species of scientific interest');
   $self->add('keywords', 'Ensembl, Ensembl Genomes, genome, genome browser, comparative genomics, variation, SNPs, EST, mRNA, rna-Seq, orthologs, paralogs, synteny, assembly, genes, transcripts, translations, proteins, mosquito, Anopheles, tick, fruitfly, worm, Drosophila, Caenorhabditis, C.elegans, invertebrate');
-  $self->add('google-site-verification', 'tC5CRODhAwiBEeIZY_EP_k7AaLGupandW7e1v3_s8ak');
+  $self->add('google-site-verification', '11sSQcxg_gkbzE1Sdwn5XimeSC3lXZDbLUQBn3T_Opc');
 }
 
 1;
