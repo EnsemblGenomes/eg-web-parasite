@@ -45,7 +45,8 @@ sub render {
 
   # form
   my $form = EnsEMBL::Web::Form->new({'action' => $search_url, 'method' => 'get', 'skip_validation' => 1, 'class' => [ $is_home_page ? 'homepage-search-form' : (), 'search-form', 'clear' ]});
-  $form->add_hidden({'name' => 'site', 'value' => $default_search_code});
+  #$form->add_hidden({'name' => 'site', 'value' => $default_search_code});
+  $form->add_hidden({'name' => 'site', 'value' => 'ensemblthis'});
 
   # examples
   my $examples;
