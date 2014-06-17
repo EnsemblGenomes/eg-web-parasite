@@ -60,15 +60,15 @@ sub content {
     });
   }
   
-  if ($dyo_link) {
-    $self->add_entry({
-      type     => 'Genomicus Synteny',
-      label    => 'Gene in Genomicus',
-      link     => $dyo_link,
-      extra    => { external => 1 }, 
-      position => 4
-    });
-  }
+#  if ($dyo_link) {
+#    $self->add_entry({
+#      type     => 'Genomicus Synteny',
+#      label    => 'Gene in Genomicus',
+#      link     => $dyo_link,
+#      extra    => { external => 1 }, 
+#      position => 4
+#    });
+#  }
   
   if ($treefam_link) {
     $self->add_entry({
