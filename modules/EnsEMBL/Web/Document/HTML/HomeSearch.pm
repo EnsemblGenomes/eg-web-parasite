@@ -105,7 +105,7 @@ sub render {
   my $elements_wrapper = $field->elements->[0];
   $elements_wrapper->append_child('span', {'class' => 'inp-group', 'children' => [ splice @{$elements_wrapper->child_nodes}, 0, 2 ]})->after({'node_name' => 'wbr'}) for (0..1);
 
-  return sprintf '<div id="SpeciesSearch" class="js_panel"><input type="hidden" class="panel_type" value="SearchBox" />%s</div>', $form->render;
+  return sprintf '<div id="SpeciesSearch" class="js_panel home-search-flex"><h3>Search for a gene</h3><input type="hidden" class="panel_type" value="SearchBox" />%s</div>', $form->render;
 }
 
 1;

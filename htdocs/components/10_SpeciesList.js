@@ -23,7 +23,42 @@ Ensembl.Panel.SpeciesList = Ensembl.Panel.extend({
     var favourites = $('.favourites');
     var container  = $('.species_list_container');
     var dropdown   = $('.dropdown_redirect',this.el);
+    var ac         = $('#species_autocomplete',this.el);
     
+    ac.autocomplete({
+      minLength: 3,
+      source: '/Multi/Ajax/species_autocomplete',
+      select: function(event, ui) { if (ui.item) Ensembl.redirect('/' + ui.item.production_name + '/Info/Index') },
+      search: function() { ac.addClass('loading') },
+      response: function(event, ui) {
+        ac.removeClass('loading');
+        if (ui.content.length || ac.val().length < 3) {
+          ac.removeClass('invalid');
+        } else {
+          ac.addClass('invalid');
+        }
+      }
+    }).focus(function(){
+      // add placeholder text
+      if($(this).val() == $(this).attr('title')) {
+        ac.val('');
+        ac.removeClass('inactive');
+      } else if($(this).val() != '') {
+        ac.autocomplete('search');
+      }
+    }).blur(function(){
+      // remove placeholder text
+      ac.removeClass('invalid');
+      ac.addClass('inactive');
+    }).keyup(function(){
+      ac.removeClass('invalid');
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+      // highlight the term within each match
+      var regex = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi");
+      item.label = item.label.replace(regex, "<strong>$1</strong>");
+      return $("<li></li>").data("ui-autocomplete-item", item).append("<a>" + item.label + "</a>").appendTo(ul);
+    };
+        
     if (!reorder.length || !full.length || !favourites.length) {
       return;
     }
@@ -33,24 +68,9 @@ Ensembl.Panel.SpeciesList = Ensembl.Panel.extend({
       full.toggle();
     });
     
-    $('.favourites, .species', this.el).sortable({
-      connectWith: '.list',
-      containment: this.el,
-      stop: function () {
-        $.ajax({
-          url: '/Account/Favourites/Save',
-          data: { favourites: favourites.sortable('toArray').join(',').replace(/(favourite|species)-/g, '') },
-          dataType: 'json',
-          success: function (data) {
-            container.html(data.list);
-            dropdown.html(data.dropdown);
-          }
-        });
-      }
-    });
-    
     $('select.dropdown_redirect', this.el).on('change', function () {
       Ensembl.redirect(this.value);
     });
+    
   }
 });
