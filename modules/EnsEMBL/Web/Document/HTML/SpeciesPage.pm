@@ -211,7 +211,7 @@ sub render {
 		  
       }
 
-      $html .= '</tr></table></div></div>';
+      $html .= '</tr></table></div>';
   }
 
   return $html;
