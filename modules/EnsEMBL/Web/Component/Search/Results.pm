@@ -129,9 +129,9 @@ sub no_hits_message {
     push @alt_links, qq{<li><a href="/Multi/psychic?q=$query;site=ensemblunit">search all species in $site_type</a></li>};
   }
   
-  if ($site =~ /ensemblthis|ensemblunit/) {
-    push @alt_links, qq{<li><a href="/Multi/psychic?q=$query;site=ensembl_all">search all species in Ensembl Genomes</a></li>};
-  }
+  #if ($site =~ /ensemblthis|ensemblunit/) {
+  #  push @alt_links, qq{<li><a href="/Multi/psychic?q=$query;site=ensembl_all">search all species in Ensembl Genomes</a></li>};
+  #}
     
   my $alt_searches;
   $alt_searches = '<li>Broaden your search:<ul>' . join('', @alt_links) . '</ul></li>' if @alt_links;
