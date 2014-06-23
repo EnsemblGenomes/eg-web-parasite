@@ -18,7 +18,7 @@ limitations under the License.
 
 package EnsEMBL::Web::Document::HTML::AllSpeciesPage;
 
-### Renders the content of the  "Find a species page" linked to from the SpeciesList module
+### Renders the content of the  species section on the homepage
 
 use strict;
 use warnings;
@@ -32,102 +32,63 @@ sub render {
 
   my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
   my $sitename = $species_defs->SITE_NAME;
-
-  # check if we've got static content with species available resources and if so, use it
-  # if not, use all the species page with no resources shown (red letters V P G A).
-  my $content;
   my $species_info = {};
   
-  my $html = qq(<div class="column-wrapper">);
-  $html .= qq{<div class="round-box tinted-box clear scroll-box species-box"><a name="all"></a><h2>All Species</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>Phylum</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
-
-  my $i = 0;
-  foreach ($species_defs->valid_species) {
-  	$i++;
-  
-	my $common = $species_defs->get_config($_, "SPECIES_COMMON_NAME");
-	next unless $common;
-    $species_info->{$_} = {
-        key            => $_,
-        name           => $species_defs->get_config($_, 'SPECIES_BIO_NAME'),
-        common         => $species_defs->get_config($_, 'SPECIES_COMMON_NAME'),
-        scientific     => $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME'),
-        group          => $species_defs->get_config($_, 'SPECIES_GROUP'),
-        assembly   	   => $species_defs->get_config($_, 'ASSEMBLY_NAME'),
-    	dir            => $_,
-      	status         => 'live',
-      	provider       => $species_defs->get_config($_, 'PROVIDER_NAME') || '',
-      	provider_url   => $species_defs->get_config($_, 'PROVIDER_URL') || '',
-      	strain         => $species_defs->get_config($_, 'SPECIES_STRAIN') || '',
-     	taxid          => $species_defs->get_config($_, 'TAXONOMY_ID') || '',
-     	assembly       => $species_defs->get_config($_, 'ASSEMBLY_NAME') || ''
-    };
-
-	my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;';
-
-	my $info = $species_info->{$_};
-	my $dir = $info->{'dir'};
-
-	(my $name = $dir) =~ s/_/ /g;
-	my ($bioproj) = $name =~ m/(prj.*)/; # Get the BioProject ID
-	$bioproj = uc($bioproj);
-	$name =~ s/prj.*//; # Remove the BioProject ID from the name
-	my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
-		  
-	my $bgcol = $i % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
-
-	$html .= qq(<tr style="background-color:$bgcol">);
-
-	if ($dir) {
-		$html .= qq(<td><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
-		$html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
-		my $provider = $info->{'provider'};
-		my $url  = $info->{'provider_url'};
-
-		my $strain = $info->{'strain'} ? " $info->{'strain'}" : '';
-		$name .= $strain;
-		my $assembly = $info->{'assembly'} ? " $info->{'assembly'}" : '';
-		if ($provider) {
-		  if (ref $provider eq 'ARRAY') {
-			  my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
-			  my $phtml;
-			  foreach my $pr (@$provider) {
-				  my $u = shift @urls;
-				  if ($u) {
-					  $u = "http://$u" unless ($u =~ /http/);
-					  $phtml .= qq{<a href="$u">$pr</a> &nbsp;};
-				  } else {
-					  $phtml .= qq{$pr &nbsp;};
-				  }
-			  }
-			  $html .= qq{<td>$phtml</td><td>$assembly</td>};
-			} else {
-			  if ($url) {
-				  $url = "http://$url" unless ($url =~ /http/);
-				  $html .= qq{<td><a href="$url">$provider</a></td><td>$assembly</td>};
-			  } else {
-				  $html .= qq{<td>$provider</td><td style="width:100px">$assembly</td>};
-			  }
-			}
-		} else {
-			$html .= qq{<td></td><td>$assembly</td>};
-		}
-		my $group = $info->{'group'};
-		$html .= qq{<td>$group</td>};
-		$html .= qq{<td><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
-		if($info->{'taxid'}){
-			(my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
-				 $html .= sprintf('<td><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
-		}
-		$html .= '</td>';
-	} else {
-		$html .= '&nbsp;';
-	}
-	$html .= '</tr>';
-		  
+  # Get a list of group names
+  my $labels       = $species_defs->TAXON_LABEL; ## sort out labels
+  my (@group_order, %label_check);
+  foreach my $taxon (@{$species_defs->TAXON_ORDER || []}) {
+      my $label = $labels->{$taxon} || $taxon;
+      push @group_order, $label unless $label_check{$label}++;
   }
-
-  $html .= '</tr></table></div></div>';
+  
+  my $html = qq(<div class="column-wrapper">);
+  $html .= qq{<div class="round-box tinted-box clear scroll-box species-box js_panel"><input type="hidden" class="panel_type" value="SpeciesExpander" /><h2>Find a species</h2>};
+  
+  # Loop through each group
+  foreach my $group (@group_order) {
+  
+      # Note the classes and ids which are used by the jQuery to show (i.e. expand) these divs
+  	  $html .= qq(<div class="expanding-parent" id="parent-$group">);
+  	  $html .= qq(<div class="expanding-header" id="header-$group"><span id="key-plus-$group">[+]</span><span id="key-minus-$group" style="display: none">[-]</span>&nbsp;$group</div>);
+  	  $html .= qq(<div class="expanding-area" id="expand-$group">);
+  	  
+	  # Group the genome projects by species name
+	  my %species = ();
+	  foreach ($species_defs->valid_species) {
+	    next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
+	    next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
+		my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
+		next unless $common;
+		my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
+		push(@{$species{$scientific}}, $_);
+	  }
+  
+	  # Print the species
+	  my $i = 0;
+	  $html .= '<ul>';
+	  foreach my $scientific (sort(keys(%species))) {
+		$html .= '<li class="home-species-box">';
+		my $species_url = scalar(@{$species{$scientific}}) == 1 ? "/@{$species{$scientific}}[0]/Info/Index/" : "/@{$species{$scientific}}[0]/Info/SpeciesLanding/";  # Only show a URL to the species landing page if there is more than one genome project
+		$html .= qq(<span class="home-species"><a href="$species_url" class="species-link">$scientific</a></span><br /><span class="home-bioproject">);
+		my $i = 0;
+		foreach my $project (sort(@{$species{$scientific}})) {
+			$i++;
+			my @name_parts = split("_", $project);
+			my $bioproject = uc(@name_parts[2]);
+			$html .= qq(<a href="/$project/Info/Index/">$bioproject</a>);
+			if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
+		}
+		$html .= '</span>';
+		$html .= '</li>';
+	  }
+	  $html .= '</ul>';
+	  
+	  $html .= qq(</div></div>);
+  
+  }
+  
+  $html .= qq(</div></div>);
 
   return $html;
 
