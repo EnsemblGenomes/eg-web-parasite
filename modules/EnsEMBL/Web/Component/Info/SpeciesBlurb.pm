@@ -49,6 +49,9 @@ sub content {
   my %assemblies        = %{$species_defs->get_config($species, 'ASSEMBLIES')       || {}};
   my $previous          = $current_assembly;
 
+  my @parts             = split('_', $species);
+  my $species_short     = "$parts[0]\_$parts[1]"; # ParaSite specific - allows us to include info from the species landing page
+
   my $img_string = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/i/species/48/$species.png") ? qq(<img src="/i/species/48/$species.png" class="species-img float-left" alt="" />) : ''; # Check if the image exists
 
   my $html = qq(
@@ -74,6 +77,8 @@ sub content {
 
 # $html .= '<h2 id="genebuild">Gene annotation</h2>';
 # $html .= EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, "/ssi/species/${species}_annotation.html");
+## ....ParaSite....
+  $html .= EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, "/ssi/species/about_${species_short}.html");
 ## ....EG....
   $html .= EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, "/ssi/species/about_${species}.html");
 # $self->cut_tagged_section(\$html,'about');
