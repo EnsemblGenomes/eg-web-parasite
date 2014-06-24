@@ -95,7 +95,6 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Onchocerca_volvulus_prjeb513'} = [qw(onchocerca_volvulus_prjeb513, Onchocerca_volvulus_prjeb513)];
 	$SiteDefs::__species_aliases{'Parascaris_equorum_prjeb514'} = [qw(parascaris_equorum_prjeb514, Parascaris_equorum_prjeb514)];
 	$SiteDefs::__species_aliases{'Parastrongyloides_trichosuri_prjeb515'} = [qw(parastrongyloides_trichosuri_prjeb515, Parastrongyloides_trichosuri_prjeb515)];
-	$SiteDefs::__species_aliases{'Pristionchus_pacificus_prjna12644'} = [qw(pristionchus_pacificus_prjna12644, Pristionchus_pacificus_prjna12644)];
 	$SiteDefs::__species_aliases{'Protopolystoma_xenopodis_prjeb1201'} = [qw(protopolystoma_xenopodis_prjeb1201, Protopolystoma_xenopodis_prjeb1201)];
 	$SiteDefs::__species_aliases{'Rhabditophanes_kr3021_prjeb1297'} = [qw(rhabditophanes_kr3021_prjeb1297, Rhabditophanes_kr3021_prjeb1297)];
 	$SiteDefs::__species_aliases{'Romanomermis_culicivorax_prjeb1358'} = [qw(romanomermis_culicivorax_prjeb1358, Romanomermis_culicivorax_prjeb1358)];
