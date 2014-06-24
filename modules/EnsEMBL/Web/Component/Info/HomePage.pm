@@ -195,7 +195,9 @@ sub content {
   $html .= '</div>'; # box-right
   $html .= '</div>'; # column-wrapper
   
-  my $about_text = $self->_other_text('about', $species);
+  my @species_parts = split('_', $species);
+  my $species_short = "$species_parts[0]\_$species_parts[1]";
+  my $about_text = $self->_other_text('about', $species_short);
   #if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box tinted-box">'; 
     $html .= $about_text;
