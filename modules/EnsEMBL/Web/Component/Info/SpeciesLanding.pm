@@ -48,6 +48,7 @@ sub content {
   my $taxid        = $species_defs->TAXONOMY_ID;
 
   # Reduce the species name down to the main part (i.e. not including the BioProject part) - this is ParaSite specific
+  my $species_image = $species;
   my @species_parts = split('_', $species);
   $species = "$species_parts[0]\_$species_parts[1]";
 
@@ -56,8 +57,8 @@ sub content {
       <div class="box-left">
         <div class="species-badge">';
 
-  if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species.png") {  # Check if the image exists
-  	$html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$display_name" />) unless $self->is_bacteria;
+  if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species_image.png") {  # Check if the image exists
+  	$html .= qq(<img src="${img_url}species/64/$species_image.png" alt="" title="$display_name" />);
   }
 
   $html .= qq(<h1>$display_name</h1>);
