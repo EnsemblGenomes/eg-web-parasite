@@ -414,7 +414,7 @@ sub _genebuild_text {
   }
   
   my $im_url = $hub->url({'type' => 'UserData', 'action' => 'UploadStableIDs'});
-  $html .= qq(<p><a href="$im_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Update your old Ensembl IDs</a></p>);
+  $html .= qq(<p><a href="$im_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Update your old IDs</a></p>);
 
   if ($has_vega) {
     $html .= qq(
