@@ -164,6 +164,7 @@ ul.compact                      { margin: 0px; padding: 0 0 0 16px; }
 ul.compact, ul.compact li       { list-style-image: none; }
 ul.compact li                   { margin: 1px; }
 ul.no-bullet, ul.no-bullet li   { list-style-image: none; list-style: none; }
+ul.pub-list, ul.pub-list li     { padding: 0; list-style-image: none; list-style: none; }
 
 /*----------------------------------------------------------------------
   Code examples
