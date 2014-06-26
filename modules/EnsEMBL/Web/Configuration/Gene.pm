@@ -153,87 +153,87 @@ sub modify_tree {
   }
   
   
-##----------------------------------------------------------------------
-## Compara menu: alignments/orthologs/paralogs/trees
-  my $pancompara_menu = $self->create_node( 'PanCompara', 'Pan-taxonomic Compara',
-    [qw(button_panel EnsEMBL::Web::Component::Gene::PanCompara_Portal)],
-      {'availability' => 'gene database:compara_pan_ensembl core'}
-  );
-
-
-## Compara tree
-
-  my $tree_node = $self->create_node(
-    'Compara_Tree/pan_compara', "Gene Tree (image)",
-   #[qw(image        EnsEMBL::Web::Component::Gene::ComparaTree
-    [qw(
-      tree_summary EnsEMBL::Web::Component::Gene::ComparaTreeSummary
-      image EnsEMBL::Web::Component::Gene::ComparaTree
-    )],
-    { 'availability' => 'gene database:compara_pan_ensembl core has_gene_tree_pan' }
-  );
-  $tree_node->append( $self->create_subnode(
-    'Compara_Tree/Text_pan_compara', "Gene Tree (text)",
-    [qw(treetext        EnsEMBL::Web::Component::Gene::ComparaTree/text_pan_compara)],
-    { 'availability' => 'gene database:compara_pan_ensembl core has_gene_tree_pan' }
-  ));
-
-  $tree_node->append( $self->create_subnode(
-    'Compara_Tree/Align_pan_compara',       "Gene Tree (alignment)",
-    [qw(treealign      EnsEMBL::Web::Component::Gene::ComparaTree/align_pan_compara)],
-    { 'availability' => 'gene database:compara_pan_ensembl core has_gene_tree_pan' }
-  ));
-  $pancompara_menu->append( $tree_node );
-
-
-  my $ol_node = $self->create_node(
-    'Compara_Ortholog/pan_compara',   "Orthologues ([[counts::orthologs_pan]])",
-    [qw(orthologues EnsEMBL::Web::Component::Gene::ComparaOrthologs)],
-    { 'availability' => 'gene database:compara_pan_ensembl core has_orthologs_pan',
-      'concise'      => 'Orthologues' }
-  );
-  
-  $ol_node->append( $self->create_subnode(
-    'Compara_Ortholog/Alignment_pan_compara', 'Orthologue Alignment',
-    [qw(alignment EnsEMBL::Web::Component::Gene::HomologAlignment)],
-    { 'availability'  => 'gene database:compara_pan_ensembl core',
-      'no_menu_entry' => 1 }
-  ));
-
-  $ol_node->append($self->create_subnode('Compara_Ortholog/PepSequence', 'Orthologue Sequences',
-    [qw( alignment EnsEMBL::Web::Component::Gene::HomologSeq )],
-					 { 'availability'  => 'gene database:compara core has_orthologs', 'no_menu_entry' => 1 }
-					 ));
-
-  $pancompara_menu->append($ol_node);
-
-#  my $pl_node = $self->create_node(
-#    'Compara_Paralog/pan_compara',    "Paralogues ([[counts::paralogs_pan]])",
-#    [qw(paralogues  EnsEMBL::Web::Component::Gene::ComparaParalogs)],
-#    { 'availability' => 'gene database:compara_pan_ensembl core has_paralogs_pan',
-#           'concise' => 'Paralogues' }
+###----------------------------------------------------------------------
+### Compara menu: alignments/orthologs/paralogs/trees
+#  my $pancompara_menu = $self->create_node( 'PanCompara', 'Pan-taxonomic Compara',
+#    [qw(button_panel EnsEMBL::Web::Component::Gene::PanCompara_Portal)],
+#      {'availability' => 'gene database:compara_pan_ensembl core'}
 #  );
-#  $pancompara_menu->append($pl_node);
-
-#  $pl_node->append( $self->create_subnode(
-#    'Compara_Paralog/Alignment_pan_compara', 'Paralog Alignment',
+#
+#
+### Compara tree
+#
+#  my $tree_node = $self->create_node(
+#    'Compara_Tree/pan_compara', "Gene Tree (image)",
+#   #[qw(image        EnsEMBL::Web::Component::Gene::ComparaTree
+#    [qw(
+#      tree_summary EnsEMBL::Web::Component::Gene::ComparaTreeSummary
+#      image EnsEMBL::Web::Component::Gene::ComparaTree
+#    )],
+#    { 'availability' => 'gene database:compara_pan_ensembl core has_gene_tree_pan' }
+#  );
+#  $tree_node->append( $self->create_subnode(
+#    'Compara_Tree/Text_pan_compara', "Gene Tree (text)",
+#    [qw(treetext        EnsEMBL::Web::Component::Gene::ComparaTree/text_pan_compara)],
+#    { 'availability' => 'gene database:compara_pan_ensembl core has_gene_tree_pan' }
+#  ));
+#
+#  $tree_node->append( $self->create_subnode(
+#    'Compara_Tree/Align_pan_compara',       "Gene Tree (alignment)",
+#    [qw(treealign      EnsEMBL::Web::Component::Gene::ComparaTree/align_pan_compara)],
+#    { 'availability' => 'gene database:compara_pan_ensembl core has_gene_tree_pan' }
+#  ));
+#  $pancompara_menu->append( $tree_node );
+#
+#
+#  my $ol_node = $self->create_node(
+#    'Compara_Ortholog/pan_compara',   "Orthologues ([[counts::orthologs_pan]])",
+#    [qw(orthologues EnsEMBL::Web::Component::Gene::ComparaOrthologs)],
+#    { 'availability' => 'gene database:compara_pan_ensembl core has_orthologs_pan',
+#      'concise'      => 'Orthologues' }
+#  );
+#  
+#  $ol_node->append( $self->create_subnode(
+#    'Compara_Ortholog/Alignment_pan_compara', 'Orthologue Alignment',
 #    [qw(alignment EnsEMBL::Web::Component::Gene::HomologAlignment)],
-#    { 'availability'  => 'gene database:compara core',
+#    { 'availability'  => 'gene database:compara_pan_ensembl core',
 #      'no_menu_entry' => 1 }
 #  ));
-
-  my $family = $self->get_node('Family');
-  $family->set('no_menu_entry', 1);
-#ENSEMBL-2402 removes List of Species
-# $pancompara_menu->append($self->create_node('PanComparaSpecies', 'List of species',
-#   [qw(pancompara_spec  EnsEMBL::Web::Component::Info::PanComparaSpecies)],
-# 				      { 'availability' => 'gene database:compara_pan_ensembl core' }
-# 				      ));
-
-### EG
-
-  $compara_menu->after($pancompara_menu);
-  
+#
+#  $ol_node->append($self->create_subnode('Compara_Ortholog/PepSequence', 'Orthologue Sequences',
+#    [qw( alignment EnsEMBL::Web::Component::Gene::HomologSeq )],
+#					 { 'availability'  => 'gene database:compara core has_orthologs', 'no_menu_entry' => 1 }
+#					 ));
+#
+#  $pancompara_menu->append($ol_node);
+#
+##  my $pl_node = $self->create_node(
+##    'Compara_Paralog/pan_compara',    "Paralogues ([[counts::paralogs_pan]])",
+##    [qw(paralogues  EnsEMBL::Web::Component::Gene::ComparaParalogs)],
+##    { 'availability' => 'gene database:compara_pan_ensembl core has_paralogs_pan',
+##           'concise' => 'Paralogues' }
+##  );
+##  $pancompara_menu->append($pl_node);
+#
+##  $pl_node->append( $self->create_subnode(
+##    'Compara_Paralog/Alignment_pan_compara', 'Paralog Alignment',
+##    [qw(alignment EnsEMBL::Web::Component::Gene::HomologAlignment)],
+##    { 'availability'  => 'gene database:compara core',
+##      'no_menu_entry' => 1 }
+##  ));
+#
+#  my $family = $self->get_node('Family');
+#  $family->set('no_menu_entry', 1);
+##ENSEMBL-2402 removes List of Species
+## $pancompara_menu->append($self->create_node('PanComparaSpecies', 'List of species',
+##   [qw(pancompara_spec  EnsEMBL::Web::Component::Info::PanComparaSpecies)],
+## 				      { 'availability' => 'gene database:compara_pan_ensembl core' }
+## 				      ));
+#
+#### EG
+#
+#  $compara_menu->after($pancompara_menu);
+#  
   # S4 DAS
   $self->delete_node('Expression');
   foreach my $logic_name (qw(S4_EXPRESSION S4_LITERATURE S4_PUBMED)) {
