@@ -75,7 +75,7 @@ sub render {
 		foreach my $project (sort(@{$species{$scientific}})) {
 			$i++;
 			my @name_parts = split("_", $project);
-			my $bioproject = uc(@name_parts[2]);
+			my $bioproject = uc($name_parts[2]);
 			$html .= qq(<a href="/$project/Info/Index/">$bioproject</a>);
 			if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
 		}
