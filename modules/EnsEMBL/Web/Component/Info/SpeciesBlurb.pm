@@ -52,7 +52,7 @@ sub content {
   my @parts             = split('_', $species);
   my $species_short     = "$parts[0]\_$parts[1]"; # ParaSite specific - allows us to include info from the species landing page
 
-  my $img_string = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/i/species/48/$species.png") ? qq(<img src="/i/species/48/$species.png" class="species-img float-left" alt="" />) : ''; # Check if the image exists
+  my $img_string = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/i/species/48/$species_short.png") ? qq(<img src="/i/species/48/$species_short.png" class="species-img float-left" alt="" />) : ''; # Check if the image exists
 
   my $html = qq(
 <div class="column-wrapper">  

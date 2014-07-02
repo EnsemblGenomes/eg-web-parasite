@@ -148,6 +148,9 @@ sub content {
   my $sound        = $species_defs->SAMPLE_DATA->{'ENSEMBL_SOUND'};
   my $provider_link;
 
+  my @species_parts = split('_', $species);
+  my $species_short = "$species_parts[0]\_$species_parts[1]";
+
   if ($species_defs->PROVIDER_NAME && ref $species_defs->PROVIDER_NAME eq 'ARRAY') {
     my @providers;
     push @providers, map { $hub->make_link_tag(text => $species_defs->PROVIDER_NAME->[$_], url => $species_defs->PROVIDER_URL->[$_]) } 0 .. scalar @{$species_defs->PROVIDER_NAME} - 1;
@@ -166,8 +169,8 @@ sub content {
       <div class="box-left">
         <div class="species-badge">';
 
-  if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species.png") {  # Check if the image exists
-  	$html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$sound" />) unless $self->is_bacteria;
+  if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species_short.png") {  # Check if the image exists
+  	$html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$sound" />) unless $self->is_bacteria;
   }
 
   if ($common_name =~ /\./) {
@@ -209,8 +212,6 @@ sub content {
   }
   $alt_string .= '</p>';
     
-  my @species_parts = split('_', $species);
-  my $species_short = "$species_parts[0]\_$species_parts[1]";
   my $about_text = $self->_other_text('about', $species_short);
   $about_text .= $alt_string if $alt_count > 0;
   #if ($about_text) {
