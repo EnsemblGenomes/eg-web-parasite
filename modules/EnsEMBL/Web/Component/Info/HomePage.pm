@@ -25,6 +25,7 @@ use strict;
 use EnsEMBL::Web::Document::HTML::HomeSearch;
 use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
+use EnsEMBL::Web::RegObj;
 
 use LWP::UserAgent;
 use JSON;
@@ -194,10 +195,24 @@ sub content {
 
   $html .= '</div>'; # box-right
   $html .= '</div>'; # column-wrapper
-  
+
+  # Check for other genome projects for this species
+  my @alt_projects = $self->_get_alt_projects($display_name, $species);
+  my $alt_count = scalar(@alt_projects);
+  my $alt_string = '<p>There ';
+  $alt_string .= $alt_count == 1 ? "is $alt_count alternative genome project" : "are $alt_count alternative genome projects";
+  $alt_string .= " for <em>$display_name</em> available in WormBase ParaSite: ";
+  foreach my $alt (@alt_projects) {
+    my @parts = split("_", $alt);
+    my $bioproj = uc($parts[2]);
+    $alt_string .= qq(<a href="/$alt/Info/Index/">$bioproj</a> );
+  }
+  $alt_string .= '</p>';
+    
   my @species_parts = split('_', $species);
   my $species_short = "$species_parts[0]\_$species_parts[1]";
   my $about_text = $self->_other_text('about', $species_short);
+  $about_text .= $alt_string if $alt_count > 0;
   #if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box tinted-box">'; 
     $html .= $about_text;
@@ -741,5 +756,21 @@ sub is_bacteria {
 }
 
 # /EG
+
+# ParaSite
+
+sub _get_alt_projects {
+  my ($self, $species, $current) = @_;
+  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my @species_list = ();
+  foreach ($species_defs->valid_species) {
+        if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species && $_ ne $current) {
+          push(@species_list, $_);
+        }
+  }
+  return sort(@species_list);
+}
+
+# /ParaSite
 
 1;
