@@ -84,6 +84,11 @@ sub content {
 # $self->cut_tagged_section(\$html,'about');
 ## EG END
 
+  # Remove the summary section (as this is just replication of the assembly information)
+  if($html =~ m/<!-- {assembly} -->(.*)<!-- {assembly} -->/s) {
+    $html =~ s/<!-- {summary} -->(.*)<!-- {summary} -->//sg;
+  }
+
   $html .= '
     </div>
   </div>
