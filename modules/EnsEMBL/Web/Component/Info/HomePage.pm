@@ -208,7 +208,9 @@ sub content {
   foreach my $alt (@alt_projects) {
     my @parts = split("_", $alt);
     my $bioproj = uc($parts[2]);
-    $alt_string .= qq(<a href="/$alt/Info/Index/">$bioproj</a> );
+    my $provider = $species_defs->get_config($alt, 'PROVIDER_NAME');
+    my $summary = "$provider genome assembly";
+    $alt_string .= qq(<a href="/$alt/Info/Index/" title="$summary">$bioproj</a> );
   }
   $alt_string .= '</p>';
     

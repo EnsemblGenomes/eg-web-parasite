@@ -73,6 +73,7 @@ sub render {
 		  
 		  # Group the genome projects by species name
 		  my %species = ();
+		  my %providers = ();
 		  foreach ($species_defs->valid_species) {
 			next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
 			if($subgroup eq 'parent') {
@@ -84,6 +85,7 @@ sub render {
 			next unless $common;
 			my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
 			push(@{$species{$scientific}}, $_);
+			$providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
 		  }
   
 		  # Print the species
@@ -98,7 +100,8 @@ sub render {
 				$i++;
 				my @name_parts = split("_", $project);
 				my $bioproject = uc($name_parts[2]);
-				$html .= qq(<a href="/$project/Info/Index/">$bioproject</a>);
+				my $summary = "$providers{$project} genome assembly";
+				$html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
 				if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
 			}
 			$html .= '</span>';
