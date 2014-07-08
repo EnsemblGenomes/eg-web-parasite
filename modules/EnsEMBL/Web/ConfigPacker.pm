@@ -220,6 +220,15 @@ sub _munge_meta {
       
       foreach my $taxon (@$taxonomy) {
         foreach my $group (@$order) {
+          ## ParaSite changes to allow sub-grouping of taxonomy on homepage
+          my $sub_order = $self->tree->{'TAXON_SUB_ORDER'}->{$group} || ['parent'];
+          foreach my $subgroup (@$sub_order) {
+            if ($taxon eq $subgroup) {
+              $self->tree->{$species}{'SPECIES_SUBGROUP'} = $subgroup;
+              last;
+            }
+          }
+          ## End ParaSite changes
           if ($taxon eq $group) {
             $self->tree->{$species}{'SPECIES_GROUP'} = $group;
             last;
