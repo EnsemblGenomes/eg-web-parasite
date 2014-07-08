@@ -56,6 +56,13 @@
 .expanding-parent {
   margin: 20px 20px 20px 20px;
   overflow: auto;
+  border: 1px solid #CCCCCC;
+  -webkit-border-top-left-radius: 6px;
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 .expanding-header {
