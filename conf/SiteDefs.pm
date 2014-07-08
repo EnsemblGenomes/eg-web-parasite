@@ -82,7 +82,7 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Hymenolepis_nana_prjeb508'} = [qw(hymenolepis_nana_prjeb508, Hymenolepis_nana_prjeb508)];
 	$SiteDefs::__species_aliases{'Litomosoides_sigmodontis_prjeb3075'} = [qw(litomosoides_sigmodontis_prjeb3075, Litomosoides_sigmodontis_prjeb3075)];
 	$SiteDefs::__species_aliases{'Loa_loa_prjna60051'} = [qw(loa_loa_prjna60051, Loa_loa_prjna60051)];
-	$SiteDefs::__species_aliases{'Meloidogyne_floridensis_prjeb2953'} = [qw(meloidogyne_floridensis_prjeb2953, Meloidogyne_floridensis_prjeb2953)];
+	$SiteDefs::__species_aliases{'Meloidogyne_floridensis_prjeb6016'} = [qw(meloidogyne_floridensis_prjeb6016, Meloidogyne_floridensis_prjeb6016)];
 	$SiteDefs::__species_aliases{'Meloidogyne_hapla_prjna29083'} = [qw(meloidogyne_hapla_prjna29083, Meloidogyne_hapla_prjna29083)];
 	$SiteDefs::__species_aliases{'Meloidogyne_incognita_prjea28837'} = [qw(meloidogyne_incognita_prjea28837, Meloidogyne_incognita_prjea28837)];
 	$SiteDefs::__species_aliases{'Mesocestoides_corti_prjeb510'} = [qw(mesocestoides_corti_prjeb510, Mesocestoides_corti_prjeb510)];
