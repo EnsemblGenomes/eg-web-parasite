@@ -214,7 +214,11 @@ sub _munge_meta {
 
     ## Do species group
     my $taxonomy = $meta_hash->{'species.classification'};
-    
+
+    ## ParaSite changes to include nematode clade in the classification
+    unshift @{$taxonomy}, @{$meta_hash->{'species.nematode_clade'}};
+    ## End ParaSite changes
+   
     if ($taxonomy && scalar(@$taxonomy)) {
       my $order = $self->tree->{'TAXON_ORDER'};
       
