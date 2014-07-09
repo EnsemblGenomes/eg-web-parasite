@@ -227,9 +227,12 @@ sub _munge_meta {
           ## ParaSite changes to allow sub-grouping of taxonomy on homepage
           my $sub_order = $self->tree->{'TAXON_SUB_ORDER'}->{$group} || ['parent'];
           foreach my $subgroup (@$sub_order) {
-            if ($taxon eq $subgroup) {
-              $self->tree->{$species}{'SPECIES_SUBGROUP'} = $subgroup;
-              last;
+            my $sub_sub_order = $self->tree->{'TAXON_MULTI'}->{$subgroup} || [$subgroup];
+            foreach my $subsubgroup (@$sub_sub_order) {
+              if ($taxon eq $subsubgroup) {
+                $self->tree->{$species}{'SPECIES_SUBGROUP'} = $subsubgroup;
+                last;
+              }
             }
           }
           ## End ParaSite changes
