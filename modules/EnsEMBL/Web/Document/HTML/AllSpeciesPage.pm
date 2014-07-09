@@ -104,7 +104,7 @@ sub render {
 				$i++;
 				my @name_parts = split("_", $project);
 				my $bioproject = uc($name_parts[2]);
-				my $summary = "$providers{$project} genome assembly";
+				my $summary = "$providers{$project} genome project";
 				$html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
 				if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
 			}

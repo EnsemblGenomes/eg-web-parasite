@@ -209,7 +209,7 @@ sub content {
     my @parts = split("_", $alt);
     my $bioproj = uc($parts[2]);
     my $provider = $species_defs->get_config($alt, 'PROVIDER_NAME');
-    my $summary = "$provider genome assembly";
+    my $summary = "$provider genome project";
     $alt_string .= qq(<a href="/$alt/Info/Index/" title="$summary">$bioproj</a> );
   }
   $alt_string .= '</p>';
