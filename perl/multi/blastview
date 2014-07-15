@@ -2360,9 +2360,10 @@ sub populate_result_summary{
   $code{query_start}       = sub{ $_[1]->query->start  };
   $code{query_end}         = sub{ $_[1]->query->end    };
 
-  $code{subject_name} = sub{ my $name = $_[1]->hit->seq_id;
+  $code{subject_name} = sub{ my $name = $_[1]->hit->seq_id; my $start = $_[1]->hit->start; my $end = $_[1]->hit->end;
                               $name =~ s/^\w+://o;
-                              sprintf( $db_name_link_t, $name, $name ) };
+                              my $url = "$name:$start-$end"; # ParaSite: Force the URL to link to a position
+                              sprintf( $db_name_link_t, $url, $name ) };
 
   $code{subject_orientation} = sub{ $_[1]->hit->strand < 0 ? '-' : '+' };
   $code{subject_start}     = sub{ $_[1]->hit->start  };
@@ -2377,13 +2378,15 @@ sub populate_result_summary{
     $code{$csname.'_name'} = sub{
       my $gh = $_[1]->genomic_hit($csname) || return 'No data';
       my $name =  $gh->seq_region_name || return '???';
+      my $start = $_[1]->genomic_hit($csname)->seq_region_start; my $end = $_[1]->genomic_hit($csname)->seq_region_end;
+      my $url = $csname eq 'contig' ? $name : "$name:$start-$end"; # ParaSite: Force the URL to link to a position
       #warn( "=> $name $chrs{$name}" );
       if( $chrs{$name} ){ 
         return sprintf( $mapview_link_t, $name, $name ) 
       } elsif( $gh->seq_region_length > $gsize ){
-        return sprintf( $cytoview_link_t, $name, $name );
+        return sprintf( $cytoview_link_t, $url, $name );
       } else{
-        return sprintf( $ctgview_link_t, $name, $name );
+        return sprintf( $ctgview_link_t, $url, $name );
       }
     };
     $code{$csname.'_start'} = sub{
