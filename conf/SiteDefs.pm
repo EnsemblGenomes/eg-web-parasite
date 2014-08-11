@@ -31,6 +31,7 @@ sub update_conf {
       ensembl  => 'Ensembl',
       parasite => 'WormBase ParaSite',
     };
+    $SiteDefs::ENSEMBL_ENASEARCH_ENABLED = 0;
 
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
 
