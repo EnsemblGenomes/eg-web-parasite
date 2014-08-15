@@ -34,9 +34,10 @@ sub content {
     );
   } 
 
-  return sprintf( '%s<a href="%s">%s</a>%s%s',
-    $self->e_logo, $url, $self->logo_img, $self->logo_print, $self->site_menu # Removes drop-down menu and e! logo
+  return sprintf( '%s<a href="%s">%s</a>%s',
+    $self->e_logo, $url, $self->logo_print, $self->site_menu # Removes drop-down menu and e! logo
   );
+
 }
 
 sub logo_img {
@@ -49,10 +50,10 @@ sub e_logo {
 ### a
   my $self = shift;
   my $alt = 'WormBase ParaSite Home';
-  #return sprintf(
-  #  '<a href="%s"><img src="%s%s" alt="%s" title="%s" class="print_hide" style="width:%spx;height:%spx" /></a>',
-  #  'http://www.ensemblgenomes.org/', $self->img_url, 'e.png', $alt, $alt, 43, 40
-  #);
+  return sprintf(
+    '<a href="%s"><img src="%s%s" alt="%s" title="%s" class="print_hide" style="height:%spx" /></a>',
+    '/', $self->img_url, 'parasite.png', $alt, $alt, 34
+  );
   return '';
 }
 
