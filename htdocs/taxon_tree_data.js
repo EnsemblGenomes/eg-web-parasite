@@ -391,6 +391,17 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Pristionchus pacificus (PRJNA12644)",
+                                    "key" : "pristionchus_pacificus_prjna12644"
+                                 }
+                              ],
+                              "title" : "Diplogasterida (1)",
+                              "key" : "Diplogasterida"
+                           },
+                           {
+                              "isFolder" : true,
+                              "children" : [
+                                 {
                                     "isFolder" : true,
                                     "children" : [
                                        {
@@ -912,8 +923,8 @@ taxonTreeData = [
                                                       "isFolder" : true,
                                                       "children" : [
                                                          {
-                                                            "title" : "Meloidogyne floridensis (PRJEB2953)",
-                                                            "key" : "meloidogyne_floridensis_prjeb2953"
+                                                            "title" : "Meloidogyne floridensis (PRJEB6016)",
+                                                            "key" : "meloidogyne_floridensis_prjeb6016"
                                                          },
                                                          {
                                                             "title" : "Meloidogyne hapla (PRJNA29083)",
@@ -951,7 +962,7 @@ taxonTreeData = [
                               "key" : "Tylenchida"
                            }
                         ],
-                        "title" : "Chromadorea (49)",
+                        "title" : "Chromadorea (50)",
                         "key" : "Chromadorea"
                      },
                      {
@@ -1054,15 +1065,15 @@ taxonTreeData = [
                         "key" : "Enoplea"
                      }
                   ],
-                  "title" : "Nematoda (56)",
+                  "title" : "Nematoda (57)",
                   "key" : "Nematoda"
                }
             ],
-            "title" : "Protostomia (56)",
+            "title" : "Protostomia (57)",
             "key" : "Protostomia"
          }
       ],
-      "title" : "Bilateria (81)",
+      "title" : "Bilateria (82)",
       "key" : "Bilateria"
    }
 ]
