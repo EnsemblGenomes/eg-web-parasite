@@ -32,7 +32,7 @@ body.static #widemain { margin-left: 0; }
 
 
 /* Masthead */
-#masthead                                 { background-color: [[MH_BG]]; color: [[MH_TEXT]]; height: 54px; padding: 6px 8px; position: relative; }
+#masthead                                 { background-color: [[MH_BG]]; color: [[MH_TEXT]]; height: 58px; padding: 6px 8px; position: relative; }
 #masthead div                             { background-color: [[MH_BG]] important; }
 #masthead a,
 #masthead span.disabled                   { color: [[MH_LINK]]; text-decoration: none; outline: none; }
