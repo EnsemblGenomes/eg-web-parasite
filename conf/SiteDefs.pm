@@ -140,7 +140,7 @@ sub update_conf {
 
 	$SiteDefs::SITE_NAME = 'WormBase ParaSite';
 	$SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
-	$SiteDefs::SITE_FTP= 'ftp://ftp.ensemblgenomes.org/pub/metazoa';
+	$SiteDefs::SITE_FTP= 'ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
 
 	$SiteDefs::DOCSEARCH_INDEX_DIR = $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/data/docsearch';
 
