@@ -494,6 +494,7 @@ sub html_template {
   my $footer_id           = 'wide-footer';
   my $panel_type          = $self->can('panel_type') ? $self->panel_type : '';
   my $main_holder         = $panel_type ? qq(<div id="main_holder" class="js_panel">$panel_type) : '<div id="main_holder">';
+  my $masthead_class      = $elements->{'tabs'} ? 'js_panel' : 'js_panel no-tabs';
 
   my $main_class = $self->main_class();        
 
@@ -519,7 +520,7 @@ sub html_template {
 <body $body_attrs>
   <div id="min_width_container">
     <div id="min_width_holder">
-      <div id="masthead" class="js_panel">
+      <div id="masthead" class="$masthead_class">
         <input type="hidden" class="panel_type" value="Masthead" />
         <div class="logo_holder">$elements->{'logo'}</div>
         <div class="mh print_hide">
