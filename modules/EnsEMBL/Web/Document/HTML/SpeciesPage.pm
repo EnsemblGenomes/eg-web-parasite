@@ -127,7 +127,7 @@ sub render {
 
     $species{$common} = $info;
   }
-  my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;';
+  my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;font-style:italic;';
 
   my $html = qq(<div class="column-wrapper"><div class="box-left" style="width:auto"><h2>$sitename Species</h2></div>);
 

@@ -61,7 +61,7 @@ sub content {
   	$html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$display_name" />);
   }
 
-  $html .= qq(<h1>$display_name</h1>);
+  $html .= qq(<h1><em>$display_name</em></h1>);
 
   $html .= '<p class="taxon-id">';
   $html .= sprintf q{Taxonomy ID %s}, $hub->get_ExtURL_link("$taxid", 'UNIPROT_TAXONOMY', $taxid) if $taxid;

@@ -58,7 +58,7 @@ sub init {
     next if $row->{'type'} eq 'Location' && $type eq 'LRG';
     
     my $class = $row->{'class'} || lc $row->{'type'};
-    
+
     $self->add_entry({
       type     => $row->{'type'}, 
       caption  => $row->{'caption'},
@@ -68,6 +68,82 @@ sub init {
       disabled => $row->{'disabled'}
     });
   }
+}
+
+sub init_species_list {
+  my ($self, $hub) = @_;
+  my $species      = $hub->species;
+  my $species_defs = $hub->species_defs;
+
+  my @valid_species = $species_defs->valid_species;
+
+  $self->{'species_list'} = [
+    sort { $a->[1] cmp $b->[1] }
+    map  [ $hub->url({ species => $_, type => 'Info', action => 'Index', __clear => 1 }), $species_defs->get_config($_, 'SPECIES_COMMON_NAME') ],
+    @valid_species
+  ];
+
+  my $favourites = $hub->get_favourite_species;
+
+  $self->{'favourite_species'} = [ map {[ $hub->url({ species => $_, type => 'Info', action => 'Index', __clear => 1 }), $species_defs->get_config($_, 'SPECIES_COMMON_NAME') ]} @$favourites ] if scalar @$favourites;
+}
+
+sub species_list {
+  my $self      = shift;
+
+  my $html;
+  foreach my $sp (@{$self->{'species_list'}}) {
+    $sp->[1] =~ s/(.*)\(/<em>$1<\/em>\(/g;
+    $html .= qq{<li><a class="constant" href="$sp->[0]">$sp->[1]</a></li>};
+  }
+
+  return qq{<div class="dropdown species"><h4>Select a species</h4><ul>$html</ul></div>};
+}
+
+sub content {
+  my $self  = shift;
+  my $count = scalar @{$self->entries};
+
+  return '' unless $count;
+
+  my ($content, $short_tabs, $long_tabs);
+  my $static  = $self->isa('EnsEMBL::Web::Document::Element::StaticTabs');
+  my @style   = $count > 4 && !$static ? () : (' style="display:none"', ' style="display:block"');
+  my $history = 0;
+
+  foreach my $entry (@{$self->entries}) {
+    $entry->{'url'} ||= '#';
+
+    my $name         = encode_entities($self->strip_HTML($entry->{'caption'}));
+    $name            =~ s/(.*)\(/<em>$1<\/em>\(/g;
+    my ($short_name) = split /\b/, $name;
+    my $constant     = $entry->{'constant'} ? ' class="constant"' : '';
+    my $short_link   = qq(<a href="$entry->{'url'}" title="$name"$constant>$short_name</a>);
+    my $long_link    = qq(<a href="$entry->{'url'}"$constant>$name</a>);
+
+    if ($entry->{'disabled'}) {
+      my $span = $entry->{'dropdown'} ? qq(<span class="disabled toggle" title="$entry->{'dropdown'}">) : '<span class="disabled">';
+      $_ = qq{$span$name</span>} for $short_link, $long_link;
+    }
+
+    if ($entry->{'dropdown'}) {
+      # Location tab always has a dropdown because its history can be changed dynamically by the slider navigation.
+      # Hide the toggle arrow if there are no bookmarks or history items for it.
+      my @hide = $entry->{'type'} eq 'Location' && !($self->{'history'}{'location'} || $self->{'bookmarks'}{'location'}) ? (' empty', ' style="display:none"') : ();
+      $history = 1;
+      $_       = qq(<span class="dropdown$hide[0]">$_<a class="toggle" href="#" rel="$entry->{'dropdown'}"$hide[1]>&#9660;</a></span>) for $short_link, $long_link;
+    }
+
+    $short_tabs .= qq(<li class="$entry->{'class'} short_tab"$style[0]>$short_link</li>);
+    $long_tabs  .= qq(<li class="$entry->{'class'} long_tab"$style[1]>$long_link</li>);
+  }
+
+  $content  = $short_tabs . $long_tabs;
+  $content  = qq{<ul class="tabs">$content</ul>} if $content;
+  $content .= $self->species_list                if $self->{'species_list'};
+  $content .= $self->history                     if $history;
+
+  return $content;
 }
 
 1;

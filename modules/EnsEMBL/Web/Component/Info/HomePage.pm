@@ -173,11 +173,9 @@ sub content {
   	$html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$sound" />) unless $self->is_bacteria;
   }
 
-  if ($common_name =~ /\./) {
-    $html .= qq(<h1>$display_name</h1>);
-  } else {
-    $html .= qq(<h1>$common_name</h1><p>$display_name</p>);
-  }
+  my @species_parts = split('_', $species);
+  my $bioproject = uc($species_parts[2]);
+  $html .= qq(<h1><em>$display_name</em></h1><h3>$bioproject</h3>);
 
   $html .= '<p class="taxon-id">';
   $html .= 'Data Source ' . $provider_link if $provider_link;
