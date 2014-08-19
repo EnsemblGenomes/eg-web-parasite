@@ -145,7 +145,7 @@ form.homepage-search-form fieldset { display: inline; }
 form.homepage-search-form .ftext   { width: 78%; }
 form.homepage-search-form .fselect { width: 78%; }
 
-form.homepage-search-form span.inp-group { white-space: nowrap; }
+form.homepage-search-form span.inp-group { white-space:normal; }
 
 form.search-form input.ftext          { padding: 2px 0; }
 form.search-form input.inactive       { color: [[PAGE_TEXT]]; font-style: italic; }
