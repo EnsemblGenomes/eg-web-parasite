@@ -183,15 +183,20 @@ STAGE_SETUP:{
        $url_species = $url_sp;
       }
      
-      my (@species_list, $species_options);
-      push @species_list, $default_species unless (@species_list = ($CGI->param('species')));
-      $species_options .= sprintf('<option value="%s">%s</option>', $_, $_) foreach @species_list;
-      
-      # set uri for the modal link
+      my $species_options;
       my $modal_uri = URI->new("/${url_species}/Component/Blast/Web/TaxonSelector/ajax?");
-      $modal_uri->query_form(s => [map {lc($_)} @species_list]) if ($SPECIES_DEFS->valid_species($url_sp));
-      $modal_uri->query_form(s => $SPECIES_DEFS->ENSEMBL_PRIMARY_SPECIES) unless ($SPECIES_DEFS->valid_species($url_sp));
-      
+      if($CGI->param('species')) {
+        my @species_list = ($CGI->param('species'));
+        $species_options .= sprintf('<option value="%s">%s</option>', $_, $SPECIES_DEFS->get_config($_, 'SPECIES_COMMON_NAME')) foreach @species_list;
+        $modal_uri->query_form(s => [map {lc($_)} @species_list]) if ($SPECIES_DEFS->valid_species($url_sp));
+      } elsif($url_species ne 'Multi' && $SPECIES_DEFS->valid_species($url_sp)) {
+        $species_options .= sprintf('<option value="%s">%s</option>', $url_species, $SPECIES_DEFS->get_config($url_species, 'SPECIES_COMMON_NAME'));
+        $modal_uri->query_form(s => lc($url_species));
+      } else {
+        $species_options .= sprintf('<option value="%s">%s</option>', 'null', $default_species);
+        $modal_uri->query_form(s => 'null') unless ($SPECIES_DEFS->valid_species($url_sp));
+      }
+
       HTML:{
         my $entry = $form->addobj_form_entry();
         $entry->set_html(qq|

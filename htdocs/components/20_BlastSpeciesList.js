@@ -21,13 +21,15 @@ Ensembl.Panel.BlastSpeciesList = Ensembl.Panel.extend({
   updateTaxonSelection: function(items) {
   	var panel = this;
   	var key;
+        var value;
   	
   	// empty and re-populate the species list
   	$('option', panel.elLk.list).remove();
   	$.each(items, function(index, item){
   		key = item.key.charAt(0).toUpperCase() + item.key.substr(1); // ucfirst
+                value = item.title;
   		//$(panel.elLk.list).append(new Option(item.kye, item.key)); // this fails in IE - see http://bugs.jquery.com/ticket/1641
-  		$(panel.elLk.list).append('<option value="' + key + '">' + key + '</option>'); // this works in IE 
+  		$(panel.elLk.list).append('<option value="' + key + '">' + value + '</option>'); // this works in IE 
   	}); 
   	
   	// update the modal link href
