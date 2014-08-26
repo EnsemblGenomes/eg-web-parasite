@@ -174,10 +174,13 @@ STAGE_SETUP:{
       $form->set_type( 'RAW_HTML' );
            
       # set up the list of species
-      my $default_species = $SPECIES_DEFS->ENSEMBL_PRIMARY_SPECIES;
+      #my $default_species = $SPECIES_DEFS->ENSEMBL_PRIMARY_SPECIES;
+      my $default_species = 'Click the "Select species" button below to choose a species';
       my $url_sp = (split /\//, $ENV{'REQUEST_URI'})[1];
+      my $url_species = 'Multi';
       if ($SPECIES_DEFS->valid_species($url_sp)) {
        $default_species = $url_sp;
+       $url_species = $url_sp;
       }
      
       my (@species_list, $species_options);
@@ -185,8 +188,9 @@ STAGE_SETUP:{
       $species_options .= sprintf('<option value="%s">%s</option>', $_, $_) foreach @species_list;
       
       # set uri for the modal link
-      my $modal_uri = URI->new("/${default_species}/Component/Blast/Web/TaxonSelector/ajax?");
-      $modal_uri->query_form(s => [map {lc($_)} @species_list]);     
+      my $modal_uri = URI->new("/${url_species}/Component/Blast/Web/TaxonSelector/ajax?");
+      $modal_uri->query_form(s => [map {lc($_)} @species_list]) if ($SPECIES_DEFS->valid_species($url_sp));
+      $modal_uri->query_form(s => $SPECIES_DEFS->ENSEMBL_PRIMARY_SPECIES) unless ($SPECIES_DEFS->valid_species($url_sp));
       
       HTML:{
         my $entry = $form->addobj_form_entry();
