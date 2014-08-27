@@ -102,18 +102,18 @@ sub content {
       })
     });
     
-    $self->add_entry({
-      type  => 'Gene type',
-      label => $object->gene_stat_and_biotype
-    });
+#    $self->add_entry({
+#      type  => 'Gene type',
+#      label => $object->gene_stat_and_biotype
+#    });
   }
   
-  if ($object->transcript_type) {
-    $self->add_entry({
-      type  => 'Transcript type',
-      label => $object->transcript_type
-    });
-  }
+#  if ($object->transcript_type) {
+#    $self->add_entry({
+#      type  => 'Transcript type',
+#      label => $object->transcript_type
+#    });
+#  }
   
   $self->add_entry({
     type  => 'Strand',
