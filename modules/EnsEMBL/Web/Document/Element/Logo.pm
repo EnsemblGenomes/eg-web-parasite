@@ -28,12 +28,6 @@ sub content {
   #my $e_logo = '<img src="/i/e.png" alt="WormBase ParaSite Home" title="WormBase ParaSite Home" class="print_hide" style="width:43px;height:40px" />'; 
   my $e_logo = ''; # Removed the small e! logo from ParaSite but kept variable so new logo could be inserted in future releases
 
-  if ($type eq 'Help') {
-    return sprintf( '%s%s%s',
-      $e_logo, $self->logo_img, $self->logo_print
-    );
-  } 
-
   return sprintf( '%s<a href="%s">%s</a>%s',
     $self->e_logo, $url, $self->logo_print, $self->site_menu # Removes drop-down menu and e! logo
   );
