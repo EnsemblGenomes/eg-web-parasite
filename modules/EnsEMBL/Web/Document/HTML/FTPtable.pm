@@ -77,7 +77,7 @@ sub render {
 
     my $genomic_unit = $species_defs->get_config($spp, 'GENOMIC_UNIT');
     my $collection;
-    my $ftp_base_path_stub = "ftp://ftp.ensemblgenomes.org/pub/release-$rel/$genomic_unit";
+    my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/release-$rel";
     my @mysql;
     foreach my $db( qw/core otherfeatures funcgen variation/){
       my $db_config =  $species_defs->get_config($spp, 'databases')->{'DATABASE_' . uc($db)};
