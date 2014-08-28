@@ -73,13 +73,10 @@ sub render {
      my $sp_dir =lc($spp);
      my $sp_var = lc($spp).'_variation';
      my $common = $species_defs->get_config($spp, 'SPECIES_COMMON_NAME');
+     my $scientific = $species_defs->get_config($spp, 'SPECIES_SCIENTIFIC_NAME');
 
     my $genomic_unit = $species_defs->get_config($spp, 'GENOMIC_UNIT');
     my $collection;
-    if($genomic_unit =~ /bacteria/i){
-      my $group = lc $species_defs->get_config($spp, 'SPECIES_GROUP');
-      $collection = $group . '_collection/'  if $group;
-    }
     my $ftp_base_path_stub = "ftp://ftp.ensemblgenomes.org/pub/release-$rel/$genomic_unit";
     my @mysql;
     foreach my $db( qw/core otherfeatures funcgen variation/){
@@ -90,84 +87,41 @@ sub render {
         push(@mysql, qq{<a rel="external" title="$title" href="$ftp_base_path_stub/mysql/$db_name">MySQL($db)</a>});
       }
     }
-        
+       
+    my $bioproject = uc((split('_', $spp))[2]);
+
     my $data = {
-species    => qq{<strong><i>$sp_name</i></strong>},
+species    => qq{<em>$scientific</em>},
+bioproject => qq{$bioproject},
 dna        => qq{<a rel="external"  title="$title{'dna'}" href="$ftp_base_path_stub/fasta/$sp_dir/dna/">FASTA</a> (DNA)},
 cdna       => qq{<a rel="external"  title="$title{'cdna'}" href="$ftp_base_path_stub/fasta/$sp_dir/cdna/">FASTA</a> (cDNA)},
 prot       => qq{<a rel="external"  title="$title{'prot'}" href="$ftp_base_path_stub/fasta/$sp_dir/pep/">FASTA</a> (protein)},
-embl       => qq{<a rel="external"  title="$title{'embl'}" href="$ftp_base_path_stub/embl/} . $sp_dir . qq{/">EMBL</a>},
-genbank    => qq{<a rel="external"  title="$title{'genbank'}" href="$ftp_base_path_stub/genbank/} . $sp_dir . qq{/">GenBank</a>},
 gtf        => qq{<a rel="external"  title="$title{'gtf'}" href="$ftp_base_path_stub/gtf/$sp_dir">GTF</a>},
 gff3       => qq{<a rel="external"  title="$title{'gff3'}" href="$ftp_base_path_stub/gff3/$sp_dir">GFF3</a>},
-mysql      => join('<br/>',@mysql),
-tsv        => qq{<a rel="external"  title="$title{'tsv'}" href="$ftp_base_path_stub/tsv/$sp_dir/">TSV</a>},
-vep        => qq{<a rel="external"  title="$title{'vep'}" href="$ftp_base_path_stub/vep/$sp_dir">VEP</a>},
     };
-    my $db_hash = $hub->databases_species($spp, 'variation');
-    if ($db_hash->{variation}) {
-      $data->{'gvf'} = qq{<a rel="external" title="$title{'gvf'}" href="$ftp_base_path_stub/gvf/$sp_dir">GVF</a>};
-      $data->{'vcf'} = qq{<a rel="external" title="$title{'vcf'}" href="$ftp_base_path_stub/vcf/$sp_dir">VCF</a>};
-    }
     push(@rows, $data);
   }
 
   my $genomic_unit = $species_defs->GENOMIC_UNIT;
 
-  my $g_units = {
-   'bacteria' => 'Bacterial',
-   'fungi'    => 'Fungal',
-   'metazoa'  => 'Metazoa',
-   'plants'   => 'Plants',
-   'protists' => 'Protists',
-  };
-
-
   my $table    = EnsEMBL::Web::Document::Table->new(
     [
       {key=>'species',    sort=>'html', title=>'Species'},
+      {key=>'bioproject', sort=>'html', title=>'BioProject'},
       {key => 'dna',      sort=>'none', title => 'DNA'},    
-      {key => 'cdna',     sort=>'none', title => 'CDNA'},   
+      {key => 'cdna',     sort=>'none', title => 'cDNA'},   
       {key => 'prot',     sort=>'none', title => 'Protein'},    
-      {key => 'embl',     sort=>'none', title => 'EMBL'},   
-      {key => 'genbank',  sort=>'none', title => 'GENBANK'},
-      {key => 'mysql',    sort=>'none', title => 'MySQL'},  
-      {key => 'tsv',      sort=>'none', title => 'TSV'},    
       {key => 'gtf',      sort=>'none', title => 'GTF'},    
       {key => 'gff3',     sort=>'none', title => 'GFF3'},   
-      {key => 'gvf',      sort=>'none', title => 'GVF'},    
-      {key => 'vcf',      sort=>'none', title => 'VCF'},    
     ],
     \@rows,
     { data_table=>1, exportable=>0 }
   );
   $table->code = 'FTPtable::'.scalar(@rows);
-  $table->{'options'}{'data_table_config'} = {iDisplayLength => 10};
+  $table->{'options'}{'data_table_config'} = {iDisplayLength => 25};
 
-  my $pan_compara = $species_defs->get_config('MULTI', 'databases')->{DATABASE_COMPARA_PAN_ENSEMBL}->{NAME};
-  my $compara = $species_defs->get_config('MULTI', 'databases')->{DATABASE_COMPARA}->{NAME};
-  my $multi_sp = $g_units->{$genomic_unit};
-  my $multi_table    = EnsEMBL::Web::Document::Table->new(
-    [
-      {key=>'database',    sort=>'html',title=>'Database'},
-      {key => 'mysql',    sort=>'none',title => 'MySQL' },  
-      {key => 'tsv',      sort=>'none',title => 'TSV'   },    
-      {key => 'emf',      sort=>'none',title => 'EMF'   },    
-    ],
-    [
-      {
-      database => qq{<strong>$multi_sp Multi-species</strong>},
-      mysql   => sprintf(qq{<a rel="external" title="%s" href="ftp://ftp.ensemblgenomes.org/pub/$genomic_unit/release-$rel/mysql/$compara">MySQL</a>},sprintf($title{compara},ucfirst $genomic_unit)),
-      emf     => qq{<a rel="external" title="$title{emf}" href="ftp://ftp.ensemblgenomes.org/pub/pan_ensembl/release-$rel/emf/ensembl-compara/homologies">EMF</a>},
-      tsv     => qq{<a rel="external" title="$title{tsv}" href="ftp://ftp.ensemblgenomes.org/pub/$genomic_unit/release-$rel/tsv/ensembl-compara">TSV</a>},
-      }
-    ],
-    { data_table=>0 }
-  );
-  $table->add_option('class','no_col_toggle');
-
-  return sprintf(qq{<h3>Multi-species data</h3>%s<h3>Single species data</h3><div id="species_ftp_dl" class="js_panel"><input type="hidden" class="panel_type" value="Content"/>%s</div>},
-    $multi_table->render,$table->render);
+  return sprintf(qq{<div id="species_ftp_dl" class="js_panel"><input type="hidden" class="panel_type" value="Content"/>%s</div>},
+    $table->render);
       
 }
 
