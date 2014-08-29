@@ -216,7 +216,7 @@ sub _munge_meta {
     my $taxonomy = $meta_hash->{'species.classification'};
 
     ## ParaSite changes to include nematode clade in the classification
-    unshift @{$taxonomy}, @{$meta_hash->{'species.nematode_clade'}};
+    unshift @{$taxonomy}, "Clade@{$meta_hash->{'species.nematode_clade'}}[0]";
     ## End ParaSite changes
    
     if ($taxonomy && scalar(@$taxonomy)) {
