@@ -59,8 +59,8 @@ sub render {
     $sample_data->{'GENE_TEXT'} = "$sample_data->{'GENE_TEXT'}" if $sample_data->{'GENE_TEXT'};
   }
 
-  $examples = qq(e.g. <a class="nowrap" href="$search_url?q=$sample_data->{GENE_TEXT}">$sample_data->{GENE_TEXT}</a>);
-  $examples .= qq( or <a class="nowrap" href="$search_url?q=$sample_data->{SEARCH_TEXT}">$sample_data->{SEARCH_TEXT}</a>) if $sample_data->{SEARCH_TEXT} ne 'NULL';
+  $examples = qq(e.g. <a class="nowrap" href="$search_url?q=$sample_data->{GENE_TEXT};site=ensemblthis">$sample_data->{GENE_TEXT}</a>);
+  $examples .= qq( or <a class="nowrap" href="$search_url?q=$sample_data->{SEARCH_TEXT};site=ensemblthis">$sample_data->{SEARCH_TEXT}</a>) if $sample_data->{SEARCH_TEXT} ne 'NULL';
 
   # form field
   my $f_params = {'notes' => $examples};
