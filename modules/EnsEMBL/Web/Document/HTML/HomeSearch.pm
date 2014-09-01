@@ -59,14 +59,8 @@ sub render {
     $sample_data->{'GENE_TEXT'} = "$sample_data->{'GENE_TEXT'}" if $sample_data->{'GENE_TEXT'};
   }
 
-  if (keys %$sample_data) {
-    $examples = join ' or ', map { $sample_data->{$_}
-      ? qq(<a class="nowrap" href="$search_url?q=$sample_data->{$_};site=ensemblthis">$sample_data->{$_}</a>)
-      : ()
-    #} qw(GENE_TEXT LOCATION_TEXT SEARCH_TEXT);
-    } qw(GENE_TEXT SEARCH_TEXT);
-    $examples = qq(<p class="search-example">e.g. $examples</p>) if $examples;
-  }
+  $examples = qq(e.g. <a class="nowrap" href="$search_url?q=$sample_data->{GENE_TEXT}">$sample_data->{GENE_TEXT}</a>);
+  $examples .= qq( or <a class="nowrap" href="$search_url?q=$sample_data->{SEARCH_TEXT}">$sample_data->{SEARCH_TEXT}</a>) if $sample_data->{SEARCH_TEXT} ne 'NULL';
 
   # form field
   my $f_params = {'notes' => $examples};
