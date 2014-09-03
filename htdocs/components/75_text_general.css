@@ -128,6 +128,9 @@ body.ie67 .plain-box      { zoom: 100%; }
 .tinted-box   { background-color:[[TINT_BG]]; border-color: [[TINT_BORDER]]; }
 .tinted-box a       { color:[[TINT_LINK]]; }
 .tinted-box a:hover { color: [[PAGE_HOVER]];   }
+.home-box     { border-color: [[TINT_BORDER]]; }
+.home-box a         { color:[[TINT_LINK]]; }
+.home-box a:hover   { color: [[PAGE_HOVER]];}
 .info-box     { background-color:[[CONTRAST_BG]]; border-color:[[CONTRAST_BORDER]]; }
 .info-box a       { color:[[CONTRAST_LINK]]; }
 .info-box a:hover { color: [[PAGE_HOVER]];   }

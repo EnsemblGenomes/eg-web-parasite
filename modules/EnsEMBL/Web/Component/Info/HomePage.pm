@@ -215,7 +215,7 @@ sub content {
   my $about_text = $self->_other_text('about', $species_short);
   $about_text .= $alt_string if $alt_count > 0;
   #if ($about_text) {
-    $html .= '<div class="column-wrapper"><div class="round-box tinted-box">'; 
+    $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
     $html .= $about_text;
     $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
     $html .= '</div></div>';
@@ -225,28 +225,28 @@ sub content {
   
 
   push(@sections, $self->_assembly_text);
-# $html .= '<div class="box-left"><div class="round-box tinted-box unbordered">' . $self->_assembly_text . '</div></div>';
+# $html .= '<div class="box-left"><div class="round-box home-box unbordered">' . $self->_assembly_text . '</div></div>';
   push(@sections, $self->_genebuild_text) if $species_defs->SAMPLE_DATA->{GENE_PARAM};
- #$html .= '<div class="box-right"><div class="round-box tinted-box unbordered">' . $self->_genebuild_text . '</div></div>' if $species_defs->SAMPLE_DATA->{GENE_PARAM};
+ #$html .= '<div class="box-right"><div class="round-box home-box unbordered">' . $self->_genebuild_text . '</div></div>' if $species_defs->SAMPLE_DATA->{GENE_PARAM};
 
 # my @box_class = ('box-left', 'box-right');
 # my $side = 0;
   
   if ($self->has_compara or $self->has_pan_compara) {
     push(@sections, $self->_compara_text);
- #  $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box tinted-box unbordered">' . $self->_compara_text . '</div></div>';
+ #  $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $self->_compara_text . '</div></div>';
  #  $side++;
   }
 
   if ($hub->database('variation')) {
     push(@sections, $self->_variation_text);
   }
- #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box tinted-box unbordered">' . $self->_variation_text . '</div></div>';
+ #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $self->_variation_text . '</div></div>';
  #$side++;
 
   if ($hub->database('funcgen')) {
     push(@sections, $self->_funcgen_text);
-  # $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box tinted-box unbordered">' . $self->_funcgen_text . '</div></div>';
+  # $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $self->_funcgen_text . '</div></div>';
   # $side++;
   }
 
@@ -254,17 +254,17 @@ sub content {
 
   my $other_text = $self->_other_text('other', $species);
   push(@sections, $other_text) if $other_text =~ /\w/;
- #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box tinted-box unbordered">' . $other_text . '</div></div>' if $other_text =~ /\w/;
+ #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $other_text . '</div></div>' if $other_text =~ /\w/;
   
   my @box_class = ('box-left', 'box-right');
   my $side = 0;
   for my $section (@sections){
-    $html .= sprintf(qq{<div class="%s"><div class="round-box tinted-box">%s</div></div>}, $box_class[$side++ %2],$section);
+    $html .= sprintf(qq{<div class="%s"><div class="round-box home-box">%s</div></div>}, $box_class[$side++ %2],$section);
   }
     
 
   my $ext_source_html = $self->external_sources;
-  $html .= '<div class="column-wrapper"><div class="round-box tinted-box unbordered">' . $ext_source_html . '</div></div>' if $ext_source_html;
+  $html .= '<div class="column-wrapper"><div class="round-box home-box unbordered">' . $ext_source_html . '</div></div>' if $ext_source_html;
 
   return $html;
 }

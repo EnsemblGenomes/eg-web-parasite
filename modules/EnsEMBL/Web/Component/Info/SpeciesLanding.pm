@@ -76,7 +76,7 @@ sub content {
   
   my $about_text = $self->_other_text('about', $species);
   #if ($about_text) {
-    $html .= '<div class="column-wrapper"><div class="round-box tinted-box">'; 
+    $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
     $html .= $about_text;
     $html .= '</div>';
   #}
@@ -105,7 +105,7 @@ sub content {
   push(@sections, $project_overview);
 
   for my $section (@sections){
-    $html .= sprintf(qq{<div class="round-box tinted-box">%s</div>}, $section);
+    $html .= sprintf(qq{<div class="round-box home-box">%s</div>}, $section);
   }
   
   $html .= '</div>';

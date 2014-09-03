@@ -133,7 +133,7 @@ sub render {
 
   my %groups = map {$species{$_}->{group} => 1} keys %species;
   
-  $html .= qq{<div class="round-box tinted-box clear"><h2>Contents</h2><p>};
+  $html .= qq{<div class="round-box home-box clear"><h2>Contents</h2><p>};
   foreach my $gr (@groups) {
 		$html .= qq{<a href="#$gr">$gr</a><br />};
   }
@@ -142,7 +142,7 @@ sub render {
   foreach my $gr (@groups) {  # (sort keys %groups) {
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
 
-      $html .= qq{<div class="round-box tinted-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
+      $html .= qq{<div class="round-box home-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
                  
       my $total = scalar(@species);
       
