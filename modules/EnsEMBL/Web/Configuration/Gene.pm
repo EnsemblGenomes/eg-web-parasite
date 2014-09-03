@@ -93,17 +93,17 @@ sub modify_tree {
 
 
   # Graphical gene alignment:
-  my $compara_align = $self->get_node('Compara_Alignments');
-  $compara_align->set('caption', 'Genomic alignments (text)');
-  my $compara_align_image = $self->create_node('Compara_Alignments/Image', 'Genomic alignments (image)',
-    [qw(
-      selector EnsEMBL::Web::Component::Compara_AlignSliceSelector
-      bottom   EnsEMBL::Web::Component::Gene::Compara_AlignSliceBottom
-    )],
-    { 'availability' => 'gene database:compara core has_alignments' }
-  );
-  $compara_menu->append($compara_align_image);
-  $compara_align->before($compara_align_image);
+  #my $compara_align = $self->get_node('Compara_Alignments');
+  #$compara_align->set('caption', 'Genomic alignments (text)');
+  #my $compara_align_image = $self->create_node('Compara_Alignments/Image', 'Genomic alignments (image)',
+  #  [qw(
+  #    selector EnsEMBL::Web::Component::Compara_AlignSliceSelector
+  #    bottom   EnsEMBL::Web::Component::Gene::Compara_AlignSliceBottom
+  #  )],
+  #  { 'availability' => 'gene database:compara core has_alignments' }
+  #);
+  #$compara_menu->append($compara_align_image);
+  #$compara_align->before($compara_align_image);
   #
 
 
@@ -293,6 +293,21 @@ sub modify_tree {
      }
   }
   $compara_menu->before( $go_menu );
+  
+  $self->delete_node('TranscriptComparison');
+  $self->delete_node('Evidence');
+  $self->delete_node('SecondaryStructure');
+  $self->delete_node('Regulation');
+  $self->delete_node('Expression');
+  $self->delete_node('Compara_Alignments');
+  $self->delete_node('SpeciesTree');
+  $self->delete_node('Variation');
+  $self->delete_node('StructuralVariation_Gene');
+  $self->delete_node('ExternalData');
+  $self->delete_node('UserAnnotation');
+  $self->delete_node('History');
+  $self->delete_node('Idhistory');
+  
 }
 
 1;
