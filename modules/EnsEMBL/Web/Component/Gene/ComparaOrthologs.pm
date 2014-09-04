@@ -1,5 +1,7 @@
 package EnsEMBL::Web::Component::Gene::ComparaOrthologs;
 
+use Data::Dumper;
+
 sub _species_sets {
 ## Group species into sets - separate method so it can be pluggable easily
   my ($self, $orthologue_list, $skipped) = @_;
@@ -182,14 +184,31 @@ sub content {
       # (2) information about %ids
       # (3) links to multi-contigview and align view
       (my $spp = $orthologue->{'spp'}) =~ tr/ /_/;
-      my $link_url = $hub->url({
-        species => $spp,
-        action  => 'Summary',
-        g       => $stable_id,
-        __clear => 1
-      });
+      
+      # PARASITE
+      # Check if we need to form an external link
+      my $link_url; my $location_link;
+      if(grep(/$domain/, keys %$species_sets) || $domain eq $species_defs->GENOMIC_UNIT) {
+      	$link_url = $hub->url({
+          species => $spp,
+          action  => 'Summary',
+          g       => $stable_id,
+          __clear => 1
+        });
+        $location_link = $hub->url({
+          species => $spp,
+          type    => 'Location',
+          action  => 'View',
+          r       => $orthologue->{'location'},
+          g       => $stable_id,
+          __clear => 1
+        });
+      } else {
+	      $link_url  = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id});
+   	      $location_link = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$orthologue->{'location'}});
+      }
+      # PARASITE
 
-      # Check the target species are on the same portal - otherwise the multispecies link does not make sense
       my $target_links = ($link_url =~ /^\// 
         && $cdb eq 'compara'
         && $availability->{'has_pairwise_alignments'}
@@ -254,16 +273,6 @@ sub content {
       }
 
       my $id_info = qq{<p class="space-below"><a href="$link_url">$stable_id</a></p>} . join '<br />', @external;
-
-      ## (Column 6) Location - split into elements to reduce horizonal space
-      my $location_link = $hub->url({
-        species => $spp,
-        type    => 'Location',
-        action  => 'View',
-        r       => $orthologue->{'location'},
-        g       => $stable_id,
-        __clear => 1
-      });
       
       my $table_details = {
         'Species'   => $splink,
