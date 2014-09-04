@@ -149,7 +149,7 @@ sub content {
     { key => 'Species',    align => 'left', width => '10%', sort => 'html'                                                },
     { key => 'Type',       align => 'left', width => '5%',  sort => 'string'                                              },
     { key => 'dN/dS',      align => 'left', width => '5%',  sort => 'numeric'                                             },
-    { key => 'identifier', align => 'left', width => '15%', sort => 'html', title => $self->html_format ? 'Ensembl identifier &amp; gene name' : 'Ensembl identifier'},    
+    { key => 'identifier', align => 'left', width => '15%', sort => 'html', title => $self->html_format ? 'Stable ID &amp; gene name' : 'Stable ID'},    
     { key => $column_name, align => 'left', width => '10%', sort => 'none'                                                },
     { key => 'Location',   align => 'left', width => '20%', sort => 'position_html'                                       },
     { key => 'Target %id', align => 'left', width => '5%',  sort => 'numeric'                                             },
@@ -247,8 +247,8 @@ sub content {
       
       if ($orthologue->{'display_id'}) {
         if ($orthologue->{'display_id'} eq 'Novel Ensembl prediction' && $description eq 'No description') {
-          @external = ('<span class="small">-</span>');
-        } else {
+          @external = ('<span class="small"></span>');
+        } elsif ($orthologue->{'display_id'} ne 'Novel Ensembl prediction') {
           unshift @external, $orthologue->{'display_id'};
         }
       }
