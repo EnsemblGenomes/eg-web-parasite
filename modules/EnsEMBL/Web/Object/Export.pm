@@ -54,7 +54,7 @@ sub fasta {
     foreach (@$trans_objects) {
       my $transcript = $_->Obj;
       my $id         = ($object_id ? "$object_id:" : '') . $transcript->stable_id;
-      my $type       = $transcript->isa('Bio::EnsEMBL::PredictionTranscript') ? $transcript->analysis->logic_name : $transcript->status . '_' . $transcript->biotype;
+      my $type       = $transcript->biotype;
       
       $intron_id = 1;
       
