@@ -20,16 +20,6 @@ package EnsEMBL::Web::Component::Gene::ComparaParalogs;
 
 use strict;
 
-use HTML::Entities qw(encode_entities);
-
-use base qw(EnsEMBL::Web::Component::Gene);
-
-sub _init {
-  my $self = shift;
-  $self->cacheable(1);
-  $self->ajaxable(1);
-}
-
 sub content {
   my $self           = shift;
   my $hub            = $self->hub;
@@ -45,7 +35,7 @@ sub content {
   my $columns = [
     { key => 'Type',                align => 'left', width => '10%', sort => 'html'          },
     { key => 'Ancestral taxonomy',  align => 'left', width => '10%', sort => 'html'          },
-    { key => 'identifier',          align => 'left', width => '15%', sort => 'html', title => $self->html_format ? 'Ensembl identifier &amp; gene name' : 'Ensembl identifier'},    
+    { key => 'identifier',          align => 'left', width => '15%', sort => 'html', title => $self->html_format ? 'Stable ID &amp; gene name' : 'Stable ID'},    
     { key => 'Compare',             align => 'left', width => '10%', sort => 'none'          },
     { key => 'Location',            align => 'left', width => '20%', sort => 'position_html' },
     { key => 'Target %id',          align => 'left', width => '5%',  sort => 'numeric'       },
@@ -67,7 +57,13 @@ sub content {
       }
       
       my @external = (qq{<span class="small">$description</span>});
-      unshift @external, $paralogue->{'display_id'} if $paralogue->{'display_id'};
+      if ($paralogue->{'display_id'}) {
+        if ($paralogue->{'display_id'} eq 'Novel Ensembl prediction' && $description eq 'No description') {
+          @external = ('<span class="small"></span>');
+        } elsif ($paralogue->{'display_id'} ne 'Novel Ensembl prediction') {
+          unshift @external, $paralogue->{'display_id'};
+        }
+      }
       my $paralogue_desc              = $paralogue_map{$paralogue->{'homology_desc'}} || $paralogue->{'homology_desc'};
       my $paralogue_subtype           = $paralogue->{'homology_subtype'}              || '&nbsp;';
       my $paralogue_dnds_ratio        = $paralogue->{'homology_dnds_ratio'}           || '&nbsp;';
