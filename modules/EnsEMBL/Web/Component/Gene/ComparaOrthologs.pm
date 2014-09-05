@@ -166,7 +166,8 @@ sub content {
   foreach my $species (sort { ($a =~ /^<.*?>(.+)/ ? $1 : $a) cmp ($b =~ /^<.*?>(.+)/ ? $1 : $b) } keys %orthologue_list) {
     next if $skipped{$species};
     my $domain  = $spsites->{lc($species)};
-    my $splink  = $hub->get_ExtURL_link($species_defs->species_label($species), uc $domain, {'SPECIES'=>$species});
+    my $display = $species_defs->species_label($species);
+    my $splink  = $domain ne $species_defs->GENOMIC_UNIT ? $hub->get_ExtURL_link($display, uc $domain, {'SPECIES'=>$species}) : "<a href=\"/$species\">$display</a>";
     
     foreach my $stable_id (sort keys %{$orthologue_list{$species}}) {
       my $orthologue = $orthologue_list{$species}{$stable_id};
