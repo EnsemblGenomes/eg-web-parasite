@@ -48,7 +48,7 @@ sub send_help_contact_email {
 
   $self->to       = $sd->ENSEMBL_HELPDESK_EMAIL;
   $self->from     = $hub->param('address');
-  $self->subject  = 'USER EMAIL: ' . ($hub->param('subject') || '(no subject)');
+  $self->subject  = $hub->param('subject') || '(no subject)';
   $self->message  = sprintf "Support question from %s\n\n%s\n\nComments:\n\n%s",
     $sd->ENSEMBL_SERVERNAME,
     $self->report_header([ 'Last Search', $hub->param('string')||'-none-' ]),
