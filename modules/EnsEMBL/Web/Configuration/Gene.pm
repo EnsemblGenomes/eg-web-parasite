@@ -128,7 +128,7 @@ sub modify_tree {
 
   $var_menu->append($variation_image);
 
-  my $cdb_name = $self->hub->species_defs->COMPARA_DB_NAME || 'Comparative Genomics';
+  my $cdb_name = 'Comparative Genomics';
 
   $compara_menu->set('caption', $cdb_name);
   
@@ -307,6 +307,7 @@ sub modify_tree {
   $self->delete_node('UserAnnotation');
   $self->delete_node('History');
   $self->delete_node('Idhistory');
+  $self->delete_node('Phenotype');
   
 }
 
