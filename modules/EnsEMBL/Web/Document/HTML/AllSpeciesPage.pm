@@ -54,7 +54,7 @@ sub render {
       
       # Note the classes and ids which are used by the jQuery to show (i.e. expand) these divs
   	  $html .= qq(<div class="expanding-parent" id="parent-$group">);
-  	  $html .= qq(<div class="expanding-header" id="header-$group"><span id="key-plus-$group" style="display: none">[+]</span><span id="key-minus-$group">[-]</span>&nbsp;$display</div>);
+  	  $html .= qq(<div class="expanding-header" id="header-$group"><span id="key-plus-$group">[+]</span><span id="key-minus-$group" style="display: none">[-]</span>&nbsp;$display</div>);
   	  $html .= qq(<div class="expanding-area" id="expand-$group">);
   	  
   	  # Check for the presence of any sub-groups
@@ -68,7 +68,7 @@ sub render {
 		      my $display = defined($species_defs->TAXON_COMMON_NAME->{$subgroup}) ? $species_defs->TAXON_COMMON_NAME->{$subgroup} : $subgroup;
 			  $html .= qq(<div class="expanding-parent" id="parent-$subgroup">);
 			  $html .= qq(<div class="expanding-header" id="header-$subgroup"><span id="key-plus-$subgroup">[+]</span><span id="key-minus-$subgroup" style="display: none">[-]</span>&nbsp;$display</div>);
-			  $html .= qq(<div class="expanding-area" id="expand-$subgroup" style="display: none">);
+			  $html .= qq(<div class="expanding-area" id="expand-$subgroup">);
 		  }
 		  
 		  # Group the genome projects by species name
