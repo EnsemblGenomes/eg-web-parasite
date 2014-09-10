@@ -27,9 +27,9 @@ sub search_options {
 
   return [
     ($_[0]->hub->species and $_[0]->hub->species !~ /^(common|multi)$/i) ? (
-    'ensemblthis'     => { 'label' => 'Search ' . $_[0]->species_defs->SPECIES_COMMON_NAME, 'icon' => 'search/ensembl.gif'          }) : (),
-    'ensemblunit'     => { 'label' => "Search $sitename",                                   'icon' => 'search/ensemblunit.gif'      },
-    'wormbase'        => { 'label' => 'Search WormBase',                                    'icon' => 'search/ensemblunit.gif'      },
+    'ensemblthis'     => { 'label' => 'Search ' . $_[0]->species_defs->SPECIES_COMMON_NAME, 'icon' => 'search/wormbase.png'          }) : (),
+    'ensemblunit'     => { 'label' => "Search $sitename",                                   'icon' => 'search/wormbase.png'      },
+    'wormbase'        => { 'label' => 'Search WormBase',                                    'icon' => 'search/wormbase.png'      },
   ];
 }
 
