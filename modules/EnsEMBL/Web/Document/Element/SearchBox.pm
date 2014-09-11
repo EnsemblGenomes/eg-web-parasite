@@ -37,41 +37,23 @@ sub content {
   my $self            = shift;
   my $img_url         = $self->img_url;
   my $species         = $self->species;
+  my $species_common  = $self->species_defs->SPECIES_COMMON_NAME;
   my $search_url      = sprintf '%s%s/psychic', $self->home_url, $species || 'Multi';
   my $options         = $self->search_options;
-  my %options_hash    = @$options;
-  my $search_code     = lc $self->default_search_code;
-     $search_code     = $options->[0] unless exists $options_hash{$search_code};
-  my $search_options  = join '', map {
-    if ($_ % 2 == 0) {
-      my $code    = $options->[$_];
-      my $details = $options->[$_ + 1];
-      qq(<div class="$code"><img src="${img_url}$details->{'icon'}" alt="$details->{'label'}"/>$details->{'label'}<input type="hidden" value="$details->{'label'}&hellip;" /></div>\n);
-    }
-  } 0..scalar @$options - 1;
+  my $search_options  = qq(<input type="hidden" name="site" value="ensemblunit" />);
+  my $species_dropdown = qq(<select name="site"><option value="ensemblunit">All species</option><option value="ensemblthis" selected="selected">%s</option></select>);
 
   return qq(
     <div id="searchPanel" class="js_panel">
       <input type="hidden" class="panel_type" value="SearchBox" />
       <form action="$search_url">
         <div class="search print_hide">
-          <div class="sites button">
-            <img class="search_image" src="${img_url}$options_hash{$search_code}{'icon'}" alt="" />
-            <img src="${img_url}search/down.gif" style="width:7px" alt="" />
-            <input type="hidden" name="site" value="$search_code" />
-          </div>
-          <div>
             <label class="hidden" for="se_q">Search terms</label>
-            <input class="query inactive" id="se_q" type="text" name="q" value="$options_hash{$search_code}{'label'}&hellip;" data-role="none" />
-          </div>
-          <div class="button"><input type="image" src="${img_url}16/search.png" alt="Search&nbsp;&raquo;" /></div>
-        </div>
-        <div class="site_menu hidden">
-          $search_options
+            <input class="query" id="se_q" type="text" name="q" data-role="none" placeholder="Search WormBase ParaSite..." />
+            <input type="submit" value="1" />
         </div>
       </form>
     </div>
-    <a href="/Multi/Search/New"><img src="/i/32/rev/search.png" title="Search this site" class="mobile-search mobile-only" /></a>
   );
 }
 
