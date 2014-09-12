@@ -98,8 +98,8 @@ sub content {
       ) : '';
       
       my ($target, $query);
-      
-      if ($paralogue_desc ne 'DWGA') {          
+
+      if ($paralogue_desc ne 'DWGA' && $paralogue_desc ne 'other paralogue (within species)') {          
         my $align_url = $hub->url({
             action   => 'Compara_Paralog', 
             function => "Alignment". ($cdb=~/pan/ ? '_pan_compara' : ''),, 
