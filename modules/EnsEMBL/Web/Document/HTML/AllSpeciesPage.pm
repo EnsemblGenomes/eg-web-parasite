@@ -45,7 +45,7 @@ sub render {
   }
   
   my $html = qq(<div class="column-wrapper">);
-  $html .= qq{<div class="round-box home-box clear scroll-box species-box js_panel"><input type="hidden" class="panel_type" value="SpeciesExpander" /><h2>Find a species</h2>};
+  $html .= qq{<div class="round-box home-box clear scroll-box species-box js_panel"><input type="hidden" class="panel_type" value="SpeciesExpander" /><h2 data-functional-icon="1">Find a genome</h2>};
   
   # Loop through each group
   foreach my $group (@group_order) {

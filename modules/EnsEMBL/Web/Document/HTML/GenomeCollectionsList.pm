@@ -29,12 +29,9 @@ sub render {
         <input type="hidden" class="panel_type" value="SpeciesList" />
         <form id="species_autocomplete_form" action="/info/about/species.html" style="margin-bottom:5px" method="get">
           <div>
-           <input name="search" type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:95\%; margin: 0" placeholder="Start typing the name of a genome...">
+           <input name="search" type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:250px; margin: 0" placeholder="Start typing the name of a species...">
           </div>
         </form>
-        <p style="margin-bottom:0">
-          e.g. type <b>bru</b> to find Brugia
-        </p>
       </div>
   };
 }

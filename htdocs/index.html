@@ -3,39 +3,39 @@
 		<title>[[SPECIESDEFS::SITE_NAME]]</title>           
 	</head>
 	<body>
-	<div class="column-wrapper">
+	
+		<div class="column-wrapper">
 			<div class="column-two">
 				<div class="column-padding no-left-margin">
-					<div class="round-box home-box no-top-margin search-box">
-						<h2>Search for a gene</h2>
-						[[SCRIPT::EnsEMBL::Web::Document::HTML::HomeSearch]]
+					<div class="round-box home-box no-top-margin top-homepage-panel">
+						[[INCLUDE::/ssi/welcome.inc]]
+					</div>
+				</div>
+				<div class="column-padding no-left-margin">
+					<div style="position:relative">
+						[[SCRIPT::EnsEMBL::Web::Document::HTML::AllSpeciesPage]]
+						<div style="position:absolute;top:10px;right:10px">
+							[[SCRIPT::EnsEMBL::Web::Document::HTML::GenomeCollectionsList]]
+						</div>
+					</div>
+				</div>
+				<div class="column-padding no-left-margin">
+					<div class="round-box home-box no-top-margin">
+						[[INCLUDE::/ssi/contact.inc]]
 					</div>
 				</div>
 			</div>
 			<div class="column-two">
-				<div class="no-left-margin">
-					<div class="round-box home-box no-top-margin search-box">
-						<h2>Search for a genome</h2>
-						[[SCRIPT::EnsEMBL::Web::Document::HTML::GenomeCollectionsList]]
+				<div class="column-padding no-left-margin">
+					<div class="round-box home-box no-top-margin top-homepage-panel">
+						[[INCLUDE::/ssi/whatsnew.inc]]
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="column-wrapper">
-			<div class="column-padding no-left-margin no-right-margin">
-				[[SCRIPT::EnsEMBL::Web::Document::HTML::AllSpeciesPage]]
-				<p>
-
-				</p>
-			</div>
-		</div>
-		<div class="column-wrapper">
-			<div class="column-padding no-left-margin no-right-margin">
 				<div class="round-box home-box no-top-margin">
-					<h2>About WormBase ParaSite</h2>
 					[[INCLUDE::/ssi/credits.inc]]
 				</div>
 			</div>
 		</div>
+		
 	</body>
 </html>
