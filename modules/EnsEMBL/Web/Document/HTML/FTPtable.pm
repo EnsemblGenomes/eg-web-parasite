@@ -77,27 +77,21 @@ sub render {
 
     my $genomic_unit = $species_defs->get_config($spp, 'GENOMIC_UNIT');
     my $collection;
-    my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/release-$rel";
-    my @mysql;
-    foreach my $db( qw/core otherfeatures funcgen variation/){
-      my $db_config =  $species_defs->get_config($spp, 'databases')->{'DATABASE_' . uc($db)};
-      if($db_config){
-        my $title = sprintf($title{$db}, $sp_name);
-        my $db_name = $db_config->{NAME};
-        push(@mysql, qq{<a rel="external" title="$title" href="$ftp_base_path_stub/mysql/$db_name">MySQL($db)</a>});
-      }
-    }
+    my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS$rel";
        
     my $bioproject = uc((split('_', $spp))[2]);
+    my $species_lower = lc(join('_',(split('_', $spp))[0..1]));
 
     my $data = {
-species    => qq{<em>$scientific</em>},
-bioproject => qq{$bioproject},
-dna        => qq{<a rel="external"  title="$title{'dna'}" href="$ftp_base_path_stub/fasta/$sp_dir/dna/">FASTA</a> (DNA)},
-cdna       => qq{<a rel="external"  title="$title{'cdna'}" href="$ftp_base_path_stub/fasta/$sp_dir/cdna/">FASTA</a> (cDNA)},
-prot       => qq{<a rel="external"  title="$title{'prot'}" href="$ftp_base_path_stub/fasta/$sp_dir/pep/">FASTA</a> (protein)},
-gtf        => qq{<a rel="external"  title="$title{'gtf'}" href="$ftp_base_path_stub/gtf/$sp_dir">GTF</a>},
-gff3       => qq{<a rel="external"  title="$title{'gff3'}" href="$ftp_base_path_stub/gff3/$sp_dir">GFF3</a>},
+		species            => qq{<em>$scientific</em>},
+		bioproject         => qq{$bioproject},
+		genomic            => qq{<a rel="external"  title="$title{'genomic'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz">FASTA</a>},
+		genomic_masked     => qq{<a rel="external"  title="$title{'genomic_masked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
+		genomic_softmasked => qq{<a rel="external"  title="$title{'genomic_softmasked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
+		annotations        => qq{<a rel="external"  title="$title{'annotations'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a>},
+		proteins           => qq{<a rel="external"  title="$title{'proteins'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.proteins.fa.gz">FASTA</a>},
+		mRNA_transcripts   => qq{<a rel="external"  title="$title{'mRNA_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
+		CDS_transcripts    => qq{<a rel="external"  title="$title{'CDS_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
     };
     push(@rows, $data);
   }
@@ -108,11 +102,13 @@ gff3       => qq{<a rel="external"  title="$title{'gff3'}" href="$ftp_base_path_
     [
       {key=>'species',    sort=>'html', title=>'Species'},
       {key=>'bioproject', sort=>'html', title=>'BioProject'},
-      {key => 'dna',      sort=>'none', title => 'DNA'},    
-      {key => 'cdna',     sort=>'none', title => 'cDNA'},   
-      {key => 'prot',     sort=>'none', title => 'Protein'},    
-      {key => 'gtf',      sort=>'none', title => 'GTF'},    
-      {key => 'gff3',     sort=>'none', title => 'GFF3'},   
+      {key => 'genomic',      sort=>'none', title => 'Genomic'},    
+      {key => 'genomic_masked',     sort=>'none', title => 'Masked Genomic'},   
+      {key => 'genomic_softmasked',     sort=>'none', title => 'Soft-masked Genomic'},   
+      {key => 'annotations',     sort=>'none', title => 'Annotations'},    
+      {key => 'proteins',      sort=>'none', title => 'Proteins'},    
+      {key => 'mRNA_transcripts',     sort=>'none', title => 'Full-length Transcripts'},   
+      {key => 'CDS_transcripts',     sort=>'none', title => 'CDS Transcripts'},   
     ],
     \@rows,
     { data_table=>1, exportable=>0 }

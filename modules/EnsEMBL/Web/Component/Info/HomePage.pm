@@ -342,14 +342,12 @@ sub _assembly_text {
 
   # Link to FTP site
   if ($species_defs->ENSEMBL_FTP_URL) {
-    my $ftp_url;
-    if ($self->is_bacteria) {
-      $ftp_url = sprintf '%s/release-%s/fasta/%s_collection/%s/dna/', $species_defs->ENSEMBL_FTP_URL, $ensembl_version, $species_defs->SPECIES_DATASET, lc $species;
-    }
-    else {
-      $ftp_url = sprintf '%s/release-%s/fasta/%s/dna/', $species_defs->ENSEMBL_FTP_URL, $ensembl_version, lc $species;
-    }
-    $html .= qq(<p><a href="$ftp_url" class="nodeco"><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download DNA sequence</a> (FASTA)</p>);
+    my $bioproject = uc((split('_', $species))[2]);
+    my $species_lower = lc(join('_',(split('_', $species))[0..1]));
+    my $version = $species_defs->SITE_RELEASE_VERSION;
+    my $FTP_base = $species_defs->ENSEMBL_FTP_URL;
+    my $FTP_url = "$FTP_base/releases/WBPS$version/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$version.genomic.fa.gz";
+    $html .= qq(<p><a href="$FTP_url" class="nodeco"><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download DNA sequence</a> (FASTA)</p>);
   }
   
   # Link to assembly mapper
@@ -428,9 +426,12 @@ sub _genebuild_text {
   $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
 
   if ($species_defs->ENSEMBL_FTP_URL) {
-    my $fasta_url = $hub->get_ExtURL('SPECIES_FTP_URL',{GENOMIC_UNIT=>$species_defs->GENOMIC_UNIT,VERSION=>$ensembl_version, FORMAT=>'fasta', SPECIES=> $self->is_bacteria ? $species_defs->SPECIES_DATASET . "_collection/" . lc $species : lc $species},{class=>'nodeco'});
-    my $gff3_url  = $hub->get_ExtURL('SPECIES_FTP_URL',{GENOMIC_UNIT=>$species_defs->GENOMIC_UNIT,VERSION=>$ensembl_version, FORMAT=>'gff3', SPECIES=> $self->is_bacteria ? $species_defs->SPECIES_DATASET . "_collection/" . lc $species : lc $species},{class=>'nodeco'});
-    $html .= qq[<p><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download genes, cDNAs, ncRNA, proteins - <span class="center"><a href="$fasta_url" class="nodeco">FASTA</a> - <a href="$gff3_url" class="nodeco">GFF3</a></span></p>];
+    my $bioproject = uc((split('_', $species))[2]);
+    my $species_lower = lc(join('_',(split('_', $species))[0..1]));
+    my $version = $species_defs->SITE_RELEASE_VERSION;
+    my $FTP_base = $species_defs->ENSEMBL_FTP_URL;
+    my $FTP_url = "$FTP_base/releases/WBPS$version/species/$species_lower/$bioproject/";
+    $html .= qq[<p><img src="${img_url}24/download.png" alt="" class="homepage-link" /><a href="$FTP_url" class="nodeco">Download genes, transcripts, proteins and annotations</a></span></p>];
   }
   
   my $im_url = $hub->url({'type' => 'UserData', 'action' => 'UploadStableIDs'});
