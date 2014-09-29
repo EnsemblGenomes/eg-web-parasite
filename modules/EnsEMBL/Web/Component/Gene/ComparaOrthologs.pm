@@ -39,7 +39,7 @@ sub _species_sets {
       }
     }
     elsif (!$is_pan){ # not the pan compara page - generate groups
-      $group = $species_defs->get_config($species, 'SPECIES_GROUP') || 'all';
+      $group = $species_defs->COMPARA_SPECIES_SET->{lc($species)} || $species_defs->get_config($species, 'SPECIES_GROUP') || 'all';
       if(!exists $species_sets->{$group}){
         $species_sets->{$group} = {'title'=>ucfirst $group,'species'=>[]};
         push(@$set_order,$group);
