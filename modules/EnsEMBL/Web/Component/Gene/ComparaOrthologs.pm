@@ -301,14 +301,14 @@ sub content {
       '<a href="%s">View protein alignments of all orthologues</a>', 
       $hub->url({ action => 'Compara_Ortholog', function => 'Alignment' . ($cdb =~ /pan/ ? '_pan_compara' : ''), })   
     );
-    $html .= sprintf(
-      ' &nbsp;|&nbsp; <a href="%s" target="_blank">Download all protein sequences</a>', 
-      $hub->url({ action => 'Compara_Ortholog', function => 'PepSequence', _format => 'Text' }) 
-    ) if $cdb !~ /pan/;
-    $html .= sprintf(
-      ' &nbsp;|&nbsp; <a href="%s" target="_blank">Download all DNA sequences</a>', 
-      $hub->url({ action => 'Compara_Ortholog', function => 'PepSequence', _format => 'Text', seq => 'cds' }) 
-    ) if $cdb !~ /pan/;
+    #$html .= sprintf(
+    #  ' &nbsp;|&nbsp; <a href="%s" target="_blank">Download all protein sequences</a>', 
+    #  $hub->url({ action => 'Compara_Ortholog', function => 'PepSequence', _format => 'Text' }) 
+    #) if $cdb !~ /pan/;
+    #$html .= sprintf(
+    #  ' &nbsp;|&nbsp; <a href="%s" target="_blank">Download all DNA sequences</a>', 
+    #  $hub->url({ action => 'Compara_Ortholog', function => 'PepSequence', _format => 'Text', seq => 'cds' }) 
+    #) if $cdb !~ /pan/;
     $html .= '</p>';
    }
 ##  
