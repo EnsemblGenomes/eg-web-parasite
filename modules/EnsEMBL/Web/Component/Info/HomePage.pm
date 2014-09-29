@@ -338,6 +338,8 @@ sub _assembly_text {
   $html .= "<h2>Genome assembly: $assembly</h2>";
   $html .= "<p>$assembly_description</p>";
 
+  $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
+
   # Link to FTP site
   if ($species_defs->ENSEMBL_FTP_URL) {
     my $ftp_url;
@@ -422,6 +424,8 @@ sub _genebuild_text {
   $html .= '</div>'; #homepage-icon
 
   $html .= "<h2>Gene annotation</h2><p>$annotation_description</p><p><strong>What can I find?</strong> Protein-coding and non-coding genes, splice variants, cDNA and protein sequences, non-coding RNAs.</p>";
+
+  $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
 
   if ($species_defs->ENSEMBL_FTP_URL) {
     my $fasta_url = $hub->get_ExtURL('SPECIES_FTP_URL',{GENOMIC_UNIT=>$species_defs->GENOMIC_UNIT,VERSION=>$ensembl_version, FORMAT=>'fasta', SPECIES=> $self->is_bacteria ? $species_defs->SPECIES_DATASET . "_collection/" . lc $species : lc $species},{class=>'nodeco'});
