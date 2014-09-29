@@ -175,7 +175,7 @@ sub content {
 
   my @species_parts = split('_', $species);
   my $bioproject = uc($species_parts[2]);
-  $html .= qq(<h1><em>$display_name</em></h1><h3>$bioproject</h3>);
+  $html .= qq(<h1><em>$display_name</em></h1><h3><a href="http://www.ncbi.nlm.nih.gov/bioproject/$bioproject">$bioproject</a></h3>);
 
   $html .= '<p class="taxon-id">';
   $html .= 'Data Source ' . $provider_link if $provider_link;
