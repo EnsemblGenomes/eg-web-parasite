@@ -61,13 +61,9 @@ sub _species_sets {
     push (@$sets, $group) if(exists $species_sets->{$group});
     $sets_by_species->{$species} = $sets;
   }
-
-  if(!$is_pan) {
-    my @unorder = @$set_order;
-    @$set_order = sort(@unorder);
-    unshift(@$set_order, 'all');
-  }
-
+  
+  $set_order = $species_defs->COMPARA_ORDER;
+  
   return ($species_sets, $sets_by_species, $set_order, $categories);
 }
 
@@ -128,13 +124,17 @@ sub content {
       my $set_info = $species_sets->{$set};
       
       my $row_data = {};
-      $row_data->{'set'} = "<strong>$set_info->{'title'}</strong><br />$set_info->{'desc'}";
+      my $title = $species_defs->COMPARA_DISPLAY_NAME->{lc($set_info->{'title'})} || $set_info->{'title'};
+      $row_data->{'set'} = "<strong>$title</strong><br />$set_info->{'desc'}";
       if(@{$set_info->{'species'}} && $set_info->{'title'} ne 'All'){
         $row_data->{'show'} =  qq{<input type="checkbox" class="table_filter" title="Check to show these species in table below" name="orthologues" value="$set" />};
       }
+      my $skip = 1;
       foreach my $orth_desc (%$categories){
         $row_data->{$orth_desc} = $set_info->{$orth_desc} || 0;
+        $skip = 0 if $row_data->{$orth_desc} > 0;
       }
+      next if $skip == 1;
       push @rows, $row_data;
     }
     
