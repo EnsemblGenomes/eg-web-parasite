@@ -189,8 +189,10 @@ Ensembl.Panel.ZMenu = Ensembl.Panel.extend({
   populateAjax: function (url, expand) {
     var timeout = this.timeout;
         url     = url || this.href;
-    
-    if (url && url.match('/ZMenu/')) {
+
+    if(url && url.match('www.wormbase.org')) {
+      this.populateNoAjax();
+    } else if (url && url.match('/ZMenu/')) {
       $.extend($.ajax({
         url:      url,
         data:     this.coords.clickStart ? { click_chr: this.coords.clickChr || Ensembl.location.name, click_start: this.coords.clickStart, click_end: this.coords.clickEnd } : {},
@@ -211,7 +213,7 @@ Ensembl.Panel.ZMenu = Ensembl.Panel.extend({
     
     if (jqXHR.timeout !== this.timeout) {
       return;
-    } else if (length === 0) {
+    } else if (length === 0 || typeof(length) === 'undefined') {
       return this.populateNoAjax();
     }
     
