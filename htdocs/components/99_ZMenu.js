@@ -2,17 +2,15 @@ Ensembl.Panel.ZMenu = Ensembl.Panel.ZMenu.extend({
   populateAjax: function (url, expand) {
     url = url || this.href
     this.crossOrigin = url && url.match(/^http/) ? url.split('/').slice(0,3).join('/') : false;
-
     if (url && window.location.pathname.match(/\/Gene\/Variation_Gene/) && !url.match(/\/ZMenu\//)) {
       url = url.replace(/\/(\w+\/\w+)\?/, '/ZMenu/$1?');
     }
-
     this.base(url, expand);
   },
 
   buildMenuAjax: function () {
     var domain = this.crossOrigin;
-     
+   
     this.base.apply(this, arguments);
     
     if (domain) {
@@ -25,16 +23,20 @@ Ensembl.Panel.ZMenu = Ensembl.Panel.ZMenu.extend({
     if (this.href && this.href.match(/http/)) {
       var domain = this.href.split('/')[2].split('.');
       var title;
-      
-      if (domain[0].match(/www/)) {
-        // URL starts with www it is ensembl, gramene or ensemblgenomes
-        title = domain[1].substr(0, 1).toUpperCase() + domain[1].substr(1, domain[1].length);
+      var url = this.href.replace(/ZMenu\//, '');      
+
+      if (this.href.match(/www\.ensembl\.org/)) {
+        title = 'Ensembl';
+        url = url.replace('ComparaTree', 'Compara_Tree'); // New version of Ensembl adds in an underscore that is not present in E75
       } else if (this.href.match(/\.ensembl\./)) {
         var site = domain.length > 3 ? domain[1] : domain[0];
-        title = 'Ensembl' + site.substr(0, 1).toUpperCase() + site.substr(1, site.length);
+        title = 'Ensembl ' + site.substr(0, 1).toUpperCase() + site.substr(1, site.length);
+        url = url.replace('ComparaTree', 'Compara_Tree'); // New version of Ensembl adds in an underscore that is not present in E75
+      } else if (this.href.match(/\.wormbase\./)) {
+        title = 'WormBase';
       }
       
-      this.populate(false, '<tr><td colspan="2"><a href="' + this.href.replace(/ZMenu\//, '') + '">Go to ' + title + '</a></td></tr>');
+      this.populate(false, '<tr><td colspan="2"><a href="' + url + '">Go to ' + title + '</a></td></tr>');
     } else {
       this.base.apply(this, arguments);
     }
