@@ -693,7 +693,7 @@ taxonTreeData = [
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "title" : "Heligmosomoides bakeri (PRJEB1203)",
+                                                      "title" : "Heligmosomoides polygyrus (PRJEB1203)",
                                                       "key" : "heligmosomoides_bakeri_prjeb1203"
                                                    }
                                                 ],
