@@ -23,7 +23,7 @@ sub update_conf {
 
     $SiteDefs::SITE_RELEASE_VERSION = '1';
     $SiteDefs::SITE_RELEASE_DATE = 'September 2014';
-
+    $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_pt';
     $SiteDefs::GENOMIC_UNIT = 'parasite';
     $SiteDefs::EBEYE_SEARCH_UNITS = [qw(parasite)];
     $SiteDefs::EBEYE_SITE_NAMES = {
