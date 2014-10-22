@@ -966,20 +966,15 @@ sub get_ortholog_lookup {
   return {} if ($noortholog);
 
   my $prefix = $compara_db eq 'pan_homology' ? 'ensemblgenomes' : 'ensembl';
-  
+ 
+  # Specify the species to dump their orthologues
   my $orth_species = {
     'homo_sapiens'                            => "ensembl_ortholog",
-    'mus_musculus'                            => "ensembl_ortholog",
-    'drosophila_melanogaster'                 => "${prefix}_ortholog",
-    'caenorhabditis_elegans'                  => "${prefix}_ortholog",
-    'saccharomyces_cerevisiae'                => "${prefix}_ortholog",
-    'arabidopsis_thaliana'                    => "${prefix}_ortholog",
-    'escherichia_coli_str_k_12_substr_mg1655' => "${prefix}_ortholog",
-    'schizosaccharomyces_pombe' => "${prefix}_ortholog",
-    'bacillus_subtilis_subsp_subtilis_str_168' => "${prefix}_ortholog",
+    'caenorhabditis_elegans'                  => "wormbase_ortholog",
   };
-  
-  return {} unless delete $orth_species->{$species};                         # do we want orthologs for this species?
+
+  $compara_db = 'wbparasite' if $compara_db =~ /parasite/;
+
   return {} unless my $dbname = $conf->{compara}->{$compara_db}->{$release}; # have we got a compara db?
 
   print "Building ortholog lookup for $species (compara_$compara_db)...\n";
