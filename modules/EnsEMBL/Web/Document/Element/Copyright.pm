@@ -30,8 +30,8 @@ sub content {
   return sprintf( qq(
   <div class="column-two left">
 		   %s release %d - %s
-		  &copy; <span class="print_hide"><a href="http://www.ebi.ac.uk/" style="white-space:nowrap">EBI</a> & <a href="http://www.sanger.ac.uk/" style="white-space:nowrap">WTSI</a></span>
-      <span class="screen_hide_inline">EBI & WTSI</span>
+		  &copy; <span class="print_hide"><a href="http://www.ebi.ac.uk/" style="white-space:nowrap">EMBL-EBI</a> & <a href="http://www.sanger.ac.uk/" style="white-space:nowrap">WTSI</a></span>
+      <span class="screen_hide_inline">EMBL-EBI & WTSI</span>
   </div>),     $sd->SITE_NAME, $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE
 	       );
 }
