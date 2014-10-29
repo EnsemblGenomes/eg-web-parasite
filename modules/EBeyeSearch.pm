@@ -213,7 +213,7 @@ sub get_gene_hits {
   my $domain = $unit eq 'ensembl' ? "ensembl_$index" : "wormbaseParasite";
   my $ws = $self->ws; 
   my $pager = $self->pager;
-  my $fields = ['id','name','description','species','featuretype','location','gene_synonym','genomic_unit','system_name','transcript','database'];
+  my $fields = ['id','name','description','species','featuretype','location','gene_synonym','genomic_unit','system_name','transcript','database','WORMBASE_ORTHOLOG','ENSEMBL_ORTHOLOG'];
   my $query = $self->ebeye_query;
   $query .= " AND genomic_unit:$unit" if $unit ne 'ensembl';
   $query .= " AND species:$filter_species" if $filter_species;

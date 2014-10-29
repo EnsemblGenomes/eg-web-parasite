@@ -290,7 +290,7 @@ sub render_hit {
     
     $table->add_row("Coordinate system", $hit->{coord_system});
     $table->add_row("Species", sprintf '<em><a href="%s">%s</a></em>', $hit->{species_path}, $self->highlight($species));
-    $table->add_row("Location", qq{<a href="$hit->{species_path}/Location/View?r=$hit->{location};g=$hit->{id};db=$hit->{database}">$hit->{location}</a>});    
+    $table->add_row("Location", qq(<a href="$hit->{species_path}/Location/View?r=$hit->{location};g=$hit->{id};db=$hit->{database}">$hit->{location}</a>));    
     $name = "<strong>$name</strong>";
   
   } else {
@@ -312,6 +312,18 @@ sub render_hit {
       }
       $table->add_row("Synonyms", $self->highlight(join(', ', sort values %unique)));
     }
+
+    if ($hit->{WORMBASE_ORTHOLOG}) {
+      my $text = $self->process_orthologs($hit->{WORMBASE_ORTHOLOG}, 'WORMBASE_GENE');
+      my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
+      $table->add_row("<em>C. elegans</em> orthologue$suffix", $text);
+    }
+
+    #if ($hit->{ENSEMBL_ORTHOLOG}) {
+    #  my $text = $self->process_orthologs($hit->{ENSEMBL_ORTHOLOG}, 'ENS_HS_GENE');
+    #  my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
+    #  $table->add_row("Human orthologue$suffix", $text);
+    #}
     
     # format the name
     $name =~ s/\[/\[ /;
@@ -321,14 +333,29 @@ sub render_hit {
   
   my $info = $table->render;
    
-  return qq{
+  return qq(
     <div class="hit">
       <div class="title">
         <a class="name" href="$hit->{url}">$name</a>
       </div>
       $info
     </div>
-  };
+  );
+}
+
+sub process_orthologs {
+  my ($self, $string, $source) = @_;
+  my @orthologs = split(" ", $string);
+  my $cdb = 'compara';
+  my $database = $self->hub->database($cdb);
+  foreach(@orthologs) {
+    my $member = $database->get_GeneMemberAdaptor->fetch_by_source_stable_id(undef, $_); # TODO: This has been deprecated in later version of Ensembl - change to fetch_by_stable_id($_) after code update
+    my $label = $member->display_label || $_;
+    $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
+    $_ = $self->hub->get_ExtURL_link($label, $source, $_);
+  }
+  my $formatted = join(', ', @orthologs);
+  return $formatted;
 }
 
 sub highlight {
