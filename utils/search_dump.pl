@@ -790,6 +790,10 @@ sub geneLineXML {
   $cross_references .= ( join "", ( map { qq{
 <ref dbname="$_->[1]" dbkey="$_->[0]"/>}
   } @$orthologs ) );
+
+  $cross_references .= ( join "", ( map { qq{
+<ref dbname="$_->[1]\_label" dbkey="$_->[2]"/>}
+  } @$orthologs ) );
   
   $cross_references .= qq{
 </cross_references>};
@@ -987,7 +991,7 @@ sub get_ortholog_lookup {
 
   my $orthologs_sth = $compara_dbh->prepare(qq{
     SELECT
-      m1.stable_id , m2.stable_id, gdb2.name
+      m1.stable_id , m2.stable_id, gdb2.name, m2.display_label
     FROM 
       genome_db gdb1  JOIN member m1 USING (genome_db_id)
       JOIN homology_member hm1 USING (member_id)
@@ -1008,7 +1012,8 @@ sub get_ortholog_lookup {
   my $lookup = {};
   my $rows = [];
   while ( my $row = ( shift(@$rows) || shift( @{ $rows = $orthologs_sth->fetchall_arrayref( undef, 10_000 ) || [] } ) ) ) {
-    push @{ $lookup->{$row->[0]} }, [ $row->[1], $orth_species->{$row->[2]} ];
+    push @{ $lookup->{$row->[0]} }, [ $row->[1], $orth_species->{$row->[2]}, $row->[3] ];
+
   }    
   
   return $lookup;
