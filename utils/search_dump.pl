@@ -924,7 +924,8 @@ sub get_genetree_lookup {
     print "Building gene tree id lookup...\n";
 
     foreach my $dbtype ($genomic_unit, 'pan_homology') {
-      
+
+      $dbtype = 'wbparasite' if $dbtype =~ /parasite/;      
       my $dbname = $conf->{compara}->{$dbtype}->{$release};
       next unless $dbname;
       
