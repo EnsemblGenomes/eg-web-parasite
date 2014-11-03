@@ -22,24 +22,12 @@ package EnsEMBL::Web::Document::Element::SearchBox;
 
 use strict;
 
-sub search_options {
-  my $sitename = $_[0]->species_defs->SITE_NAME;
-
-  return [
-    ($_[0]->hub->species and $_[0]->hub->species !~ /^(common|multi)$/i) ? (
-    'ensemblthis'     => { 'label' => 'Search ' . $_[0]->species_defs->SPECIES_COMMON_NAME, 'icon' => 'search/wormbase.png'          }) : (),
-    'ensemblunit'     => { 'label' => "Search $sitename",                                   'icon' => 'search/wormbase.png'      },
-    'wormbase'        => { 'label' => 'Search WormBase',                                    'icon' => 'search/wormbase.png'      },
-  ];
-}
-
 sub content {
   my $self            = shift;
   my $img_url         = $self->img_url;
   my $species         = $self->species;
   my $species_common  = $self->species_defs->SPECIES_COMMON_NAME;
   my $search_url      = sprintf '%s%s/psychic', $self->home_url, $species || 'Multi';
-  my $options         = $self->search_options;
   my $search_options  = qq(<input type="hidden" name="site" value="ensemblunit" />);
   my $species_dropdown = qq(<select name="site"><option value="ensemblunit">All species</option><option value="ensemblthis" selected="selected">%s</option></select>);
 
