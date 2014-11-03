@@ -135,18 +135,21 @@ sub no_hits_message {
     
   my $alt_searches;
   $alt_searches = '<li>Broaden your search:<ul>' . join('', @alt_links) . '</ul></li>' if @alt_links;
-  
+ 
   my $wildcards;
   if ($query !~ /\*$/) {
     (my $qs = $search->query_string) =~ s/q=[^;]+;/q=$query*;/;
     $wildcards = qq{<li>Try using wildcards, e.g. <a href="?$qs">'$query*'</a></li>};
   }
+
+  my $species = $self->_render_species_message;
   
   return qq{
     <p>Your search for <strong>'$query'</strong> returned no results</p>
     <p>
       Suggestions:
       <ul>
+        <li>$species</li>
         <li>Make sure all terms are spelled correctly</li>
         $wildcards 
         $alt_searches
@@ -154,6 +157,34 @@ sub no_hits_message {
     </p>
     <br />
   }
+}
+
+# ParaSite: check for species name matches
+sub _render_species_message {
+  my $self = shift;
+  my $search = $self->object->Obj;
+  my $pager = $search->pager;
+  my $hub = $self->hub;
+  my (@matches, $string);
+
+  foreach($hub->species_defs->valid_species) {
+    (my $species = $_) =~ s/\_/ /g;
+    my $query = $search->query_term;
+    push(@matches, $_) if $species =~ /$query/i;
+  }
+  if(scalar(@matches) > 0) {
+    my @links;
+    foreach(@matches) {
+      my $common = $hub->species_defs->get_config($_, 'SPECIES_COMMON_NAME');
+      $common =~ s/(.*) \(/<em>$1<\/em> \(/;
+      push(@links, qq{<a href="/$_/">$common</a>});
+    }
+    $string = "<p>Are you looking for " . join(", ", @links) . "?</p>";
+    $string =~ s/(.*),/$1 or/;
+  }
+
+  return $string; 
+
 }
 
 sub _render_results_message {
@@ -186,6 +217,8 @@ sub _render_results_message {
   # GeneTrees  
 
   my $html;
+  $html .= $self->_render_species_message;
+
   if ((($search->hit_count > 0) && (!$gtsearch)) || $tree_counter) {
     $html .= "<h3>Showing $range $items found in $site</h3>";
     $html .= '<p>Results beyond 10000 not shown.</p>' if $pager->last >= 10000;
