@@ -346,7 +346,7 @@ sub render_hit {
       $table->add_row("Synonyms", $self->highlight(join(', ', sort values %unique)));
     }
 
-    if ($hit->{WORMBASE_ORTHOLOG}) {
+    if ($hit->{WORMBASE_ORTHOLOG} && $hub->database('compara')) {
       my $text = $self->process_orthologs($hit->{WORMBASE_ORTHOLOG}, 'WORMBASE_GENE');
       my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
       $table->add_row("<em>C. elegans</em> orthologue$suffix", $text);
@@ -381,13 +381,14 @@ sub process_orthologs {
   my @orthologs = split(" ", $string);
   my $cdb = 'compara';
   my $database = $self->hub->database($cdb);
+  my $formatted;
   foreach(@orthologs) {
-    my $member = $database->get_GeneMemberAdaptor->fetch_by_source_stable_id(undef, $_); # TODO: This has been deprecated in later version of Ensembl - change to fetch_by_stable_id($_) after code update
+    my $member = $database->get_GeneMemberAdaptor->fetch_by_stable_id($_);
     my $label = $member->display_label || $_;
     $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
     $_ = $self->hub->get_ExtURL_link($label, $source, $_);
   }
-  my $formatted = join(', ', @orthologs);
+  $formatted = join(', ', @orthologs);
   return $formatted;
 }
 
