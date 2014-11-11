@@ -62,8 +62,9 @@ sub init {
     # species home page:
     elsif($type eq 'Info' && $hub->action eq 'Index'){
       $self->set(sprintf('%s - %s', $species_defs->SPECIES_BIO_NAME, $species_defs->ENSEMBL_SITE_NAME));
-    }
-    else {
+    } elsif($type eq 'Tools' || $type eq 'Search') {
+      $self->set(sprintf('%s - %s', $species_defs->ENSEMBL_SITE_NAME, $type));
+    } else {
       $title .= " - $caption" if($caption && $title !~ /$caption/ );
       $title = " - $title" if ($title);
       $self->set(sprintf('%s: %s%s', $species_defs->ENSEMBL_SITE_NAME, $species_defs->SPECIES_BIO_NAME, $title));
