@@ -29,15 +29,18 @@ sub get_form_node {
   my $hub             = $self->hub;
   my $species_defs    = $hub->species_defs;
   my $form            = $self->PREV::get_form_node(@_);
-  my $default_species = $species_defs->valid_species($hub->species) ? $hub->species : $hub->get_favourite_species->[0];
+  my $default_species = $species_defs->valid_species($hub->species) ? $hub->species : '';
 
   my @species         = $hub->param('species') || $default_species;
-  
-  my $list            = join '<br />', map { $species_defs->species_display_label($_) } @species;
-  my $checkboxes      = join '<br />', map { sprintf('<input type="checkbox" name="species" value="%s" checked>%s', $_, $_) } @species;
-  
+  my $list = ''; my $checkboxes = '';
+  if($hub->param('species') || $default_species) {
+    $list            = join '<br />', map { $species_defs->species_display_label($_) } @species;
+    $checkboxes      = join '<br />', map { sprintf('<input type="checkbox" name="species" value="%s" checked>%s', $_, $_) } @species;
+  }
+
   # set uri for the modal link
-  my $modal_uri = URI->new("/${default_species}/Component/Blast/Web/TaxonSelector/ajax?");
+  my $url_species = $species_defs->valid_species($default_species) ? $default_species : 'Multi';
+  my $modal_uri = URI->new("/${url_species}/Component/Blast/Web/TaxonSelector/ajax?");
   $modal_uri->query_form(s => [map {lc($_)} @species]); 
   
   my $html = qq{
