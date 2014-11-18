@@ -30,6 +30,7 @@ sub links {
   push @links, 'blast', sprintf '<a class="constant" href="%s">BLAST</a>', $self->hub->url({'species' => '', 'type' => 'Tools', 'action' => 'Blast'}) if $sd->ENSEMBL_BLAST_ENABLED;
   push @links, 'tools',         '<a class="constant" href="/tools.html">Tools</a>';
   push @links, 'downloads',     '<a class="constant" href="/info/access/ftp/index.html">Downloads</a>';
+  push @links, 'wormbase',      '<a class="constant" href="http://www.wormbase.org">WormBase</a>';
 
   return \@links;
 }
