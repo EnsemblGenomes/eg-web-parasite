@@ -46,6 +46,8 @@ sub content {
 ### 
   push @links,   '<a class="constant modal_link" href="/Help/Mirrors">Mirrors</a>' if keys %{$hub->species_defs->ENSEMBL_MIRRORS || {}};
 
+  push @links,   '<a class="constant" href="http://www.wormbase.org">WormBase</a>';
+
   my $last  = pop @links;
   my $tools = join '', map "<li>$_</li>", @links;
   
