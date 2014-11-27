@@ -51,6 +51,16 @@ sub e_logo {
   return '';
 }
 
+sub logo_print {
+  my $self = shift;
+  my $alt = 'WormBase ParaSite Home';
+  return sprintf(
+    '<a href="%s"><img src="%s%s" alt="%s" title="%s" class="screen_hide_inline" style="height:%spx" /></a>',
+    '/', $self->img_url, 'parasite.png', $alt, $alt, 34
+  );
+  return '';
+}
+
 sub site_menu {
   #return q{
   #  <span class="print_hide">
