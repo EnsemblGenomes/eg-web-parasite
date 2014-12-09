@@ -127,8 +127,8 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Trichobilharzia_regenti_prjeb4662'} = [qw(trichobilharzia_regenti_prjeb4662, Trichobilharzia_regenti_prjeb4662)];
 	$SiteDefs::__species_aliases{'Trichuris_muris_prjeb126'} = [qw(trichuris_muris_prjeb126, Trichuris_muris_prjeb126)];
 	$SiteDefs::__species_aliases{'Trichuris_suis_prjna179528'} = [qw(trichuris_suis_prjna179528, Trichuris_suis_prjna179528)];
-	$SiteDefs::__species_aliases{'Trichuris_suis_prjna208415'} = [qw(trichuris_suis_prjna208415, Trichuris_suis_prjna208415)];
-	$SiteDefs::__species_aliases{'Trichuris_suis_prjna208416'} = [qw(trichuris_suis_prjna208416, Trichuris_suis_prjna208416)];
+	$SiteDefs::__species_aliases{'Trichuris_suis_prjna208415'} = [qw(trichuris_suis_prjna208415, Trichuris_suis_prjna208415, Trichuris_suis_prjna208415_-_male)];
+	$SiteDefs::__species_aliases{'Trichuris_suis_prjna208416'} = [qw(trichuris_suis_prjna208416, Trichuris_suis_prjna208416, Trichuris_suis_prjna208416_-_female)];
 	$SiteDefs::__species_aliases{'Trichuris_trichiura_prjeb535'} = [qw(trichuris_trichiura_prjeb535, Trichuris_trichiura_prjeb535)];
 	$SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536, Wuchereria_bancrofti_prjeb536)];
 
