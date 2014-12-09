@@ -345,11 +345,11 @@ sub species_path {
   my ($self, $species, $genomic_unit, $want_ensembl) = @_;
   my $species_defs = $self->hub->species_defs;
   my $path         = $species_defs->species_path(ucfirst($species));
-  if ($path =~ /^\/$species/i and !$species_defs->valid_species(ucfirst $species) and $genomic_unit) {
-    # there was no direct mapping in current unit, use the genomic_unit to add the subdomin
-    my $url = ($SiteDefs::ENSEMBL_PROXY_PORT == 80) ? $SiteDefs::ENSEMBL_SERVERNAME : "$SiteDefs::ENSEMBL_SERVERNAME\:$SiteDefs::ENSEMBL_PORT";
-    $path = sprintf 'http://$url/%s', $genomic_unit, $species;
-  } 
+#  if ($path =~ /^\/$species/i and !$species_defs->valid_species(ucfirst $species) and $genomic_unit) {
+#    # there was no direct mapping in current unit, use the genomic_unit to add the subdomin
+#    my $url = ($SiteDefs::ENSEMBL_PROXY_PORT == 80) ? $SiteDefs::ENSEMBL_SERVERNAME : "$SiteDefs::ENSEMBL_SERVERNAME\:$SiteDefs::ENSEMBL_PORT";
+#    $path = sprintf 'http://$url/%s', $genomic_unit, $species;
+#  } 
   # If species is in both Ensembl and EG, then $species_defs->species_path will 
   # return EG url by default - sometimes we know we want ensembl
   $path =~ s/http:\/\/[a-z]+\./http:\/\/www\./ if $want_ensembl;
