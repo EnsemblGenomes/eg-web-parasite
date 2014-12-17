@@ -132,6 +132,16 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Trichuris_trichiura_prjeb535'} = [qw(trichuris_trichiura_prjeb535, Trichuris_trichiura_prjeb535)];
 	$SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536, Wuchereria_bancrofti_prjeb536)];
 
+        # Release 2
+        $SiteDefs::__species_aliases{'Fasciola_hepatica_prjeb6687'} = [qw(fasciola_hepatica_prjeb6687, Fasciola_hepatica_prjeb6687)];
+        $SiteDefs::__species_aliases{'Opisthorchis_viverrini_prjna222628'} = [qw(opisthorchis_viverrini_prjna222628, Opisthorchis_viverrini_prjna222628)];
+        $SiteDefs::__species_aliases{'Pristionchus_exspectatus_prjeb6009'} = [qw(pristionchus_exspectatus_prjeb6009, Pristionchus_exspectatus_prjeb6009)];
+        $SiteDefs::__species_aliases{'Steinernema_carpocapsae_prjna202318'} = [qw(steinernema_carpocapsae_prjna202318, Steinernema_carpocapsae_prjna202318)];
+        $SiteDefs::__species_aliases{'Steinernema_feltiae_prjna204661'} = [qw(steinernema_feltiae_prjna204661, Steinernema_feltiae_prjna204661)];
+        $SiteDefs::__species_aliases{'Steinernema_glaseri_prjna204943'} = [qw(steinernema_glaseri_prjna204943, Steinernema_glaseri_prjna204943)];
+        $SiteDefs::__species_aliases{'Steinernema_monticolum_prjna205067'} = [qw(steinernema_monticolum_prjna205067, Steinernema_monticolum_prjna205067)];
+        $SiteDefs::__species_aliases{'Steinernema_scapterisci_prjna204942'} = [qw(steinernema_scapterisci_prjna204942, Steinernema_scapterisci_prjna204942)];
+
 	@SiteDefs::ENSEMBL_PERL_DIRS    = (
 										   $SiteDefs::ENSEMBL_WEBROOT.'/perl',
 										   $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-common/perl',
