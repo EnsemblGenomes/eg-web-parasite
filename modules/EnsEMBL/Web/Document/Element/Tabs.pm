@@ -100,5 +100,54 @@ sub species_list {
   return qq{<div class="dropdown species"><h4>Select a species</h4><ul>$html</ul></div>};
 }
 
+sub content {
+  my $self  = shift;
+  my $count = scalar @{$self->entries};
+
+  return '' unless $count;
+
+  my ($content, $short_tabs, $long_tabs);
+  my @style   = $count > 4 ? () : (' style="display:none"', ' style="display:block"');
+  my $history = 0;
+
+  foreach my $entry (@{$self->entries}) {
+    $entry->{'url'} ||= '#';
+
+    my $name         = encode_entities($self->strip_HTML($entry->{'caption'}));
+    ## ParaSite: Italicise the species name but not the BioProject
+    $name =~ s/(.*)\(/<em>$1<\/em>\(/g;
+    ## ParaSite
+    my ($short_name) = split /\b/, $name;
+    my $constant     = $entry->{'constant'} ? ' class="constant"' : '';
+    my $short_link   = qq{<a href="$entry->{'url'}" title="$name"$constant>$short_name</a>};
+    my $long_link    = qq{<a href="$entry->{'url'}"$constant>$name</a>};
+    
+    if ($entry->{'disabled'}) {
+      my $span = $entry->{'dropdown'} ? qq{<span class="disabled toggle" title="$entry->{'dropdown'}">} : '<span class="disabled">';
+      $_ = qq{$span$name</span>} for $short_link, $long_link;
+    }
+    
+    if ($entry->{'dropdown'}) {
+      # Location tab always has a dropdown because its history can be changed dynamically by the slider navigation.
+      # Hide the toggle arrow if there are no bookmarks or history items for it.
+      my @hide = $entry->{'type'} eq 'Location' && !($self->{'history'}{'location'} || $self->{'bookmarks'}{'location'}) ? (' empty', ' style="display:none"') : ();
+      $history = 1;
+      $_       = qq{<span class="dropdown$hide[0]">$_<a class="toggle" href="#" rel="$entry->{'dropdown'}"$hide[1]>&#9660;</a></span>} for $short_link, $long_link;
+    }
+
+    $short_tabs .= qq{<li class="$entry->{'class'} short_tab"$style[0]>$short_link</li>};
+    $long_tabs  .= qq{<li class="$entry->{'class'} long_tab"$style[1]>$long_link</li>};
+    
+    $self->active($name) if $entry->{'class'} =~ /\bactive\b/;
+  }
+  
+  $content  = $short_tabs . $long_tabs;
+  $content  = qq{<ul class="tabs">$content</ul>} if $content;
+  $content .= $self->species_list                if $self->{'species_list'};
+  $content .= join '', values %{$self->dropdown} if $history;
+  
+  return $content;
+}
+
 1;
 
