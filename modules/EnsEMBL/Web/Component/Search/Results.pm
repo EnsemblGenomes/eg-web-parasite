@@ -257,7 +257,7 @@ sub render_hit {
       $table->add_row("Gene trees", join ', ', @links);
     }
 
-    if ($hit->{WORMBASE_ORTHOLOG} && $hub->database('compara')) {
+    if ($hit->{WORMBASE_ORTHOLOG}) {
       my $text = $self->process_orthologs($hit->{WORMBASE_ORTHOLOG}, 'WORMBASE_GENE');
       my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
       $table->add_row("<em>C. elegans</em> orthologue$suffix", $text);
@@ -291,13 +291,21 @@ sub process_orthologs {
   my ($self, $string, $source) = @_;
   my @orthologs = split(" ", $string);
   my $cdb = 'compara';
-  my $database = $self->hub->database($cdb);
   my $formatted;
-  foreach(@orthologs) {
-    my $member = $database->get_GeneMemberAdaptor->fetch_by_stable_id($_);
-    my $label = $member->display_label || $_;
-    $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
-    $_ = $self->hub->get_ExtURL_link($label, $source, $_);
+  if($self->hub->database('compara')) {
+    my $database = $self->hub->database($cdb);
+    foreach(@orthologs) {
+      my $member = $database->get_GeneMemberAdaptor->fetch_by_stable_id($_);
+      my $label = $member->display_label || $_;
+      $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
+      $_ = $self->hub->get_ExtURL_link($label, $source, $_);
+    }
+  } else {
+    foreach(@orthologs) {
+      my $label = $_;
+      $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
+      $_ = $self->hub->get_ExtURL_link($label, $source, $_);
+    }
   }
   $formatted = join(', ', @orthologs);
   return $formatted;
