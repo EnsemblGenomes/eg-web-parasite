@@ -75,7 +75,7 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Haemonchus_contortus_prjna205202'} = [qw(haemonchus_contortus_prjna205202, Haemonchus_contortus_prjna205202)];
 	$SiteDefs::__species_aliases{'Haemonchus_contortus_prjna205202'} = [qw(haemonchus_contortus_prjna205202, Haemonchus_contortus_prjna205202)];
 	$SiteDefs::__species_aliases{'Haemonchus_placei_prjeb509'} = [qw(haemonchus_placei_prjeb509, Haemonchus_placei_prjeb509)];
-	$SiteDefs::__species_aliases{'Heligmosomoides_bakeri_prjeb1203'} = [qw(heligmosomoides_bakeri_prjeb1203, Heligmosomoides_bakeri_prjeb1203)];
+	$SiteDefs::__species_aliases{'Heligmosomoides_bakeri_prjeb1203'} = [qw(heligmosomoides_bakeri_prjeb1203, Heligmosomoides_bakeri_prjeb1203, Heligmosomoides_polygyrus_prjeb1203, heligmosomoides_polygyrus_prjeb1203)];
 	$SiteDefs::__species_aliases{'Heterorhabditis_bacteriophora_prjna13977'} = [qw(heterorhabditis_bacteriophora_prjna13977, Heterorhabditis_bacteriophora_prjna13977)];
 	$SiteDefs::__species_aliases{'Hydatigera_taeniaeformis_prjeb534'} = [qw(hydatigera_taeniaeformis_prjeb534, Hydatigera_taeniaeformis_prjeb534)];
 	$SiteDefs::__species_aliases{'Hymenolepis_diminuta_prjeb507'} = [qw(hymenolepis_diminuta_prjeb507, Hymenolepis_diminuta_prjeb507)];
@@ -98,7 +98,7 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Parastrongyloides_trichosuri_prjeb515'} = [qw(parastrongyloides_trichosuri_prjeb515, Parastrongyloides_trichosuri_prjeb515)];
 	$SiteDefs::__species_aliases{'Pristionchus_pacificus_prjna12644'} = [qw(pristionchus_pacificus_prjna12644, Pristionchus_pacificus_prjna12644)];
 	$SiteDefs::__species_aliases{'Protopolystoma_xenopodis_prjeb1201'} = [qw(protopolystoma_xenopodis_prjeb1201, Protopolystoma_xenopodis_prjeb1201)];
-	$SiteDefs::__species_aliases{'Rhabditophanes_kr3021_prjeb1297'} = [qw(rhabditophanes_kr3021_prjeb1297, Rhabditophanes_kr3021_prjeb1297)];
+	$SiteDefs::__species_aliases{'Rhabditophanes_kr3021_prjeb1297'} = [qw(rhabditophanes_kr3021_prjeb1297, Rhabditophanes_kr3021_prjeb1297, Rhabditophanes_sp._kr3021_prjeb1297)];
 	$SiteDefs::__species_aliases{'Romanomermis_culicivorax_prjeb1358'} = [qw(romanomermis_culicivorax_prjeb1358, Romanomermis_culicivorax_prjeb1358)];
 	$SiteDefs::__species_aliases{'Schistocephalus_solidus_prjeb527'} = [qw(schistocephalus_solidus_prjeb527, Schistocephalus_solidus_prjeb527)];
 	$SiteDefs::__species_aliases{'Schistosoma_curassoni_prjeb519'} = [qw(schistosoma_curassoni_prjeb519, Schistosoma_curassoni_prjeb519)];
