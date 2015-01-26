@@ -207,6 +207,10 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
+                                                "title" : "Fasciola hepatica (PRJEB6687)",
+                                                "key" : "fasciola_hepatica_prjeb6687"
+                                             },
+                                             {
                                                 "title" : "Fasciola hepatica (PRJNA179522)",
                                                 "key" : "fasciola_hepatica_prjna179522"
                                              }
@@ -226,11 +230,36 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Clonorchis sinensis (PRJDA72781)",
-                                    "key" : "clonorchis_sinensis_prjda72781"
+                                    "isFolder" : true,
+                                    "children" : [
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "title" : "Clonorchis sinensis (PRJDA72781)",
+                                                "key" : "clonorchis_sinensis_prjda72781"
+                                             }
+                                          ],
+                                          "title" : "Clonorchis (1)",
+                                          "key" : "Clonorchis"
+                                       },
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "title" : "Opisthorchis viverrini (PRJNA222628)",
+                                                "key" : "opisthorchis_viverrini_prjna222628"
+                                             }
+                                          ],
+                                          "title" : "Opisthorchis (1)",
+                                          "key" : "Opisthorchis"
+                                       }
+                                    ],
+                                    "title" : "Opisthorchiidae (2)",
+                                    "key" : "Opisthorchiidae"
                                  }
                               ],
-                              "title" : "Opisthorchiida (1)",
+                              "title" : "Opisthorchiida (2)",
                               "key" : "Opisthorchiida"
                            },
                            {
@@ -294,15 +323,15 @@ taxonTreeData = [
                               "key" : "Strigeidida"
                            }
                         ],
-                        "title" : "Digenea (11)",
+                        "title" : "Digenea (12)",
                         "key" : "Digenea"
                      }
                   ],
-                  "title" : "Trematoda (11)",
+                  "title" : "Trematoda (12)",
                   "key" : "Trematoda"
                }
             ],
-            "title" : "Platyhelminthes (25)",
+            "title" : "Platyhelminthes (26)",
             "key" : "Platyhelminthes"
          },
          {
@@ -391,11 +420,22 @@ taxonTreeData = [
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Pristionchus pacificus (PRJNA12644)",
-                                    "key" : "pristionchus_pacificus_prjna12644"
+                                    "isFolder" : true,
+                                    "children" : [
+                                       {
+                                          "title" : "Pristionchus exspectatus (PRJEB6009)",
+                                          "key" : "pristionchus_exspectatus_prjeb6009"
+                                       },
+                                       {
+                                          "title" : "Pristionchus pacificus (PRJNA12644)",
+                                          "key" : "pristionchus_pacificus_prjna12644"
+                                       }
+                                    ],
+                                    "title" : "Pristionchus (2)",
+                                    "key" : "Pristionchus"
                                  }
                               ],
-                              "title" : "Diplogasterida (1)",
+                              "title" : "Diplogasterida (2)",
                               "key" : "Diplogasterida"
                            },
                            {
@@ -458,6 +498,40 @@ taxonTreeData = [
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
+                                                      "title" : "Steinernema carpocapsae (PRJNA202318)",
+                                                      "key" : "steinernema_carpocapsae_prjna202318"
+                                                   },
+                                                   {
+                                                      "title" : "Steinernema feltiae (PRJNA204661)",
+                                                      "key" : "steinernema_feltiae_prjna204661"
+                                                   },
+                                                   {
+                                                      "title" : "Steinernema glaseri (PRJNA204943)",
+                                                      "key" : "steinernema_glaseri_prjna204943"
+                                                   },
+                                                   {
+                                                      "title" : "Steinernema monticolum (PRJNA205067)",
+                                                      "key" : "steinernema_monticolum_prjna205067"
+                                                   },
+                                                   {
+                                                      "title" : "Steinernema scapterisci (PRJNA204942)",
+                                                      "key" : "steinernema_scapterisci_prjna204942"
+                                                   }
+                                                ],
+                                                "title" : "Steinernema (5)",
+                                                "key" : "Steinernema"
+                                             }
+                                          ],
+                                          "title" : "Steinernematidae (5)",
+                                          "key" : "Steinernematidae"
+                                       },
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "isFolder" : true,
+                                                "children" : [
+                                                   {
                                                       "title" : "Parastrongyloides trichosuri (PRJEB515)",
                                                       "key" : "parastrongyloides_trichosuri_prjeb515"
                                                    }
@@ -493,7 +567,7 @@ taxonTreeData = [
                                           "key" : "Strongyloididae"
                                        }
                                     ],
-                                    "title" : "Panagrolaimoidea (6)",
+                                    "title" : "Panagrolaimoidea (11)",
                                     "key" : "Panagrolaimoidea"
                                  },
                                  {
@@ -693,7 +767,7 @@ taxonTreeData = [
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "title" : "Heligmosomoides polygyrus (PRJEB1203)",
+                                                      "title" : "Heligmosomoides bakeri (PRJEB1203)",
                                                       "key" : "heligmosomoides_bakeri_prjeb1203"
                                                    }
                                                 ],
@@ -720,7 +794,7 @@ taxonTreeData = [
                                     "key" : "Strongylida"
                                  }
                               ],
-                              "title" : "Rhabditida (22)",
+                              "title" : "Rhabditida (27)",
                               "key" : "Rhabditida"
                            },
                            {
@@ -962,7 +1036,7 @@ taxonTreeData = [
                               "key" : "Tylenchida"
                            }
                         ],
-                        "title" : "Chromadorea (50)",
+                        "title" : "Chromadorea (56)",
                         "key" : "Chromadorea"
                      },
                      {
@@ -1065,15 +1139,15 @@ taxonTreeData = [
                         "key" : "Enoplea"
                      }
                   ],
-                  "title" : "Nematoda (57)",
+                  "title" : "Nematoda (63)",
                   "key" : "Nematoda"
                }
             ],
-            "title" : "Protostomia (57)",
+            "title" : "Protostomia (63)",
             "key" : "Protostomia"
          }
       ],
-      "title" : "Bilateria (82)",
+      "title" : "Bilateria (89)",
       "key" : "Bilateria"
    }
 ]
