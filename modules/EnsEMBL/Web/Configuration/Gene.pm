@@ -234,6 +234,12 @@ sub modify_tree {
 #
 #  $compara_menu->after($pancompara_menu);
 #  
+
+  # ParaSite: remove family node
+  $self->delete_node('Family');
+  # ParaSite
+
+
   # S4 DAS
   $self->delete_node('Expression');
   foreach my $logic_name (qw(S4_EXPRESSION S4_LITERATURE S4_PUBMED)) {
