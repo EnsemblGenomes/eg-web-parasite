@@ -250,7 +250,7 @@ sub render_hit {
       my @links;
        
       foreach my $id (@ids) {
-        my $url = sprintf '%s/Gene/Compara_Tree%s?g=%s', $hit->{species_path}, $hit->{id};
+        my $url = sprintf '%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id};
         push @links, sprintf '<a href="%s">%s</a> %s', $url, $self->highlight($id);
       }
     
