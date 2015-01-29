@@ -1,6 +1,13 @@
 Ensembl.Panel.ZMenu.prototype.populateAjax = function(url, expand) {
 	var timeout = this.timeout;
 	url     = url || this.href;
+
+    this.crossOrigin = url && url.match(/^http/) ? url.split('/').slice(0,3).join('/') : false;
+
+    if (url && window.location.pathname.match(/\/Gene\/Variation_Gene/) && !url.match(/\/ZMenu\//)) {
+      url = url.replace(/\/(\w+\/\w+)\?/, '/ZMenu/$1?');
+    }
+
     if(url && url.match('www.wormbase.org')) {
       this.populateNoAjax();
     } else if (url && url.match('/ZMenu/')) {
@@ -15,5 +22,6 @@ Ensembl.Panel.ZMenu.prototype.populateAjax = function(url, expand) {
     } else {
       this.populateNoAjax();
     }
+
 };
 
