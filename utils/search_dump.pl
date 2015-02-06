@@ -175,8 +175,10 @@ sub get_databases {
     if ( ($db_type, $db_release) = $dbname =~ /^ensembl_compara_(\w+)_(\d+)_\w+/ ) {
        
       $compara_hash->{$db_type}->{$db_release} = $dbname;
-
-    } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {    
+    
+    # ParaSite mod
+    } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {
+	# ParaSite mod
 
       $db_species =~ s/_collection$//;
       $latest_release = $db_release if ( $db_release > $latest_release );
@@ -361,7 +363,18 @@ sub dumpGene {
         print "Fetching $type xrefs...\n";
               
         my $xrefs = [];
-        if ($type ne 'Translation') {
+        if ($type eq 'Translation') {
+
+            # Interpro
+            $xrefs = $dbh->selectall_arrayref(
+              "SELECT pf.translation_id, x.display_label, x.dbprimary_acc, ed.db_name, es.synonym, x.description
+               FROM (protein_feature AS pf, interpro AS i, xref AS `x`, external_db AS ed)
+               LEFT JOIN external_synonym AS es ON es.xref_id = x.xref_id
+               WHERE pf.hit_name = i.id AND i.interpro_ac = x.dbprimary_acc 
+               AND x.external_db_id = ed.external_db_id AND ed.db_name = 'Interpro'"
+            );
+
+        } else { 
           
           my $table = lc($type);
           
@@ -536,9 +549,9 @@ sub dumpGene {
         }      
         
         if ($format eq 'solr') {
-  	  p geneLineTSV( $species, $dataset, $gene_data, $counter );
+  	      p geneLineTSV( $species, $dataset, $gene_data, $counter );
         } else {
-  	  p geneLineXML( $species, $dataset, $gene_data, $counter );
+  	      p geneLineXML( $species, $dataset, $gene_data, $counter );
         }
       };
       
@@ -553,7 +566,7 @@ sub dumpGene {
           "SELECT g.gene_id, t.transcript_id, tr.translation_id,
              g.stable_id AS gsid, t.stable_id AS tsid, tr.stable_id AS trsid,
              g.description, ed.db_display_name, x.dbprimary_acc,x.display_label AS xdlgene, 
-             ad.display_label, ad.description, g.source, g.status, g.biotype,
+             ad.display_label, ad.description, ad.web_data, g.source, g.status, g.biotype,
              sr.name AS seq_region_name, g.seq_region_start, g.seq_region_end
            FROM (gene AS g,
              analysis_description AS ad,
@@ -580,12 +593,19 @@ sub dumpGene {
             $transcript_stable_id,               $translation_stable_id,
             $gene_description,                   $extdb_db_display_name,
             $xref_primary_acc,                   $xref_display_label,
-            $analysis_description_display_label, $analysis_description,
+            $analysis_description_display_label, $analysis_description, $web_data,
             $gene_source,                        $gene_status,
             $gene_biotype,                       $seq_region_name,
             $seq_region_start,                   $seq_region_end
           ) = @$row;
-      
+          
+          if ($web_data) {
+            $web_data = eval $web_data;
+            if ( ref($web_data) eq 'HASH' ) {
+              next if $web_data->{exclude_from_search};
+            }
+          }
+
           if ( $old{'gene_id'} != $gene_id ) {
             
             # output old gene if we have one
@@ -649,8 +669,8 @@ sub dumpGene {
               foreach my $K ( keys %{ $xrefs{'Translation'}{$translation_id}{$db} } ) {
                 $old{'external_identifiers'}{$db}{$K} = 1;
               }
-            }
-          
+            } 
+
           } else {
           
             $old{'transcript_stable_ids'}{$transcript_stable_id}   = 1;
@@ -670,7 +690,7 @@ sub dumpGene {
             }
           }
         }
-        $output_gene->(\%old);
+        $output_gene->(\%old) if $old{'gene_id'}; 
       }
       footer( $counter->() );
     }
@@ -790,10 +810,6 @@ sub geneLineXML {
   $cross_references .= ( join "", ( map { qq{
 <ref dbname="$_->[1]" dbkey="$_->[0]"/>}
   } @$orthologs ) );
-
-  $cross_references .= ( join "", ( map { qq{
-<ref dbname="$_->[1]\_label" dbkey="$_->[2]"/>}
-  } @$orthologs ) );
   
   $cross_references .= qq{
 </cross_references>};
@@ -846,7 +862,7 @@ sub geneLineXML {
 <field name="gene_synonym">$_</field>}
       } map {encode_entities($_)} keys %$unique_synonyms ) )  
     . qq{
-<field name="databse">$database</field>      
+<field name="database">$database</field>      
 </additional_fields>};
 
   $counter->();
@@ -924,8 +940,8 @@ sub get_genetree_lookup {
     print "Building gene tree id lookup...\n";
 
     foreach my $dbtype ($genomic_unit, 'pan_homology') {
-
-      $dbtype = 'wbparasite' if $dbtype =~ /parasite/;      
+	
+	  $dbtype = 'wbparasite' if $dbtype =~ /parasite/;  #ParaSite mod
       my $dbname = $conf->{compara}->{$dbtype}->{$release};
       next unless $dbname;
       
@@ -936,13 +952,13 @@ sub get_genetree_lookup {
       my $compara_dbh = DBI->connect( "$dsn:$dbname", $user, $pass ) or die "DBI::error";
 
       my $sql =
-        "SELECT m2.stable_id AS gene, gtr.stable_id AS genetree
-         FROM member m
-         JOIN gene_tree_node gtn ON gtn.member_id = m.member_id
-         JOIN gene_tree_root gtr ON gtr.root_id = gtn.root_id
-         JOIN member m2 ON m2.member_id = m.gene_member_id
+        "SELECT gm.stable_id AS gene, gtr.stable_id AS genetree
+         FROM seq_member sm
+         JOIN gene_tree_node gtn USING(seq_member_id)
+         JOIN gene_tree_root gtr USING(root_id)
+         JOIN gene_member gm USING(gene_member_id)
          WHERE gtr.stable_id IS NOT NULL
-         ORDER BY m2.stable_id";
+         ORDER BY gm.stable_id";
 
       #warn "$sql\n";
 
@@ -971,15 +987,16 @@ sub get_ortholog_lookup {
   return {} if ($noortholog);
 
   my $prefix = $compara_db eq 'pan_homology' ? 'ensemblgenomes' : 'ensembl';
- 
-  # Specify the species to dump their orthologues
+  
+  # ParaSite mod
   my $orth_species = {
+  	'caenorhabditis_elegans'                  => "wormbase_ortholog",
     'homo_sapiens'                            => "ensembl_ortholog",
-    'caenorhabditis_elegans'                  => "wormbase_ortholog",
   };
-
   $compara_db = 'wbparasite' if $compara_db =~ /parasite/;
-
+  # ParaSite mod
+  
+  #return {} unless delete $orth_species->{$species};                         # do we want orthologs for this species?  ## ParaSite mod
   return {} unless my $dbname = $conf->{compara}->{$compara_db}->{$release}; # have we got a compara db?
 
   print "Building ortholog lookup for $species (compara_$compara_db)...\n";
@@ -992,14 +1009,14 @@ sub get_ortholog_lookup {
 
   my $orthologs_sth = $compara_dbh->prepare(qq{
     SELECT
-      m1.stable_id , m2.stable_id, gdb2.name, m2.display_label
+      m1.stable_id , m2.stable_id, gdb2.name
     FROM 
-      genome_db gdb1  JOIN member m1 USING (genome_db_id)
-      JOIN homology_member hm1 USING (member_id)
+      genome_db gdb1  JOIN gene_member m1 USING (genome_db_id)
+      JOIN homology_member hm1 USING (gene_member_id)
       JOIN homology h USING (homology_id)
       JOIN homology_member hm2 USING (homology_id)
-      JOIN member m2 ON (hm2.member_id = m2.member_id)
-      JOIN genome_db gdb2 on (m2.genome_db_id = gdb2.genome_db_id)
+      JOIN gene_member m2 ON (hm2.gene_member_id = m2.gene_member_id)
+      JOIN genome_db gdb2 ON (m2.genome_db_id = gdb2.genome_db_id)
     WHERE
       gdb1.name = "$species" 
       AND m2.source_name = "ENSEMBLGENE"
@@ -1013,8 +1030,7 @@ sub get_ortholog_lookup {
   my $lookup = {};
   my $rows = [];
   while ( my $row = ( shift(@$rows) || shift( @{ $rows = $orthologs_sth->fetchall_arrayref( undef, 10_000 ) || [] } ) ) ) {
-    push @{ $lookup->{$row->[0]} }, [ $row->[1], $orth_species->{$row->[2]}, $row->[3] ];
-
+    push @{ $lookup->{$row->[0]} }, [ $row->[1], $orth_species->{$row->[2]} ];
   }    
   
   return $lookup;
