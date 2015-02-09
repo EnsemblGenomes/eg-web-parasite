@@ -57,6 +57,8 @@ sub content {
 
   $html = qq{<div class="searchresults">\n$html\n</div>\n};  
 
+  $html .= $self->render_pagination;
+
   return $html;
 }
 
