@@ -12,15 +12,14 @@ sub _get_NCBIBLAST_source_file {
 
   my $unit = $self->GENOMIC_UNIT;
 
-  my $version = $self->ENSEMBL_VERSION;
-
-  return sprintf 'wormbase-parasite/%s.%s.%s.%s', $species, $assembly, $version, $type unless $type =~ /latestgp/;
+  return sprintf 'wormbase-parasite/%s.%s.%s', $species, $assembly, $type unless $type =~ /latestgp/;
 
   $type =~ s/latestgp(.*)/dna$1\.toplevel/;
   $type =~ s/.masked/_rm/;
   $type =~ s/.soft/_sm/;
 
-  return sprintf 'wormbase-parasite/%s.%s.%s.%s', $species, $assembly, $version, $type;
+  return sprintf 'wormbase-parasite/%s.%s.%s', $species, $assembly, $type;
+
 }
 
 1;
