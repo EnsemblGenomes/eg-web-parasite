@@ -3,7 +3,7 @@
 use strict;
 use DBI;
 
-my $outdir = "/nfs/public/rw/ensembl/websites/parasite/current/eg-web-parasite/htdocs/ssi/species";
+my $outdir = "/nfs/public/rw/ensembl/websites/parasite/current/browser/eg-web-parasite/htdocs/ssi/species";
 
 my @files_to_delete = <$outdir/about_*_*.html>;
 unlink(@files_to_delete);
