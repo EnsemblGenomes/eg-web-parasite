@@ -93,13 +93,7 @@ sub species_list {
 
   my $html;
   foreach my $sp (@{$self->{'species_list'}}) {
-    ## ParaSite: Italicise the species name but not the BioProject
-    if($sp->[1] =~ /\(/) {
-      $sp->[1] =~ s/(.*)\(/<em>$1<\/em>\(/g;
-    } else {
-      $sp->[1] =~ s/(.*)/<em>$1<\/em>/g;
-    }
-    ## ParaSite
+    $sp->[1] =~ s/(.*)\(/<em>$1<\/em>\(/g;
     $html .= qq{<li><a class="constant" href="$sp->[0]">$sp->[1]</a></li>};
   }
 
@@ -121,11 +115,7 @@ sub content {
 
     my $name         = encode_entities($self->strip_HTML($entry->{'caption'}));
     ## ParaSite: Italicise the species name but not the BioProject
-    if($name =~ /\(/) {
-      $name =~ s/(.*)\(/<em>$1<\/em>\(/g;
-    } else {
-      $name =~ s/(.*)/<em>$1<\/em>/g;
-    }
+    $name =~ s/(.*)\(/<em>$1<\/em>\(/g;
     ## ParaSite
     my ($short_name) = split /\b/, $name;
     my $constant     = $entry->{'constant'} ? ' class="constant"' : '';
