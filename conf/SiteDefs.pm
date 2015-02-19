@@ -73,7 +73,6 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Gongylonema_pulchrum_prjeb505'} = [qw(gongylonema_pulchrum_prjeb505, Gongylonema_pulchrum_prjeb505)];
 	$SiteDefs::__species_aliases{'Haemonchus_contortus_prjeb506'} = [qw(haemonchus_contortus_prjeb506, Haemonchus_contortus_prjeb506)];
 	$SiteDefs::__species_aliases{'Haemonchus_contortus_prjna205202'} = [qw(haemonchus_contortus_prjna205202, Haemonchus_contortus_prjna205202)];
-	$SiteDefs::__species_aliases{'Haemonchus_contortus_prjna205202'} = [qw(haemonchus_contortus_prjna205202, Haemonchus_contortus_prjna205202)];
 	$SiteDefs::__species_aliases{'Haemonchus_placei_prjeb509'} = [qw(haemonchus_placei_prjeb509, Haemonchus_placei_prjeb509)];
 	$SiteDefs::__species_aliases{'Heligmosomoides_bakeri_prjeb1203'} = [qw(heligmosomoides_bakeri_prjeb1203, Heligmosomoides_bakeri_prjeb1203, Heligmosomoides_polygyrus_prjeb1203, heligmosomoides_polygyrus_prjeb1203)];
 	$SiteDefs::__species_aliases{'Heterorhabditis_bacteriophora_prjna13977'} = [qw(heterorhabditis_bacteriophora_prjna13977, Heterorhabditis_bacteriophora_prjna13977)];
