@@ -36,7 +36,7 @@ sub render {
   my $species_defs        = $hub->species_defs;
   my $page_species        = $hub->species || 'Multi';
   my $species_name        = $page_species eq 'Multi' ? '' : $species_defs->DISPLAY_NAME;
-  my $search_url          = $species_defs->ENSEMBL_WEB_ROOT . "$page_species/psychic";
+  my $search_url          = $species_defs->ENSEMBL_WEB_ROOT . "$page_species/Search/Results";
   my $default_search_code = $species_defs->ENSEMBL_DEFAULT_SEARCHCODE;
   my $is_home_page        = $page_species eq 'Multi';
   my $input_size          = $is_home_page ? 30 : 40;
