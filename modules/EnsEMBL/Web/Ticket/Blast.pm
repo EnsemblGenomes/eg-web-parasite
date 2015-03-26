@@ -81,6 +81,38 @@ sub _process_user_input {
   my $jobs                          = [];
   my $job_num                       = 0;
 
+## ParaSite concat results: generate a string of database names then submit as one single job instead of one job per species
+if($hub->param('species_select') eq 'concat') {
+  my @blast_dbs;
+  for my $species (@species) {
+    push @blast_dbs, $sd->get_blast_datasource_filename($species, $blast_type, $params->{'source'});
+  }
+  for my $sequence (@$sequences) {
+    my $summary = sprintf('%s genomes, %s (%s)', scalar(@blast_dbs), $search_method, $source_types->{$params->{'source'}});
+    push @$jobs, [ {
+      'job_number'  => ++$job_num,
+      'job_desc'    => $desc || $sequence->{'display_id'} || $summary,
+      'species'     => 'Multi',
+      'assembly'    => 'Multi',
+      'job_data'    => {
+        'output_file' => 'blast.out',
+        'sequence'    => {
+          'input_file'  => 'input.fa',
+          'is_invalid'  => $sequence->{'is_invalid'}
+        },
+        'summary'     => $summary,
+        'source_file' => \@blast_dbs,   # Submit multiple database names into a single job
+        %$params
+      }
+    }, {
+      'input.fa'    => {
+        'content'     => $sequence->{'fasta'}
+      }
+    } ];
+  }
+} else {
+## ParaSite concat results
+
   for my $species (@species) {
 
     for my $sequence (@$sequences) {
@@ -109,6 +141,9 @@ sub _process_user_input {
       } ];
     }
   }
+## ParaSite
+}
+##
 
   return $jobs;
 }
