@@ -41,17 +41,24 @@ sub species_autocomplete {
   my @matches;
   foreach my $sp (@species) {
     my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME");
-    my $taxid   = $species_defs->get_config($sp, "TAXONOMY_ID");
-    my $search  = $normalise->("$name $taxid");
-    next unless $search =~ /\Q$term\E/i;
-    
-    my $begins_with = $search =~ /^\Q$term\E/i;
-    
-    push(@matches, {
-      value => "$name, (TaxID $taxid)",
-      production_name => $sp,
-      begins_with => $begins_with,
-    });
+## ParaSite: add alternative names into the autocomplete suggestions
+    my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
+    my ($bioproj) = $name =~ /\((.*)\)/; # Capture the BioProject and append to the alternative names
+    my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
+    my @names     = $alt_names ? ($name, @alt_proj) : ($name);
+
+    foreach my $search (@names) {
+      next unless $search =~ /\Q$term\E/i;
+      
+      my $begins_with = $search =~ /^\Q$term\E/i;
+
+      push(@matches, {
+        value => "$search",
+        production_name => $sp,
+        begins_with => $begins_with,
+      });
+    }
+##
   }
 
   # sub to make alpha-numeric comparison but give precendence to 

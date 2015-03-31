@@ -166,7 +166,6 @@ sub content {
 
   my $html = '
     <div class="column-wrapper">  
-      <div class="box-left">
         <div class="species-badge">';
 
   if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species_short.png") {  # Check if the image exists
@@ -175,9 +174,11 @@ sub content {
 
   my @species_parts = split('_', $species);
   my $bioproject = uc($species_parts[2]);
-  $html .= qq(<h1><em>$display_name</em></h1><h3><a href="http://www.ncbi.nlm.nih.gov/bioproject/$bioproject">$bioproject</a></h3>);
+  my $alias_list = $species_defs->SPECIES_ALTERNATIVE_NAME ? sprintf('(<em>%s</em>)', join(', ', @{$species_defs->SPECIES_ALTERNATIVE_NAME})) : undef; # Alternative names will appear in the order they are inserted to the meta table 
+  $html .= qq(<h1><em>$display_name</em> $alias_list</h1>);
 
   $html .= '<p class="taxon-id">';
+  $html .= "BioProject <a href=\"http://www.ncbi.nlm.nih.gov/bioproject/$bioproject\">$bioproject</a> | ";
   $html .= 'Data Source ' . $provider_link if $provider_link;
   $html .= sprintf q{Taxonomy ID %s}, $hub->get_ExtURL_link("$taxid", 'UNIPROT_TAXONOMY', $taxid) if $taxid;
   $html .= '</p>';
@@ -185,7 +186,6 @@ sub content {
 
   $html .= EnsEMBL::Web::Document::HTML::HomeSearch->new($hub)->render;
 
-  $html .= '</div>'; #box-left
   $html .= '<div class="box-right">';
   
   if ($hub->species_defs->multidb->{'DATABASE_PRODUCTION'}{'NAME'}) {
@@ -207,19 +207,19 @@ sub content {
     my @parts = split("_", $alt);
     my $bioproj = uc($parts[2]);
     my $provider = $species_defs->get_config($alt, 'PROVIDER_NAME');
-    my $summary = "$provider genome project";
+    my $summary = $provider;
     $alt_string .= qq(<a href="/$alt/Info/Index/" title="$summary">$bioproj</a> );
   }
   $alt_string .= '</p>';
     
   my $about_text = $self->_other_text('about', $species_short);
   $about_text .= $alt_string if $alt_count > 0;
-  #if ($about_text) {
+  if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
+    $html .= "<h2>About <em>$display_name</em> $alias_list</h2>";
     $html .= $about_text;
-    $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
     $html .= '</div></div>';
-  #}
+  }
 
   my (@sections);
   

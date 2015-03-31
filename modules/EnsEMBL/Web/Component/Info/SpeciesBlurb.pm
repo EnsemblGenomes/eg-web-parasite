@@ -60,7 +60,7 @@ sub content {
   <div class="column-one">
     <div class="column-padding no-left-margin">
       $img_string
-      <h1 style="margin-bottom:0"><em>$display_name</em> ($bioproject) -  Assembly and Gene Annotation</h1>
+      <h1 style="margin-bottom:5px"><em>$display_name</em> ($bioproject)</h1>
     </div>
   </div>
 </div>
