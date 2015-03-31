@@ -91,7 +91,7 @@ body.ie6 .spinner { background-color: [[PAGE_BG]]; border-color: [[PAGE_BG]]; he
 h1, h2, h3, h4  { color: [[PAGE_HEADER]]; margin: 0 0 1em; }
 h1              { font-size: 1.5em; }
 h2              { font-size: 1.2em; }
-h3              { font-size: 1.1em; }
+h3              { font-size: 1.1em; margin-bottom:2px; }
 h4              { font-size: 1em;   }
 body.mac h1,
 body.mac h2     { padding-top: 12px; }

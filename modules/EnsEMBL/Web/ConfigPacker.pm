@@ -218,6 +218,10 @@ sub _munge_meta {
     ## ParaSite changes to include nematode clade in the classification
     unshift @{$taxonomy}, "Clade@{$meta_hash->{'species.nematode_clade'}}[0]";
     ## End ParaSite changes
+
+    ## ParaSite changes to force alternative names into an array
+    $self->tree->{$species}{'SPECIES_ALTERNATIVE_NAME'} = $meta_hash->{'species.alternative_name'} if $meta_hash->{'species.alternative_name'};
+    ## End ParaSite changes
    
     if ($taxonomy && scalar(@$taxonomy)) {
       my $order = $self->tree->{'TAXON_ORDER'};

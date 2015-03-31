@@ -37,22 +37,19 @@ while (my $result = $sth->fetchrow_arrayref) {
 
 ##############
 
-my $sql = "SELECT species_name, display_name, description FROM static_species";
+my $sql = "SELECT species_name, description FROM static_species";
 my $sth = $dbh->prepare($sql);
 $sth->execute();
 
 my %keys = (1 => 'about');
-my %labels = (1 => 'About %s');
 
 while (my $result = $sth->fetchrow_arrayref) {
 	my @results = @{$result};
 	print "$results[0]\n";
 	open(OUTFILE, ">/$outdir/about_$results[0].html");
 	if($results[0] ne '') {
-		my $header = sprintf($labels{1}, "<em>$results[1]</em>");
 		print OUTFILE qq(<!-- \{$keys{1}\} --><a name="$keys{1}"></a>\n);
-		print OUTFILE qq(<h2>$header</h2>\n);
-		print OUTFILE qq(<p>$results[2]</p>\n);
+		print OUTFILE qq(<p>$results[1]</p>\n);
 		print OUTFILE qq(<!-- \{$keys{1}\} -->\n\n);
 	}
 	close(OUTFILE);
