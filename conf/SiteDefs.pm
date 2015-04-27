@@ -151,6 +151,8 @@ sub update_conf {
 	$SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
 	$SiteDefs::SITE_FTP= 'ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
 
+	$SiteDefs::EBI_BLAST_DB_PREFIX = 'wormbase-parasite';
+
 }
 
 1;
