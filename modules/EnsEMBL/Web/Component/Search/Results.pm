@@ -119,6 +119,7 @@ sub _render_species_message {
   foreach($hub->species_defs->valid_species) {
     (my $species = $_) =~ s/\_/ /g;
     my $query = $search->query_term;
+    last if $query =~ /\*/;
     push(@matches, $_) if $species =~ /$query/i;
   }
   if(scalar(@matches) > 0) {
