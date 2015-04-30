@@ -102,6 +102,7 @@ if($hub->param('species_select') eq 'concat') {
         },
         'summary'     => $summary,
         'source_file' => \@blast_dbs,   # Submit multiple database names into a single job
+        'source_species' => \@species,
         %$params
       }
     }, {
