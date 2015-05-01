@@ -238,21 +238,20 @@ sub render_hit {
       $table->add_row("Location", sprintf '<a href="%s/Location/View?r=%s;g=%s;db=">%s</a>', $hit->{species_path}, $self->zoom_location($hit->{location}), $hit->{id}, $hit->{location}, $hit->{database});
     } 
     
-    if ($hit->{gene_synonym}) {
+    if (@{$hit->{gene_synonym}}) {
       my %unique;
-      foreach my $synonym (split /\n/, $hit->{gene_synonym}) { 
+      foreach my $synonym (@{$hit->{gene_synonym}}) {
         (my $key = lc $synonym) =~ s/[^a-z0-9]/_/ig;
         (my $value = ucfirst $synonym) =~ s/-/ /g;
         $unique{$key} = $value;
       }
-      $table->add_row("Synonyms", $self->highlight(join(', ', sort values %unique)));
+      $table->add_row("Synonyms", $self->highlight(join(', <br />', sort values %unique)));
     }
 
-    if ($hit->{genetree}) {
-      my @ids = split /\n/, $hit->{genetree};
+    if (@{$hit->{genetree}}) {
       my @links;
        
-      foreach my $id (@ids) {
+      foreach my $id (@{$hit->{genetree}}) {
         my $url = sprintf '%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id};
         push @links, sprintf '<a href="%s">%s</a> %s', $url, $self->highlight($id);
       }
@@ -260,7 +259,7 @@ sub render_hit {
       $table->add_row("Gene trees", join ', ', @links);
     }
 
-    if ($hit->{WORMBASE_ORTHOLOG}) {
+    if (@{$hit->{WORMBASE_ORTHOLOG}}) {
       my $text = $self->process_orthologs($hit->{WORMBASE_ORTHOLOG}, 'WORMBASE_GENE');
       my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
       $table->add_row("<em>C. elegans</em> orthologue$suffix", $text);
@@ -291,26 +290,25 @@ sub render_hit {
 }
 
 sub process_orthologs {
-  my ($self, $string, $source) = @_;
-  my @orthologs = split(" ", $string);
+  my ($self, $orthologs, $source) = @_;
   my $cdb = 'compara';
   my $formatted;
   if($self->hub->database('compara')) {
     my $database = $self->hub->database($cdb);
-    foreach(@orthologs) {
+    foreach(@{$orthologs}) {
       my $member = $database->get_GeneMemberAdaptor->fetch_by_stable_id($_);
       my $label = $member->display_label || $_;
       $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
       $_ = $self->hub->get_ExtURL_link($label, $source, $_);
     }
   } else {
-    foreach(@orthologs) {
+    foreach(@{$orthologs}) {
       my $label = $_;
       $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
       $_ = $self->hub->get_ExtURL_link($label, $source, $_);
     }
   }
-  $formatted = join(', ', @orthologs);
+  $formatted = join(', ', @{$orthologs});
   return $formatted;
 }
 
