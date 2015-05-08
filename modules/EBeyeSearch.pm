@@ -24,6 +24,7 @@ use Data::Page;
 use DBI;
 use URI::Escape;
 use EBeyeSearch::REST;
+use EBeyeSearch::WormBaseREST;
 
 my $results_cutoff = 10000;
 my $default_pagesize = 10; 
@@ -36,6 +37,7 @@ sub new {
   my $self = bless {
     hub  => $hub,
     rest => EBeyeSearch::REST->new(base_url => $SiteDefs::EBEYE_REST_ENDPOINT),
+    wormrest => EBeyeSearch::WormBaseREST->new(),
   }, $class;
   
   return $self;
@@ -44,6 +46,7 @@ sub new {
 sub hub            { return $_[0]->{hub} };
 sub ws             { return $_[0]->{ws} };
 sub rest           { return $_[0]->{rest} };
+sub wormrest       { return $_[0]->{wormrest} };
 sub query_term     { return $_[0]->hub->param('q') };
 sub species        { return $_[0]->hub->param('species') || 'all' };
 sub filter_species { return $_[0]->hub->param('filter_species') };
@@ -135,10 +138,16 @@ sub get_hit_counts {
   my $hit_counts;
 
   # ensembl genomes gene
-  my @units = $self->site =~ /^(ensemblthis|ensemblunit)$/ ? ($species_defs->GENOMIC_UNIT) : @{$SiteDefs::EBEYE_SEARCH_UNITS};
+  #my @units = $self->site =~ /^(ensemblthis|ensemblunit)$/ ? ($species_defs->GENOMIC_UNIT) : @{$SiteDefs::EBEYE_SEARCH_UNITS};
+  my @units = @{$SiteDefs::EBEYE_SEARCH_UNITS};
   foreach my $unit (@units) {
-    my $count = $self->rest->get_results_count('wormbaseParasite', "$query AND genomic_unit:$unit");
-    $hit_counts->{gene}->{by_unit}->{$unit} = $count if $count > 0;
+    if($unit =~ /wormbase/) {
+      my $count = $self->wormrest->get_results_count('wormbase', $query);
+      $hit_counts->{gene}->{by_unit}->{'wormbase'} = $count;
+    } else {
+      my $count = $self->rest->get_results_count('wormbaseParasite', "$query AND genomic_unit:$unit");
+      $hit_counts->{gene}->{by_unit}->{$unit} = $count;
+    }
   }
 
   # ensembl gene
@@ -223,24 +232,34 @@ sub get_gene_hits {
   my $filter_species = $self->filter_species;
   my $domain         = $unit eq 'ensembl' ? "ensembl_$index" : "wormbaseParasite";
   my $pager          = $self->pager;
-  my @single_fields  = qw(id name description species featuretype location genomic_unit system_name database);
-  my @multi_fields   = qw(transcript gene_synonym genetree WORMBASE_ORTHOLOG);
-  my $query          = $self->ebeye_query;
-     $query         .= " AND genomic_unit:$unit" if $unit ne 'ensembl';
-     $query         .= " AND species:$filter_species" if $filter_species;
+  my $hits;
 
-  my $hits = $self->rest->get_results_as_hashes($domain, $query, 
-    {
-      fields => join ',', @single_fields, @multi_fields, 
-      start  => $pager->first - 1, 
-      size   => $pager->entries_per_page
-    }, 
-    { single_values => \@single_fields }
-  );
+  if($unit =~ /wormbase/) {
+    my @single_fields  = qw(id label taxonomy);
+    my @multi_fields   = qw();
+    my $query          = $self->ebeye_query;
+    $hits = $self->wormrest->get_results_as_hashes($domain, $query,
+      {
+        page   => $pager->current_page
+      });
+  } else {
+    my @single_fields  = qw(id name description species featuretype location genomic_unit system_name database);
+    my @multi_fields   = qw(transcript gene_synonym genetree WORMBASE_ORTHOLOG);
+    my $query          = $self->ebeye_query;
+       $query         .= " AND genomic_unit:$unit" if $unit ne 'ensembl';
+       $query         .= " AND species:$filter_species" if $filter_species;  
+    $hits = $self->rest->get_results_as_hashes($domain, $query, 
+      {
+        fields => join ',', @single_fields, @multi_fields, 
+        start  => $pager->first - 1, 
+        size   => $pager->entries_per_page
+      }, 
+      { single_values => \@single_fields }
+    );
+    $self->expand_hit($_) for @$hits;
+  }
 
-  $self->expand_hit($_) for @$hits;
-
-#  $debug && warn Data::Dumper::Dumper $hits;
+  #$debug && warn Data::Dumper::Dumper $hits;
 
   return $hits;
 }
@@ -359,7 +378,7 @@ sub species_path {
 
   if ($path =~ /^\/$species/i and !$species_defs->valid_species(ucfirst $species) and $genomic_unit) {
     # there was no direct mapping in current unit, use the genomic_unit to add the subdomin
-    $path = sprintf 'http://%s.ensembl.org/%s', $genomic_unit, $species;
+    $path = sprintf 'http://parasite.wormbase.org/%s', $species;
   } 
     
   # If species is in both Ensembl and EG, then $species_defs->species_path will 
