@@ -27,6 +27,7 @@ use HTTP::Message;
 use LWP;
 use URI::QueryParam;
 use JSON;
+use EnsEMBL::Web::Hub;
 
 my $debug = 0;
 
@@ -44,10 +45,12 @@ sub base_url { $_[0]->{base_url} }
 sub user_agent { 
   my $self = shift;
   
+  my $hub = new EnsEMBL::Web::Hub;
   unless ($self->{user_agent}) {
     my $ua = LWP::UserAgent->new();
     $ua->agent('ParaSite Web ' . $ua->agent());
     $ua->env_proxy;
+    $ua->proxy(['http', 'https'], $hub->species_defs->ENSEMBL_WWW_PROXY);
     $ua->timeout(10);
     $self->{user_agent} = $ua;
   }
