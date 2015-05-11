@@ -15,6 +15,17 @@
  */
 
 Ensembl.Panel.BlastForm.prototype.getSelectedSpecies = function() {
-    this.elLk.speciesCheckboxes = this.elLk.form.find('input[name=species]');
-    return this.elLk.speciesCheckboxes.filter(':checked').map(function() { return this.value; } ).toArray();
+  this.elLk.speciesCheckboxes = this.elLk.form.find('input[name=species]');
+  return this.elLk.speciesCheckboxes.filter(':checked').map(function() { return this.value; } ).toArray();
 };
+
+Ensembl.Panel.BlastForm.prototype.checkSpeciesChecked = function () {
+  var count = $("input:checkbox[name='species']:checked").length;
+  var limit = 25;
+  if(count > limit) {
+    alert('Too many items selected.\nPlease select a maximum of ' + limit + ' items or choose to submit the species as a single job.');
+    $("input:radio[id='concat']").prop('checked', 'true');
+  }
+};
+
+

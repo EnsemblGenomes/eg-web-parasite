@@ -45,13 +45,14 @@ sub job_details_table {
   }
 
   $two_col->add_row('Job name',       $job_summary->render);
-  ## ParaSite: remove images
-  $two_col->add_row('Species',        $sd->tools_valid_species($species) ? $sd->species_label($species, 1) : $species =~ s/_/ /rg);
-  ## ParaSite
   $two_col->add_row('Search type',    $object->get_param_value_caption('search_type', $job_data->{'search_type'}));
   $two_col->add_row('Sequence',       sprintf('<div class="input-seq">&gt;%s</div>', join("\n", $sequence->{'display_id'} || '', ($sequence->{'sequence'} =~ /.{1,60}/g))));
   $two_col->add_row('Query type',     $object->get_param_value_caption('query_type', $job_data->{'query_type'}));
   $two_col->add_row('DB type',        $object->get_param_value_caption('db_type', $job_data->{'db_type'}));
+  ## ParaSite: remove images and show all species on a multi-species job
+  my $display_species = $job_data->{'source_species'} ? join('<br />', map($sd->species_label($_, 1), @{$job_data->{'source_species'}})) : $sd->species_label($species, 1);
+  $two_col->add_row('Species',        $display_species);
+  ## ParaSite
   $two_col->add_row('Source',         $object->get_param_value_caption('source', $job_data->{'source'}));
   $two_col->add_row('Configurations', $configs) if $configs;
 

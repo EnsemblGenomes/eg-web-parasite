@@ -44,6 +44,10 @@ sub get_form_node {
   $modal_uri->query_form(s => [map {lc($_)} @species]); 
   
   my $html = qq{
+    <div>
+      <input type="radio" name="species_select" id="concat" value="concat" checked="true" /><label for="concat">Combine results for all species</label>&nbsp;
+      <input type="radio" name="species_select" id="individual" value="individual" onclick="Ensembl.Panel.BlastForm.prototype.checkSpeciesChecked()" /><label for="individual">Separate results by species (maximum 25 species)</label>&nbsp;
+    </div>
     <div class="js_panel taxon_selector_form">
       <input class="panel_type" value="BlastSpeciesList" type="hidden">
       <div class="list-wrapper">
