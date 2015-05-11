@@ -43,7 +43,7 @@ sub content {
         $search->filter_species,
         $search->query_string
       ); 
-    } elsif ($search->hit_count > 1 and $search->current_unit ne 'ensembl' and $search->current_index eq 'gene' and $search->species eq 'all') {
+    } elsif ($search->hit_count > 1 and $search->current_unit ne 'ensembl' and $search->current_unit ne 'wormbase' and $search->current_index eq 'gene' and $search->species eq 'all') {
      
       my @species = @{ $search->get_facet_species };
       $html .= @species > 200 ? $self->_render_filter_autocomplete(\@species)
@@ -92,13 +92,14 @@ sub no_hits_message {
   }
 
   my $species = $self->_render_species_message;
+  $species = "<li>$species</li>" if $species;
   
   return qq{
     <p>Your search for <strong>'$query'</strong> returned no results</p>
     <p>
       Suggestions:
       <ul>
-        <li>$species</li>
+        $species
         <li>Make sure all terms are spelled correctly</li>
         $wildcards 
         $alt_searches
@@ -147,7 +148,7 @@ sub _render_results_message {
   my $items = ucfirst(PL($index, $search->hit_count));
   my $html = '';
 
-  $html .= $self->_render_species_message;
+  $html .= $self->_render_species_message unless $index =~ /species/;
 
   if ($search->hit_count > 0) {
     $html .= "<h3>Showing $range $items found in $site</h3>";
@@ -166,21 +167,25 @@ sub _render_filter_dropdown {
   foreach (sort @$species) {
     $options .= qq{<option value="$_">$_</option>\n};
   }
-  
-  return qq{
-    <div id="species_filter" class="js_panel">
-      <input type="hidden" class="panel_type" name="speciesfilter" value="SpeciesFilterDropdown" />
-      <div class="search_filter">
-        <span>
-          Filter by species: 
-          <select>
-            <option value="">Select a species...</option>
-            $options
-          </select>
-        </span>
+
+  if(@$species) { 
+    return qq{
+      <div id="species_filter" class="js_panel">
+        <input type="hidden" class="panel_type" name="speciesfilter" value="SpeciesFilterDropdown" />
+        <div class="search_filter">
+          <span>
+            Filter by species: 
+            <select>
+              <option value="">Select a species...</option>
+              $options
+            </select>
+          </span>
+        </div>
       </div>
-    </div>
-  };
+    };
+  } else {
+    return '<div id="species_filter" class="js_panel"><div class="search_filter"></div></div>';
+  }
 }
 
 sub _render_filter_autocomplete {
@@ -207,7 +212,7 @@ sub render_hit {
   
   my $hub = $self->hub;
   my $species_defs = $hub->species_defs;
-  
+
   my $species = ucfirst($hit->{species});
   $species =~ s/_/ /;
   
@@ -238,7 +243,7 @@ sub render_hit {
       $table->add_row("Location", sprintf '<a href="%s/Location/View?r=%s;g=%s;db=">%s</a>', $hit->{species_path}, $self->zoom_location($hit->{location}), $hit->{id}, $hit->{location}, $hit->{database});
     } 
     
-    if (@{$hit->{gene_synonym}}) {
+    if ($hit->{gene_synonym} && @{$hit->{gene_synonym}}) {
       my %unique;
       foreach my $synonym (@{$hit->{gene_synonym}}) {
         (my $key = lc $synonym) =~ s/[^a-z0-9]/_/ig;
@@ -248,7 +253,7 @@ sub render_hit {
       $table->add_row("Synonyms", $self->highlight(join(', <br />', sort values %unique)));
     }
 
-    if (@{$hit->{genetree}}) {
+    if ($hit->{genetree} && @{$hit->{genetree}}) {
       my @links;
        
       foreach my $id (@{$hit->{genetree}}) {
@@ -259,13 +264,13 @@ sub render_hit {
       $table->add_row("Gene trees", join ', ', @links);
     }
 
-    if (@{$hit->{WORMBASE_ORTHOLOG}}) {
+    if ($hit->{WORMBASE_ORTHOLOG} && @{$hit->{WORMBASE_ORTHOLOG}}) {
       my $text = $self->process_orthologs($hit->{WORMBASE_ORTHOLOG}, 'WORMBASE_GENE');
       my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
       $table->add_row("<em>C. elegans</em> orthologue$suffix", $text);
     }
 
-    #if ($hit->{ENSEMBL_ORTHOLOG}) {
+    #if ($hit->{ENSEMBL_ORTHOLOG} && @{$hit->{ENSEMBL_ORTHOLOG}}) {
     #  my $text = $self->process_orthologs($hit->{ENSEMBL_ORTHOLOG}, 'ENS_HS_GENE');
     #  my $suffix = scalar(split(",", $text)) > 1 ? 's' : '';
     #  $table->add_row("Human orthologue$suffix", $text);

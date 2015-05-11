@@ -25,11 +25,10 @@ sub update_conf {
     $SiteDefs::SITE_RELEASE_DATE = 'March 2015';
     $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_pt';
     $SiteDefs::GENOMIC_UNIT = 'parasite';
-    $SiteDefs::EBEYE_SEARCH_UNITS = [qw(parasite)];
+    $SiteDefs::EBEYE_SEARCH_UNITS = [qw(parasite wormbase)];
     $SiteDefs::EBEYE_SITE_NAMES = {
-      ena      => 'ENA',
-      ensembl  => 'Ensembl',
       parasite => 'WormBase ParaSite',
+      wormbase => 'WormBase',
     };
     $SiteDefs::ENSEMBL_ENASEARCH_ENABLED = 0;
 
