@@ -44,7 +44,7 @@ sub job_summary_section {
   my $job_species_display = $valid_job_species ? $species_defs->species_label($job_species, 1) : $job_species =~ s/_/ /rg;
 
   my $result_url = $dispatcher_status eq 'done' ? {
-    '__clear'     => !!$assembly_site, # remove extra params for the external site
+    '__clear'     => 1, ## ParaSite: always remove the extra params
     'species'     => $job_species,
     'type'        => 'Tools',
     'action'      => $ticket->ticket_type_name,
