@@ -55,7 +55,7 @@ sub content {
     $table->add_row('CCDS', sprintf('<p>This transcript is a member of the %s CCDS set: %s</p>', $sp, join ', ', map $hub->get_ExtURL_link($_, 'CCDS', $_), @CCDS));
   }
 
-  $table->add_row('Ensembl version', $object->stable_id.'.'.$object->version);
+  #$table->add_row('Ensembl version', $object->stable_id.'.'.$object->version);  ## ParaSite: remove the ensembl version
 
   ## add some Vega info
   if ($db eq 'vega') {
