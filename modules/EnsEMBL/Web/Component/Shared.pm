@@ -360,7 +360,7 @@ sub transcript_table {
       my $x = $extra_links{$k};
       push @columns, { key => $k, sort => 'html', title => $x->{'name'}};
     }
-    push @columns, { key => 'flags', sort => 'html', title => 'Flags' };
+    push @columns, { key => 'flags', sort => 'html', title => 'Flags', 'hidden' => 1 };  ## ParaSite: hide the flags column by default as we have no data here
 
     ## Additionally, sort by CCDS status and length
     while (my ($k,$v) = each (%biotype_rows)) {
@@ -512,6 +512,25 @@ sub transcript_table {
   $table->add_row('INSDC coordinates',$insdc_accession) if $insdc_accession;
   
   $table->add_row( $page_type eq 'gene' ? 'About this gene' : 'About this transcript',$counts_summary) if $counts_summary;
+
+## ParaSite: move the gene summary out of its own module (this code is all originally from EnsEMBL::Web::Component::Gene::GeneSummary
+  if($page_type eq 'gene') {
+    my $type = $object->gene_type;
+    $table->add_row('Gene type', $type) if $type;
+    eval {
+      my $label = 'Annotation Method';
+      my $text  = "<p>No $label defined in database</p>";
+      my $o     = $object->Obj;
+      if ($o && $o->can('analysis') && $o->analysis && $o->analysis->description) {
+        $text = $o->analysis->description;
+      } elsif ($object->can('gene') && $object->gene->can('analysis') && $object->gene->analysis && $object->gene->analysis->description) {
+        $text = $object->gene->analysis->description;
+      }
+  
+      $table->add_row($label, $text);
+    };
+  }
+##
 
 ## ParaSite: check for wormbase_gene xref
   my $wormbase;
