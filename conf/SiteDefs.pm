@@ -30,6 +30,7 @@ sub update_conf {
       parasite => 'WormBase ParaSite',
       wormbase => 'WormBase',
     };
+    $SiteDefs::EBEYE_SEARCH_DOMAIN = 'wormbaseParasite';
     $SiteDefs::ENSEMBL_ENASEARCH_ENABLED = 0;
 
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;

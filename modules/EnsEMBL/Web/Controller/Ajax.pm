@@ -19,6 +19,9 @@ limitations under the License.
 package EnsEMBL::Web::Controller::Ajax;
 
 use strict;
+use LWP;
+use URI::QueryParam;
+use JSON;
 
 sub species_autocomplete {
   my ($self, $hub) = @_;
@@ -85,6 +88,27 @@ sub species_autocomplete {
   }
 
   print $self->jsonify($data);
+}
+
+sub search_autocomplete {
+  my ($self, $hub) = @_;
+  my $species_defs  = $hub->species_defs;
+  my $term          = $hub->param('term');
+  my $format        = $hub->param('format');
+  my $ua = LWP::UserAgent->new();
+     $ua->agent('EnsemblGenomes Web ' . $ua->agent());
+     $ua->env_proxy;
+     $ua->timeout(10);
+my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBEYE_SEARCH_DOMAIN . "/autocomplete");
+     $uri->query_param('term'   => $term);
+     $uri->query_param('format' => $format);
+  my $response = $ua->get($uri->as_string);
+  if ($response->is_error) {
+    die;
+  }
+  my $results = from_json($response->content);
+  my @suggestions = map($_->{'suggestion'}, @{$results->{suggestions}});
+  print encode_json(\@suggestions);
 }
 
 1;
