@@ -27,9 +27,9 @@ sub render {
   return qq{
       <div id="species_list" class="js_panel home-search-flex">
         <input type="hidden" class="panel_type" value="SpeciesList" />
-        <form id="species_autocomplete_form" action="/info/about/species.html" style="margin-bottom:5px" method="get">
+        <form id="species_autocomplete_form" action="/Multi/psychic" style="margin-bottom:5px" method="get">
           <div>
-           <input name="search" type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:250px; margin: 0" placeholder="Start typing the name of a species...">
+           <input name="q" type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:250px; margin: 0" placeholder="Start typing the name of a species...">
           </div>
         </form>
       </div>

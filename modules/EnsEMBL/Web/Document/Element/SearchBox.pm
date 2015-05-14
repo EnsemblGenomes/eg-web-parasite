@@ -34,10 +34,10 @@ sub content {
   return qq(
     <div id="searchPanel" class="js_panel">
       <input type="hidden" class="panel_type" value="SearchBox" />
-      <form action="$search_url">
+      <form id="searchForm" action="$search_url">
         <div class="search print_hide">
             <label class="hidden" for="se_q">Search terms</label>
-            <input class="query" id="se_q" type="text" name="q" data-role="none" placeholder="Search WormBase ParaSite..." />
+            <input class="query" id="se_q" class="ui-autocomplete-input inactive" type="text" name="q" data-role="none" placeholder="Search WormBase ParaSite..." />
             <input type="submit" value="1" />
         </div>
       </form>
