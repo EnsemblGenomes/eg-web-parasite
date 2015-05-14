@@ -334,6 +334,6 @@ ul.ui-widget-content a { color: #222222; }
   color: #000000;
 }
 
-.ui-autocomplete-input.loading {
+.ui-autocomplete-loading {
   background: url("/i/ajax-loader.gif") no-repeat scroll right center #FFFFFF
 }
