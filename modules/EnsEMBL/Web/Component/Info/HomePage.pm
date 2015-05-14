@@ -145,7 +145,6 @@ sub content {
   my $common_name  = $species_defs->SPECIES_COMMON_NAME;
   my $display_name = $species_defs->SPECIES_SCIENTIFIC_NAME;
   my $taxid        = $species_defs->TAXONOMY_ID;
-  my $sound        = $species_defs->SAMPLE_DATA->{'ENSEMBL_SOUND'};
   my $provider_link;
 
   my @species_parts = split('_', $species);
@@ -169,7 +168,7 @@ sub content {
         <div class="species-badge">';
 
   if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species_short.png") {  # Check if the image exists
-  	$html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$sound" />) unless $self->is_bacteria;
+  	$html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$common_name" />) unless $self->is_bacteria;
   }
 
   my @species_parts = split('_', $species);
@@ -226,7 +225,7 @@ sub content {
 
   push(@sections, $self->_assembly_text);
 # $html .= '<div class="box-left"><div class="round-box home-box unbordered">' . $self->_assembly_text . '</div></div>';
-  push(@sections, $self->_genebuild_text) if $species_defs->SAMPLE_DATA->{GENE_PARAM};
+  push(@sections, $self->_genebuild_text) if $species_defs->SAMPLE_DATA && $species_defs->SAMPLE_DATA->{GENE_PARAM};
  #$html .= '<div class="box-right"><div class="round-box home-box unbordered">' . $self->_genebuild_text . '</div></div>' if $species_defs->SAMPLE_DATA->{GENE_PARAM};
 
 # my @box_class = ('box-left', 'box-right');
@@ -709,7 +708,7 @@ sub _has_compara {
   my $object_type    = shift;                           
   my $hub            = $self->hub;
   my $species_defs   = $hub->species_defs;
-  my $sample_gene_id = $species_defs->SAMPLE_DATA->{'GENE_PARAM'};
+  my $sample_gene_id = $species_defs->SAMPLE_DATA ? $species_defs->SAMPLE_DATA->{'GENE_PARAM'} : '';
   my $db             = $hub->database($db_name);
   my $has_compara    = 0;
   
