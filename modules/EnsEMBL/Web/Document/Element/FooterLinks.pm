@@ -27,7 +27,7 @@ sub content {
   return qq(
     <div class="twocol-right right">
       <a href="http://ensemblgenomes.org/info/about/wormbase_parasite">About&nbsp;WormBase ParaSite</a> | 
-      <a href="/info/about/contact/index.html">Contact&nbsp;Us</a> | 
+      <a href="/contact.html">Contact&nbsp;Us</a> | 
       <a href="http://www.ebi.ac.uk/Information/termsofuse.html">EMBL-EBI Terms of use</a> | 
       <a href="http://www.ebi.ac.uk/Information/Privacy.html">Privacy</a> | 
       <a href="/info/about/cookies.html">Cookies</a> 
