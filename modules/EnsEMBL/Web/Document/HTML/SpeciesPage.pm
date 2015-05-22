@@ -187,17 +187,17 @@ sub render {
 									  $phtml .= qq{$pr &nbsp;};
 								  }
 							  }
-							  $html .= qq{<td>$phtml</td><td style="width:100px">$assembly</td>};
+							  $html .= qq{<td>$phtml</td><td style="width:150px">$assembly</td>};
 						  } else {
 							  if ($url) {
 								  $url = "http://$url" unless ($url =~ /http/);
-								  $html .= qq{<td style="width:100px"><a href="$url">$provider</a></td><td style="width:100px">$assembly</td>};
+								  $html .= qq{<td style="width:250px"><a href="$url">$provider</a></td><td style="width:150px">$assembly</td>};
 							  } else {
-								  $html .= qq{<td style="width:100px">$provider</td><td style="width:100px">$assembly</td>};
+								  $html .= qq{<td style="width:250px">$provider</td><td style="width:150px">$assembly</td>};
 							  }
 						  }
 			  } else {
-				  $html .= qq{<td style="width:100px"></td><td style="width:100px">$assembly</td>};
+				  $html .= qq{<td style="width:250px"></td><td style="width:150px">$assembly</td>};
 			  }
 			  $html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
 			  if($info->{'taxid'}){
