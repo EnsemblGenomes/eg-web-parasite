@@ -35,7 +35,7 @@ sub report_header {
     ['Name'       => $hub->param('name')                                                                      ],
     ['Email'      => $hub->param('address')                                                                   ],
     ['Referer'    => $hub->species_defs->ENSEMBL_SERVERNAME                                                   ],
-    ['IP'         => $ENV{'REMOTE_ADDR'}                                                                      ],
+    ['IP'         => $ENV{'HTTP_X_CLUSTER_CLIENT_IP'} || $ENV{'REMOTE_ADDR'}                                  ],
     ['User agent' => $ENV{'HTTP_USER_AGENT'}                                                                  ],
     @_
   );
