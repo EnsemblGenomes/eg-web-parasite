@@ -29,6 +29,7 @@ sub transcript_table {
   my $species     = $hub->species;
   my $table       = $self->new_twocol;
   my $page_type   = ref($self) =~ /::Gene\b/ ? 'gene' : 'transcript';
+  my $cdb         = $hub->param('cdb') || 'compara';
   my $description = $object->gene_description;
   $description =~ s/\s*\{ECO:.*?\}//g;
      $description = '' if $description eq 'No description';
@@ -529,6 +530,24 @@ sub transcript_table {
   
       $table->add_row($label, $text);
     };
+  }
+##
+
+## ParaSite: show the orthologues from model organisms
+  if($page_type eq 'gene') {
+    my $orthologues = $object->get_homology_matches('ENSEMBL_ORTHOLOGUES', undef, undef, $cdb);
+    my %matches;
+    my $orth_text;
+    foreach my $match (keys %$orthologues) {
+      my $group = $hub->species_defs->COMPARA_SPECIES_SET->{lc($match)} || $hub->species_defs->get_config($match, 'SPECIES_GROUP') || 'all';
+      next unless $group eq 'models' || $group eq 'elegans' || $group eq 'human';
+      my $display = $hub->species_defs->species_label(lc($match));
+      $matches{$display} = join("; ", map("<a href=\"" . $hub->get_ExtURL($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($match)} . "_GENE", {'SPECIES'=>$match, 'ID'=>$_}) . "\" title=\"$_\">" . ($hub->database($cdb)->get_GeneMemberAdaptor->fetch_by_stable_id($_)->display_label || $_) . "</a>", keys %$orthologues->{$match}));
+    }
+    foreach(sort keys %matches) {
+      $orth_text .= "$_: $matches{$_}<br />";
+    }
+    $table->add_row('Model organism orthologues', $orth_text || 'None');
   }
 ##
 
