@@ -141,6 +141,9 @@ sub update_conf {
         $SiteDefs::__species_aliases{'Steinernema_monticolum_prjna205067'} = [qw(steinernema_monticolum_prjna205067, Steinernema_monticolum_prjna205067)];
         $SiteDefs::__species_aliases{'Steinernema_scapterisci_prjna204942'} = [qw(steinernema_scapterisci_prjna204942, Steinernema_scapterisci_prjna204942)];
 
+	# Release 3
+	$SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086, Loa_loa_prjna246086)];
+
 	@SiteDefs::ENSEMBL_PERL_DIRS    = (
 										   $SiteDefs::ENSEMBL_WEBROOT.'/perl',
 										   $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-common/perl',
