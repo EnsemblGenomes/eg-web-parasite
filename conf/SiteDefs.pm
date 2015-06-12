@@ -142,6 +142,7 @@ sub update_conf {
         $SiteDefs::__species_aliases{'Steinernema_scapterisci_prjna204942'} = [qw(steinernema_scapterisci_prjna204942, Steinernema_scapterisci_prjna204942)];
 
 	# Release 3
+	$SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992, Echinococcus_canadensis_prjeb8992)];
 	$SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086, Loa_loa_prjna246086)];
 
 	@SiteDefs::ENSEMBL_PERL_DIRS    = (
