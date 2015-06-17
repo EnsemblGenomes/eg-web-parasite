@@ -1,0 +1,42 @@
+<html>
+
+<head>
+<title>Track Hub Support</title>
+</head>
+
+<body>
+
+  <div style="width: 80%; display: block; margin-left: auto; margin-right: auto; margin-bottom: 45px">
+
+    <h1>Track hub support in WormBase ParaSite</h1>
+  
+    <p>
+      Track hubs (also known as Data Hubs) are collections of genomic data that can be viewed through a genome browser (such as the Ensembl browser embedded into WormBase ParaSite).  Hubs allow the attachment of multiple tracks without the need to manually attach each individual track to the browser.  As a track hub is updated by its author, the tracks shown in the genome browser will automatically update.  Track hubs are ideally suited to users and projects who wish to share large amounts of data. 
+    </p>
+  
+    <h2>Creating a hub</h2>
+    <p>
+      All track hubs follow the same format.  There is a <a href="https://genome.ucsc.edu/goldenPath/help/hubQuickStart.html">guide from UCSC</a> which details the format of a sample hub.  In order to display your data against the WormBase ParaSite species, you must use the correct assembly name in your genomes.txt file.  This can be located on the <a href="/species.html">WormBase ParaSite species list</a>.
+    </p>
+
+    <h2>Adding a hub to the genome browser</h2>
+    <p>
+      Track hubs can be added for any species in WormBase ParaSite, as follows:
+      <ol>
+        <li>Navigate to the "Region in Detail" view for your chosen species.</li>
+        <li>Click the "Add your data" or "Manage your data" from the left-hand menu.</li>
+        <li>Fill in the data form.  A name for the track is optional.  Any species can be selected as our code will automatically detect which species are present in your track hub.  The URL must be entered in full, including the http:// and should point to the hub.txt file.</li>
+        <li>Once the hub has been processed, a link to "Configure your hub" will appear.  This allows the selection of tracks to display in the genome browser.</li>
+      </ol> 
+    </p>
+
+    <h2>Example hub</h2>
+    <p>
+      WormBase provide a number of track hubs for the core parasitic species through the FTP site.  These can be useful for becoming familiar with the track attachment interface.  The hub located at <pre>ftp://ftp.ebi.ac.uk/pub/databases/wormbase/releases/WS249/COMPARATIVE_ANALYSIS/hub/hub.txt</pre> will add the WS249 gene model and feature tracks for the core parasitic WormBase species: <em>Brugia malayi</em>, <em>Onchocerca volvulus</em> and <em>Strongyloides ratti</em>.
+    </p>
+
+  </div>
+
+</body>
+
+</html>
