@@ -312,7 +312,10 @@ sub _munge_meta {
 
     # check if the karyotype/list of toplevel regions ( normally chroosomes) is defined in meta table
     @{$self->tree($species)->{'TOPLEVEL_REGIONS'}} = @{$meta_hash->{'regions.toplevel'}} if $meta_hash->{'regions.toplevel'};
-    
+   
+    (my $group_name = $self->{'_species'}) =~ s/_collection//;
+    $self->tree($species)->{'SPECIES_DATASET'} = $group_name;
+ 
     # convenience flag to determine if species is polyploidy
     $self->tree->{$species}{POLYPLOIDY} = ($self->tree->{$species}{PLOIDY} > 2);
   }
