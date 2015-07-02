@@ -22,7 +22,6 @@
 	<span style="font-weight:bold;font-size:1.2em">Tools</span>
 	<ul>
 		<li><a href="/api/">REST API</a></li>
-		<li><a href="/trackhub.html">TrackHub attachment support</a></li>
 		<li>Species limit removed for BLAST sequence searches</li>
 		<li>Updated comparative genomics</li>
 	</ul>
