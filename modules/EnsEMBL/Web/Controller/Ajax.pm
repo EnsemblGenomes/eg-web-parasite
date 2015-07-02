@@ -47,6 +47,7 @@ sub species_autocomplete {
 ## ParaSite: add alternative names into the autocomplete suggestions
     my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
     my ($bioproj) = $name =~ /\((.*)\)/; # Capture the BioProject and append to the alternative names
+    next if $bioproj eq ''; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
     my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
     my @names     = $alt_names ? ($name, @alt_proj) : ($name);
 
