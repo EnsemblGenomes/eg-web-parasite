@@ -49,7 +49,7 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Angiostrongylus_cantonensis_prjeb493'} = [qw(angiostrongylus_cantonensis_prjeb493, Angiostrongylus_cantonensis_prjeb493)];
 	$SiteDefs::__species_aliases{'Angiostrongylus_costaricensis_prjeb494'} = [qw(angiostrongylus_costaricensis_prjeb494, Angiostrongylus_costaricensis_prjeb494)];
 	$SiteDefs::__species_aliases{'Anisakis_simplex_prjeb496'} = [qw(anisakis_simplex_prjeb496, Anisakis_simplex_prjeb496)];
-	$SiteDefs::__species_aliases{'Ascaris_lumbricoides_prjeb495'} = [qw(ascaris_lumbricoides_prjeb495, Ascaris_lumbricoides_prjeb495)];
+	$SiteDefs::__species_aliases{'Ascaris_lumbricoides_prjeb4950'} = [qw(ascaris_lumbricoides_prjeb4950, Ascaris_lumbricoides_prjeb4950)];
 	$SiteDefs::__species_aliases{'Ascaris_suum_prjna62057'} = [qw(ascaris_suum_prjna62057, Ascaris_suum_prjna62057)];
 	$SiteDefs::__species_aliases{'Ascaris_suum_prjna80881'} = [qw(ascaris_suum_prjna80881, Ascaris_suum_prjna80881)];
 	$SiteDefs::__species_aliases{'Brugia_malayi_prjna10729'} = [qw(brugia_malayi_prjna10729, Brugia_malayi_prjna10729)];
