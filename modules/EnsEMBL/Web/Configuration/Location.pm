@@ -29,6 +29,8 @@ sub modify_tree {
   $self->delete_node('Overview');
   $self->delete_node('Variation');
   $self->delete_node('Marker');
+  $self->delete_node('Compara');
+  $self->delete_node('Chromosome');
 
 }
 
