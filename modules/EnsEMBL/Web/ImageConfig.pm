@@ -20,6 +20,96 @@ package EnsEMBL::Web::ImageConfig;
 
 use strict;
 
+sub menus {
+  return $_[0]->{'menus'} ||= {
+    # Sequence
+    seq_assembly        => 'Sequence and assembly',
+    sequence            => [ 'Sequence',          'seq_assembly' ],
+    misc_feature        => [ 'Clones',            'seq_assembly' ],
+    genome_attribs      => [ 'Genome attributes', 'seq_assembly' ],
+    marker              => [ 'Markers',           'seq_assembly' ],
+    simple              => [ 'Simple features',   'seq_assembly' ],
+    ditag               => [ 'Ditag features',    'seq_assembly' ],
+    dna_align_other     => [ 'GRC alignments',    'seq_assembly' ],
+
+    # Transcripts/Genes
+    gene_transcript     => 'Genes and transcripts',
+    transcript          => [ 'Genes',                  'gene_transcript' ],
+    prediction          => [ 'Prediction transcripts', 'gene_transcript' ],
+    lrg                 => [ 'LRG transcripts',        'gene_transcript' ],
+    rnaseq              => [ 'RNASeq models',          'gene_transcript' ],
+    
+## ParaSite
+    parasite_rnaseq     => 'RNA-Seq Alignments',
+    ERP001209           => ['ERP001209', 'parasite_rnaseq'],
+    ERP001238           => ['ERP001238', 'parasite_rnaseq'],
+    ERP004459           => ['ERP004459', 'parasite_rnaseq'],
+##
+
+## EG used to organise fungi/protists external tracks
+    chromatin_binding      => 'Chromatin binding',
+    pb_intron_branch_point => 'Intron Branch Point',
+    polya_sites            => 'Polyadenylation sites',
+    replication_profiling  => 'Replication Profiling',
+    regulatory_elements    => 'Regulatory Elements',
+
+    transcriptome          => 'Transcriptome',
+    nucleosome             => 'Nucleosome Positioning',
+    dna_methylation        => 'DNA Methylation',
+    histone_mod            => 'Histone Modification',
+#       
+
+    # Supporting evidence
+    splice_sites        => 'Splice sites',
+    evidence            => 'Evidence',
+
+    # Alignments
+    mrna_prot           => 'mRNA and protein alignments',
+    dna_align_cdna      => [ 'mRNA alignments',    'mrna_prot' ],
+    dna_align_est       => [ 'EST alignments',     'mrna_prot' ],
+    protein_align       => [ 'Protein alignments', 'mrna_prot' ],
+    protein_feature     => [ 'Protein features',   'mrna_prot' ],
+    rnaseq_bam          => [ 'RNASeq study',       'mrna_prot' ],
+    dna_align_rna       => 'ncRNA',
+
+    # Proteins
+    domain              => 'Protein domains',
+    gsv_domain          => 'Protein domains',
+    feature             => 'Protein features',
+
+    # Variations
+    variation           => 'Variation',
+    somatic             => 'Somatic mutations',
+    ld_population       => 'Population features',
+
+    # Regulation
+    functional          => 'Regulation',
+
+    # Compara
+    compara             => 'Comparative genomics',
+    pairwise_blastz     => [ 'BLASTz/LASTz alignments',    'compara' ],
+    pairwise_other      => [ 'Pairwise alignment',         'compara' ],
+    pairwise_tblat      => [ 'Translated blat alignments', 'compara' ],
+    multiple_align      => [ 'Multiple alignments',        'compara' ],
+    conservation        => [ 'Conservation regions',       'compara' ],
+    synteny             => 'Synteny',
+
+    # Other features
+    repeat              => 'Repeat regions',
+    oligo               => 'Oligo probes',
+    trans_associated    => 'Transcript features',
+
+    # Info/decorations
+    information         => 'Information',
+    decorations         => 'Additional decorations',
+    other               => 'Additional decorations',
+
+    # External data
+    user_data           => 'Your data',
+    external_data       => 'External data',
+  };
+}
+
 sub _add_datahub {
   my ($self, $menu_name, $url, $is_poor_name, $existing_menu) = @_;
 
