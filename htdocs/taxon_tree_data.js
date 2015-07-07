@@ -58,6 +58,10 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
+                                                "title" : "Echinococcus canadensis (PRJEB8992)",
+                                                "key" : "echinococcus_canadensis_prjeb8992"
+                                             },
+                                             {
                                                 "title" : "Echinococcus granulosus (PRJEB121)",
                                                 "key" : "echinococcus_granulosus_prjeb121"
                                              },
@@ -66,7 +70,7 @@ taxonTreeData = [
                                                 "key" : "echinococcus_multilocularis_prjeb122"
                                              }
                                           ],
-                                          "title" : "Echinococcus (2)",
+                                          "title" : "Echinococcus (3)",
                                           "key" : "Echinococcus"
                                        },
                                        {
@@ -96,11 +100,11 @@ taxonTreeData = [
                                           "key" : "Taenia"
                                        }
                                     ],
-                                    "title" : "Taeniidae (5)",
+                                    "title" : "Taeniidae (6)",
                                     "key" : "Taeniidae"
                                  }
                               ],
-                              "title" : "Cyclophyllidea (9)",
+                              "title" : "Cyclophyllidea (10)",
                               "key" : "Cyclophyllidea"
                            },
                            {
@@ -151,11 +155,11 @@ taxonTreeData = [
                               "key" : "Diphyllobothriidea"
                            }
                         ],
-                        "title" : "Eucestoda (12)",
+                        "title" : "Eucestoda (13)",
                         "key" : "Eucestoda"
                      }
                   ],
-                  "title" : "Cestoda (12)",
+                  "title" : "Cestoda (13)",
                   "key" : "Cestoda"
                },
                {
@@ -331,7 +335,7 @@ taxonTreeData = [
                   "key" : "Trematoda"
                }
             ],
-            "title" : "Platyhelminthes (26)",
+            "title" : "Platyhelminthes (27)",
             "key" : "Platyhelminthes"
          },
          {
@@ -367,8 +371,8 @@ taxonTreeData = [
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "title" : "Ascaris lumbricoides (PRJEB495)",
-                                                      "key" : "ascaris_lumbricoides_prjeb495"
+                                                      "title" : "Ascaris lumbricoides (PRJEB4950)",
+                                                      "key" : "ascaris_lumbricoides_prjeb4950"
                                                    },
                                                    {
                                                       "title" : "Ascaris suum (PRJNA62057)",
@@ -379,7 +383,7 @@ taxonTreeData = [
                                                       "key" : "ascaris_suum_prjna80881"
                                                    }
                                                 ],
-                                                "title" : "Ascaris (2)",
+                                                "title" : "Ascaris (1)",
                                                 "key" : "Ascaris"
                                              },
                                              {
@@ -394,7 +398,7 @@ taxonTreeData = [
                                                 "key" : "Parascaris"
                                              }
                                           ],
-                                          "title" : "Ascarididae (3)",
+                                          "title" : "Ascarididae (2)",
                                           "key" : "Ascarididae"
                                        },
                                        {
@@ -409,11 +413,11 @@ taxonTreeData = [
                                           "key" : "Toxocaridae"
                                        }
                                     ],
-                                    "title" : "Ascaridoidea (5)",
+                                    "title" : "Ascaridoidea (4)",
                                     "key" : "Ascaridoidea"
                                  }
                               ],
-                              "title" : "Ascaridida (5)",
+                              "title" : "Ascaridida (4)",
                               "key" : "Ascaridida"
                            },
                            {
@@ -495,6 +499,17 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
+                                                "title" : "Panagrellus redivivus",
+                                                "key" : "panagrellus_redivivus"
+                                             }
+                                          ],
+                                          "title" : "Panagrolaimidae (1)",
+                                          "key" : "Panagrolaimidae"
+                                       },
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
@@ -567,18 +582,71 @@ taxonTreeData = [
                                           "key" : "Strongyloididae"
                                        }
                                     ],
-                                    "title" : "Panagrolaimoidea (11)",
+                                    "title" : "Panagrolaimoidea (12)",
                                     "key" : "Panagrolaimoidea"
                                  },
                                  {
                                     "isFolder" : true,
                                     "children" : [
                                        {
-                                          "title" : "Heterorhabditis bacteriophora (PRJNA13977)",
-                                          "key" : "heterorhabditis_bacteriophora_prjna13977"
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "title" : "Heterorhabditis bacteriophora (PRJNA13977)",
+                                                "key" : "heterorhabditis_bacteriophora_prjna13977"
+                                             }
+                                          ],
+                                          "title" : "Heterorhabditidae (1)",
+                                          "key" : "Heterorhabditidae"
+                                       },
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "isFolder" : true,
+                                                "children" : [
+                                                   {
+                                                      "title" : "Caenorhabditis angaria",
+                                                      "key" : "caenorhabditis_angaria"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis brenneri",
+                                                      "key" : "caenorhabditis_brenneri"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis briggsae",
+                                                      "key" : "caenorhabditis_briggsae"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis elegans",
+                                                      "key" : "caenorhabditis_elegans"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis japonica",
+                                                      "key" : "caenorhabditis_japonica"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis remanei",
+                                                      "key" : "caenorhabditis_remanei"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis sinica",
+                                                      "key" : "caenorhabditis_sinica"
+                                                   },
+                                                   {
+                                                      "title" : "Caenorhabditis tropicalis",
+                                                      "key" : "caenorhabditis_tropicalis"
+                                                   }
+                                                ],
+                                                "title" : "Caenorhabditis (8)",
+                                                "key" : "Caenorhabditis"
+                                             }
+                                          ],
+                                          "title" : "Rhabditidae (8)",
+                                          "key" : "Rhabditidae"
                                        }
                                     ],
-                                    "title" : "Rhabditoidea (1)",
+                                    "title" : "Rhabditoidea (9)",
                                     "key" : "Rhabditoidea"
                                  },
                                  {
@@ -794,7 +862,7 @@ taxonTreeData = [
                                     "key" : "Strongylida"
                                  }
                               ],
-                              "title" : "Rhabditida (27)",
+                              "title" : "Rhabditida (36)",
                               "key" : "Rhabditida"
                            },
                            {
@@ -883,6 +951,10 @@ taxonTreeData = [
                                              {
                                                 "isFolder" : true,
                                                 "children" : [
+                                                   {
+                                                      "title" : "Loa loa (PRJNA246086)",
+                                                      "key" : "loa_loa_prjna246086"
+                                                   },
                                                    {
                                                       "title" : "Loa loa (PRJNA60051)",
                                                       "key" : "loa_loa_prjna60051"
@@ -1036,7 +1108,7 @@ taxonTreeData = [
                               "key" : "Tylenchida"
                            }
                         ],
-                        "title" : "Chromadorea (56)",
+                        "title" : "Chromadorea (64)",
                         "key" : "Chromadorea"
                      },
                      {
@@ -1139,15 +1211,15 @@ taxonTreeData = [
                         "key" : "Enoplea"
                      }
                   ],
-                  "title" : "Nematoda (63)",
+                  "title" : "Nematoda (71)",
                   "key" : "Nematoda"
                }
             ],
-            "title" : "Protostomia (63)",
+            "title" : "Protostomia (71)",
             "key" : "Protostomia"
          }
       ],
-      "title" : "Bilateria (89)",
+      "title" : "Bilateria (98)",
       "key" : "Bilateria"
    }
 ]

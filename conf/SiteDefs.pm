@@ -145,6 +145,17 @@ sub update_conf {
 	$SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992, Echinococcus_canadensis_prjeb8992)];
 	$SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086, Loa_loa_prjna246086)];
 
+	# WormBase Species
+	$SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria, Caenorhabditis_angaria)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_brenneri'} = [qw(caenorhabditis_brenneri, Caenorhabditis_brenneri)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_briggsae'} = [qw(caenorhabditis_briggsae, Caenorhabditis_briggsae)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_elegans'} = [qw(caenorhabditis_elegans, Caenorhabditis_elegans)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_japonica'} = [qw(caenorhabditis_japonica, Caenorhabditis_japonica)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_remanei'} = [qw(caenorhabditis_remanei, Caenorhabditis_remanei)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_sinica'} = [qw(caenorhabditis_sinica, Caenorhabditis_sinica)];
+	$SiteDefs::__species_aliases{'Caenorhabditis_tropicalis'} = [qw(caenorhabditis_tropicalis, Caenorhabditis_tropicalis)];
+	$SiteDefs::__species_aliases{'Panagrellus_redivivus'} = [qw(panagrellus_redivivus, Panagrellus_redivivus)];
+
 	@SiteDefs::ENSEMBL_PERL_DIRS    = (
 										   $SiteDefs::ENSEMBL_WEBROOT.'/perl',
 										   $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-common/perl',

@@ -164,7 +164,7 @@ exit;
 
 sub node_to_dynatree {
   my ($node) = @_;
-  my $name        = $custom_nodes->{$node->taxon_id} || $node->names->{'scientific name'}->[0];
+  my $name        = $node->names->{'scientific name'}->[0];
   my @child_nodes = @{$node->children};
   my @output;
   
@@ -199,9 +199,10 @@ sub node_to_dynatree {
     foreach my $dba (@{$node->dba}) {
       my @parts = split("_", $dba->species);
       my $bioproj = uc($parts[2]);  # Extract the BioProject ID from the species key
+      my $display = $bioproj eq '' ? $name : "$name ($bioproj)";
       push @output, {  
         key   => $dba->species,
-        title => "$name ($bioproj)",
+        title => $display,
       };
     }
   }  

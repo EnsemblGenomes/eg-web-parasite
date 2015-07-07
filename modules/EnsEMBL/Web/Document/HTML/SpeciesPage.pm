@@ -157,6 +157,7 @@ sub render {
 
 		  (my $name = $dir) =~ s/_/ /g;
 		  my ($bioproj) = $name =~ m/(prj.*)/; # Get the BioProject ID
+                  next unless $bioproj =~ //; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
 		  $bioproj = uc($bioproj);
                   $name =~ s/prj.*//; # Remove the BioProject ID from the name
 		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
