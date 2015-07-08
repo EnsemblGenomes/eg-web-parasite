@@ -32,23 +32,21 @@ sub content {
   my $html;
   $html .= $self->_render_results_message;
  
-  if ($SiteDefs::EBEYE_FILTER) {
-    if ($search->filter_species) {
-      $html .= sprintf('
-        <div class="search_filter">
-          <span>
-            Filtered by species: <strong>%s</strong> <a href="?%s%s"><img src="/i/16/cross.png" title="Remove filter"></a>
-          </span>
-        </div>',
-        $search->filter_species,
-        $search->query_string
-      ); 
-    } elsif ($search->hit_count > 1 and $search->current_unit ne 'ensembl' and $search->current_unit ne 'wormbase' and $search->current_index eq 'gene' and $search->species eq 'all') {
-     
-      my @species = @{ $search->get_facet_species };
-      $html .= @species > 200 ? $self->_render_filter_autocomplete(\@species)
-                              : $self->_render_filter_dropdown(\@species);
-    }
+  if ($search->filter_species) {
+    $html .= sprintf('
+      <div class="search_filter">
+        <span>
+          Filtered by species: <strong>%s</strong> <a href="?%s%s"><img src="/i/16/cross.png" title="Remove filter"></a>
+        </span>
+      </div>',
+      $search->filter_species,
+      $search->query_string
+    ); 
+  } elsif ($search->hit_count > 1 and $search->current_unit ne 'ensembl' and $search->current_unit ne 'wormbase' and $search->current_index eq 'gene' and $search->species eq 'all') {
+   
+    my @species = @{ $search->get_facet_species };
+    $html .= @species > 200 ? $self->_render_filter_autocomplete(\@species)
+                            : $self->_render_filter_dropdown(\@species);
   }
 
   if ($search->hit_count) {
