@@ -61,7 +61,7 @@ sub init {
 
   $self->PREV::init(@_);
 
-  $self->modify_configs( ['parasite_rnaseq'], {'display'=>'tiling'} );
+  $self->modify_configs( ['parasite_rnaseq'], {'display'=>'tiling', 'strand'=>'r'} );
 
 }
 
