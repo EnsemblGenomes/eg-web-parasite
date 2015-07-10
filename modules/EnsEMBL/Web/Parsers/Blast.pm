@@ -53,6 +53,10 @@ sub parse_xml {
       my $tstart = $t->{start} < $t->{end} ? $t->{start} : $t->{end};
       my $tend   = $t->{start} < $t->{end} ? $t->{end} : $t->{start};
       my $tori   = $t->{start} < $t->{end} ? 1 : -1;
+
+## ParaSite: a bug in BLAST+ can sometimes result in zero identity results outside the query sequence
+      next if $hit->{length} < $tstart;
+## ParaSite
  
       my ($qframe, $tframe) = split /\s*\/\s*/, $align->{frame} || ''; # E.g "+2 / -3"
 
