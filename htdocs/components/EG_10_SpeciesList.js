@@ -28,7 +28,7 @@ Ensembl.Panel.SpeciesList = Ensembl.Panel.extend({
     ac.autocomplete({
       minLength: 3,
       source: '/Multi/Ajax/species_autocomplete',
-      select: function(event, ui) { if (ui.item) Ensembl.redirect('/' + ui.item.production_name + '/Info/Index') },
+      select: function(event, ui) { if (ui.item) Ensembl.redirect(ui.item.url) },
       response: function(event, ui) {
         if (ui.content.length || ac.val().length < 3) {
           ac.removeClass('invalid');

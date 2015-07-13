@@ -43,14 +43,13 @@ sub species_autocomplete {
   # find matches
   my @matches;
   foreach my $sp (@species) {
-    my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME");
+    my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
 ## ParaSite: add alternative names into the autocomplete suggestions
     my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
     my ($bioproj) = $name =~ /\((.*)\)/; # Capture the BioProject and append to the alternative names
-    next if $bioproj eq ''; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
     my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
     my @names     = $alt_names ? ($name, @alt_proj) : ($name);
-
+    my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
     foreach my $search (@names) {
       next unless $search =~ /\Q$term\E/i;
       
@@ -59,6 +58,7 @@ sub species_autocomplete {
       push(@matches, {
         value => "$search",
         production_name => $sp,
+        url => $url,
         begins_with => $begins_with,
       });
     }
