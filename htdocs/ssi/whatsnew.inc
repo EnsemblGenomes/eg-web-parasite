@@ -1,14 +1,13 @@
 
 <h2 data-generic-icon="U">What's New</h2>
 <p>
-	Version: 3.0 (July 2015)
+	Version: 3.0 (July 2015)<br />In this release: 99 genomes representing 90 species
 </p>
-<p>
+<div style="float: left; width: 50%">
 	<span style="font-weight:bold;font-size:1.2em">New Genomes</span>
 	<ul>
 		<li><a href="/Echinococcus_canadensis_prjeb8992/Info/Index/"><em>Echinococcus canadensis</em> (PRJEB8992)</a></li>
 		<li><a href="/Loa_loa_prjna246086/Info/Index/"><em>Loa loa</em> (PRJNA246086)</a></li>
-		<li>Total: 99 genomes representing 90 species</li>
 	</ul>
 	<span style="font-weight:bold;font-size:1.2em">Updated Annotations</span>
 	<ul>
@@ -19,11 +18,21 @@
 		<li><a href="/Strongyloides_stercoralis_prjeb528/Info/Index/"><em>Strongyloides stercoralis</em> (PRJEB528)</a></li>
 		<li><a href="/Strongyloides_venezuelensis_prjeb530/Info/Index/"><em>Strongyloides venezuelensis</em> (PRJEB530)</a></li>
 	</ul>
+</div>
+<div style="float: right; width: 50%">
+	<span style="font-weight:bold;font-size:1.2em">RNA-Seq Alignments</span>
+	<p>Transcriptomic data tracks now available for 3 cestode species:
+	<ul>
+		<li><a href="/Echinococcus_granulosus_prjeb121/Location/View?r=pathogen_EgG_mitochondrion:3356-8522"><em>Echinococcus granulosus</em> (PRJEB121)</a></li>
+		<li><a href="/Echinococcus_multilocularis_prjeb122/Location/View?r=pathogen_EMU_scaffold_007728:1144560-1355064"><em>Echinococcus multilocularis</em> (PRJEB122)</a></li>
+		<li><a href="/Hymenolepis_microstoma_prjeb124/Location/View?r=pathogen_HYM_scaffold_27:510279-525458"><em>Hymenolepis microstoma</em> (PRJEB124)</a></li>
+	</ul>
 	<span style="font-weight:bold;font-size:1.2em">Tools</span>
 	<ul>
 		<li><a href="/api/">REST API</a></li>
-		<li>Species limit removed for BLAST sequence searches</li>
+		<li><a href="/Tools/Blast?db=core">Species limit removed for BLAST sequence searches</a></li>
 		<li>Updated comparative genomics</li>
 	</ul>
-	<a href="release-log.html">Full Release History</a>
-</p>
+</div>
+<p><a href="release-log.html">Full Release History</a></p>
+
