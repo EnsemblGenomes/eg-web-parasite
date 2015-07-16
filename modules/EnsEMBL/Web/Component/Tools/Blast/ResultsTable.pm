@@ -128,7 +128,16 @@ sub get_result_links {
     return {
       'gene'              => join(';', @genes),
       'target'            => $hub->get_ExtURL_link($hit->{'tid'}, uc($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)}) . "_TRANSCRIPT", $hit->{'tid'}),
-      'location'          => $hub->get_ExtURL_link($hit->{'gid'} . ":" . $hit->{'gstart'} . "-" . $hit->{'gend'}, uc($sp) . "_GBROWSE", $hit->{'gid'} . ":" . $hit->{'gstart'} . ".." . $hit->{'gend'}),
+      'location'          => $hub->get_ExtURL_link($hit->{'gid'} . ":" . $hit->{'gstart'} . "-" . $hit->{'gend'}, uc($sp) . "_GBROWSE_TRACK", {
+                                'CHR'    => $hit->{'gid'},
+                                'START'  => ($hit->{'gstart'}-25),
+                                'END'    => ($hit->{'gend'}+25),
+                                'TCHR'   => $hit->{'gid'},
+                                'TSTART' => $hit->{'gstart'},
+                                'TEND'   => $hit->{'gend'},
+                                'TTYPE'  => 'ParaSite-BLAST',
+                                'TNAME'  => 'Hit'
+                             }),
       'genomic_sequence'  => sprintf('<a href="%s" class="small _ht" title="View Genomic Sequence">[Sequence]</a>', $hub->url($urls->{'genomic_sequence'})),
       'query_sequence'    => sprintf('<a href="%s" class="small _ht" title="View Query Sequence">[Sequence]</a>', $hub->url($urls->{'query_sequence'})),
       'alignment'         => sprintf('<a href="%s" class="small _ht" title="View Alignment">[Alignment]</a>', $hub->url($urls->{'alignment'}))
