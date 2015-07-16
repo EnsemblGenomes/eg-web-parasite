@@ -94,7 +94,7 @@ sub species_list {
   my $html;
   foreach my $sp (@{$self->{'species_list'}}) {
     $sp->[1] =~ s/(.*)\(/<em>$1<\/em>\(/g;
-    next unless $sp->[1] =~ /\(.*\)/; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
+    next unless $sp->[0] =~ /.*_.*_.*/; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
     $html .= qq{<li><a class="constant" href="$sp->[0]">$sp->[1]</a></li>};
   }
 
