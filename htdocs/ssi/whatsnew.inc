@@ -21,7 +21,7 @@
 </div>
 <div style="float: right; width: 50%">
 	<span style="font-weight:bold;font-size:1.2em">RNA-Seq Alignments</span>
-	<p>Transcriptomic data tracks now available for 3 cestode species:
+	<p>Transcriptomic data tracks now available for three cestode species:
 	<ul>
 		<li><a href="/Echinococcus_granulosus_prjeb121/Location/View?r=pathogen_EgG_mitochondrion:3356-8522"><em>Echinococcus granulosus</em> (PRJEB121)</a></li>
 		<li><a href="/Echinococcus_multilocularis_prjeb122/Location/View?r=pathogen_EMU_scaffold_007728:1144560-1355064"><em>Echinococcus multilocularis</em> (PRJEB122)</a></li>
