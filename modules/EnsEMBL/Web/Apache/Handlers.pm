@@ -38,16 +38,20 @@ sub handler {
 ## ParaSite: redirect WormBase species out to WormBase
   my $sp = $raw_path[0];
   my %param = split ';|=', $querystring;
-  if($species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE') {
+  my $site_type = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)};
+  if($site_type ne 'parasite') {
     my $redirect_url;
     if($raw_path[1] eq 'Gene') {
-      $redirect_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{$species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} . "_GENE"};
+      $redirect_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{uc($site_type) . "_GENE"};
+      $redirect_url =~ s/###SPECIES###/$sp/;
       $redirect_url =~ s/###ID###/$param{'g'}/;
     } elsif ($raw_path[1] eq 'Transcript') {
-      $redirect_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{$species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} . "_TRANSCRIPT"};
+      $redirect_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{uc($site_type) . "_TRANSCRIPT"};
+      $redirect_url =~ s/###SPECIES###/$sp/;
       $redirect_url =~ s/###ID###/$param{'t'}/;
-    } elsif ($raw_path[1] eq 'Info') {
-      $redirect_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{uc($sp) . "_URL"};
+    } elsif ($raw_path[1] eq 'Info' || !$raw_path[1]) {
+      $redirect_url = $site_type eq 'WORMBASE' ? $species_defs->ENSEMBL_EXTERNAL_URLS->{uc($sp) . "_URL"} : $species_defs->ENSEMBL_EXTERNAL_URLS->{uc($site_type) . "_SPECIES"};
+      $redirect_url =~ s/###SPECIES###/$sp/;
     }
     if($redirect_url) {
       $r->headers_out->add('Location' => $redirect_url);
