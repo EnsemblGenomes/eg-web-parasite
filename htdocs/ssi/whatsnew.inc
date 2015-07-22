@@ -1,8 +1,5 @@
 
 <h2 data-generic-icon="U">What's New</h2>
-<p>
-	Version: 3.0 (July 2015)<br />In this release: 99 genomes representing 90 species
-</p>
 <div style="float: left; width: 50%">
 	<span style="font-weight:bold;font-size:1.2em">New Genomes</span>
 	<ul>
