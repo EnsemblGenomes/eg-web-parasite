@@ -240,7 +240,7 @@ sub transcript_table {
        { key => 'transcript', sort => 'html',    title => 'Transcript ID' },
        { key => 'bp_length',  sort => 'numeric', label => 'bp', title => 'Length in base pairs'},
        { key => 'protein',    sort => 'html',    label => 'Protein', title => 'Protein length in amino acids' },
-       { key => 'translation',sort => 'html',    title => 'Translation ID', 'hidden' => 1 },
+       { key => 'translation',sort => 'html',    title => 'Translation ID' },
        { key => 'biotype',    sort => 'html',    title => 'Biotype', align => 'left' },
     );
 
