@@ -146,7 +146,8 @@ sub render {
       $html .= qq{<div class="round-box home-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
                  
       my $total = scalar(@species);
-      
+     
+      my $valid_species = 0;
       for(my $i = 0; $i < $total; $i++) {
 
 		  my $common = $species[$i];
@@ -162,7 +163,8 @@ sub render {
                   $name =~ s/prj.*//; # Remove the BioProject ID from the name
 		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
 		  
-		  my $bgcol = $i % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
+		  my $bgcol = $valid_species % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
+                  $valid_species++;
 
 		  $html .= qq(<tr style="background-color:$bgcol">);
 
