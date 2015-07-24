@@ -126,7 +126,7 @@ sub get_result_links {
       @genes = map($hub->get_ExtURL_link($_->display_xref ? $_->display_xref->display_id : $_->stable_id, uc($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)}) . "_GENE", $_->stable_id), @genead);
     }
     return {
-      'gene'              => join(';', @genes),
+      'gene'              => join(', ', @genes),
       'target'            => $hub->get_ExtURL_link($hit->{'tid'}, uc($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)}) . "_TRANSCRIPT", $hit->{'tid'}),
       'location'          => $hub->get_ExtURL_link($hit->{'gid'} . ":" . $hit->{'gstart'} . "-" . $hit->{'gend'}, uc($sp) . "_GBROWSE_TRACK", {
                                 'CHR'    => $hit->{'gid'},
