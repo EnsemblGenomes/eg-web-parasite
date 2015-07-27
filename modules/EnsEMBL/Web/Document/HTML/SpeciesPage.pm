@@ -122,6 +122,7 @@ sub render {
       'taxid'        => $species_defs->get_config($species, "TAXONOMY_ID") || '',
       'assembly'     => $species_defs->get_config($species, "ASSEMBLY_NAME") || '',
       'scientific'   => $species_defs->get_config($species, "SPECIES_SCIENTIFIC_NAME"),
+      'species_site' => $species_defs->ENSEMBL_SPECIES_SITE->{lc($species)}
     };
     $info->{'status'} = 'pre' if($pre_species && exists $pre_species->{$species});
 
@@ -135,7 +136,7 @@ sub render {
   
   $html .= qq{<div class="round-box home-box clear"><h2>Contents</h2><p>};
   foreach my $gr (@groups) {
-		my $count = scalar grep { $species{$_}->{'group'} eq $gr } keys %species;
+		my $count = scalar grep { $species{$_}->{'group'} eq $gr && $species{$_}->{'species_site'} eq 'parasite' } keys %species;
 		$html .= qq{<a href="#$gr">$gr ($count)</a><br />};
   }
   $html .= qq{</p></div>};
@@ -158,7 +159,7 @@ sub render {
 
 		  (my $name = $dir) =~ s/_/ /g;
 		  my ($bioproj) = $name =~ m/(prj.*)/; # Get the BioProject ID
-                  next unless $bioproj =~ //; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
+                  next unless $info->{'species_site'} eq 'parasite'; # Skip if this is not a ParaSite species
 		  $bioproj = uc($bioproj);
                   $name =~ s/prj.*//; # Remove the BioProject ID from the name
 		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
