@@ -79,7 +79,7 @@ sub init_species_list {
 
   $self->{'species_list'} = [
     sort { $a->[1] cmp $b->[1] }
-    map  [ $hub->url({ species => $_, type => 'Info', action => 'Index', __clear => 1 }), $species_defs->get_config($_, 'SPECIES_COMMON_NAME') ],
+    map  [ $hub->url({ species => $_, type => 'Info', action => 'Index', __clear => 1 }), $species_defs->get_config($_, 'SPECIES_COMMON_NAME'), $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ],
     @valid_species
   ];
 
@@ -93,8 +93,8 @@ sub species_list {
 
   my $html;
   foreach my $sp (@{$self->{'species_list'}}) {
+    next if $sp->[2] ne 'parasite';
     $sp->[1] =~ s/(.*)\(/<em>$1<\/em>\(/g;
-    next unless $sp->[0] =~ /.*_.*_.*/; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
     $html .= qq{<li><a class="constant" href="$sp->[0]">$sp->[1]</a></li>};
   }
 
