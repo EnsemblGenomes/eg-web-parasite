@@ -75,7 +75,8 @@ sub get {
   my $content  = $can_accept ? $response->decoded_content : $response->content;
   
   if ($response->is_error) {
-    die 'WormBase search error: ' . $response->status_line;
+    warn 'WormBase search error: ' . $response->status_line;
+    return;
   }
 
   $debug && warn "Response " . $content;
