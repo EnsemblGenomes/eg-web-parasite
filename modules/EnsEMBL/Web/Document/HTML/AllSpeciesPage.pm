@@ -79,6 +79,7 @@ sub render {
 		  foreach my $taxon (@taxons) {
 			  foreach ($species_defs->valid_species) {
 				next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
+				next if $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ne 'parasite';
 				if($taxon eq 'parent') {
 				  next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
 				} else {
@@ -104,7 +105,6 @@ sub render {
 				$i++;
 				my @name_parts = split("_", $project);
 				my $bioproject = uc($name_parts[2]);
-                                next if $bioproject eq ''; # Skip if there is no BioProject (as this is a species imported from WormBase and we don't want to link to it from here)
 				my $summary = "$providers{$project} genome project";
 				$html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
 				if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
