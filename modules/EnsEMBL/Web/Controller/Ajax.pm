@@ -109,6 +109,35 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   }
   my $results = from_json($response->content);
   my @suggestions = map($_->{'suggestion'}, @{$results->{suggestions}});
+
+## Does the search term match a species name?
+  my @species = $species_defs->valid_species;  
+  my @matches;
+  foreach my $sp (@species) {
+    my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
+    my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
+    my ($bioproj) = $name =~ /\((.*)\)/; # Capture the BioProject and append to the alternative names
+    my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
+    my @names     = $alt_names ? ($name, @alt_proj) : ($name);
+    my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
+    foreach my $search (@names) {
+      next unless $search =~ /\Q$term\E/i;
+      my $begins_with = $search =~ /^\Q$term\E/i;
+      push(@matches, {
+        value => "$search",
+        url => $url,
+      });
+    }
+  }
+  my $sort = sub {
+    my ($a, $b) = @_;
+    return $a->{value} cmp $b->{value} if $a->{begins_with} == $b->{begins_with};
+    return $a->{begins_with} ? -1 : 1;
+  };
+  @matches = sort {$sort->($a, $b)} @matches;
+  unshift(@suggestions, @matches);
+##
+
   print encode_json(\@suggestions);
 }
 

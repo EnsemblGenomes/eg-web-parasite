@@ -48,6 +48,8 @@
 .ui-menu .ui-menu-item a.ui-state-focus,
 .ui-menu .ui-menu-item a.ui-state-active { font-weight: normal; margin: -1px; }
 
+.ui-menu .ui-menu-category { margin: 0; padding: 2px; zoom: 1; width: 100%; color: #FFFFFF; background-color: #000000; text-transform: uppercase; font-weight: bold; font-size: 0.7em; list-style-image: none; list-style: outside none none; float: left; clear: left; }
+
 .ui-menu .ui-state-disabled { font-weight: normal; margin: .4em 0 .2em; line-height: 1.5; }
 .ui-menu .ui-state-disabled a { cursor: default; }
 
