@@ -20,6 +20,8 @@ limitations under the License.
 
 package EnsEMBL::Web::Document::Element::Tabs;
 
+use JSON;
+
 sub init {
   my $self          = shift;
   my $controller    = shift;
@@ -146,6 +148,31 @@ sub content {
   $content  = qq{<ul class="tabs">$content</ul>} if $content;
   $content .= $self->species_list                if $self->{'species_list'};
   $content .= join '', values %{$self->dropdown} if $history;
+
+## ParaSite: add schema.org markup to get breadcrumbs in search results
+  my $i = 0;
+  my @structured;
+  my $sd = $self->hub->species_defs;
+  foreach my $entry (@{$self->entries}) {
+    my $name         = encode_entities($self->strip_HTML($entry->{'caption'}));
+    my $url          = 'http://' . $sd->ENSEMBL_SERVERNAME . $entry->{'url'};
+    next if $name =~ /^Location/;
+    $structured[$i] = {
+      '@context' => 'http://schema.org',
+      '@type' => 'BreadcrumbList',
+      'itemListElement' => {
+        '@type' => 'ListItem',
+        'position' => $i+1,
+        'item' => {
+          '@id' => $url,
+          'name' => $name
+        },
+      },
+    };
+    $i++;
+  }
+  $content .= '<script type="application/ld+json">' . encode_json(\@structured) . '</script>';
+##
   
   return $content;
 }
