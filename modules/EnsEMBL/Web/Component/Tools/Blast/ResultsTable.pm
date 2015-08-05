@@ -74,7 +74,7 @@ sub table_options {
     'data_table'  => 1,
     'sorting'     => ['score desc'],
 ## EG  & ParaSite         
-    'hidden_columns' => $job->job_data->{'source'} =~/latestgp/i ? [3, 4, 5, 6] : [3, 4, 5, 6, 7, 8, 11] 
+    'hidden_columns' => $job->job_data->{'source'} =~/latestgp/i ? [3, 4, 5, 6] : [4, 5, 6, 7, 8, 11] 
 ##        
   };
 }
