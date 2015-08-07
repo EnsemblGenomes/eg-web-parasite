@@ -112,4 +112,84 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   print encode_json(\@suggestions);
 }
 
+sub species_tree {
+  my ($self, $hub) = @_;
+
+  my $species_defs = $hub->species_defs;
+  my @species_info = ();
+  # Get a list of group names
+  my $labels       = $species_defs->TAXON_LABEL; ## sort out labels
+  my (@group_order, %label_check);
+  foreach my $taxon (@{$species_defs->TAXON_ORDER || []}) {
+      my $label = $labels->{$taxon} || $taxon;
+      push @group_order, $label unless $label_check{$label}++;
+  }
+
+  foreach my $group (@group_order) {
+
+      my $display = defined($species_defs->TAXON_COMMON_NAME->{$group}) ? $species_defs->TAXON_COMMON_NAME->{$group} : $group;
+      my @children = ();
+
+      # Check for the presence of any sub-groups
+      my @groups = ();
+      my @subgroups;
+      foreach my $taxon (@{$species_defs->TAXON_SUB_ORDER->{$group} || ['parent']}) {
+        push @subgroups, $taxon;
+      }
+
+      foreach my $subgroup (@subgroups) {
+        my $group_display = defined($species_defs->TAXON_COMMON_NAME->{$subgroup}) ? $species_defs->TAXON_COMMON_NAME->{$subgroup} : $subgroup;
+
+        # Group the genome projects by species name
+	my %species = ();
+	my %providers = ();
+	# Is this a multi-taxon group?
+	my @taxons = @{$species_defs->TAXON_MULTI->{$subgroup} || [$subgroup]};
+	foreach my $taxon (@taxons) {
+	  foreach ($species_defs->valid_species) {
+	    next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
+	    next if $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ne 'parasite';
+	    if($taxon eq 'parent') {
+	      next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
+	    } else {
+	      next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
+	    }
+	    my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
+	    next unless $common;
+	    my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
+	    push(@{$species{$scientific}}, $_);
+	    $providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
+	  }
+	}
+
+        # Print the species
+        my $i = 0;
+        my @genus = ();
+        my %genuslist = map{ $_ =~ /(.*?)\s/ => 1 } keys(%species);
+        foreach my $genusitem (sort(keys(%genuslist))) {
+          my @specieslist = ();
+          foreach my $scientific (sort(keys(%species))) {
+            next unless $scientific =~ /^$genusitem/;
+            my $species_url = scalar(@{$species{$scientific}}) == 1 ? "/@{$species{$scientific}}[0]/Info/Index/" : "/@{$species{$scientific}}[0]/Info/SpeciesLanding/";  # Only show a URL to the species landing page if there is more than one genome project
+            my @speciesproj;
+            foreach my $project (sort(@{$species{$scientific}})) {
+              my @name_parts = split("_", $project);
+              my $bioproject = uc($name_parts[2]);
+              my $summary = "$providers{$project} genome project";
+              push(@speciesproj, { 'label' => $bioproject, 'summary' => $summary, 'url' => "/$project/Info/Index", 'children' => undef });
+            }
+            push(@specieslist, { 'label' => $scientific, 'url' => $species_url, 'children' => \@speciesproj });
+          }
+          push(@genus, {'label' => $genusitem, 'url' => '/', 'children' => \@specieslist });
+        }
+        push(@groups, {'label' => $group_display, 'url' => '/', 'children' => \@genus });
+      }
+      push(@species_info, { 'label' => $display, 'url' => '/', 'children' => \@groups });
+  }
+
+  print encode_json \@species_info;
+
+}
+
+
 1;
