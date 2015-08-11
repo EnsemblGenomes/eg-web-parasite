@@ -216,7 +216,7 @@ sub species_tree {
       push(@species_info, { 'label' => $display, 'url' => '/', 'children' => \@groups });
   }
 
-  print encode_json \@species_info;
+  print to_json(\@species_info, {utf8 => 1, pretty => 1});
 
 }
 
