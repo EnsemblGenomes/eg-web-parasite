@@ -20,3 +20,17 @@
 .blog-story h3 { font-size: 1.10em; }
 .blog-story h4 { font-size: 0.75em; }
 
+.footer { background: rgba(192, 192, 192, 0.27); padding: 25px; }
+
+.copyright { font-size: 0.9em; }
+
+.copyright { float: left; position: absolute; bottom: 0; text-align: left; margin-bottom: 25px; margin-left: 1%; width: 40%; min-width: 450px; }
+.copyright ul { list-style-type: none; padding: 0px; margin: 0px; }
+.copyright ul li { list-style-image: none; text-align: left; padding-right: 7px !important; margin: 4px 0px 4px 0px !important; display: inline-block; vertical-align: middle; }
+
+.footerlinks { float: right; text-align: left; margin-right: 8%; }
+.footerlinks h3 { text-align: left; border-bottom: 1px solid #666666;  }
+.footerlinks a { text-decoration: none; }
+.footerlinks ul { list-style-type: none; padding: 0px; margin: 0px; }
+.footerlinks ul li { list-style-image: none; text-align: left; padding-right: 15px; margin: 4px 0px 4px 0px !important; }
+

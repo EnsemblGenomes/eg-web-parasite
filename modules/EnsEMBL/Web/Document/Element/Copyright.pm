@@ -28,12 +28,17 @@ sub content {
   my $sd = $self->species_defs;
 
   return sprintf( qq(
-  <div class="column-two left">
-		   %s release %d - %s
-		  &copy; <span class="print_hide"><a href="http://www.ebi.ac.uk/" style="white-space:nowrap">EMBL-EBI</a> & <a href="http://www.sanger.ac.uk/" style="white-space:nowrap">WTSI</a></span>
-      <span class="screen_hide_inline">EMBL-EBI & WTSI</span>
-  </div>),     $sd->SITE_NAME, $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE
-	       );
+  <div class="copyright">
+    Release %d - %s
+    <ul>
+      <li><a href="http://www.ebi.ac.uk"><img src="/img/ebi_logo.png" title="European Molecular Biology Laboratory - European Bioinformatics Institute" /></a></li>
+      <li><a href="http://www.sanger.ac.uk"><img src="/img/sanger_logo.png" title="Wellcome Trust Sanger Institute" /></a></li>
+      <li><a href="http://www.ensembl.org"><img src="/img/empowered.png" title="Powered by Ensembl" /></a></li>
+      <li><a href="http://www.bbsrc.ac.uk"><img src="/img/bbsrc_logo.gif" title="Funded by BBSRC" /></a></li>
+    </ul>
+    WormBase ParaSite is funded by the <a href="http://www.bbsrc.ac.uk">UK Biotechnology and Biological Sciences Research Council</a> under grant numbers BB/K020080/1 and BB/K020048/1.
+  </div>
+  ), $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE);
 }
 
 1;
