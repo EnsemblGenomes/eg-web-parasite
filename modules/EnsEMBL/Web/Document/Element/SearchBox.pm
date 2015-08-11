@@ -37,7 +37,7 @@ sub content {
       <form id="searchForm" action="$search_url">
         <div class="search print_hide">
             <label class="hidden" for="se_q">Search terms</label>
-            <input class="query" id="se_q" class="ui-autocomplete-input inactive" type="text" name="q" data-role="none" required placeholder="Search WormBase ParaSite..." />
+            <input id="se_q" class="query ui-autocomplete-input search-query" type="text" name="q" data-role="none" required placeholder="Search WormBase ParaSite..." />
             <input type="submit" value="1" />
         </div>
       </form>

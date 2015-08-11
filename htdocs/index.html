@@ -1,63 +1,90 @@
 <html>
-	<head>
-		<title>[[SPECIESDEFS::SITE_NAME]]</title>           
-	</head>
-	<body>
+  <head>
+    <title>WormBase ParaSite</title>           
+  </head>
+  <body>
 
-[[INCLUDE::/warning.html]]
-	
-		<div class="column-wrapper">
-			<div class="column-two">
-				<div class="column-padding no-left-margin">
-					<div class="round-box home-box no-top-margin top-homepage-panel">
-						[[INCLUDE::/ssi/welcome.inc]]
-					</div>
-				</div>
-				<div class="column-padding no-left-margin">
-					<div style="position:relative">
-						[[SCRIPT::EnsEMBL::Web::Document::HTML::AllSpeciesPage]]
-						<div style="position:absolute;top:10px;right:10px">
-							[[SCRIPT::EnsEMBL::Web::Document::HTML::GenomeCollectionsList]]
-						</div>
-					</div>
-				</div>
-				<div class="column-padding no-left-margin">
-					<div class="round-box home-box no-top-margin">
-						[[INCLUDE::/ssi/contact.inc]]
-					</div>
-				</div>
-			</div>
-			<div class="column-two">
-				<div class="column-padding no-left-margin">
-					<div class="round-box home-box no-top-margin top-homepage-panel">
-						[[INCLUDE::/ssi/statistics.inc]]
-					</div>
-				</div>
-                                <div class="column-padding no-left-margin">
-                                        <div class="round-box home-box no-top-margin">
-                                                [[INCLUDE::/ssi/whatsnew.inc]]
-                                        </div>
-                                </div>
-				<div class="round-box home-box no-top-margin">
-					[[INCLUDE::/ssi/credits.inc]]
-				</div>
-			</div>
-		</div>
-	
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "WebSite",
-  "url": "https://parasite.wormbase.org/",
-  "name": "WormBase ParaSite",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "http://parasite.wormbase.org/Multi/Search/Results?species=all;idx=;q={search_term_string};site=ensemblunit",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
+    [[INCLUDE::/warning.html]]
 
-	
-	</body>
+    <div class="home-wrapper">
+      <div class="home-summary">
+        WormBase ParaSite is an open access resource providing genome sequences, genome browsers, semi-automatic annotation and comparative genomics analysis for nematode and platyhelminth parasites.
+      </div>
+      <div class="home-left">
+        <a class="home-button" href="/species.html">
+          <h3>Species</h3>
+          <div class="home-button-symbol" style="font-family: EBI-Functional">h</div>
+        </a>
+        <a class="home-button" href="/Tools/Blast?db=core">
+          <h3>BLAST</h3>
+          <div class="home-button-symbol" style="font-family: EBI-Functional">i</div>
+        </a>
+        <a class="home-button" href="/biomart/martview">
+          <h3>BioMart</h3>
+          <div class="home-button-symbol" style="font-family: EBI-Functional">b</div>
+        </a>
+        <a class="home-button" href="/api">
+          <h3>API</h3>
+          <div class="home-button-symbol" style="font-family: EBI-Generic">:</div>
+        </a>
+        <a class="home-button" href="/ftp.html">
+          <h3>Downloads</h3>
+          <div class="home-button-symbol" style="font-family: EBI-Functional">=</div>
+        </a>
+        <a class="home-button" href="http://www.wormbase.org">
+          <h3>WormBase</h3>
+          <div class="home-button-symbol" style="font-family: EBI-Species">W</div>
+        </a>
+        <div class="home-species-nav">
+          [[SCRIPT::EnsEMBL::Web::Document::HTML::AllSpeciesPage]]
+        </div>
+        <div class="home-statistics">
+          <div class="round-box home-box">
+            <h2 data-functional-icon="z">Statistics</h2>
+            [[INCLUDE::/ssi/statistics.inc]]
+          </div>
+        </div>
+      </div>
+      <div class="home-right">
+        <div class="home-search">
+          <div class="js_panel">
+            <input type="hidden" class="panel_type" value="SearchBox" />
+            <form id="searchFormHome" action="/Multi/psychic" style="margin-bottom: 0">
+              <div class="search-home print_hide">
+                <label class="hidden" for="se_q_home">Search terms</label>
+                <input id="se_q_home" class="query ui-autocomplete-input search-query" type="text" name="q" data-role="none" placeholder="Search WormBase ParaSite..." />
+                <input type="submit" value="1" />
+              </div>
+            </form>
+            <span style="font-size: 0.75em">Search by species name, BioProject ID, gene identifier, gene name, <em>C.&nbsp;elegans</em> orthologue or protein domain<br />e.g. <em>O. volvulus</em>, PRJNA60051, WBGene00262434, Bm-eat-4, eat-4 or metallopeptidase</span>
+          </div>
+        </div>
+        <div class="home-right-col1">
+            [[SCRIPT::EnsEMBL::Web::Document::HTML::WordPress]]         
+        </div>
+        <div class="home-right-col2">
+          <div class="round-box home-box">
+            <h2 data-social-icon="T">Twitter</h2>
+            <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/WBParaSite" data-widget-id="605762296049078273">Tweets by @WBParasite</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>      
+          </div>
+        </div>
+      </div>
+    </div>
+          
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "https://parasite.wormbase.org/",
+      "name": "WormBase ParaSite",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "http://parasite.wormbase.org/Multi/Search/Results?species=all;idx=;q={search_term_string};site=ensemblunit",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+  </body>
 </html>

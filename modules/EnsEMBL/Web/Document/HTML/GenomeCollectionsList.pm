@@ -29,7 +29,7 @@ sub render {
         <input type="hidden" class="panel_type" value="SpeciesList" />
         <form id="species_autocomplete_form" action="/Multi/psychic" style="margin-bottom:5px" method="get">
           <div>
-           <input name="q" type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:250px; margin: 0" required placeholder="Start typing the name of a species...">
+           <input name="q" type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:100%; margin: 0" required placeholder="Start typing the name of a species...">
           </div>
         </form>
       </div>

@@ -23,74 +23,6 @@ use LWP;
 use URI::QueryParam;
 use JSON;
 
-sub species_autocomplete {
-  my ($self, $hub) = @_;
-  my $species_defs  = $hub->species_defs;
-  my $term          = $hub->param('term'); # will return everything if no term specified
-  my $result_format = $hub->param('result_format') || 'simple'; # simple/chosen
-  
-  my @species = $species_defs->valid_species;
-  
-  # sub to normalise strings for comparison e.g. k-12 == k12
-  my $normalise = sub { 
-    my $str = shift;
-    $str =~ s/[^a-zA-Z0-9 ]//g;
-    return $str;
-  };
-  
-  $term = $normalise->($term);
-
-  # find matches
-  my @matches;
-  foreach my $sp (@species) {
-    my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
-## ParaSite: add alternative names into the autocomplete suggestions
-    my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
-    my ($bioproj) = $name =~ /\((.*)\)/; # Capture the BioProject and append to the alternative names
-    my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
-    my @names     = $alt_names ? ($name, @alt_proj) : ($name);
-    my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
-    foreach my $search (@names) {
-      next unless $search =~ /\Q$term\E/i;
-      
-      my $begins_with = $search =~ /^\Q$term\E/i;
-
-      push(@matches, {
-        value => "$search",
-        production_name => $sp,
-        url => $url,
-        begins_with => $begins_with,
-      });
-    }
-##
-  }
-
-  # sub to make alpha-numeric comparison but give precendence to 
-  # strings that begin with the search term
-  my $sort = sub {
-    my ($a, $b) = @_;
-    return $a->{value} cmp $b->{value} if $a->{begins_with} == $b->{begins_with};
-    return $a->{begins_with} ? -1 : 1;
-  };
-
-  @matches = sort {$sort->($a, $b)} @matches;
-  
-  my $data;
-  
-  if ($result_format eq 'chosen') {
-    # return results in format compatible with chosen.ajaxaddition.jquery.js
-    $data = {
-      q => $hub->param('term'), # original term
-      results => \@matches
-    };
-  } else {
-    # default to simple array format
-    $data = [@matches];
-  }
-
-  print $self->jsonify($data);
-}
-
 sub search_autocomplete {
   my ($self, $hub) = @_;
   my $species_defs  = $hub->species_defs;
@@ -110,9 +42,21 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   my $results = from_json($response->content);
   my @suggestions = map($_->{'suggestion'}, @{$results->{suggestions}});
 
+  my @matches;
+
+## Has the user entered the name of a tool?
+  push(@matches, { value=>'FTP Downloads', url=>'/ftp.html', type=>'WormBase ParaSite Tools' }) if $term =~ /ftp|download/i;
+  push(@matches, { value=>'BLAST Sequence Search', url=>'/Tools/Blast?db=core', type=>'WormBase ParaSite Tools' }) if $term =~ /blast/i;
+  push(@matches, { value=>'REST API', url=>'/api', type=>'WormBase ParaSite Tools' }) if $term =~ /rest|api/i;
+  push(@matches, { value=>'WormBase ParaSite BioMart', url=>'/biomart/martview', type=>'WormBase ParaSite Tools' }) if $term =~ /biomart|mart|wormmine|wormmart|intermine/;
+  push(@matches, { value=>'WormMine', url=>'http://www.wormbase.org/tools/wormmine', type=>'WormBase Tools' }) if $term =~ /wormmine|wormmart|intermine/;
+  push(@matches, { value=>'WormBase Central', url=>'http://www.wormbase.org', type=>'WormBase Tools' }) if $term =~ /wormbase|legacy/i;
+  push(@matches, { value=>'Full Species List', url=>'/species.html', type=>'WormBase ParaSite Tools' }) if $term =~ /species/i;
+##
+
 ## Does the search term match a species name?
   my @species = $species_defs->valid_species;  
-  my @matches;
+  my ($sp_term, $sp_genus) = $term =~ /^([A-Za-z])[\.]? ([A-Za-z]+)/ ? ($2, $1) : ($term, undef); # Deal with abbreviation of the genus
   foreach my $sp (@species) {
     my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
     my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
@@ -121,11 +65,14 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
     my @names     = $alt_names ? ($name, @alt_proj) : ($name);
     my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
     foreach my $search (@names) {
-      next unless $search =~ /\Q$term\E/i;
-      my $begins_with = $search =~ /^\Q$term\E/i;
+      next unless $search =~ /\Q$sp_term\E/i;
+      next if $sp_genus && ($search !~ /^$sp_genus/i || $search !~ /^(.*?) .*$sp_term.*/i);
+      my $begins_with = $search =~ /^\Q$sp_term\E/i;
       push(@matches, {
         value => "$search",
         url => $url,
+        type => 'Species',
+        begins_with => $begins_with
       });
     }
   }
