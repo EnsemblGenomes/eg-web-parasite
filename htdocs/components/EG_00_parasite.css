@@ -1,4 +1,8 @@
 
+#main_holder {
+  min-height: 270px;
+}
+
 .home-wrapper {
   width: 100%;
 }
