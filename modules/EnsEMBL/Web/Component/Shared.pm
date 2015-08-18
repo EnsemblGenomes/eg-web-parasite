@@ -534,21 +534,20 @@ sub transcript_table {
 ##
 
 ## ParaSite: show the orthologues from model organisms
-#  if($page_type eq 'gene') {
-#    my $orthologues = $object->get_homology_matches('ENSEMBL_ORTHOLOGUES', undef, undef, $cdb);
-#    my %matches;
-#    my $orth_text;
-#    foreach my $match (keys %$orthologues) {
-#      my $group = $hub->species_defs->COMPARA_SPECIES_SET->{lc($match)} || $hub->species_defs->get_config($match, 'SPECIES_GROUP') || 'all';
-#      next unless $group eq 'models' || $group eq 'elegans' || $group eq 'human';
-#      my $display = $hub->species_defs->species_label(lc($match));
-#      $matches{$display} = join("; ", map("<a href=\"" . $hub->get_ExtURL($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($match)} . "_GENE", {'SPECIES'=>$match, 'ID'=>$_}) . "\" title=\"$_\">" . ($hub->database($cdb)->get_GeneMemberAdaptor->fetch_by_stable_id($_)->display_label || $_) . "</a>", keys %$orthologues->{$match}));
-#    }
-#    foreach(sort keys %matches) {
-#      $orth_text .= "$_: $matches{$_}<br />";
-#    }
-#    $table->add_row('Model organism orthologues', $orth_text || 'None');
-#  }
+  my $orth_text;
+  if($page_type eq 'gene') {
+    foreach my $sp (keys $hub->species_defs->COMPARA_SPECIES_SET) {
+      my $group = $hub->species_defs->COMPARA_SPECIES_SET->{lc($sp)} || $hub->species_defs->get_config($sp, 'SPECIES_GROUP') || 'all';
+      next unless $group eq 'elegans';
+      my $display = $hub->species_defs->species_label(lc($sp));
+      $orth_text = "$display: ";
+      my $homology = $object->get_homology_matches_single_species('ENSEMBL_ORTHOLOGUES', $sp, $gene->stable_id, $cdb);
+      foreach my $match (@{$homology}) {
+        $orth_text .= join ', ', map($_->display_label || $_->stable_id, @{$match->get_all_GeneMembers});
+      }
+    }
+    $table->add_row('Model organism orthologues', $orth_text || 'None');
+  }
 ##
 
 ## ParaSite: check for wormbase_gene xref
