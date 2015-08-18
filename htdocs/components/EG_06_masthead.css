@@ -51,7 +51,7 @@
 #masthead ul.more_tools                   { display: none; position: absolute; left: 0; top: 18px; border-top: 1px solid [[MH_BORDER]]; font-size: 10px; z-index: 200; }
 #masthead ul.more_tools li                { color: [[MH_TEXT]]; border: 1px solid [[MH_BORDER]]; border-top: 0; background-color: [[MH_BG]]; float: none; text-align: left; margin: 0; padding: 2px; }
 #masthead ul.more_tools li a              { color: [[CONTRAST_TEXT]]; }
-.no-tabs                                  { height: 45px !important; }
+.no-tabs                                  { height: 75px !important; }
 
 body.mac #masthead                        { font-size: 13px; }
 body.mac #masthead ul.tabs li             { height: 21px; }
