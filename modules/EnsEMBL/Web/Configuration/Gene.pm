@@ -239,6 +239,9 @@ sub modify_tree {
   $self->delete_node('Family');
   # ParaSite
 
+  # ParaSite: remove gene alleles node
+  $self->delete_node('Alleles');
+  # ParaSite
 
   # S4 DAS
   $self->delete_node('Expression');
