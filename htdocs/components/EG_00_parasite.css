@@ -1,0 +1,144 @@
+
+#main_holder {
+  min-height: 270px;
+}
+
+.home-wrapper {
+  width: 100%;
+}
+
+.home-summary {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.home-left {
+  width: 30%;
+  max-width: 450px;
+  float: left;
+  margin-left: 1%;
+}
+.home-left .home-button {
+  display: inline-block;
+  width: 27%;
+  padding-bottom: 27%;
+  height: 0;
+  margin: 2%;
+  background-color: silver;
+  text-align: center;
+  color: #000000;
+}
+.home-left .home-button-hover {
+  background-color: grey;
+  cursor: pointer;
+}
+.home-left .home-button h3 {
+  font-face: Helvetica, Arial, sans-serif;
+  font-size: 2.1vmin;
+  color: #000000;
+  padding-top: 22%;
+}
+.home-left .home-button {
+  text-decoration: none;
+  color: #000000;
+}
+.home-left .home-button .home-button-symbol {
+  font-size: 2.5vw;
+  padding-top: 10%;
+}
+.home-left .home-species-nav {
+  width: 96%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 3%;
+  float: left;
+  position: relative;
+}
+.home-left .home-statistics {
+  width: 96%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+  float: left;
+  position: relative;
+}
+
+.home-right {
+  width: 65%;
+  float: left;
+  margin-left: 2%;
+} 
+.home-right-col1 {
+  width: 65%;
+  float: left;
+  margin-left: 0;
+}
+.home-right-col2 {
+  width: 30%;
+  float: right;
+  margin-left: 2%;
+}
+
+.blog-story h3 {
+  font-size: 1.10em;
+}
+.blog-story h4 {
+  font-size: 0.75em;
+}
+
+.footer {
+  background: rgba(192, 192, 192, 0.27);
+  padding: 25px;
+}
+
+.copyright {
+  float: left;
+  position: absolute;
+  bottom: 0;
+  text-align: left;
+  margin-bottom: 25px;
+  margin-left: 1%;
+  width: 40%;
+  min-width: 450px;
+  font-size: 0.9em;
+}
+.copyright ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+.copyright ul li {
+  list-style-image: none;
+  text-align: left;
+  padding-right: 7px !important;
+  margin: 4px 0px 4px 0px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footerlinks {
+  float: right;
+  text-align: left;
+  margin-right: 8%;
+}
+.footerlinks h3 {
+  text-align: left;
+  border-bottom: 1px solid #666666;
+ }
+.footerlinks a {
+  text-decoration: none;
+}
+.footerlinks ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+.footerlinks ul li {
+  list-style-image: none;
+  text-align: left;
+  padding-right: 15px;
+  margin: 4px 0px 4px 0px !important;
+}
+

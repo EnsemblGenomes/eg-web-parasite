@@ -1,6 +1,4 @@
-Ensembl.Panel.SearchBox = Ensembl.Panel.extend({
-  init: function() {
-    this.base();
+$( document ).ready(function() {
     // Extend jQuery UI autocomplete widget to add "catgories"
     $.widget("custom.catAutocomplete", $.ui.autocomplete, {
       _renderMenu: function(ul, items) {
@@ -20,7 +18,7 @@ Ensembl.Panel.SearchBox = Ensembl.Panel.extend({
        return $("<li></li>").data("ui-autocomplete-item", item).append("<a>" + item.label + "</a>").appendTo(ul);
      }
     });
-    $("#se_q").catAutocomplete({
+    $(".search-query").catAutocomplete({
       source: function(request, response) {
         $.ajax({
           url: "/Multi/Ajax/search_autocomplete",
@@ -42,7 +40,7 @@ Ensembl.Panel.SearchBox = Ensembl.Panel.extend({
                     label: item.value,
                     value: item.value,
                     url: item.url,
-                    category: 'Species'
+                    category: item.type
                   }
                 }
               }));
@@ -51,13 +49,13 @@ Ensembl.Panel.SearchBox = Ensembl.Panel.extend({
       },
       minLength: 3,
       select: function(event, ui) {
-        $("#se_q").val(ui.item.value);
+        $(this).val(ui.item.value);
         if(typeof ui.item.url !== 'undefined') {
           window.location.href = ui.item.url;
         } else {
-          $("#searchForm").submit();
+          $(this).closest('form').submit();
         }
       }
     });
-  }
 });
+

@@ -478,7 +478,7 @@ sub html_template {
   $self->add_body_attr('class', "ienew ie$1")                        if $ENV{'HTTP_USER_AGENT'} =~ /MSIE (\d+)/ && $1 >= 9;
   $self->add_body_attr('class', 'no_tabs')                           unless $elements->{'tabs'};
   $self->add_body_attr('class', 'static')                            if $self->isa('EnsEMBL::Web::Document::Page::Static');
-  
+
   my $species_path        = $self->species_defs->species_path;
   my $species_common_name = $self->species_defs->SPECIES_COMMON_NAME;
   my $max_region_length   = 1000100 * ($self->species_defs->ENSEMBL_GENOME_SIZE || 1);
@@ -509,7 +509,8 @@ sub html_template {
     
     $footer_id = 'footer';
   }
-  
+
+## ParaSite: modified to change our layout  
   return qq($html_tag
 <head>
   $head
@@ -535,10 +536,9 @@ sub html_template {
           $elements->{'mobile_nav'}
         </div>
       </div>
-      <div id="$footer_id">
-        <div class="column-wrapper">$elements->{'copyright'}$elements->{'footerlinks'}
-          <p class="invisible">.</p>
-        </div>
+      <div class="footer column-wrapper">
+        $elements->{'copyright'}
+        $elements->{'footerlinks'}
       </div>
     </div>
   </div>
@@ -553,6 +553,8 @@ sub html_template {
 </body>
 </html>
 );
+## ParaSite
+
 }
 
 1;

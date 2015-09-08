@@ -6,7 +6,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,16 +24,21 @@ use strict;
 
 sub content {
 
-  return qq(
-    <div class="twocol-right right">
-      <a href="http://ensemblgenomes.org/info/about/wormbase_parasite">About&nbsp;WormBase ParaSite</a> | 
-      <a href="/contact.html">Contact&nbsp;Us</a> | 
-      <a href="http://www.ebi.ac.uk/Information/termsofuse.html">EMBL-EBI Terms of use</a> | 
-      <a href="http://www.ebi.ac.uk/Information/Privacy.html">Privacy</a> | 
-      <a href="http://www.ebi.ac.uk/about/cookie-control">Cookies</a> 
-    </div>
-          ) 
-  ;
+ return qq(
+   <div class="footerlinks twocol-right right">
+     <h3>
+       Information
+     </h3>
+     <ul>
+       <li><a  href="http://ensemblgenomes.org/info/about/wormbase_parasite">About&nbsp;WormBase ParaSite</a></li>
+       <li><a  href="/contact.html">Contact&nbsp;Us</a></li>
+       <li><a  href="http://www.ebi.ac.uk/Information/termsofuse.html">EMBL-EBI Terms of use</a></li>
+       <li><a  href="http://www.ebi.ac.uk/Information/Privacy.html">Privacy</a></li>
+       <li><a  href="http://www.ebi.ac.uk/about/cookie-control">Cookies</a></li> 
+     </ul>
+   </div>
+         ) 
+ ;
 }
 
 1;
