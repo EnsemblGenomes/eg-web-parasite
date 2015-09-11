@@ -143,3 +143,7 @@
   margin: 4px 0px 4px 0px !important;
 }
 
+.ui-menu-item {
+  cursor: pointer;
+}
+
