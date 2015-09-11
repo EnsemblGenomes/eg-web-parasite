@@ -54,6 +54,22 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   push(@matches, { value=>'Full Species List', url=>'/species.html', type=>'WormBase ParaSite Tools' }) if $term =~ /species/i;
 ##
 
+## Has the user entered some sequence (this is a very rough guess)
+  if($term =~ /^[ACGTacgt]+$/) {  ## This could be nucleotide sequence
+    if(length($term) <= 20) {
+      push(@matches, { value=>"Send $term to nucleotide BLAST", url=>"/Tools/Blast?query_sequence=$term", type=>'Sequence Search' });
+    } else {
+      push(@matches, { value=>"Send sequence to nucleotide BLAST", url=>"/Tools/Blast?query_sequence=$term", type=>'Sequence Search' });
+    }
+  } elsif (length($term) > 10 && $term =~ /^[GPAVLIMCFYWHKRQNEDST*]+$/) {
+    if(length($term) <= 20) {
+      push(@matches, { value=>"Send $term to peptide BLAST", url=>"/Tools/Blast?query_sequence=$term", type=>'Sequence Search' });
+    } else {
+      push(@matches, { value=>"Send sequence to peptide BLAST", url=>"/Tools/Blast?query_sequence=$term", type=>'Sequence Search' });
+    }
+  }
+##
+
 ## Does the search term match a species name?
   my @species = $species_defs->valid_species;  
   my ($sp_term, $sp_genus) = $term =~ /^([A-Za-z])[\.]? ([A-Za-z]+)/ ? ($2, $1) : ($term, undef); # Deal with abbreviation of the genus
