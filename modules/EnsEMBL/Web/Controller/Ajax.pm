@@ -73,6 +73,7 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
 ## Does the search term match a species name?
   my @species = $species_defs->valid_species;  
   my ($sp_term, $sp_genus) = $term =~ /^([A-Za-z])[\.]? ([A-Za-z]+)/ ? ($2, $1) : ($term, undef); # Deal with abbreviation of the genus
+  $sp_term =~ s/genome$//; # Some users put the word genome at the end of their search string - remove this so we still get a match
   foreach my $sp (@species) {
     my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
     my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
