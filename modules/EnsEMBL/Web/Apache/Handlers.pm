@@ -311,15 +311,13 @@ sub handler {
 
   my $filename = get_static_file_for_path($r, $path);
 
+## ParaSite: do not force a redirect to index.html on the homepage
   if ($filename =~ /^! (.*)$/) {
-    $r->uri($r->uri . ($r->uri      =~ /\/$/ ? '' : '/') . 'index.html');
-    $r->filename($1 . ($r->filename =~ /\/$/ ? '' : '/') . 'index.html');
-    $r->headers_out->add('Location' => $r->uri);
-    $r->child_terminate;
-    $ENSEMBL_WEB_REGISTRY->timer_push('Handler "REDIRECT"', undef, 'Apache');
+    $path = 'index.html';
+    $filename = get_static_file_for_path($r, $path);
+  }
 
-    return HTTP_MOVED_TEMPORARILY;
-  } elsif ($filename) {
+  if ($filename) {
     $r->filename($filename);
     $r->content_type('text/html');
     $ENSEMBL_WEB_REGISTRY->timer_push('Handler "OK"', undef, 'Apache');
@@ -328,6 +326,7 @@ sub handler {
 
     return OK;
   }
+## ParaSite
 
   # Give up
   $ENSEMBL_WEB_REGISTRY->timer_push('Handler "DECLINED"', undef, 'Apache');
