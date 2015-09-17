@@ -44,6 +44,7 @@ sub menus {
     ERP001209           => ['ERP001209', 'parasite_rnaseq'],
     ERP001238           => ['ERP001238', 'parasite_rnaseq'],
     ERP004459           => ['ERP004459', 'parasite_rnaseq'],
+    ERP001556           => ['ERP001556', 'parasite_rnaseq'],
 ##
 
 ## EG used to organise fungi/protists external tracks
