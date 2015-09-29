@@ -136,6 +136,7 @@ sub species_tree {
 
         # Group the genome projects by species name
 	my %species = ();
+        my %aliases = ();
 	my %providers = ();
 	# Is this a multi-taxon group?
 	my @taxons = @{$species_defs->TAXON_MULTI->{$subgroup} || [$subgroup]};
@@ -152,6 +153,7 @@ sub species_tree {
 	    next unless $common;
 	    my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
 	    push(@{$species{$scientific}}, $_);
+            push(@{$aliases{$scientific}}, @{$species_defs->get_config($_, 'SPECIES_ALTERNATIVE_NAME')}) if $species_defs->get_config($_, 'SPECIES_ALTERNATIVE_NAME');
 	    $providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
 	  }
 	}
@@ -172,7 +174,8 @@ sub species_tree {
               my $summary = "$providers{$project} genome project";
               push(@speciesproj, { 'label' => $bioproject, 'summary' => $summary, 'url' => "/$project/Info/Index", 'children' => undef });
             }
-            push(@specieslist, { 'label' => $scientific, 'url' => $species_url, 'children' => \@speciesproj });
+            my @alias = $aliases{$scientific} ? $aliases{$scientific} : [];
+            push(@specieslist, { 'label' => $scientific, 'aliases' => @alias, 'url' => $species_url, 'children' => \@speciesproj });
           }
           push(@genus, {'label' => $genusitem, 'url' => '/', 'children' => \@specieslist });
         }
