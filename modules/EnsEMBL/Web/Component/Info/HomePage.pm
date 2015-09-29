@@ -662,7 +662,7 @@ sub _resources_text {
 
   $html .= $imported_resources;
 
-  $html .= '<p>Process your own variants using the Variant Effect Predictor:</p>';
+  $html .= '<p>Predict the effects of variants using the Variant Effect Predictor:</p>';
   my $vep_url = $hub->url({'type' => 'UserData', 'action' => 'UploadVariations'});
   $html .= qq(<p><a href="$vep_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Variant Effect Predictor<img src="${img_url}vep_logo_sm.png" style="vertical-align:top;margin-left:12px" /></a></p>);
   
