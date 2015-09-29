@@ -52,6 +52,7 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   push(@matches, { value=>'WormMine', url=>'http://www.wormbase.org/tools/wormmine', type=>'WormBase Tools' }) if $term =~ /wormmine|wormmart|intermine/;
   push(@matches, { value=>'WormBase Central', url=>'http://www.wormbase.org', type=>'WormBase Tools' }) if $term =~ /wormbase|legacy/i;
   push(@matches, { value=>'Full Species List', url=>'/species.html', type=>'WormBase ParaSite Tools' }) if $term =~ /species/i;
+  push(@matches, { value=>'Data Usage Policy', url=>'/datausage.html', type=>'WormBase ParaSite Tools' }) if $term =~ /data usage|citation|cite/i;
 ##
 
 ## Has the user entered some sequence (this is a very rough guess)
