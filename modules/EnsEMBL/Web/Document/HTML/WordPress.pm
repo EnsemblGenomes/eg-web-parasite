@@ -81,7 +81,7 @@ sub render {
     next if $post->{'sticky'};
     $html .= print_post($post);
   }
-  $html .= qq(<p><a href="http://wbparasite.wordpress.com">[Older]</a></p>);
+  $html .= qq(<p><a class="blog-link" href="http://wbparasite.wordpress.com">[Older]</a></p>);
   $html .= qq(</div>);
   
   return $html;
@@ -118,7 +118,7 @@ sub print_post {
     $date_pretty = "on $date_formatted";
   }
 
-  $html .= qq(<h3><a href="$post->{'URL'}">$post->{'title'}</a></h3>);
+  $html .= qq(<h3><a class="blog-link" href="$post->{'URL'}">$post->{'title'}</a></h3>);
   $html .= qq(<h4 title="$date_formatted">posted $date_pretty</h4>);
   $post->{'excerpt'} =~ s/<[\/]*p>//g;
   $html .= qq(<p>$post->{'excerpt'}</p>);
