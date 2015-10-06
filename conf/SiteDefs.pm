@@ -35,9 +35,6 @@ sub update_conf {
 
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
 
-    $SiteDefs::ENSEMBL_PRIMARY_SPECIES  = 'Onchocerca_volvulus_prjeb513'; ## Default species
-    $SiteDefs::ENSEMBL_SECONDARY_SPECIES  = 'Haemonchus_contortus_prjeb506'; ## Default species
-    
 	# ParaSite Specific Species
 
 	# Release 1
