@@ -116,7 +116,6 @@ sub handler {
     %$aliases,
     common => 'common',
     multi  => 'Multi',
-    perl   => $SiteDefs::ENSEMBL_PRIMARY_SPECIES,
     map { lc($_) => $SiteDefs::ENSEMBL_SPECIES_ALIASES->{$_} } keys %$SiteDefs::ENSEMBL_SPECIES_ALIASES
   );
 
