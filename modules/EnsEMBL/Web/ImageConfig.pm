@@ -155,5 +155,113 @@ sub _add_datahub {
   return ($menu_name, $hub_info);
 }
 
-1;
+sub _add_datahub_tracks {
+  my ($self, $parent, $children, $config, $menu, $name) = @_;
+  my $hub    = $self->hub;
+  my $data   = $parent->data;
+  my $matrix = $config->{'dimensions'}{'x'} && $config->{'dimensions'}{'y'};
+  my $link   = $config->{'description_url'} ? qq(<br /><a href="$config->{'description_url'}" rel="external">Go to track description on trackhub</a>) : '';
+  my $info   = $config->{'longLabel'} . $link;
+  my %tracks;
 
+  my %options = (
+    menu_key     => $name,
+    menu_name    => $name,
+    submenu_key  => $self->tree->clean_id("${name}_$data->{'track'}", '\W'),
+    submenu_name => $data->{'shortLabel'},
+    datahub      => 1,
+  );
+
+  if ($matrix) {
+    $options{'matrix_url'} = $hub->url('Config', { action => 'Matrix', function => $hub->action, partial => 1, menu => $options{'submenu_key'} });
+
+    foreach my $subgroup (keys %$config) {
+      next unless $subgroup =~ /subGroup\d/;
+
+      foreach (qw(x y)) {
+        if ($config->{$subgroup}{'name'} eq $config->{'dimensions'}{$_}) {
+          $options{'axis_labels'}{$_} = { %{$config->{$subgroup}} }; # Make a deep copy so that the regex below doesn't affect the subgroup config
+          s/_/ /g for values %{$options{'axis_labels'}{$_}};
+        }
+      }
+
+      last if scalar keys %{$options{'axis_labels'}} == 2;
+    }
+
+    $options{'axes'} = { map { $_ => $options{'axis_labels'}{$_}{'label'} } qw(x y) };
+  }
+
+  my $submenu = $self->create_submenu($options{'submenu_key'}, $options{'submenu_name'}, {
+    external => 1,
+    ($matrix ? (
+      menu   => 'matrix',
+      url    => $options{'matrix_url'},
+      matrix => {
+        section     => $menu->data->{'caption'},
+        header      => $options{'submenu_name'},
+        description => $info,
+        axes        => $options{'axes'},
+      }
+    ) : ())
+  });
+
+  $self->alphabetise_tracks($submenu, $menu);
+
+  foreach (@{$children||[]}) {
+    my $track        = $_->data;
+    my $type         = ref $track->{'type'} eq 'HASH' ? uc $track->{'type'}{'format'} : uc $track->{'type'};
+    my $squish       = $track->{'visibility'} eq 'squish' || $config->{'visibility'} eq 'squish'; # FIXME: make it inherit correctly
+    my $desc_url     = $track->{'description_url'} ? $hub->url('Ajax', {'type' => 'fetch_html', 'url' => $track->{'description_url'}}) : '';
+## ParaSite: change the parameters for source track to match our way of labelling
+    (my $source_name = $track->{'longLabel'}) =~ s/_/ /g;
+    my $source       = {
+      name        => $track->{'track'},
+      source_name => $source_name,
+      description => $desc_url ? qq(<span class="_dyna_load"><a class="hidden" href="$desc_url">$track->{'longLabel'}</a>Loading &#133;</span>) : '',
+      source_url  => $track->{'bigDataUrl'},
+      caption     => $track->{'shortLabel'},
+      colour      => exists $track->{'color'} ? $track->{'color'} : undef,
+      no_titles   => $type eq 'BIGWIG', # To improve browser speed don't display a zmenu for bigwigs
+      squish      => $squish,
+      signal_range => $track->{'signal_range'},
+      strand      => 'r',
+      %options
+    };
+## ParaSite
+
+    # Graph range - Track Hub default is 0-127
+
+    if (exists $track->{'viewLimits'}) {
+      $source->{'viewLimits'} = $track->{'viewLimits'};
+    } elsif ($track->{'autoScale'} eq 'off') {
+      $source->{'viewLimits'} = '0:127';
+    }
+
+    if (exists $track->{'maxHeightPixels'}) {
+      $source->{'maxHeightPixels'} = $track->{'maxHeightPixels'};
+    } elsif ($type eq 'BIGWIG' || $type eq 'BIGBED') {
+      $source->{'maxHeightPixels'} = '64:32:16';
+    }
+
+    if ($matrix) {
+      my $caption = $track->{'shortLabel'};
+      $source->{'section'} = $parent->data->{'shortLabel'};
+      ($source->{'source_name'} = $track->{'longLabel'}) =~ s/_/ /g;
+      $source->{'labelcaption'} = $caption;
+
+      $source->{'matrix'} = {
+        menu   => $options{'submenu_key'},
+        column => $options{'axis_labels'}{'x'}{$track->{'subGroups'}{$config->{'dimensions'}{'x'}}},
+        row    => $options{'axis_labels'}{'y'}{$track->{'subGroups'}{$config->{'dimensions'}{'y'}}},
+      };
+
+      $source->{'column_data'} = { description => $info, no_subtrack_description => 1 };
+    }
+
+    $tracks{$type}{$source->{'name'}} = $source;
+  }
+
+  $self->load_file_format(lc, $tracks{$_}) for keys %tracks;
+}
+
+1;
