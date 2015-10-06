@@ -50,6 +50,7 @@ $( document ).ready(function() {
       minLength: 3,
       select: function(event, ui) {
         $(this).val(ui.item.value);
+        ga('send', 'event', 'header', 'search-box-autocomplete', 'select autocomplete item from header search box');
         if(typeof ui.item.url !== 'undefined') {
           window.location.href = ui.item.url;
         } else {
