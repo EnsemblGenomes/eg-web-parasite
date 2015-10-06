@@ -70,6 +70,7 @@ sub render {
   # Put the 'sticky' posts at the top
   $html .= qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2>);
   foreach my $post (@{$output->{'posts'}}) {
+    next if $post->{'tags'}->{'Hidden'};
     next unless $post->{'sticky'};
     $html .= print_post($post);
   }
@@ -78,6 +79,7 @@ sub render {
   # Then everything else
   $html .= qq(<div class="blog-story round-box home-box"><h2 data-social-icon="R">Blog</h2>);
   foreach my $post (@{$output->{'posts'}}) {
+    next if $post->{'tags'}->{'Hidden'};
     next if $post->{'sticky'};
     $html .= print_post($post);
   }
