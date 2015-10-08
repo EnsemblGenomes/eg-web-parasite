@@ -240,7 +240,9 @@ sub _add_datahub_tracks {
     if (exists $track->{'maxHeightPixels'}) {
       $source->{'maxHeightPixels'} = $track->{'maxHeightPixels'};
     } elsif ($type eq 'BIGWIG' || $type eq 'BIGBED') {
-      $source->{'maxHeightPixels'} = '64:32:16';
+## ParaSite: change height of tracks
+      $source->{'maxHeightPixels'} = '60:60:60';
+## ParaSite
     }
 
     if ($matrix) {
