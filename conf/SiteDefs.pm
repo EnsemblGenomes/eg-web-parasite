@@ -142,6 +142,9 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992, Echinococcus_canadensis_prjeb8992)];
     $SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086, Loa_loa_prjna246086)];
     
+    # Release 4
+    # No new species added in release 4
+
     # WormBase Species
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria, Caenorhabditis_angaria)];
     $SiteDefs::__species_aliases{'Caenorhabditis_brenneri'} = [qw(caenorhabditis_brenneri, Caenorhabditis_brenneri)];
