@@ -202,4 +202,34 @@ sub get_edit_jobs_data {
   return \@jobs_data;
 }
 
+sub handle_download {
+  ## Method reached by url ensembl.org/Download/Blast/
+  my ($self, $r) = @_;
+## ParaSite: method modified to permit downloading of multiple jobs in one file
+  my $content;
+  my $filename;
+  
+  if($self->create_url_param =~ /-all/) {
+    my $ticket = $self->get_requested_ticket;
+    $filename = $ticket->ticket_name;
+    foreach my $job ($ticket->job) {
+      $content .= sprintf("============= Job %s =============\n\n", $job->job_desc);
+      my $result_file = sprintf '%s/%s', $job->job_dir, $job->job_data->{'output_file'};
+      $content .= join '', map { s/\R/\r\n/r } file_get_contents($result_file);
+    }
+  } else {
+    my $job = $self->get_requested_job;
+    $filename = $self->create_url_param;
+    my $result_file = sprintf '%s/%s', $job->job_dir, $job->job_data->{'output_file'};
+    $content = join '', map { s/\R/\r\n/r } file_get_contents($result_file);  
+  }
+
+  $r->headers_out->add('Content-Type'         => 'text/plain');
+  $r->headers_out->add('Content-Length'       => length $content);
+  $r->headers_out->add('Content-Disposition'  => sprintf 'attachment; filename=%s.blast.txt', $filename);
+## ParaSite
+
+  print $content;
+}
+
 1;
