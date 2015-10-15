@@ -117,4 +117,95 @@ sub job_summary_section {
   });
 }
 
+sub ticket_buttons {
+  my ($self, $ticket, $is_owned_ticket) = @_;
+  my $hub           = $self->hub;
+  my $object        = $self->object;
+  my $user          = $hub->user;
+  my $owner_is_user = $ticket->owner_type eq 'user';
+  my $url_param     = $object->create_url_param({'ticket_name' => $ticket->ticket_name});
+  my $job_count     = $ticket->job_count;
+  my $action        = $ticket->ticket_type_name;
+  my $buttons       = $self->dom->create_element('div');
+
+  my ($save_button, $edit_button, $share_button, $delete_button, $expiring_warning);
+
+  ## ParaSite: remove the login/save button and replace with a link to download results
+  $save_button = {
+    'node_name' => 'span',
+    'class'     => [qw(_ht sprite save_icon)],
+    'title'     => 'Download results'
+  };
+  $save_button = {
+    'node_name' => 'a',
+    'class'     => 'export',
+    'href'      => $hub->url('Download', {'function' => '', 'tl' => "$url_param-all"}),
+    'children'  => [ $save_button ]
+  } unless $owner_is_user;
+
+  # Red warning triangle if ticket is due to be deleted
+  if ($ticket->status ne 'Current') {
+
+    my $life_left = $ticket->calculate_life_left($self->hub->species_defs->ENSEMBL_TICKETS_VALIDITY);
+       $life_left = sprintf '%d', $life_left / 86400;
+       $life_left = $life_left ? sprintf('after approximately %d day(s)', $life_left) : 'soon'; # less than 24 hours means 'soon'
+
+    $expiring_warning = {
+      'node_name' => 'span',
+      'class'     => [qw(ticket-expiring _ht)],
+      'title'     => "This ticket will get deleted $life_left."
+    };
+  }
+
+  # Share button
+  $share_button = {
+    'node_name'   => 'div',
+    'class'       => [qw(_ticket_share ticket-share-icon sprite share_icon)],
+    'inner_HTML'  => sprintf('<form class="top-margin" action="%s">
+                        <p><label><input name="share" type="checkbox" value="1"%s />&nbsp;Share ticket via URL</label></p>
+                        <p class="_ticket_share_url%s"><input class="ticket-share-input" type="text" value="%s%s" /></p>
+                      </form>',
+                      $hub->url('Json', {'action' => $action, 'function' => 'share', 'tl' => $url_param}),
+                      $ticket->visibility eq 'public' ? ' checked="checked"' : '',
+                      $ticket->visibility eq 'public' ? '' : ' hidden',
+                      $hub->species_defs->ENSEMBL_BASE_URL,
+                      $hub->url($object->get_ticket_share_link($ticket))
+    )
+  };
+
+  # Icon to delete the ticket
+  $delete_button = {
+    'node_name'   => 'a',
+    'class'       => ['_json_link'],
+    'href'        => $hub->url('Json', {'action' => $action, 'function' => 'delete', 'tl' => $url_param}),
+    'children'    => [{
+      'node_name'   => 'span',
+      'class'       => [qw(_ht sprite delete_icon)],
+      'title'       => 'Delete ticket'
+    }, {
+      'node_name'   => 'span',
+      'class'       => [qw(hidden _confirm)],
+      'inner_HTML'  => $job_count == 1
+        ? sprintf("This will delete the following job permanently:\n%s", $object->get_job_description($ticket->job->[0]))
+        : sprintf('This will delete %s jobs for this ticket.', $job_count == 2 ? 'both' : "all $job_count")
+    }]
+  };
+
+  # Edit icon
+  $edit_button = {
+    'node_name'     => 'a',
+    'class'         => [qw(_ticket_edit _change_location)],
+    'href'          => $hub->url({'action' => $action, 'function' => 'Edit', 'tl' => $url_param}),
+    'children'      => [{
+      'node_name'     => 'span',
+      'class'         => [qw(_ht sprite edit_icon)],
+      'title'         => 'Edit &amp; resubmit ticket (create new ticket)'
+    }]
+  };
+
+  $buttons->append_children(grep $_, $save_button, $edit_button, $share_button, $delete_button, $expiring_warning);
+
+  return $buttons;
+}
+
 1;
