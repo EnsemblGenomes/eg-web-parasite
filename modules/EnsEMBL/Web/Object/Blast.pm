@@ -215,7 +215,11 @@ sub handle_download {
     foreach my $job ($ticket->job) {
       $content .= sprintf("============= Job %s =============\n\n", $job->job_desc);
       my $result_file = sprintf '%s/%s', $job->job_dir, $job->job_data->{'output_file'};
-      $content .= join '', map { s/\R/\r\n/r } file_get_contents($result_file);
+      if($job->status =~ /^done$/) {
+        $content .= join '', map { s/\R/\r\n/r } file_get_contents($result_file);
+      } else {
+        $content .= "Job incomplete\n\n";
+      }
     }
   } else {
     my $job = $self->get_requested_job;
