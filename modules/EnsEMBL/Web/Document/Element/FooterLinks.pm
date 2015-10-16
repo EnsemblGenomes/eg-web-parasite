@@ -31,7 +31,8 @@ sub content {
      </h3>
      <ul>
        <li><a  href="http://ensemblgenomes.org/info/about/wormbase_parasite">About&nbsp;WormBase ParaSite</a></li>
-       <li><a  href="/datausage.html">Data Usage</a></li>
+       <li><a  href="/info/datausage.html">Data Usage</a></li>
+       <li><a  href="/info/">Help and Documentation</a></li>
        <li><a  href="/contact.html">Contact&nbsp;Us</a></li>
        <li><a  href="http://www.ebi.ac.uk/Information/termsofuse.html">EMBL-EBI Terms of use</a></li>
        <li><a  href="http://www.ebi.ac.uk/Information/Privacy.html">Privacy</a></li>
