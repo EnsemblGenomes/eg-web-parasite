@@ -311,9 +311,16 @@ sub handler {
   my $filename = get_static_file_for_path($r, $path);
 
 ## ParaSite: do not force a redirect to index.html on the homepage
-  if ($filename =~ /^! (.*)$/) {
+  if ($filename =~ /^! (.*)$/ && $path eq '') {
     $path = 'index.html';
     $filename = get_static_file_for_path($r, $path);
+  } elsif($filename =~ /^! (.*)$/) {
+    $r->uri($r->uri . ($r->uri      =~ /\/$/ ? '' : '/') . 'index.html');
+    $r->filename($1 . ($r->filename =~ /\/$/ ? '' : '/') . 'index.html');
+    $r->headers_out->add('Location' => $r->uri);
+    $r->child_terminate;
+    $ENSEMBL_WEB_REGISTRY->timer_push('Handler "REDIRECT"', undef, 'Apache');
+    return HTTP_MOVED_TEMPORARILY
   }
 
   if ($filename) {
