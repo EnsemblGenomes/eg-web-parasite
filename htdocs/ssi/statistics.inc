@@ -1,5 +1,5 @@
 <ul>
-	<li>Version: 3.0 (July 2015)</li>
+	<li>Version: 4.0 (November 2015)</li>
 	<li>99 genomes, representing 90 species</li>
-	<li>1,790,573 genes</li>
+	<li>1,790,350 genes</li>
 </ul>
