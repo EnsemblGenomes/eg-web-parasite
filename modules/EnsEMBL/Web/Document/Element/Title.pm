@@ -57,7 +57,7 @@ sub init {
 
     # eg: 
     if ($type eq 'Help') {
-      $self->set("Ensembl Genomes he!p");
+      $self->set("WormBase ParaSite Helpdesk");
     }
     # species home page:
     elsif($type eq 'Info' && $hub->action eq 'Index'){
