@@ -270,14 +270,23 @@ sub render_hit {
     }
 
     if ($hit->{genetree} && @{$hit->{genetree}}) {
-      my @links;
-       
-      foreach my $id (@{$hit->{genetree}}) {
-        my $url = sprintf '%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id};
-        push @links, sprintf '<a href="%s">%s</a> %s', $url, $self->highlight($id);
+## ParaSite: gene tree results have been modified
+      if(scalar(@{$hit->{genetree}}) > 1) {
+        my @links;
+        foreach my $id (@{$hit->{genetree}}) {
+          my $url = sprintf('%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id});
+          push(@links, sprintf('<a href="%s">%s</a>', $url, $self->highlight($id)));
+        }
+        $table->add_row("Gene trees", sprintf('View gene tree: %s', join(', ', @links)));
+      } else {
+        my $linktext;
+        foreach my $id (@{$hit->{genetree}}) {
+          my $url = sprintf('%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id});
+          $linktext = sprintf('<a href="%s">%s</a>', $url, "View gene tree");
+        }
+        $table->add_row("Gene tree", $linktext);
       }
-    
-      $table->add_row("Gene trees", join ', ', @links);
+## ParaSite
     }
 
     if ($hit->{WORMBASE_ORTHOLOG} && @{$hit->{WORMBASE_ORTHOLOG}}) {
