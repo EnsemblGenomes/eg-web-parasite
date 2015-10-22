@@ -41,8 +41,10 @@ $('.image-expand').click(function() {
           .append(
             $('<img></img>')
               .attr('class', 'image-large')
-              .css('height', '100%')
-              .css('width', '100%')
+              .css('max-height', '100%')
+              .css('max-width', '100%')
+              .css('height', 'auto')
+              .css('width', 'auto')
               .css('border-radius', '20px')
               .attr('src', url)
           )
