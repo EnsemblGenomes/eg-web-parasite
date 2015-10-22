@@ -52,3 +52,9 @@ $('.image-expand').click(function() {
     ).hide().fadeIn('fast');
 });
 
+$(document).keyup(function(e) {
+  if(e.keyCode == 27) {
+    $('.image-popup').remove();
+  }
+});
+
