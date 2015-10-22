@@ -27,7 +27,7 @@ $('.image-expand').click(function() {
           .css('position', 'absolute')
           .css('background', '#000000')
           .css('opacity', '0.4')
-          .css('zIndex', '101')
+          .css('z-index', '101')
         )
       .append(
         $('<div></div>')
@@ -37,7 +37,7 @@ $('.image-expand').click(function() {
           .css('text-align', 'center')
           .css('margin', '5% auto 5% auto')
           .css('opacity', '1')
-          .css('zIndex', '102')
+          .css('z-index', '102')
           .append(
             $('<img></img>')
               .attr('class', 'image-large')
