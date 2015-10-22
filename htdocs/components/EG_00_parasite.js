@@ -8,7 +8,7 @@ $('.image-expand').click(function() {
   var url = $(this).attr('src');
   $('body').append(
     $('<div></div>')
-      .attr('id', 'image-popup')
+      .attr('class', 'image-popup')
       .css('width', '100%')
       .css('height', '100%')
       .css('position', 'fixed')
@@ -16,7 +16,7 @@ $('.image-expand').click(function() {
       .css('bottom', '0px')
       .css('left', '0px')
       .css('right', '0px')
-      .css('cursor', 'pointer')
+      .css('cursor', 'zoom-out')
       .click(function() {
         $(this).remove();
       })

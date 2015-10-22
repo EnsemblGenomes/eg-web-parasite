@@ -148,10 +148,10 @@
 }
 
 .image-expand {
-  cursor: pointer;
+  cursor: zoom-in;
 }
 
 .image-popup {
-  cursor: pointer;
+  cursor: zoom-out;
 }
 
