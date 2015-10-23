@@ -17,6 +17,7 @@ $('.image-expand').click(function() {
       .css('left', '0px')
       .css('right', '0px')
       .css('cursor', 'zoom-out')
+      .css('z-index', '100')
       .click(function() {
         $(this).remove();
       })
@@ -27,7 +28,7 @@ $('.image-expand').click(function() {
           .css('position', 'absolute')
           .css('background', '#000000')
           .css('opacity', '0.4')
-          .css('z-index', '101')
+          .css('z-index', '102')
         )
       .append(
         $('<div></div>')
@@ -37,7 +38,7 @@ $('.image-expand').click(function() {
           .css('text-align', 'center')
           .css('margin', '5% auto 5% auto')
           .css('opacity', '1')
-          .css('z-index', '102')
+          .css('z-index', '103')
           .css('background', '#FFFFFF')
           .css('border-radius', '20px')
           .append(
