@@ -123,6 +123,7 @@ sub print_post {
   $html .= qq(<h3><a class="blog-link" href="$post->{'URL'}">$post->{'title'}</a></h3>);
   $html .= qq(<h4 title="$date_formatted">posted $date_pretty</h4>);
   $post->{'excerpt'} =~ s/<[\/]*p>//g;
+  $post->{'excerpt'} =~ s/\[\&hellip;\]/<a href="$post->{'URL'}">\[\x{2026}\]<\/a>/g;
   $html .= qq(<p>$post->{'excerpt'}</p>);
   return $html;
 }
