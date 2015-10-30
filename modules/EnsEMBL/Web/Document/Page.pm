@@ -487,11 +487,10 @@ sub html_template {
   my $html_tag            = join '',   $self->doc_type, $self->html_tag;
   my $head                = join "\n", map $elements->{$_->[0]} || (), @{$self->head_order};  
   my $body_attrs          = join ' ',  map { sprintf '%s="%s"', $_, $self->{'body_attr'}{$_} } grep $self->{'body_attr'}{$_}, keys %{$self->{'body_attr'}};
-  my $tabs                = $elements->{'tabs'} ? qq(<div class="tabs_holder print_hide">$elements->{'tabs'}</div>) : '';
+  my $tabs                = $elements->{'tabs'} ? qq(<div id="mh-tabs"><div class="tabs_holder print_hide">$elements->{'tabs'}</div></div>) : '';
   my $footer_id           = 'wide-footer';
-  my $panel_type          = $self->can('panel_type') ? $self->panel_type : '';
-  my $main_holder         = $panel_type ? qq(<div id="main_holder" class="js_panel">$panel_type) : '<div id="main_holder">';
-  my $masthead_class      = $elements->{'tabs'} ? 'js_panel' : 'js_panel no-tabs';
+  my $main_holder         = '<div id="main_holder">';
+  my $masthead_class      = $elements->{'tabs'} ? '' : 'no-tabs';
 
   my $main_class = $self->main_class();        
 
@@ -517,16 +516,20 @@ sub html_template {
 </head>
 <body $body_attrs>
   <div id="min_width_container">
-    <div id="min_width_holder">
+    <div id="min_width_holder" class="js_panel">
+    <input class="panel_type" value="Masthead" type="hidden" />
       <div id="masthead" class="$masthead_class">
-        <input type="hidden" class="panel_type" value="Masthead" />
         <div class="logo_holder">$elements->{'logo'}</div>
         <div class="mh print_hide">
-          <div class="tools_holder">$elements->{'tools'}</div>
           <div class="search_holder print_hide">$elements->{'search_box'}</div>
         </div>
-        $tabs
       </div>
+      <div id="masthead-menu">
+        <div class="mh-tools print_hide">
+          <div class="mh_tools_holder">$elements->{'tools'}</div>
+        </div>
+      </div>
+      $tabs
       $main_holder
         $nav
         <div id="$main_class">

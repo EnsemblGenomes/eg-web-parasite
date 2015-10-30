@@ -34,7 +34,7 @@ function initAnalyticsListener() {
   });
 
   // Header
-  $('.tools_holder .tools').click(function() {
+  $('.mh_tools_holder .tools').click(function() {
     ga('send', 'event', 'header', 'tools', 'click on a tool link in the header');
   });
   $('.search-query').keypress(function() {
