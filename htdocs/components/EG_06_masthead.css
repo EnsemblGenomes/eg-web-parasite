@@ -1,79 +1,100 @@
 
 /* Masthead */
-#masthead                                 { background-color: [[MH_BG]]; color: [[MH_TEXT]]; height: 58px; padding: 6px 8px; position: relative; }
-#masthead div                             { background-color: [[MH_BG]] important; }
+#masthead                                          { background-color: #000000; color: #FFFFFF; height: 46px; padding: 6px 8px; position: relative; }
+#masthead div                                      { background-color: #000000 important; }
 #masthead a,
-#masthead span.disabled                   { color: [[MH_LINK]]; text-decoration: none; outline: none; }
+#masthead span.disabled                            { color: #555555; text-decoration: none; outline: none; }
 #masthead a:hover,
-#masthead span.disabled.toggle:hover      { color: [[MH_HOVER]]; }
-#masthead ul                              { list-style: none; margin: 0; padding: 0 }
-#masthead li                              { list-style: none; float: left; text-align: center; white-space: nowrap; }
-#masthead .mh                             { float: left; }
-#masthead ul.tools                        { margin: 1px 0 0 20px; height: 16px; overflow: hidden; }
-#masthead ul.tools li                     { padding: 0 10px; border-right: 1px solid [[MH_TEXT]]; margin: 0; }
-#masthead ul.tools li.last                { border: 0; }
-#masthead ul.tabs                         { margin: 0; padding: 0; width: 100%; }
-#masthead ul.tabs li                      { background: [[MH_TAB]]; margin: 0 5px 0 2px; padding: 0; border-radius: 10px 10px 0 0; -moz-border-radius: 10px 10px 0 0; -webkit-border-radius: 10px 10px 0 0; }
-#masthead ul.tabs li.active               { background: [[MH_TAB_ACTIVE]] }
-#masthead ul.tabs li.long_tab             { display: none; }
-#masthead ul.tabs a,
-#masthead ul.tabs span.dropdown           { display: block; text-decoration: none; padding: 3px 8px 2px; outline: 0; }
-#masthead ul.tabs span.dropdown           { padding-left:  0; }
-#masthead ul.tabs span.dropdown.empty     { padding-right: 0; }
-#masthead ul.tabs li.active a,
-#masthead ul.tabs li.active span.dropdown { color: [[PAGE_TEXT]]; font-weight: bold; }
-#masthead ul.tabs span.dropdown a         { display: inline; }
-#masthead ul.tabs span.dropdown a.toggle  { cursor: pointer; padding: 0; font-size: 11px; line-height: 11px; background-image: none; }
-#masthead ul.tabs span.disabled           { padding: 3px 8px 2px; outline: 0; }
-#masthead ul.tabs span.disabled.toggle    { cursor: pointer; }
-#masthead div.dropdown                    { position: absolute; top: 21px; display: none; background-color: [[TINT_BG]]; border: 1px solid [[TINT_BORDER]]; padding-bottom: 5px; }
-#masthead div.dropdown h4                 { margin: 0; padding: 4px 8px; text-align: center; border-bottom: 1px solid [[TINT_BORDER]]; }
-#masthead div.dropdown ul                 { padding-top: 4px; }
-#masthead div.dropdown ul li              { display: block; margin: 2px 6px; padding: 0 10px 3px; text-align: left; float: none; }
-#masthead div.dropdown ul li a            { color: [[PAGE_LINK]]; }
-#masthead div.dropdown ul li a.bold       { font-weight: bold; font-size: 90%; }
-#masthead div.dropdown.species            { width: 1100px; }
-#masthead div.dropdown.species ul li      { width: 300px; float: left; }
-#masthead .logo_holder                    { position: relative; top: 6px; margin-left: 6px; float: left; font-size: 26px; font-family: Helvetica, sans-serif; font-weight: bold; text-decoration: none }
-#masthead .logo_holder .logo-header       { background: url(/i/[[SITE_LOGO]]) no-repeat 0 0; display: inline-block; width: [[SITE_LOGO_WIDTH]]px; height: [[SITE_LOGO_HEIGHT]]px; }
-#masthead .logo_holder a                  { color: [[MH_LOGO_LINK]] !important; }
-#masthead .logo_holder a:hover            { color: [[MH_LOGO_HOVER]] !important; }
-#masthead .small_logo                     { position: relative; top: 18px; margin-left: 6px; float: left; font-size: 12px; font-family: Helvetica, sans-serif; text-decoration: none }
-#masthead .tools_holder                   { position: relative; top: 10px; }
-#masthead .tools_holder .arrow            { font-size: 8px; position: relative; top: -1px; padding-left: 1px; }
-#masthead .tools_holder a                 { color: [[MH_TOOLS_LINK]] !important; }
-#masthead .tools_holder a:hover           { color: [[MH_TOOLS_HOVER]] !important; }
-#masthead .search_holder                  { position: absolute; top: 10px; right: 6px; margin-left: 6px; }
-#masthead .tabs_holder                    { position: absolute; bottom: 0; clear: both; }
-#masthead div.more                        { display: none; float: left; margin: -16px 7px 0; position: relative; z-index: 250; }
-#masthead div.more a                      { outline: 0; padding: 2px 4px; }
-#masthead div.more a.open                 { border: 1px solid [[MH_BORDER]]; color: [[MH_TEXT]]; background-color: [[MH_BG]]; height: 16px; position: relative; }
-#masthead ul.more_tools                   { display: none; position: absolute; left: 0; top: 18px; border-top: 1px solid [[MH_BORDER]]; font-size: 10px; z-index: 200; }
-#masthead ul.more_tools li                { color: [[MH_TEXT]]; border: 1px solid [[MH_BORDER]]; border-top: 0; background-color: [[MH_BG]]; float: none; text-align: left; margin: 0; padding: 2px; }
-#masthead ul.more_tools li a              { color: [[CONTRAST_TEXT]]; }
-.no-tabs                                  {  }
+#masthead span.disabled.toggle:hover               { color: #000000; }
+#masthead .mh                                      { float: left; width: 100%; }
+#masthead .mh-tools                                { float: left; margin-left: 10px; }
+#masthead ul.tools                                 { margin: 0; height: 100%; overflow: hidden; }
+#masthead ul.tools li                              { padding: 0; margin: 0; }
+#masthead ul.tools li.last                         { border: 0; }
+#masthead .logo_holder                             { position: relative; top: 6px; margin-left: 6px; float: left; font-size: 26px; font-family: Helvetica, sans-serif; font-weight: bold; text-decoration: none }
+#masthead .logo_holder .logo-header                { background: url(/i/[[SITE_LOGO]]) no-repeat 0 0; display: inline-block; width: 169px; height: 40px; }
+#masthead .logo_holder a                           { color: #FFFFFF !important; }
+#masthead .logo_holder a:hover                     { color: #CCCCCC !important; }
+#masthead .small_logo                              { position: relative; top: 18px; margin-left: 6px; float: left; font-size: 12px; font-family: Helvetica, sans-serif; text-decoration: none }
+#masthead .search_holder                           { position: absolute; top: 6px; right: 6px; margin-left: 6px; }
+.no-tabs                                           { height: 46px !important; }
 
-body.mac #masthead                        { font-size: 13px; }
-body.mac #masthead ul.tabs li             { height: 21px; }
-body.mac #masthead div.more a             { padding: 4px; }
-body.mac #masthead .tools_holder          { top: 13px; }
+body.mac #masthead                                 { font-size: 13px; }
 
-body.ie #masthead ul.tabs li                      { background: url(/i/tab_on_r.gif) no-repeat right top; margin: 0 2px; background-color: [[MH_TAB]]; }
-body.ie #masthead ul.tabs li.active               { background-color: [[MH_TAB_ACTIVE]]; }
-body.ie #masthead ul.tabs a,
-body.ie #masthead ul.tabs span.dropdown           { background: url(/i/tab_on_l.gif) no-repeat left top; }
-body.ie #masthead ul.tabs li.active a.toggle      { background: none; }
-body.ie67 #masthead                               { z-index: 9999; }
-body.ie67 #masthead .tabs_holder                  { z-index: -1; }
-body.ie67 #masthead div.more a.open               { margin-top: -2px; }
+body.ie67 #masthead                                { z-index: 9999; }
 
-body.ie6 #masthead div.more                       { margin-left: 3px; }
-body.ie6 #masthead div.dropdown.species           { width: 610px; }
-body.ie6 #masthead div.dropdown.species ul li     { width: 180px; }
-body.ie6 #masthead div.toggle                     { width: 0; }
-body.ie6 #masthead div.toggle div                 { left: 155px; }
-body.ie6 #masthead div.toggle h4                  { width: 100%; }
-body.ie6 #masthead div.search_holder              { width: 320px; left: 100%; margin-left: -325px; }
+body.ie6 #masthead div.search_holder               { width: 320px; left: 100%; margin-left: -325px; }
+
+/* Masthead Menu Bar */
+#masthead-menu                                     { background-color: #AAAAAA; height: 24px; position: relative; border-top: 1pt #808080 solid; border-bottom: 1pt #808080 solid; }
+#masthead-menu ul                                  { list-style: none; margin: 0; padding: 0 }
+#masthead-menu li                                  { list-style: none; float: left; text-align: center; white-space: nowrap; margin: 0; }
+#masthead-menu .tools-left                         { float: left; }
+#masthead-menu .tools-right                        { float: right; }
+#masthead-menu .mh_tools_holder                    { position: relative; }
+#masthead-menu .mh_tools_holder .arrow             { font-size: 8px; position: relative; top: -1px; padding-left: 1px; }
+#masthead-menu .mh_tools_holder a                  { color: #000000 !important; height: 100%; font-weight: bold; text-decoration: none; display: block; padding: 4px 15px; }
+#masthead-menu .mh_tools_holder a:hover            { background-color: #808080; }
+#masthead-menu div.more                            { display: none; float: left; margin: -16px 7px 0; position: relative; z-index: 250; }
+#masthead-menu div.more a                          { outline: 0; padding: 2px 4px; }
+#masthead-menu div.more a.open                     { border: 1px solid #000000; color: #FFFFFF; background-color: #000000; height: 16px; position: relative; }
+#masthead-menu ul.more_tools                       { display: none; position: absolute; left: 0; top: 18px; border-top: 1px solid #000000; font-size: 10px; z-index: 200; }
+#masthead-menu ul.more_tools li                    { color: #FFFFFF; border: 1px solid #000000; border-top: 0; background-color: #000000; float: none; text-align: left; margin: 0; padding: 2px; }
+#masthead-menu ul.more_tools li a                  { color: #333333; }
+
+body.mac #masthead-menu div.more a                 { padding: 4px; }
+body.mac #masthead-menu .mh_tools_holder           { top: 0 }
+
+body.ie67 #masthead-menu div.more a.open           { margin-top: -2px; }
+
+body.ie6 #masthead-menu div.more                   { margin-left: 3px; }
+body.ie6 #masthead-menu div.toggle                 { width: 0; }
+body.ie6 #masthead-menu div.toggle div             { left: 155px; }
+body.ie6 #masthead-menu div.toggle h4              { width: 100%; }
+
+/* Masthead Tabs */
+#mh-tabs a                                         { color: #555555; text-decoration: none; outline: none; }
+#mh-tabs a:hover                                   { color: #000000; }
+#mh-tabs span.disabled.toggle:hover                { color: #000000; }
+#mh-tabs                                           { position: relative; height: 21px; }
+#mh-tabs ul                                        { list-style: none; margin: 0; padding: 0 }
+#mh-tabs li                                        { list-style: none; float: left; text-align: center; white-space: nowrap; }
+#mh-tabs ul.tabs                                   { margin: 0; padding: 0; width: 100%; }
+#mh-tabs ul.tabs li                                { background: #AAAAAA; margin: 0 5px 0 2px; padding: 0; border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px; }
+#mh-tabs ul.tabs li.active                         { background: #EEEEEE }
+#mh-tabs ul.tabs li.long_tab                       { display: none; }
+#mh-tabs ul.tabs a,
+#mh-tabs ul.tabs span.dropdown                     { display: block; text-decoration: none; padding: 3px 8px 2px; outline: 0; }
+#mh-tabs ul.tabs span.dropdown                     { padding-left:  0; }
+#mh-tabs ul.tabs span.dropdown.empty               { padding-right: 0; }
+#mh-tabs ul.tabs li.active a,
+#mh-tabs ul.tabs li.active span.dropdown           { color: #000000; font-weight: bold; }
+#mh-tabs ul.tabs span.dropdown a                   { display: inline; }
+#mh-tabs ul.tabs span.dropdown a.toggle            { cursor: pointer; padding: 0; font-size: 11px; line-height: 11px; background-image: none; }
+#mh-tabs ul.tabs span.disabled                     { padding: 3px 8px 2px; outline: 0; }
+#mh-tabs ul.tabs span.disabled.toggle              { cursor: pointer; }
+#mh-tabs div.dropdown                              { position: absolute; top: 21px; display: none; background-color: #F4F4F4; border: 1px solid #97A1AD; padding-bottom: 5px; }
+#mh-tabs div.dropdown h4                           { margin: 0; padding: 4px 8px; text-align: center; border-bottom: 1px solid #97A1AD; }
+#mh-tabs div.dropdown ul                           { padding-top: 4px; }
+#mh-tabs div.dropdown ul li                        { display: block; margin: 2px 6px; padding: 0 10px 3px; text-align: left; float: none; }
+#mh-tabs div.dropdown ul li a                      { color: #0000B8; }
+#mh-tabs div.dropdown ul li a.bold                 { font-weight: bold; font-size: 90%; }
+#mh-tabs div.dropdown.species                      { width: 1100px; }
+#mh-tabs div.dropdown.species ul li                { width: 300px; float: left; }
+#mh-tabs .tabs_holder                              { position: absolute; bottom: 0; clear: both; }
+
+body.mac #mh-tabs ul.tabs li                       { height: 21px; }
+
+body.ie #mh-tabs ul.tabs li                        { background: url(/i/tab_on_r.gif) no-repeat right top; margin: 0 2px; background-color: #AAAAAA; }
+body.ie #mh-tabs ul.tabs li.active                 { background-color: #EEEEEE; }
+body.ie #mh-tabs ul.tabs a,
+body.ie #mh-tabs ul.tabs span.dropdown             { background: url(/i/tab_on_l.gif) no-repeat left top; }
+body.ie #mh-tabs ul.tabs li.active a.toggle        { background: none; }
+
+body.ie67 #mh-tabs .tabs_holder                    { z-index: -1; }
+
+body.ie6 #mh-tabs div.dropdown.species             { width: 610px; }
+body.ie6 #mh-tabs div.dropdown.species ul li       { width: 180px; }
 
 @media print {
   #masthead   { background: #ffffff; }

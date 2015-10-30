@@ -36,5 +36,40 @@ sub links {
   return \@links;
 }
 
+sub help_links {
+  my $self = shift;
+  my $hub  = $self->hub;
+  my @links;
+
+  push @links, 'help', '<a class="constant" href="/info/">Help and Documentation</a>';
+
+  return \@links;
+
+}
+
+sub content {
+  my $self    = shift;
+  my $hub     = $self->hub;
+  my $links   = $self->links;
+  my $help_links = $self->help_links;
+  my $menu    = '';
+  my $html;
+
+  while (my (undef, $link) =  splice @$links, 0, 2) {
+    $menu .= sprintf '<li%s>%s</li>', @$links ? '' : ' class="last"', $link;
+  }
+
+  $html .= qq(<div class="tools-left"><ul class="tools">$menu</ul></div>);
+
+  $menu = '';
+  while (my (undef, $link) =  splice @$help_links, 0, 2) {
+    $menu .= sprintf '<li%s>%s</li>', @$links ? '' : ' class="last"', $link;
+  }
+
+  $html .= qq(<div class="tools-right"><ul class="tools-right">$menu</ul></div>);
+
+  return $html;
+}
+
 1;
 
