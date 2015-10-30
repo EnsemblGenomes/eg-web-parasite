@@ -60,8 +60,8 @@ body.ie6 #masthead-menu div.toggle h4              { width: 100%; }
 #mh-tabs ul                                        { list-style: none; margin: 0; padding: 0 }
 #mh-tabs li                                        { list-style: none; float: left; text-align: center; white-space: nowrap; }
 #mh-tabs ul.tabs                                   { margin: 0; padding: 0; width: 100%; }
-#mh-tabs ul.tabs li                                { background: #AAAAAA; margin: 0 5px 0 2px; padding: 0; border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px; }
-#mh-tabs ul.tabs li.active                         { background: #EEEEEE }
+#mh-tabs ul.tabs li                                { background: rgb(194, 209, 223); margin: 0 5px 0 2px; padding: 0; border-radius: 0 0 10px 10px; -moz-border-radius: 0 0 10px 10px; -webkit-border-radius: 0 0 10px 10px; }
+#mh-tabs ul.tabs li.active                         { background: rgb(124, 164, 181); }
 #mh-tabs ul.tabs li.long_tab                       { display: none; }
 #mh-tabs ul.tabs a,
 #mh-tabs ul.tabs span.dropdown                     { display: block; text-decoration: none; padding: 3px 8px 2px; outline: 0; }
@@ -82,19 +82,6 @@ body.ie6 #masthead-menu div.toggle h4              { width: 100%; }
 #mh-tabs div.dropdown.species                      { width: 1100px; }
 #mh-tabs div.dropdown.species ul li                { width: 300px; float: left; }
 #mh-tabs .tabs_holder                              { position: absolute; bottom: 0; clear: both; }
-
-body.mac #mh-tabs ul.tabs li                       { height: 21px; }
-
-body.ie #mh-tabs ul.tabs li                        { background: url(/i/tab_on_r.gif) no-repeat right top; margin: 0 2px; background-color: #AAAAAA; }
-body.ie #mh-tabs ul.tabs li.active                 { background-color: #EEEEEE; }
-body.ie #mh-tabs ul.tabs a,
-body.ie #mh-tabs ul.tabs span.dropdown             { background: url(/i/tab_on_l.gif) no-repeat left top; }
-body.ie #mh-tabs ul.tabs li.active a.toggle        { background: none; }
-
-body.ie67 #mh-tabs .tabs_holder                    { z-index: -1; }
-
-body.ie6 #mh-tabs div.dropdown.species             { width: 610px; }
-body.ie6 #mh-tabs div.dropdown.species ul li       { width: 180px; }
 
 @media print {
   #masthead   { background: #ffffff; }

@@ -26,12 +26,12 @@
   padding-bottom: 27%;
   height: 0;
   margin: 2%;
-  background-color: silver;
+  background-color: rgb(194, 209, 223);
   text-align: center;
   color: #000000;
 }
 .home-left .home-button-hover {
-  background-color: grey;
+  background-color: rgb(124, 164, 181);
   cursor: pointer;
 }
 .home-left .home-button h3 {
