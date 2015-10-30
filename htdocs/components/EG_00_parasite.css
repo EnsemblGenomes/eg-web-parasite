@@ -152,6 +152,42 @@
 }
 
 .image-popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   cursor: zoom-out;
+  z-index: 100;
+}
+
+.image-popup-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: #000000;
+  opacity: 0.4;
+  z-index: 102;
+}
+
+.image-popup-fg {
+  height: 75%;
+  width: 75%;
+  position: relative;
+  text-align: center;
+  margin: 5% auto 5% auto;
+  opacity: 1;
+  z-index: 103;
+  background: #FFFFFF;
+  border-radius: 20px;
+}
+
+.image-large {
+  max-height: 95%;
+  max-width: 95%;
+  height: auto;
+  width: auto;
 }
 
