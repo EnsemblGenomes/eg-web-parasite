@@ -43,12 +43,11 @@ sub transcript_table {
 
   if ($description) {
 
-    my $link = $self->get_gene_display_link('[LINK]'); # [LINK] will get replaced by the external id later on
+    my ($url, $xref) = $self->get_gene_display_link($object->gene, $description);
 
-    if ($link) {
-      my $link_id   = $link->{'id'};
-      $link         = $link->{'link'} =~ s/\[LINK\]/$link_id/r; #/
-      $description  =~ s/$link_id/$link/;
+    if ($xref) {
+      $xref        = $xref->primary_id;
+      $description =~ s|$xref|<a href="$url" class="constant">$xref</a>|;
     }
     
     $table->add_row('Description', $description);
@@ -566,5 +565,27 @@ sub transcript_table {
 ##
 }
 
+sub get_gene_display_link {
+  ## @param Gene object
+  ## @param Gene xref object or description string
+  my ($self, $gene, $xref) = @_;
+
+  my $hub = $self->hub;
+
+  if ($xref && !ref $xref) { # description string
+    my $details = { map { split ':', $_, 2 } split ';', $xref =~ s/^.+\[|\]$//gr };
+## ParaSite: modified this slightly to use the new code, but with the E80 API
+    foreach(@{$gene->get_all_DBLinks}) {
+      $xref = $_ if($_->primary_id eq $details->{'Acc'} && $_->db_display_name eq $details->{'Source'});
+    }
+##
+  }
+
+  return unless $xref && $xref->info_type ne 'PROJECTION';
+
+  my $url = $hub->get_ExtURL($xref->dbname, $xref->primary_id);
+
+  return $url ? ($url, $xref) : ();
+}
 
 1;
