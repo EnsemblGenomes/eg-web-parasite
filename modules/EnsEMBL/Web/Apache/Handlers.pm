@@ -89,6 +89,13 @@ sub handler {
     $redirect = 1;
   }
 
+  ## ParaSite: redirect the old species list which has appeared in some publications
+  if ($file =~ /info\/website\/species\.html/) {
+    $r->uri('/species.html');
+    $redirect = 1;
+  }
+  ##
+
   ## Simple redirect to VEP
 
   if ($SiteDefs::ENSEMBL_SUBTYPE eq 'Pre' && $file =~ /\/vep/i) { ## Pre has no VEP, so redirect to tools page
