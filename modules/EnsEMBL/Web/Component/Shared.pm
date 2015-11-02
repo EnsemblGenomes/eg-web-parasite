@@ -581,7 +581,7 @@ sub get_gene_display_link {
 ##
   }
 
-  return unless $xref && $xref->info_type ne 'PROJECTION';
+  return unless ref $xref && $xref && $xref->info_type ne 'PROJECTION';
 
   my $url = $hub->get_ExtURL($xref->dbname, $xref->primary_id);
 
