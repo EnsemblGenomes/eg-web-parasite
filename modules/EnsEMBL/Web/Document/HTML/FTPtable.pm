@@ -86,13 +86,13 @@ sub render {
     my $data = {
 		species            => qq{<em>$scientific</em>},
 		bioproject         => qq{$bioproject},
-		genomic            => qq{<a rel="external"  title="$title{'genomic'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz">FASTA</a>},
-		genomic_masked     => qq{<a rel="external"  title="$title{'genomic_masked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
-		genomic_softmasked => qq{<a rel="external"  title="$title{'genomic_softmasked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
-		annotations        => qq{<a rel="external"  title="$title{'annotations'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a>},
-		proteins           => qq{<a rel="external"  title="$title{'proteins'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz">FASTA</a>},
-		mRNA_transcripts   => qq{<a rel="external"  title="$title{'mRNA_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
-		CDS_transcripts    => qq{<a rel="external"  title="$title{'CDS_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
+		genomic            => qq{<a rel="notexternal"  title="$title{'genomic'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz">FASTA</a>},
+		genomic_masked     => qq{<a rel="notexternal"  title="$title{'genomic_masked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
+		genomic_softmasked => qq{<a rel="notexternal"  title="$title{'genomic_softmasked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
+		annotations        => qq{<a rel="notexternal"  title="$title{'annotations'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a>},
+		proteins           => qq{<a rel="notexternal"  title="$title{'proteins'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz">FASTA</a>},
+		mRNA_transcripts   => qq{<a rel="notexternal"  title="$title{'mRNA_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
+		CDS_transcripts    => qq{<a rel="notexternal"  title="$title{'CDS_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
     };
     push(@rows, $data);
   }
