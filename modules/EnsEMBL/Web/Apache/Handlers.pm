@@ -89,6 +89,13 @@ sub handler {
     $redirect = 1;
   }
 
+  ## ParaSite: redirect the old species list which has appeared in some publications
+  if ($file =~ /info\/website\/species\.html/) {
+    $r->uri('/species.html');
+    $redirect = 1;
+  }
+  ##
+
   ## Simple redirect to VEP
 
   if ($SiteDefs::ENSEMBL_SUBTYPE eq 'Pre' && $file =~ /\/vep/i) { ## Pre has no VEP, so redirect to tools page
@@ -116,7 +123,6 @@ sub handler {
     %$aliases,
     common => 'common',
     multi  => 'Multi',
-    perl   => $SiteDefs::ENSEMBL_PRIMARY_SPECIES,
     map { lc($_) => $SiteDefs::ENSEMBL_SPECIES_ALIASES->{$_} } keys %$SiteDefs::ENSEMBL_SPECIES_ALIASES
   );
 
@@ -311,15 +317,20 @@ sub handler {
 
   my $filename = get_static_file_for_path($r, $path);
 
-  if ($filename =~ /^! (.*)$/) {
+## ParaSite: do not force a redirect to index.html on the homepage
+  if ($filename =~ /^! (.*)$/ && $path eq '') {
+    $path = 'index.html';
+    $filename = get_static_file_for_path($r, $path);
+  } elsif($filename =~ /^! (.*)$/) {
     $r->uri($r->uri . ($r->uri      =~ /\/$/ ? '' : '/') . 'index.html');
     $r->filename($1 . ($r->filename =~ /\/$/ ? '' : '/') . 'index.html');
     $r->headers_out->add('Location' => $r->uri);
     $r->child_terminate;
     $ENSEMBL_WEB_REGISTRY->timer_push('Handler "REDIRECT"', undef, 'Apache');
+    return HTTP_MOVED_TEMPORARILY
+  }
 
-    return HTTP_MOVED_TEMPORARILY;
-  } elsif ($filename) {
+  if ($filename) {
     $r->filename($filename);
     $r->content_type('text/html');
     $ENSEMBL_WEB_REGISTRY->timer_push('Handler "OK"', undef, 'Apache');
@@ -328,6 +339,7 @@ sub handler {
 
     return OK;
   }
+## ParaSite
 
   # Give up
   $ENSEMBL_WEB_REGISTRY->timer_push('Handler "DECLINED"', undef, 'Apache');

@@ -37,9 +37,10 @@ sub content {
       <form id="searchForm" action="$search_url">
         <div class="search print_hide">
             <label class="hidden" for="se_q">Search terms</label>
-            <input class="query" id="se_q" class="ui-autocomplete-input inactive" type="text" name="q" data-role="none" required placeholder="Search WormBase ParaSite..." />
+            <input id="se_q" class="query ui-autocomplete-input search-query" type="text" name="q" data-role="none" required placeholder="Search WormBase ParaSite..." />
             <input type="submit" value="1" />
         </div>
+        <span style="font-size: 0.75em; margin-left: 5px">e.g. <em>O. volvulus</em>, PRJNA60051, WBGene00262434, Bm-eat-4, eat-4 or metallopeptidase</span>
       </form>
     </div>
   );

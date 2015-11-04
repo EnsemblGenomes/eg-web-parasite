@@ -249,7 +249,9 @@ sub content {
   # $side++;
   }
 
-  push(@sections, $self->_resources_text);
+  push(@sections, $self->_resources_text) if $self->_other_text('resources', $species);
+
+  push(@sections, $self->_tools_text);
 
   my $other_text = $self->_other_text('other', $species);
   push(@sections, $other_text) if $other_text =~ /\w/;
@@ -644,6 +646,28 @@ sub _funcgen_text {
   return $html;
 }
 
+# ParaSite specific Tools section
+sub _tools_text {
+  my $self            = shift;
+  my $hub             = $self->hub;
+  my $species_defs    = $hub->species_defs;
+  my $species         = $hub->species;
+  my $img_url         = $self->img_url;
+  my $html;
+
+  $html .= '<h2>Tools</h2>';
+
+  $html .= '<ul>';
+  my $blast_url = $hub->url({'type' => 'Tools', 'action' => 'Blast'});
+  $html .= qq(<li><a href="$blast_url">Search for sequences in the genome and proteome using BLAST</a></li>);
+  $html .= qq(<li><a href="/biomart/martview">Work with lists of data using the WormBase ParaSite BioMart data-mining tool</a></li>);
+  $html .= qq(<li><a href="/api">Programatically access WormBase ParaSite data using the REST API</a></li>);
+  my $vep_url = $hub->url({'type' => 'UserData', 'action' => 'UploadVariations'});
+  $html .= qq(<li><a href="$vep_url">Predict the effects of variants using the Variant Effect Predictor</a></li>);
+  $html .= '</ul>';
+
+}
+
 # ParaSite specific Resources section
 sub _resources_text {
   my $self            = shift;
@@ -662,10 +686,6 @@ sub _resources_text {
 
   $html .= $imported_resources;
 
-  $html .= '<p>Process your own variants using the Variant Effect Predictor:</p>';
-  my $vep_url = $hub->url({'type' => 'UserData', 'action' => 'UploadVariations'});
-  $html .= qq(<p><a href="$vep_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Variant Effect Predictor<img src="${img_url}vep_logo_sm.png" style="vertical-align:top;margin-left:12px" /></a></p>);
-  
   return $html;
   
 }

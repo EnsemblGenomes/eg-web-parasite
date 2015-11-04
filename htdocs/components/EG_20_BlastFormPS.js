@@ -93,23 +93,6 @@ Ensembl.Panel.BlastForm.prototype.customSpecies = function () {
 };
 
 Ensembl.Panel.BlastForm.prototype.showBlastMessage = function() {
-    var notified    = Ensembl.cookie.get('ncbiblast_notified');
-
-    if (!notified) {
-      $(['<div class="blast-message hidden">',
-        '<div></div>',
-        '<p><b>PLEASE NOTE</b></p>',
-        '<p>As of release 3, this tool is using <a href="http://www.ebi.ac.uk/Tools/sss/ncbiblast/">NCBI BLAST+</a> instead of <a href="http://www.ebi.ac.uk/Tools/sss/wublast/">WU-BLAST</a>. Consequently new jobs may generate different results to existing saved jobs.</p>',
-        '<p><button>Don\'t show this again</button></p>',
-        '</div>'
-      ].join(''))
-        .appendTo(document.body).show().find('button,div').on('click', function (e) {
-          Ensembl.cookie.set('ncbiblast_notified', 'yes');
-          $(this).parents('div').first().fadeOut(200);
-      }).filter('div').helptip({content:"Don't show this again"});
-      return true;
-    }
-
     return false;
 };
 

@@ -478,7 +478,7 @@ sub html_template {
   $self->add_body_attr('class', "ienew ie$1")                        if $ENV{'HTTP_USER_AGENT'} =~ /MSIE (\d+)/ && $1 >= 9;
   $self->add_body_attr('class', 'no_tabs')                           unless $elements->{'tabs'};
   $self->add_body_attr('class', 'static')                            if $self->isa('EnsEMBL::Web::Document::Page::Static');
-  
+
   my $species_path        = $self->species_defs->species_path;
   my $species_common_name = $self->species_defs->SPECIES_COMMON_NAME;
   my $max_region_length   = 1000100 * ($self->species_defs->ENSEMBL_GENOME_SIZE || 1);
@@ -487,11 +487,10 @@ sub html_template {
   my $html_tag            = join '',   $self->doc_type, $self->html_tag;
   my $head                = join "\n", map $elements->{$_->[0]} || (), @{$self->head_order};  
   my $body_attrs          = join ' ',  map { sprintf '%s="%s"', $_, $self->{'body_attr'}{$_} } grep $self->{'body_attr'}{$_}, keys %{$self->{'body_attr'}};
-  my $tabs                = $elements->{'tabs'} ? qq(<div class="tabs_holder print_hide">$elements->{'tabs'}</div>) : '';
+  my $tabs                = $elements->{'tabs'} ? qq(<div id="mh-tabs"><div class="tabs_holder print_hide">$elements->{'tabs'}</div></div>) : '';
   my $footer_id           = 'wide-footer';
-  my $panel_type          = $self->can('panel_type') ? $self->panel_type : '';
-  my $main_holder         = $panel_type ? qq(<div id="main_holder" class="js_panel">$panel_type) : '<div id="main_holder">';
-  my $masthead_class      = $elements->{'tabs'} ? 'js_panel' : 'js_panel no-tabs';
+  my $main_holder         = '<div id="main_holder">';
+  my $masthead_class      = $elements->{'tabs'} ? '' : 'no-tabs';
 
   my $main_class = $self->main_class();        
 
@@ -509,23 +508,28 @@ sub html_template {
     
     $footer_id = 'footer';
   }
-  
+
+## ParaSite: modified to change our layout  
   return qq($html_tag
 <head>
   $head
 </head>
 <body $body_attrs>
   <div id="min_width_container">
-    <div id="min_width_holder">
+    <div id="min_width_holder" class="js_panel">
+    <input class="panel_type" value="Masthead" type="hidden" />
       <div id="masthead" class="$masthead_class">
-        <input type="hidden" class="panel_type" value="Masthead" />
         <div class="logo_holder">$elements->{'logo'}</div>
         <div class="mh print_hide">
-          <div class="tools_holder">$elements->{'tools'}</div>
           <div class="search_holder print_hide">$elements->{'search_box'}</div>
         </div>
-        $tabs
       </div>
+      <div id="masthead-menu">
+        <div class="mh-tools print_hide">
+          <div class="mh_tools_holder">$elements->{'tools'}</div>
+        </div>
+      </div>
+      $tabs
       $main_holder
         $nav
         <div id="$main_class">
@@ -535,10 +539,9 @@ sub html_template {
           $elements->{'mobile_nav'}
         </div>
       </div>
-      <div id="$footer_id">
-        <div class="column-wrapper">$elements->{'copyright'}$elements->{'footerlinks'}
-          <p class="invisible">.</p>
-        </div>
+      <div class="footer column-wrapper">
+        $elements->{'copyright'}
+        $elements->{'footerlinks'}
       </div>
     </div>
   </div>
@@ -553,6 +556,8 @@ sub html_template {
 </body>
 </html>
 );
+## ParaSite
+
 }
 
 1;

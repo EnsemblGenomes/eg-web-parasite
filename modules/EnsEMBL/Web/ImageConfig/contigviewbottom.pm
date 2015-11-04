@@ -41,9 +41,6 @@ sub init {
     protein_feature
     rnaseq
     parasite_rnaseq
-    ERP001209
-    ERP001238
-    ERP004459
     ditag
     simple
     genome_attribs

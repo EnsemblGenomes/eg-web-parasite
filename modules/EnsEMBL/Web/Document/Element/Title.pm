@@ -57,13 +57,15 @@ sub init {
 
     # eg: 
     if ($type eq 'Help') {
-      $self->set("Ensembl Genomes he!p");
+      $self->set("WormBase ParaSite Helpdesk");
     }
     # species home page:
     elsif($type eq 'Info' && $hub->action eq 'Index'){
       $self->set(sprintf('%s - %s', $species_defs->SPECIES_BIO_NAME, $species_defs->ENSEMBL_SITE_NAME));
-    } elsif($type eq 'Tools' || $type eq 'Search') {
+    } elsif($type eq 'Search') {
       $self->set(sprintf('%s - %s', $species_defs->ENSEMBL_SITE_NAME, $type));
+    } elsif($type eq 'Tools') {
+      $self->set(sprintf('%s - %s', $species_defs->ENSEMBL_SITE_NAME, $title));
     } else {
       $title .= " - $caption" if($caption && $title !~ /$caption/ );
       $title = " - $title" if ($title);

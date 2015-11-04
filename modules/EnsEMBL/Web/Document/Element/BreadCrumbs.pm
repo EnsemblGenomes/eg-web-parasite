@@ -44,7 +44,7 @@ sub content {
     if ($path[1] eq 'index.html') {
       push @breadcrumbs, encode_entities($tree->{'_title'});
     } else {
-      push @breadcrumbs, sprintf '<a href="%s/info">%s</a>', $home, 'Documentation';
+      push @breadcrumbs, sprintf '<a href="%s/info">%s</a>', $home, 'Help and Documentation';
     }
 
     for (my $i = 1; $i < scalar @path; $i++) {

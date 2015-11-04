@@ -65,11 +65,6 @@ sub psychic {
   my $species       = $sp_param || (($hub->species !~ /^(common|multi)$/i and $dest_site ne 'ensemblunit') ? $hub->species : undef);
   my ($url, $site);
 
-  if ($species eq 'all' && $dest_site eq 'ensembl') {
-    $dest_site = 'ensembl_all';
-    $species   = $species_defs->ENSEMBL_PRIMARY_SPECIES;
-  }
-
   $query =~ s/^\s+//g;
   $query =~ s/\s+$//g;
   $query =~ s/\s+/ /g;

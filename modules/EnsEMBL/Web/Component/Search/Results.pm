@@ -133,11 +133,14 @@ sub _render_species_message {
   my $hub = $self->hub;
   my (@matches, $string);
 
+  my ($sp_term, $sp_genus) = $search->query_term =~ /^([A-Za-z])[\.]? ([A-Za-z]+)/ ? ($2, $1) : ($search->query_term, undef); # Deal with abbreviation of the genus
+  $sp_term =~ s/genome$//; # Some users put the word genome at the end of their search string - remove this so we still get a match
+
   foreach($hub->species_defs->valid_species) {
     (my $species = $_) =~ s/\_/ /g;
-    my $query = $search->query_term;
-    last if $query =~ /\*/;
-    push(@matches, $_) if $species =~ /$query/i;
+    last if $sp_term =~ /\*/;
+    next if $sp_genus && ($species !~ /^$sp_genus/i || $species !~ /^(.*?) .*$sp_term.*/i);
+    push(@matches, $_) if $species =~ /$sp_term/i;
   }
   if(scalar(@matches) > 0) {
     my @links;
@@ -270,14 +273,23 @@ sub render_hit {
     }
 
     if ($hit->{genetree} && @{$hit->{genetree}}) {
-      my @links;
-       
-      foreach my $id (@{$hit->{genetree}}) {
-        my $url = sprintf '%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id};
-        push @links, sprintf '<a href="%s">%s</a> %s', $url, $self->highlight($id);
+## ParaSite: gene tree results have been modified
+      if(scalar(@{$hit->{genetree}}) > 1) {
+        my @links;
+        foreach my $id (@{$hit->{genetree}}) {
+          my $url = sprintf('%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id});
+          push(@links, sprintf('<a href="%s">%s</a>', $url, $self->highlight($id)));
+        }
+        $table->add_row("Gene trees", sprintf('View gene tree: %s', join(', ', @links)));
+      } else {
+        my $linktext;
+        foreach my $id (@{$hit->{genetree}}) {
+          my $url = sprintf('%s/Gene/Compara_Tree?g=%s', $hit->{species_path}, $hit->{id});
+          $linktext = sprintf('<a href="%s">%s</a>', $url, "View gene tree");
+        }
+        $table->add_row("Gene tree", $linktext);
       }
-    
-      $table->add_row("Gene trees", join ', ', @links);
+## ParaSite
     }
 
     if ($hit->{WORMBASE_ORTHOLOG} && @{$hit->{WORMBASE_ORTHOLOG}}) {

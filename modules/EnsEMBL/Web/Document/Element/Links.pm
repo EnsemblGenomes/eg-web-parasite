@@ -37,6 +37,13 @@ sub init {
     href  => '/opensearch.xml',
     title => 'WormBase ParaSite'
   });
+
+  $self->add_link({
+    rel   => 'alternate',
+    type  => 'application/rss+xml',
+    href  => 'https://wbparasite.wordpress.com/feed/',
+    title => 'WormBase ParaSite Blog & Announcements'
+  });
   
 }
 
