@@ -434,7 +434,10 @@ sub transcript_table {
   
   $table->add_row($page_type eq 'gene' ? 'Transcripts' : 'Gene', $gene_html) if $gene_html;
 
-  return sprintf '<div class="summary_panel">%s%s</div>', $table->render, $transc_table ? $transc_table->render : '';
+## ParaSite: add in an external reference
+  return sprintf '<div class="wormbase_panel">%s</div><div class="summary_panel">%s%s</div>', $wormbase, $table->render, $transc_table ? $transc_table->render : '';
+##
+
 }
 
 1;
