@@ -38,7 +38,9 @@ sub parse_xml {
 
 ## ParaSite: determine the species for each hit (rather than each job) as it is possible to have a single job query multiple species
     my ($species) = $hit->{description} =~ /species:(.+)/;  # This works becuase we have species:xxxxxx appended to the end of the FASTA header line in the dumps
+    $species =~ s/^Heligmosomoides_bakeri_prjeb1203$/Heligmosomoides_polygyrus_prjeb1203/; # Hack for WBPS4 as the index contents has not been changed
     my $db = $hub->database('core', $species);
+    $hit_id =~ s/Heligmosomoides_bakeri_prjeb1203/Heligmosomoides_polygyrus_prjeb1203/; # Hack for WBPS4 as the index contents has not been changed
     $hit_id =~ s/$species://;
 ## ParaSite
 
