@@ -37,35 +37,6 @@ sub render {
   my $rel = $species_defs->SITE_RELEASE_VERSION;
 
   my @species = $species_defs->valid_species;
-  my %title = (
-    dna       => 'Masked and unmasked genome sequences associated with the assembly (contigs, chromosomes etc.)',
-    cdna      => 'cDNA sequences for protein-coding genes',
-    prot      => 'Protein sequences for protein-coding genes',
-    rna       => 'Non-coding RNA gene predictions',
-    embl      => 'Ensembl Genomes database dumps in EMBL nucleotide sequence database format',
-    genbank   => 'Ensembl Genomes database dumps in GenBank nucleotide sequence database format',
-    gtf       => 'Gene sets for each species in GTF format. These files include annotations of both coding and non-coding genes',
-    gff3      => 'Gene sets for each species in GFF3 format. These files include annotations of both coding and non-coding genes',
-    emf       => 'Alignments of resequencing data from the Compara database',
-    gvf       => 'Variation data in GVF format',
-    vcf       => 'Variation data in VCF format',
-    vep       => 'Cache files for use with the VEP script',
-    coll      => 'Additional regulation data (not in database)',
-    bed       => 'Constrained elements calculated using GERP',
-    files     => 'Additional release data stored as flat files rather than MySQL for performance reasons',
-    ancestral => 'Ancestral Allele data in FASTA format',
-    bam       => 'Alignments against the genome',
-    core      => '%s core data export',
-    otherfeatures     => '%s other features data export',
-    variation      => '%s variation data export',
-    funcgen   => '%s funcgen data export',
-    pan       => 'Pan-taxomic Compara data export',
-    compara   => '%s Compara data export',
-    mart      => '%s BioMart data export',
-    tsv       => 'Tab separated files containing selected data for individual species and from comparative genomics',
-
-  );
-  $title{$_} = encode_entities($title{$_}) for keys %title;
 
   my @rows;
   foreach my $spp (sort @species) {
@@ -86,13 +57,13 @@ sub render {
     my $data = {
 		species            => qq{<em>$scientific</em>},
 		bioproject         => qq{$bioproject},
-		genomic            => qq{<a rel="external"  title="$title{'genomic'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz">FASTA</a>},
-		genomic_masked     => qq{<a rel="external"  title="$title{'genomic_masked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
-		genomic_softmasked => qq{<a rel="external"  title="$title{'genomic_softmasked'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
-		annotations        => qq{<a rel="external"  title="$title{'annotations'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a>},
-		proteins           => qq{<a rel="external"  title="$title{'proteins'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz">FASTA</a>},
-		mRNA_transcripts   => qq{<a rel="external"  title="$title{'mRNA_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
-		CDS_transcripts    => qq{<a rel="external"  title="$title{'CDS_transcripts'}" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
+		genomic            => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz">FASTA</a>},
+		genomic_masked     => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
+		genomic_softmasked => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
+		annotations        => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a>},
+		proteins           => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz">FASTA</a>},
+		mRNA_transcripts   => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
+		CDS_transcripts    => qq{<a rel="external" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
     };
     push(@rows, $data);
   }
