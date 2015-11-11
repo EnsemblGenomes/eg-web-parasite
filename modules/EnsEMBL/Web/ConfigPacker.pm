@@ -22,23 +22,12 @@ use LWP::UserAgent;
 use JSON;
 use Data::Dumper;
 
+use previous qw(munge_config_tree);
+
 sub munge_config_tree {
-    my $self = shift;
-
-  # munge the results obtained from the database queries of the website and the meta tables
-    $self->_munge_meta;
-    $self->_munge_variation;
-    $self->_munge_website;
-
-# get data about file formats from corresponding Perl modules
-    $self->_munge_file_formats;
-
-
-### EG
-    $self->_configure_external_resources;
-###
-# parse the BLAST configuration
-    $self->_configure_blast;
+  my $self = shift;
+  $self->PREV::munge_config_tree(@_);
+  $self->_configure_external_resources;
 }
 
 sub _configure_external_resources {
