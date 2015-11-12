@@ -50,8 +50,8 @@ sub render {
     my $collection;
     my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS$rel";
        
-    my $bioproject = uc((split('_', $spp))[2]);
-    next if $bioproject eq '';
+    next unless my ($bioproject) = $spp =~ /^.*?_.*?_(.*)$/;
+    $bioproject = uc($bioproject);
     my $species_lower = lc(join('_',(split('_', $spp))[0..1]));
 
     my $data = {
