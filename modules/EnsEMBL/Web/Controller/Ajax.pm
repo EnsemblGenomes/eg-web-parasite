@@ -52,9 +52,9 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   push(@matches, { value=>'WormMine', url=>'http://www.wormbase.org/tools/wormmine', type=>'WormBase Tools' }) if $term =~ /wormmine|wormmart|intermine/;
   push(@matches, { value=>'WormBase Central', url=>'http://www.wormbase.org', type=>'WormBase Tools' }) if $term =~ /wormbase|legacy/i;
   push(@matches, { value=>'Full Species List', url=>'/species.html', type=>'Documentation' }) if $term =~ /species/i;
-  push(@matches, { value=>'Data Usage Policy', url=>'/datausage.html', type=>'Documentation' }) if $term =~ /data usage|citation|cite/i;
-  push(@matches, { value=>'Frequently Asked Questions (FAQs)', url=>'/faqs.html', type=>'Documentation' }) if $term =~ /faq|contact|email|help|question/i;
-  push(@matches, { value=>'Contact Us', url=>'/contact.html', type=>'Documentation' }) if $term =~ /contact|email|question|help/i;
+  push(@matches, { value=>'Data Usage Policy', url=>'/info/about/datausage.html', type=>'Documentation' }) if $term =~ /data usage|citation|cite/i;
+  push(@matches, { value=>'Frequently Asked Questions (FAQs)', url=>'/info/faqs/', type=>'Documentation' }) if $term =~ /faq|contact|email|help|question/i;
+  push(@matches, { value=>'Contact Us', url=>'/Help/Contact', type=>'Documentation' }) if $term =~ /contact|email|question|help/i;
 ##
 
 ## Has the user entered some sequence (this is a very rough guess)
