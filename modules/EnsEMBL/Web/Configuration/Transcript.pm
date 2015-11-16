@@ -31,13 +31,22 @@ sub modify_tree {
   my $self = shift;
 
   $self->PREV::modify_tree(@_);
- 
+
   $self->delete_node('SupportingEvidence');
   $self->delete_node('Oligos');
   $self->delete_node('Variation');
   $self->delete_node('ProtVariations');
   $self->delete_node('UserAnnotation');
   $self->delete_node('History');
+
+  my $summary = $self->get_node('Summary');
+  $summary->set('components',
+    [qw(
+      image         EnsEMBL::Web::Component::Transcript::TranscriptImage
+      wormbase      EnsEMBL::Web::Component::WormBaseLink
+      trans_summary EnsEMBL::Web::Component::Transcript::TranscriptSummary
+    )]
+  );
   
 }
 

@@ -32,6 +32,28 @@ sub modify_tree {
   $self->delete_node('Compara');
   $self->delete_node('Chromosome');
 
+  ## ParaSite: add an additional component for WormBase JBrowse
+  my $view = $self->get_node('View');
+  $view->set('components', 
+    [qw(
+      summary  EnsEMBL::Web::Component::Location::Summary
+      wormbase EnsEMBL::Web::Component::WormBaseLink
+      top      EnsEMBL::Web::Component::Location::ViewTop
+      botnav   EnsEMBL::Web::Component::Location::ViewBottomNav
+      bottom   EnsEMBL::Web::Component::Location::ViewBottom
+    )]
+  );
+  my $overview = $self->get_node('Overview');
+  $overview->set('components', 
+    [qw(
+      summary  EnsEMBL::Web::Component::Location::Summary
+      wormbase EnsEMBL::Web::Component::WormBaseLink
+      nav      EnsEMBL::Web::Component::Location::ViewBottomNav/region
+      top      EnsEMBL::Web::Component::Location::Region
+    )]
+  );
+  ## ParaSite
+
 }
 
 1;

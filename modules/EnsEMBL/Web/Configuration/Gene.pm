@@ -47,6 +47,16 @@ sub modify_tree {
   $self->delete_node('History');
   $self->delete_node('Idhistory');
   $self->delete_node('Phenotype');
+ 
+  my $summary = $self->get_node('Summary');
+  $summary->set('components',
+    [qw(
+      gene_summary  EnsEMBL::Web::Component::Gene::GeneSummary
+      wormbase      EnsEMBL::Web::Component::WormBaseLink
+      navbar        EnsEMBL::Web::Component::ViewNav
+      transcripts   EnsEMBL::Web::Component::Gene::TranscriptsImage
+    )]
+  );
   
 }
 
