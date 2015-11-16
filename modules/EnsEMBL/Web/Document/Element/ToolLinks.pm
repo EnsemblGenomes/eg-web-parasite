@@ -39,7 +39,17 @@ sub links {
 sub help_links {
   my $self = shift;
   my $hub  = $self->hub;
+  my $users_available = $hub->users_available;
+  my $user = $users_available ? $hub->user : undef;
   my @links;
+
+  if($user && $users_available) {
+    push @links, 'myaccount', sprintf('<a class="constant modal_link" href="%s">My Account - %s</a>', $hub->url({qw(type Account action Bookmark function View)}), $user->email);
+    push @links, 'logout', sprintf('<a class="constant" href="%s">Logout</a>', $hub->url({qw(type Account action Logout)}));
+  } elsif($users_available) {
+    push @links, 'login', sprintf('<a class="constant modal_link" href="%s">Login</a>', $hub->url({qw(type Account action Login)}));
+    push @links, 'register', sprintf('<a class="constant modal_link" href="%s">Register</a>', $hub->url({qw(type Account action Register)}));
+  }
 
   push @links, 'help', '<a class="constant" href="/info/">Help and Documentation</a>';
 
