@@ -44,7 +44,7 @@ sub help_links {
   my @links;
 
   if($user && $users_available) {
-    push @links, 'myaccount', sprintf('<a class="constant modal_link" href="%s">My Account - %s</a>', $hub->url({qw(type Account action Bookmark function View)}), $user->email);
+    push @links, 'myaccount', sprintf('<a class="constant modal_link" href="%s">My Account - %s</a>', $hub->url({qw(type Account action Preferences)}), $user->email);
     push @links, 'logout', sprintf('<a class="constant" href="%s">Logout</a>', $hub->url({qw(type Account action Logout)}));
   } elsif($users_available) {
     push @links, 'login', sprintf('<a class="constant modal_link" href="%s">Login</a>', $hub->url({qw(type Account action Login)}));
