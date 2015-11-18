@@ -23,7 +23,6 @@ sub content {
   my $species = $hub->species;
   my $html;
 
-###TODO: Deal with the WormBase parasites
   # Link to JBrowse
   if($hub->param('r') && defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$species\_JBROWSE")})) {
     (my $region = $hub->param('r')) =~ s/-/../;
