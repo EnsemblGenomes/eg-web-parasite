@@ -21,6 +21,9 @@ use strict;
 
 sub update_conf {
 
+    $SiteDefs::ENSEMBL_PORT = 8032;
+    $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
+
     $SiteDefs::SITE_RELEASE_VERSION = '5';
     $SiteDefs::SITE_RELEASE_DATE = 'January 2016';
     $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
@@ -162,6 +165,7 @@ sub update_conf {
       $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/perl',
     );
     
+    $SiteDefs::EG_DIVISION = 'parasite';
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
     $SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
     $SiteDefs::SITE_FTP= 'ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
