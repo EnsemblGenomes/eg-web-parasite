@@ -128,18 +128,32 @@ sub ticket_buttons {
   my $action        = $ticket->ticket_type_name;
   my $buttons       = $self->dom->create_element('div');
 
-  my ($save_button, $edit_button, $share_button, $delete_button, $expiring_warning);
+  my ($download_button, $save_button, $edit_button, $share_button, $delete_button, $expiring_warning);
 
-  ## ParaSite: remove the login/save button and replace with a link to download results
-  $save_button = {
+  ## ParaSite: icon to download results
+  $download_button = {
     'node_name' => 'span',
-    'class'     => [qw(_ht sprite save_icon)],
+    'class'     => [qw(_ht sprite download_icon)],
     'title'     => 'Download results'
   };
-  $save_button = {
+  $download_button = {
     'node_name' => 'a',
     'class'     => 'export',
     'href'      => $hub->url('Download', {'function' => '', 'tl' => "$url_param-all"}),
+    'children'  => [ $download_button ]
+  };
+  ##
+
+  # Icon to save the ticket to user account
+  $save_button = {
+    'node_name' => 'span',
+    'class'     => [qw(_ht sprite save_icon), $user && $owner_is_user ? 'sprite_disabled' : ()],
+    'title'     => $user ? $owner_is_user ? 'Already saved to account' : 'Save to account' : 'Login to save to account'
+  };
+  $save_button = {
+    'node_name' => 'a',
+    'class'     => [ $user ? '_json_link' : 'modal_link' ],
+    'href'      => $user ? $hub->url('Json', {'type' => 'Tools', 'action' => $action, 'function' => 'save', 'tl' => $url_param}) : $hub->url({'type' => 'Account', 'action' => 'Login'}),
     'children'  => [ $save_button ]
   } unless $owner_is_user;
 
@@ -203,7 +217,7 @@ sub ticket_buttons {
     }]
   };
 
-  $buttons->append_children(grep $_, $save_button, $edit_button, $share_button, $delete_button, $expiring_warning);
+  $buttons->append_children(grep $_, $download_button, $save_button, $edit_button, $share_button, $delete_button, $expiring_warning);
 
   return $buttons;
 }
