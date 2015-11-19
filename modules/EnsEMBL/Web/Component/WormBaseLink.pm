@@ -4,6 +4,7 @@ use strict;
 
 use base qw(EnsEMBL::Web::Component);
 use Bio::EnsEMBL::Gene;
+use JSON;
 
 ##########
 #
@@ -30,6 +31,31 @@ sub content {
     $html .= '<br />' if $html;
     $html .= $hub->get_ExtURL_link('[View region in WormBase JBrowse]', uc("$species\_JBROWSE"), {'SPECIES'=>$species, 'REGION'=>$region, 'HIGHLIGHT'=>$highlight});
     $html =~ s/<a /<a id="jbrowse-link" /;
+
+### TODO: Work on the bit below - this gets the user configured tracks and needs to append these onto the JBrowse URL
+my $image_config = $hub->get_imageconfig('contigviewbottom');
+my @tracks = $image_config->get_tracks;
+my @jbrowse_tracks;
+foreach my $row_config (@tracks) {
+  next if $row_config->get('matrix') eq 'column';
+  my $display = $row_config->get('display') || ($row_config->get('on') eq 'on' ? 'normal' : 'off');
+  next if $display eq 'off' || $display =~ /highlight/;
+  my $option_key = $row_config->get('option_key');
+  next if $option_key && $image_config->get_node($option_key)->get('display') ne 'on';
+  next unless $row_config->get('external') eq 'external';
+  my %track = (
+    'label' => $row_config->get('caption'),
+    'store' => 'url',
+    'storeClass' => 'JBrowse/Store/SeqFeature/BAM',
+    'urlTemplate' => $row_config->get('url')
+  );
+  push @jbrowse_tracks, %track;
+}
+my $jbrowse_json = to_json(\@jbrowse_tracks);
+print $jbrowse_json;
+
+###TODO
+
   }
 
   # Link to the relevant gene page
