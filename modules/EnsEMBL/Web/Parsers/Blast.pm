@@ -63,6 +63,15 @@ sub parse_xml {
  
       my ($qframe, $tframe) = split /\s*\/\s*/, $align->{frame} || ''; # E.g "+2 / -3"
 
+      if ($align->{strand}) {
+        $tori = $1 if $align->{strand} =~ /.*?\/(.*)/;
+        my %replace = (
+          'plus' => 1,
+          'minus' => -1
+        );
+        $tori =~ s/$_/$replace{$_}/ for keys %replace;
+      }
+
       my $result = {
         qid    => 'Query_1', #??
         qstart => $qstart,
@@ -81,7 +90,6 @@ sub parse_xml {
         aln    => btop($q->{content}, $t->{content}),
         desc   => $description,
       };
-      
       push @results, $self->map_to_genome($result, $species, $source_type, $db);
     }
   }
