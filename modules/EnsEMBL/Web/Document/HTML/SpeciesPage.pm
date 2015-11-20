@@ -32,6 +32,7 @@ sub render {
 
   my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
   my $sitename = $species_defs->SITE_NAME;
+  my $html;
 
   # check if we've got static content with species available resources and if so, use it
   # if not, use all the species page with no resources shown (red letters V P G A).
@@ -130,13 +131,11 @@ sub render {
   }
   my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;font-style:italic;';
 
-  my $html = qq(<div class="column-wrapper"><div class="box-left" style="width:auto"><h2>$sitename Species</h2></div>);
-
   my %groups = map {$species{$_}->{group} => 1} keys %species;
   
   $html .= qq{<div class="round-box home-box clear"><h2>Contents</h2><p>};
   foreach my $gr (@groups) {
-		my $count = scalar grep { $species{$_}->{'group'} eq $gr && $species{$_}->{'species_site'} eq 'parasite' } keys %species;
+		my $count = scalar grep { $species{$_}->{'group'} eq $gr && $species{$_}->{'species_site'} =~ /parasite|wormbase/i } keys %species;
 		$html .= qq{<a href="#$gr">$gr ($count)</a><br />};
   }
   $html .= qq{</p></div>};
@@ -159,7 +158,6 @@ sub render {
 
 		  (my $name = $dir) =~ s/_/ /g;
 		  my ($bioproj) = $name =~ m/(prj.*)/; # Get the BioProject ID
-                  next unless $info->{'species_site'} eq 'parasite'; # Skip if this is not a ParaSite species
 		  $bioproj = uc($bioproj);
                   $name =~ s/prj.*//; # Remove the BioProject ID from the name
 		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name

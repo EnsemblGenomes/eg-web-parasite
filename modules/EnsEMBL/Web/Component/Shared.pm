@@ -424,19 +424,9 @@ sub transcript_table {
 #  }
 ##
 
-## ParaSite: check for wormbase_gene xref
-  my $wormbase;
-  my $xrefs = $page_type eq 'gene' ? $object->Obj->get_all_DBEntries() : $object->gene->get_all_DBEntries();
-  foreach my $xref (@{$xrefs}) {
-    $wormbase = $hub->get_ExtURL_link('[View at WormBase central]', 'WORMBASE_GENE', {'SPECIES'=>$species, 'ID'=>$gene->stable_id}) if $xref->dbname =~ /^wormbase_gene$/i;
-  }
-##
-  
   $table->add_row($page_type eq 'gene' ? 'Transcripts' : 'Gene', $gene_html) if $gene_html;
 
-## ParaSite: add in an external reference
-  return sprintf '<div class="wormbase_panel">%s</div><div class="summary_panel">%s%s</div>', $wormbase, $table->render, $transc_table ? $transc_table->render : '';
-##
+  return sprintf '<div class="summary_panel">%s%s</div>', $table->render, $transc_table ? $transc_table->render : '';
 
 }
 

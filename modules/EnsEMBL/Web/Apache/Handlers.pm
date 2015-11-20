@@ -39,7 +39,7 @@ sub handler {
   my $sp = $raw_path[0];
   my %param = split ';|=', $querystring;
   my $site_type = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)};
-  if($site_type ne 'parasite') {
+  if($site_type !~ /^parasite|wormbase$/i) {
     my $redirect_url;
     if($raw_path[1] eq 'Gene') {
       $redirect_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{uc($site_type) . "_GENE"};

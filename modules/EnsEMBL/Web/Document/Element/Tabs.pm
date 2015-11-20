@@ -95,8 +95,6 @@ sub species_list {
 
   my $html;
   foreach my $sp (@{$self->{'species_list'}}) {
-    next if $sp->[2] ne 'parasite';
-    $sp->[1] =~ s/(.*)\(/<em>$1<\/em>\(/g;
     $html .= qq{<li><a class="constant" href="$sp->[0]">$sp->[1]</a></li>};
   }
 
