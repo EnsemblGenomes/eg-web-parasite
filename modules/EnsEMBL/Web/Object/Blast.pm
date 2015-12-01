@@ -180,18 +180,18 @@ sub get_edit_jobs_data {
 
     my %config_fields = map { @{$_->{'fields'}} } values %{{ @{CONFIGURATION_FIELDS()} }};
 
-    for (@$jobs) {
-      my $job_data = $_->job_data->raw;
+    foreach my $job (@$jobs) {
+      my $job_data = $job->job_data->raw;
 ## ParaSite: species may be stored as an array in one single job
-      my @source_species = $job_data->{'source_species'} ? @{$job_data->{'source_species'}} : $_->species;
-      delete $job_data->{$_} for qw(source_file output_file);
+      my @source_species = $job_data->{'source_species'} ? @{$job_data->{'source_species'}} : $job->species;
+      delete $job_data->{$job} for qw(source_file output_file);
       foreach my $species (@source_species) {
-        my $job_data = $_->job_data->raw;
-        delete $job_data->{$_} for qw(source_file output_file);
+        my $job_data = $job->job_data->raw;
+        delete $job_data->{$job} for qw(source_file output_file);
         $job_data->{'species'}  = {key => lc($species), title => $hub->species_defs->species_label($species)};
-        $job_data->{'sequence'} = $self->get_input_sequence_for_job($_);
+        $job_data->{'sequence'} = $self->get_input_sequence_for_job($job);
         for (keys %{$job_data->{'configs'}}) {
-          $job_data->{'configs'}{$_} = { reverse %{$config_fields{$_}{'commandline_values'}} }->{ $job_data->{'configs'}{$_} } if exists $config_fields{$_}{'commandline_values'};
+          $job_data->{'configs'}{$job} = { reverse %{$config_fields{$job}{'commandline_values'}} }->{ $job_data->{'configs'}{$job} } if exists $config_fields{$job}{'commandline_values'};
         }
         push @jobs_data, $job_data;
       }
