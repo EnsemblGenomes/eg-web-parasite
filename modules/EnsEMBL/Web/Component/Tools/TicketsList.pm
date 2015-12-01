@@ -77,20 +77,10 @@ sub job_summary_section {
 
   return $self->dom->create_element('p', {
     'children'    => [{
-      'node_name'   => 'img',
-      'class'       => [qw(job-species _ht)],
-      'title'       => $valid_job_species ? $species_defs->species_label($job_species, 1) : $job_species =~ s/_/ /rg,
-      'src'         => sprintf('%sspecies/16/%s.png', $self->img_url, $job_species),
-      'alt'         => '',
-      'style'       => {
-        'width'       => '16px',
-        'height'      => '16px'
-      }
-    }, {
       'node_name'   => 'span',
       'class'       => ['right-margin'],
       'flags'       => ['job_desc_span'],
-      'inner_HTML'  => $job_description
+      'inner_HTML'  => "$job_species_display: $job_description"
     },
     $status_tag,
     $result_url ? {
