@@ -16,7 +16,7 @@ limitations under the License.
 
 =cut
 
-package EnsEMBL::Web::Component::Tools::Blast;
+package EnsEMBL::Web::Component::Tools::Blast::TicketDetails;
 
 sub job_details_table {
   ## A two column layout displaying a job's details

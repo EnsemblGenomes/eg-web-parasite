@@ -22,7 +22,7 @@ use strict;
 use warnings;
 
 sub job_summary_section {
-  my ($self, $ticket, $job, $result_count) = @_;
+  my ($self, $ticket, $job, $result_count, $is_owned_ticket) = @_;
 
   my $hub               = $self->hub;
   my $object            = $self->object;
@@ -53,9 +53,9 @@ sub job_summary_section {
   } : undef;
 
   if ($result_url && $assembly_mismatch) {
-    if ($assembly_site && $ticket->owner_type eq 'user') { # if job is from another assembly and we do have a site for that assembly
+    if ($assembly_site && $ticket->owner_type eq 'user' && $is_owned_ticket) { # if job is from another assembly and we do have a site for that assembly
       $result_url = { # result can only be seen by logged in user
-        'then'      => $hub->url($result_url),
+        'then'      => $hub->url({%$result_url, '__clear' => 1}), # remove extra params for the external site
         'type'      => 'Account',
         'action'    => 'Login',
       };
@@ -64,14 +64,35 @@ sub job_summary_section {
     }
   }
 
+  # create the status tag
+  my $status_tag = $self->job_status_tag($job, $dispatcher_status, $result_count, $result_url, $assembly_mismatch && $current_assembly, !!$assembly_site);
+  $status_tag->{'node_name'} = 'span';
+  if ($status_tag->{'href'}) {
+    $status_tag->{'children'} = [{
+      'node_name'   => 'a',
+      'href'        => delete $status_tag->{'href'},
+      'inner_HTML'  => delete $status_tag->{'inner_HTML'},
+    }];
+  }
+
   return $self->dom->create_element('p', {
     'children'    => [{
+      'node_name'   => 'img',
+      'class'       => [qw(job-species _ht)],
+      'title'       => $valid_job_species ? $species_defs->species_label($job_species, 1) : $job_species =~ s/_/ /rg,
+      'src'         => sprintf('%sspecies/16/%s.png', $self->img_url, $job_species),
+      'alt'         => '',
+      'style'       => {
+        'width'       => '16px',
+        'height'      => '16px'
+      }
+    }, {
       'node_name'   => 'span',
       'class'       => ['right-margin'],
       'flags'       => ['job_desc_span'],
-      'inner_HTML'  => "$job_species_display: $job_description"
+      'inner_HTML'  => $job_description
     },
-    $self->job_status_tag($job, $dispatcher_status, $result_count, $assembly_mismatch && $current_assembly, !!$assembly_site),
+    $status_tag,
     $result_url ? {
       'node_name'   => 'a',
       'inner_HTML'  => $assembly_site ? "[View results on $job_assembly site]" : '[View results]',
@@ -99,7 +120,7 @@ sub job_summary_section {
           'class'         => [qw(_ht sprite edit_icon)],
           'title'         => 'Edit &amp; resubmit job (create a new ticket)'
         }]
-      }, {
+      }, $is_owned_ticket ? {
         'node_name'     => 'a',
         'class'         => [qw(_json_link job-sprite)],
         'href'          => $hub->url('Json', {'action' => $action, 'function' => 'delete', 'tl' => $url_param}),
@@ -112,10 +133,11 @@ sub job_summary_section {
           'class'         => [qw(hidden _confirm)],
           'inner_HTML'    => qq(This will delete the following job permanently:\n$job_description)
         }]
-      }]}
+      } : ()]}
     ]
   });
 }
+
 
 sub ticket_buttons {
   my ($self, $ticket, $is_owned_ticket) = @_;
