@@ -251,6 +251,8 @@ sub content {
 
   push(@sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
+  push(@sections, $self->_downloads_text);
+
   push(@sections, $self->_tools_text);
 
   my $other_text = $self->_other_text('other', $species);
@@ -643,6 +645,39 @@ sub _funcgen_text {
     }
   }
 
+  return $html;
+}
+
+# ParaSite specific Downloads section
+sub _downloads_text {
+  my $self         = shift;
+  my $hub          = $self->hub;
+  my $species_defs = $hub->species_defs;
+  my $species      = $hub->species;
+  my $rel          = $species_defs->SITE_RELEASE_VERSION;
+
+  (my $sp_name = $species) =~ s/_/ /;
+  my $sp_dir =lc($species);
+  my $common = $species_defs->get_config($species, 'SPECIES_COMMON_NAME');
+  my $scientific = $species_defs->get_config($species, 'SPECIES_SCIENTIFIC_NAME');
+
+  my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS$rel";
+
+  next unless my ($bioproject) = $species =~ /^.*?_.*?_(.*)$/;
+  $bioproject = uc($bioproject);
+  my $species_lower = lc(join('_',(split('_', $species))[0..1])); 
+
+  my $html = '<h2>Downloads</h2>';
+  $html .= '<ul>';
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz\">Genomic Sequence (FASTA)</a></li>";
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz\">Hard-masked Genomic Sequence (FASTA)</a></li>";
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz\">Soft-masked Genomic Sequence (FASTA)</a></li>";
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz\">Annotations (GFF3)</a></li>";
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz\">Proteins (FASTA)</a></li>";
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz\">Full-length transcripts (FASTA)</a></li>";
+  $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz\">CDS transcripts (FASTA)</a></li>";
+  $html .= '</ul>';
+  
   return $html;
 }
 
