@@ -661,7 +661,7 @@ sub _downloads_text {
   my $common = $species_defs->get_config($species, 'SPECIES_COMMON_NAME');
   my $scientific = $species_defs->get_config($species, 'SPECIES_SCIENTIFIC_NAME');
 
-  my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS$rel";
+  my $ftp_base_path_stub = $species_defs->SITE_FTP . "/releases/WBPS$rel";
 
   next unless my ($bioproject) = $species =~ /^.*?_.*?_(.*)$/;
   $bioproject = uc($bioproject);

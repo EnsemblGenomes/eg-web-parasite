@@ -48,7 +48,7 @@ sub render {
 
     my $genomic_unit = $species_defs->get_config($spp, 'GENOMIC_UNIT');
     my $collection;
-    my $ftp_base_path_stub = "ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS$rel";
+    my $ftp_base_path_stub = $species_defs->SITE_FTP . "/releases/WBPS$rel";
        
     next unless my ($bioproject) = $spp =~ /^.*?_.*?_(.*)$/;
     $bioproject = uc($bioproject);
