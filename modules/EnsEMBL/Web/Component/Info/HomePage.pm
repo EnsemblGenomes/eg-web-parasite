@@ -343,16 +343,6 @@ sub _assembly_text {
 
   $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
 
-  # Link to FTP site
-  if ($species_defs->ENSEMBL_FTP_URL) {
-    my $bioproject = uc((split('_', $species))[2]);
-    my $species_lower = lc(join('_',(split('_', $species))[0..1]));
-    my $version = $species_defs->SITE_RELEASE_VERSION;
-    my $FTP_base = $species_defs->ENSEMBL_FTP_URL;
-    my $FTP_url = "$FTP_base/releases/WBPS$version/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$version.genomic.fa.gz";
-    $html .= qq(<p><a href="$FTP_url" class="nodeco"><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download DNA sequence</a> (FASTA)</p>);
-  }
-  
   # Link to assembly mapper
   my $mappings = $species_defs->ASSEMBLY_MAPPINGS;
   if ($mappings && ref($mappings) eq 'ARRAY') {
@@ -427,25 +417,6 @@ sub _genebuild_text {
   $html .= "<h2>Gene annotation</h2><p>$annotation_description</p><p><strong>What can I find?</strong> Protein-coding and non-coding genes, splice variants, cDNA and protein sequences, non-coding RNAs.</p>";
 
   $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
-
-  if ($species_defs->ENSEMBL_FTP_URL) {
-    my $bioproject = uc((split('_', $species))[2]);
-    my $species_lower = lc(join('_',(split('_', $species))[0..1]));
-    my $version = $species_defs->SITE_RELEASE_VERSION;
-    my $FTP_base = $species_defs->ENSEMBL_FTP_URL;
-    my $FTP_url = "$FTP_base/releases/WBPS$version/species/$species_lower/$bioproject/";
-    $html .= qq[<p><img src="${img_url}24/download.png" alt="" class="homepage-link" /><a href="$FTP_url" class="nodeco">Download genes, transcripts, proteins and annotations</a></span></p>];
-  }
-  
-  if ($has_vega) {
-    $html .= qq(
-      <a href="http://vega.sanger.ac.uk/$species/" class="nodeco">
-      <img src="/img/vega_small.gif" alt="Vega logo" style="float:left;margin-right:8px;width:83px;height:30px;vertical-align:center" title="Vega - Vertebrate Genome Annotation database" /></a>
-      <p>
-        Additional manual annotation can be found in <a href="http://vega.sanger.ac.uk/$species/" class="nodeco">Vega</a>
-      </p>
-    );
-  }
 
   return $html;
 }
