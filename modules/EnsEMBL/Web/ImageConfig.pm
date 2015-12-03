@@ -107,10 +107,10 @@ sub menus {
   };
 }
 
-sub _add_datahub {
+sub _add_trackhub {
   my ($self, $menu_name, $url, $is_poor_name, $existing_menu) = @_;
 
-  return ($menu_name, {}) if $self->{'_attached_datahubs'}{$url};
+  return ($menu_name, {}) if $self->{'_attached_trackhubs'}{$url};
 
   my $trackhub  = EnsEMBL::Web::File::Utils::TrackHub->new('hub' => $self->hub, 'url' => $url);
   my $hub_info = $trackhub->get_hub({'assembly_lookup' => $self->species_defs->assembly_lookup, 
@@ -123,7 +123,7 @@ sub _add_datahub {
     my $shortLabel = $hub_info->{'details'}{'shortLabel'};
     $menu_name = $shortLabel if $shortLabel and $is_poor_name;
 
-    my $menu     = $existing_menu || $self->tree->append_child($self->create_submenu($menu_name, $menu_name, { external => 1, datahub_menu => 1 }));
+    my $menu     = $existing_menu || $self->tree->append_child($self->create_submenu($menu_name, $menu_name, { external => 1, trackhub_menu => 1 }));
 
     my $node;
     my $assemblies =
@@ -140,9 +140,9 @@ sub _add_datahub {
       last if $node;
     }
     if ($node) {
-      $self->_add_datahub_node($node, $menu, $menu_name);
+      $self->_add_trackhub_node($node, $menu, $menu_name);
 
-      $self->{'_attached_datahubs'}{$url} = 1;
+      $self->{'_attached_trackhubs'}{$url} = 1;
     } else {
       my $assembly = $self->hub->species_defs->get_config($self->species, 'ASSEMBLY_VERSION');
       $hub_info->{'error'} = ["No sources could be found for assembly $assembly. Please check the hub's genomes.txt file for supported assemblies."];
@@ -151,13 +151,11 @@ sub _add_datahub {
   return ($menu_name, $hub_info);
 }
 
-sub _add_datahub_tracks {
+sub _add_trackhub_tracks {
   my ($self, $parent, $children, $config, $menu, $name) = @_;
   my $hub    = $self->hub;
   my $data   = $parent->data;
   my $matrix = $config->{'dimensions'}{'x'} && $config->{'dimensions'}{'y'};
-  my $link   = $config->{'description_url'} ? qq(<br /><a href="$config->{'description_url'}" rel="external">Go to track description on trackhub</a>) : '';
-  my $info   = $config->{'longLabel'} . $link;
   my %tracks;
 
   my %options = (
@@ -165,7 +163,7 @@ sub _add_datahub_tracks {
     menu_name    => $name,
     submenu_key  => $self->tree->clean_id("${name}_$data->{'track'}", '\W'),
     submenu_name => $data->{'shortLabel'},
-    datahub      => 1,
+    trackhub      => 1,
   );
 
   if ($matrix) {
@@ -195,7 +193,8 @@ sub _add_datahub_tracks {
       matrix => {
         section     => $menu->data->{'caption'},
         header      => $options{'submenu_name'},
-        description => $info,
+        desc_url    => $config->{'description_url'},
+        description => $config->{'shortLabel'},
         axes        => $options{'axes'},
       }
     ) : ())
@@ -203,27 +202,77 @@ sub _add_datahub_tracks {
 
   $self->alphabetise_tracks($submenu, $menu);
 
+  my $count_visible = 0;
+
+  my $style_mappings = {
+                        'bigbed' => {
+                                      'full'    => 'as_transcript_label',
+                                      'squish'  => 'half_height',
+                                      'pack'    => 'stack',
+                                      'dense'   => 'ungrouped',
+                                      },
+                        'bigwig' => {
+                                      'full'    => 'tiling',
+                                      'default' => 'compact',
+                                    },
+                        'vcf' =>    {
+                                      'full'    => 'histogram',
+                                      'dense'   => 'compact',
+                                    },
+                      };
+
   foreach (@{$children||[]}) {
     my $track        = $_->data;
     my $type         = ref $track->{'type'} eq 'HASH' ? uc $track->{'type'}{'format'} : uc $track->{'type'};
+
+    my $on_off = $config->{'on_off'} || $track->{'on_off'};
+    ## Turn track on if there's no higher setting turning it off
+    if (!$config->{'on_off'} && !$track->{'on_off'}) {
+      $on_off = 'on';
+    }
+
+    my $ucsc_display  = $config->{'visibility'} || $track->{'visibility'};
+
+    ## FIXME - According to UCSC's documentation, 'squish' is more like half_height than compact
     my $squish       = $track->{'visibility'} eq 'squish' || $config->{'visibility'} eq 'squish'; # FIXME: make it inherit correctly
-    my $desc_url     = $track->{'description_url'} ? $hub->url('Ajax', {'type' => 'fetch_html', 'url' => $track->{'description_url'}}) : '';
 ## ParaSite: change the parameters for source track to match our way of labelling
-    (my $source_name = $track->{'longLabel'}) =~ s/_/ /g;
+    (my $source_name = $track->{'shortLabel'}) =~ s/_/ /g;
+## ParaSite
+
+    ## Translate between UCSC terms and Ensembl ones
+    my $default_display = $style_mappings->{lc($type)}{$ucsc_display}
+                              || $style_mappings->{lc($type)}{'default'}
+                              || 'normal';
+    $options{'default_display'} = $default_display;
+
+    ## Set track style if appropriate 
+    if ($on_off && $on_off eq 'on') {
+      $options{'display'} = $default_display;
+      $count_visible++;
+    }
+    else {
+      $options{'display'} = 'off';
+    }
+
+    my $desc_url = $track->{'description_url'} ? $hub->url('Ajax', {'type' => 'fetch_html', 'url' => $track->{'description_url'}}) : '';
+
+    ## Note that we use a duplicate value in description and longLabel, because non-hub files 
+    ## often have much longer descriptions so we need to distinguish the two
     my $source       = {
       name        => $track->{'track'},
       source_name => $source_name,
+      desc_url    => $track->{'description_url'},
       description => $desc_url ? qq(<span class="_dyna_load"><a class="hidden" href="$desc_url">$track->{'longLabel'}</a>Loading &#133;</span>) : '',
+      longLabel   => $track->{'longLabel'},
       source_url  => $track->{'bigDataUrl'},
-      caption     => $track->{'shortLabel'},
       colour      => exists $track->{'color'} ? $track->{'color'} : undef,
+      colorByStrand => exists $track->{'colorByStrand'} ? $track->{'colorByStrand'} : undef,
+      spectrum    => exists $track->{'spectrum'} ? $track->{'spectrum'} : undef,
       no_titles   => $type eq 'BIGWIG', # To improve browser speed don't display a zmenu for bigwigs
       squish      => $squish,
       signal_range => $track->{'signal_range'},
-      strand      => 'r',
       %options
     };
-## ParaSite
 
     # Graph range - Track Hub default is 0-127
 
@@ -253,7 +302,7 @@ sub _add_datahub_tracks {
         row    => $options{'axis_labels'}{'y'}{$track->{'subGroups'}{$config->{'dimensions'}{'y'}}},
       };
 
-      $source->{'column_data'} = { description => $info, no_subtrack_description => 1 };
+      $source->{'column_data'} = { desc_url => $config->{'description_url'}, description => $config->{'shortLabel'}, no_subtrack_description => 1 };
     }
 
     $tracks{$type}{$source->{'name'}} = $source;

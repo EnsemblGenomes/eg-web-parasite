@@ -18,7 +18,10 @@ limitations under the License.
 
 package EnsEMBL::Draw::GlyphSet::bigwig;
 
-sub wiggle_subtitle { return $_[0]->my_config('name'); }
+sub wiggle_subtitle {
+  my $self = shift;
+  return $self->my_config('longLabel') || $self->my_config('description') || $self->my_config('name') || $self->my_config('caption');
+}
 
 1;
 
