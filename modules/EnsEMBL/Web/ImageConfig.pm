@@ -311,4 +311,35 @@ sub _add_trackhub_tracks {
   $self->load_file_format(lc, $tracks{$_}) for keys %tracks;
 }
 
+sub _update_missing {
+  my ($self, $object) = @_;
+  my $species_defs    = $self->species_defs;
+  my $count_missing   = grep { $_->get('display') eq 'off' || !$_->get('display') } $self->get_tracks;
+  my $missing         = $self->get_node('missing');
+
+  $missing->set('extra_height', 4) if $missing;
+  $missing->set('text', $count_missing > 0 ? "There are currently $count_missing tracks turned off." : 'All tracks are turned on') if $missing;
+
+## ParaSite: do not display the Ensembl version number
+  my $info = sprintf(
+    '%s: %s (%s) version %s (%s).  %s:%s-%s',
+    $species_defs->ENSEMBL_SITETYPE,
+    $species_defs->SPECIES_BIO_NAME,
+    $species_defs->SPECIES_BIOPROJECT,
+    $species_defs->SPECIES_RELEASE_VERSION,
+    $species_defs->ASSEMBLY_NAME,
+    $object->seq_region_type_and_name,
+    $object->thousandify($object->seq_region_start),
+    $object->thousandify($object->seq_region_end)
+  );
+## ParaSite
+
+  my $information = $self->get_node('info');
+  $information->set('text', $info) if $information;
+  $information->set('extra_height', 2) if $information;
+
+  return { count => $count_missing, information => $info };
+}
+
+
 1;
