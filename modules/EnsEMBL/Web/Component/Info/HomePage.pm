@@ -156,11 +156,10 @@ sub content {
 
     if (@providers) {
       $provider_link = join ', ', @providers;
-      $provider_link .= ' | ';
     }
   }
   elsif ($species_defs->PROVIDER_NAME) {
-    $provider_link = $hub->make_link_tag(text => $species_defs->PROVIDER_NAME, url => $species_defs->PROVIDER_URL) . " | ";
+    $provider_link = $hub->make_link_tag(text => $species_defs->PROVIDER_NAME, url => $species_defs->PROVIDER_URL);
   }
 
   my $html = '
@@ -177,8 +176,8 @@ sub content {
   $html .= qq(<h1><em>$display_name</em> $alias_list</h1>);
 
   $html .= '<p class="taxon-id">';
-  $html .= "BioProject <a href=\"http://www.ncbi.nlm.nih.gov/bioproject/$bioproject\">$bioproject</a> | ";
-  $html .= 'Data Source ' . $provider_link if $provider_link;
+  $html .= sprintf('BioProject <a href="http://www.ncbi.nlm.nih.gov/bioproject/%s">%s</a> | ', $bioproject, $bioproject) if $bioproject;
+  $html .= "Data Source $provider_link | " if $provider_link && $provider_link !~ /^Unknown$/;
   $html .= sprintf q{Taxonomy ID %s}, $hub->get_ExtURL_link("$taxid", 'UNIPROT_TAXONOMY', $taxid) if $taxid;
   $html .= '</p>';
   $html .= '</div>'; #species-badge
