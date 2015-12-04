@@ -23,7 +23,7 @@ use LWP;
 use URI::QueryParam;
 use JSON;
 
-sub search_autocomplete {
+sub ajax_search_autocomplete {
   my ($self, $hub) = @_;
   my $species_defs  = $hub->species_defs;
   my $term          = $hub->param('term');
@@ -108,7 +108,7 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   print encode_json(\@suggestions);
 }
 
-sub species_tree {
+sub ajax_species_tree {
   my ($self, $hub) = @_;
 
   my $species_defs = $hub->species_defs;
