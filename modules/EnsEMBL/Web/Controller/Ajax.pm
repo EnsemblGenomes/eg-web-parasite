@@ -32,7 +32,7 @@ sub ajax_search_autocomplete {
      $ua->agent('EnsemblGenomes Web ' . $ua->agent());
      $ua->env_proxy;
      $ua->timeout(10);
-my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBEYE_SEARCH_DOMAIN . "/autocomplete");
+  my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBEYE_SEARCH_DOMAIN . "/autocomplete");
      $uri->query_param('term'   => $term);
      $uri->query_param('format' => $format);
   my $response = $ua->get($uri->as_string);
