@@ -90,7 +90,7 @@ sub content {
   my $project_overview = qq(<h2>Genome Projects</h2><p>There $descriptor for <em>$display_name</em>:<ul>);
   foreach my $project (@project_list) {
     my @parts = split('_', $project);
-    my $bioproject = uc($parts[2]);
+    my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
     my $project_summary = $self->_other_text('summary', $project);
     $project_summary =~ s/<h2>.*<\/h2>//; # Remove the <h2> and <p> tags
     $project_summary =~ s/<p>//;

@@ -157,8 +157,7 @@ sub render {
 		  my $dir = $info->{'dir'};
 
 		  (my $name = $dir) =~ s/_/ /g;
-		  my ($bioproj) = $name =~ m/(prj.*)/; # Get the BioProject ID
-		  $bioproj = uc($bioproj);
+		  my $bioproj = $species_defs->get_config($dir, 'SPECIES_BIOPROJECT');
                   $name =~ s/prj.*//; # Remove the BioProject ID from the name
 		  my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
 		  

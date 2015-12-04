@@ -102,8 +102,7 @@ sub render {
 			my $i = 0;
 			foreach my $project (sort(@{$species{$scientific}})) {
 				$i++;
-				my @name_parts = split("_", $project);
-				my $bioproject = uc($name_parts[2]);
+				my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
 				my $summary = "$providers{$project} genome project";
 				$html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
 				if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }

@@ -80,7 +80,7 @@ my $uri = URI->new($species_defs->EBEYE_REST_ENDPOINT . "/" . $species_defs->EBE
   foreach my $sp (@species) {
     my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
     my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
-    my ($bioproj) = $name =~ /\((.*)\)/; # Capture the BioProject and append to the alternative names
+    my $bioproj   = $species_defs->get_config($sp, "SPECIES_BIOPROJECT");
     my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
     my @names     = $alt_names ? ($name, @alt_proj) : ($name);
     my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
@@ -171,8 +171,7 @@ sub species_tree {
             my $species_url = scalar(@{$species{$scientific}}) == 1 ? "/@{$species{$scientific}}[0]/Info/Index/" : "/@{$species{$scientific}}[0]/Info/SpeciesLanding/";  # Only show a URL to the species landing page if there is more than one genome project
             my @speciesproj;
             foreach my $project (sort(@{$species{$scientific}})) {
-              my @name_parts = split("_", $project);
-              my $bioproject = uc($name_parts[2]);
+              my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
               my $summary = "$providers{$project} genome project";
               push(@speciesproj, { 'label' => $bioproject, 'summary' => $summary, 'url' => "/$project/Info/Index", 'children' => undef });
             }
