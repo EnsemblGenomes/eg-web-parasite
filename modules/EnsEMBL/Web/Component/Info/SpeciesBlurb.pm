@@ -52,6 +52,7 @@ sub content {
   my @parts             = split('_', $species);
   my $species_short     = "$parts[0]\_$parts[1]"; # ParaSite specific - allows us to include info from the species landing page
   my $bioproject        = uc($parts[2]);
+  my $display_bioproject = $bioproject ? "($bioproject)" : '';
 
   my $img_string = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/i/species/48/$species_short.png") ? qq(<img src="/i/species/48/$species_short.png" class="species-img float-left" alt="" />) : ''; # Check if the image exists
 
@@ -60,7 +61,7 @@ sub content {
   <div class="column-one">
     <div class="column-padding no-left-margin">
       $img_string
-      <h1 style="margin-bottom:5px"><em>$display_name</em> ($bioproject)</h1>
+      <h1 style="margin-bottom:5px"><em>$display_name</em> $display_bioproject</h1>
     </div>
   </div>
 </div>
