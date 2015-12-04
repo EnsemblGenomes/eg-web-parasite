@@ -174,7 +174,7 @@ sub content {
     foreach my $next (@$cv_terms) {
       $text .= "<p>$next</p>";
     }
-    $table->add_row('Annotation Attributes', $text) if $text;;
+    $table->add_row('Annotation Attributes', $text) if $text;
   }
 
   ## add gencode basic info

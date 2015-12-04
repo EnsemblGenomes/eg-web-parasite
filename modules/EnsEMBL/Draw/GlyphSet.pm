@@ -23,7 +23,7 @@ use Data::Dumper;
 
 sub _url {
   my $self = shift;
-  my $url = $self->{'config'}->hub->url('ZMenu', { %{$_[0]}, config => $self->{'config'}{'type'}, track => $self->type });;
+  my $url = $self->{'config'}->hub->url('ZMenu', { %{$_[0]}, config => $self->{'config'}{'type'}, track => $self->type });
   if($_[0]->{'species'}) {
     my $division = $self->{'config'}->hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($_[0]->{'species'})};
     if($division =~ /WORMBASE/) {

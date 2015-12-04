@@ -170,7 +170,7 @@ sub content {
   	$html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$common_name" />) unless $self->is_bacteria;
   }
 
-  my $bioproject = $species_defs->SPECIES_BIOPROJECT;;
+  my $bioproject = $species_defs->SPECIES_BIOPROJECT;
   my $alias_list = $species_defs->SPECIES_ALTERNATIVE_NAME ? sprintf('(<em>%s</em>)', join(', ', @{$species_defs->SPECIES_ALTERNATIVE_NAME})) : undef; # Alternative names will appear in the order they are inserted to the meta table 
   $html .= qq(<h1><em>$display_name</em> $alias_list</h1>);
 
