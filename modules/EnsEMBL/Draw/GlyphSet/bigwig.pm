@@ -20,7 +20,7 @@ package EnsEMBL::Draw::GlyphSet::bigwig;
 
 sub wiggle_subtitle {
   my $self = shift;
-  return $self->my_config('longLabel') || $self->my_config('description') || $self->my_config('name') || $self->my_config('caption');
+  return $self->my_config('longLabel') || $self->my_config('caption') || $self->my_config('description') || $self->my_config('name');
 }
 
 1;
