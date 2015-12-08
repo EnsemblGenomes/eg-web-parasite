@@ -264,7 +264,6 @@ sub _add_trackhub_tracks {
       desc_url    => $track->{'description_url'},
       description => $desc_url ? qq(<span class="_dyna_load"><a class="hidden" href="$desc_url">$track->{'longLabel'}</a>Loading &#133;</span>) : '',
       longLabel   => $track->{'longLabel'},
-      caption     => $track->{'longLabel'},
       source_url  => $track->{'bigDataUrl'},
       colour      => exists $track->{'color'} ? $track->{'color'} : undef,
       colorByStrand => exists $track->{'colorByStrand'} ? $track->{'colorByStrand'} : undef,
