@@ -259,7 +259,12 @@ sub render_hit {
     $table->add_row("Species", sprintf '<em><a href="%s">%s</a></em>', $hit->{species_path}, $self->highlight($species));
     
     if ($hit->{location}) {
-      $table->add_row("Location", sprintf '<a href="%s/Location/View?r=%s;g=%s;db=">%s</a>', $hit->{species_path}, $self->zoom_location($hit->{location}), $hit->{id}, $hit->{location}, $hit->{database});
+## ParaSite: add WormBase JBrowse link, if available
+      my $spp = $hit->{system_name};
+      (my $wb_region = $hit->{location}) =~ s/-/../;
+      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$spp, 'REGION'=>$wb_region, 'HIGHLIGHT'=>''}) : '';
+      $table->add_row("Location", sprintf '<a href="%s/Location/View?r=%s;g=%s;db=">%s</a> %s', $hit->{species_path}, $self->zoom_location($hit->{location}), $hit->{id}, $hit->{location}, $wb_location_url);
+## ParaSite
     } 
     
     if ($hit->{gene_synonym} && @{$hit->{gene_synonym}}) {
