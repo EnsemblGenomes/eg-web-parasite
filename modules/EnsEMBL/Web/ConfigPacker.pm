@@ -205,6 +205,12 @@ sub _munge_meta {
     ## Do species group
     my $taxonomy = $meta_hash->{'species.classification'};
 
+    if ($taxonomy && scalar(@$taxonomy)) {
+      my %valid_taxa = map {$_ => 1} @{ $self->tree->{'TAXON_ORDER'} };
+      my @matched_groups = grep {$valid_taxa{$_}} @$taxonomy;
+      $self->tree($species)->{'SPECIES_GROUP_HIERARCHY'} = \@matched_groups;
+    }
+
     ## ParaSite changes to include nematode clade in the classification
     unshift @{$taxonomy}, "Clade@{$meta_hash->{'species.nematode_clade'}}[0]";
     ## End ParaSite changes
