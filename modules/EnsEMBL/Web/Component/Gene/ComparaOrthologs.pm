@@ -227,7 +227,8 @@ sub content {
    	      $location_link = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$orthologue->{'location'}});
       }
       my $wb_gene_url = $domain =~ /^wormbase$/i ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View gene at WormBase Central]</span>', uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id}) : '';
-      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$orthologue->{'location'}, 'HIGHLIGHT'=>''}) : '';
+      (my $wb_region = $paralogue->{'location'}) =~ s/-/../;
+      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$wb_region, 'HIGHLIGHT'=>''}) : '';
       # PARASITE
 
       my $target_links = ($link_url =~ /^\// 
