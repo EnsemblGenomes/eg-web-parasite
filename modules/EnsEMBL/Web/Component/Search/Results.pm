@@ -393,13 +393,13 @@ sub render_pagination {
   }
 
   foreach my $i (1..$pager->last_page) {
-  	if( $i == $pager->current_page ) {
-  	  $html .= sprintf( '<span class="current">%s</span> ', $i );
-  	} elsif( $i < 5 || ($pager->last_page - $i) < 4 || abs($i - $pager->current_page + 1) < 4 ) {
-  	  $html .= sprintf( '<a href="?page=%s;%s">%s</a>', $i, $query_string, $i );
-  	} else {
-  	  $html .= '..';
-  	}
+    if( $i == $pager->current_page ) {
+      $html .= sprintf( '<span class="current">%s</span> ', $i );
+    } elsif( $i < 5 || ($pager->last_page - $i) < 4 || abs($i - $pager->current_page + 1) < 4 ) {
+      $html .= sprintf( '<a href="?page=%s;%s">%s</a>', $i, $query_string, $i );
+    } else {
+      $html .= '..';
+    }
   }
 
   $html =~ s/\.\.+/ ... /g;

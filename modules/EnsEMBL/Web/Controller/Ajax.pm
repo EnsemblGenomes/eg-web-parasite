@@ -137,28 +137,28 @@ sub ajax_species_tree {
         my $group_display = defined($species_defs->TAXON_COMMON_NAME->{$subgroup}) ? $species_defs->TAXON_COMMON_NAME->{$subgroup} : $subgroup;
 
         # Group the genome projects by species name
-	my %species = ();
+        my %species = ();
         my %aliases = ();
-	my %providers = ();
-	# Is this a multi-taxon group?
-	my @taxons = @{$species_defs->TAXON_MULTI->{$subgroup} || [$subgroup]};
-	foreach my $taxon (@taxons) {
-	  foreach ($species_defs->valid_species) {
-	    next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
-	    next if $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ne 'parasite';
-	    if($taxon eq 'parent') {
-	      next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
-	    } else {
-	      next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
-	    }
-	    my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
-	    next unless $common;
-	    my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
-	    push(@{$species{$scientific}}, $_);
+        my %providers = ();
+        # Is this a multi-taxon group?
+        my @taxons = @{$species_defs->TAXON_MULTI->{$subgroup} || [$subgroup]};
+        foreach my $taxon (@taxons) {
+          foreach ($species_defs->valid_species) {
+            next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
+            next if $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ne 'parasite';
+            if($taxon eq 'parent') {
+              next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
+            } else {
+              next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
+            }
+            my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
+            next unless $common;
+            my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
+            push(@{$species{$scientific}}, $_);
             push(@{$aliases{$scientific}}, @{$species_defs->get_config($_, 'SPECIES_ALTERNATIVE_NAME')}) if $species_defs->get_config($_, 'SPECIES_ALTERNATIVE_NAME');
-	    $providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
-	  }
-	}
+            $providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
+          }
+        }
 
         # Print the species
         my $i = 0;

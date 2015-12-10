@@ -58,7 +58,7 @@ sub content {
         <div class="species-badge">';
 
   if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species.png") {  # Check if the image exists
-  	$html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$display_name" />);
+    $html .= qq(<img src="${img_url}species/64/$species.png" alt="" title="$display_name" />);
   }
 
   $html .= qq(<h1><em>$display_name</em></h1>);
@@ -96,10 +96,10 @@ sub content {
     $project_summary =~ s/<p>//;
     $project_summary =~ s/<\/p>//;
     if($project_summary =~ /\w/) {
-  	  $project_overview .= qq(<li><a href="/$project/Info/Index">$bioproject</a>: $project_summary</li>);
-  	} else {
-  	  $project_overview .= qq(<li><a href="/$project/Info/Index">$bioproject</a></li>);
-  	}
+      $project_overview .= qq(<li><a href="/$project/Info/Index">$bioproject</a>: $project_summary</li>);
+    } else {
+      $project_overview .= qq(<li><a href="/$project/Info/Index">$bioproject</a></li>);
+    }
   }
   $project_overview .= '</ul></p>';
   push(@sections, $project_overview);
@@ -128,9 +128,9 @@ sub _get_projects {
   my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
   my @species_list = ();
   foreach ($species_defs->valid_species) {
-	if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species) {
-	  push(@species_list, $_);
-	}
+    if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species) {
+      push(@species_list, $_);
+    }
   }
   return sort(@species_list);
 }

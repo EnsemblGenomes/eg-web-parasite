@@ -179,7 +179,7 @@ sub get_databases {
     
     # ParaSite mod
     } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {
-	# ParaSite mod
+    # ParaSite mod
 
       $db_species =~ s/_collection$//;
       $latest_release = $db_release if ( $db_release > $latest_release );
@@ -550,9 +550,9 @@ sub dumpGene {
         }      
         
         if ($format eq 'solr') {
-  	      p geneLineTSV( $species, $dataset, $gene_data, $counter );
+          p geneLineTSV( $species, $dataset, $gene_data, $counter );
         } else {
-  	      p geneLineXML( $species, $dataset, $gene_data, $counter );
+          p geneLineXML( $species, $dataset, $gene_data, $counter );
         }
       };
       
@@ -906,8 +906,8 @@ sub geneLineTSV {
   foreach my $ext_db_name ( keys %$external_identifiers ) {
       my $matched_db_name = $ext_db_name;
       if ( $ext_db_name =~ /(Uniprot|GOA|GO|Interpro|Medline|Sequence_Publications|EMBL)/ ) {
-	  $matched_db_name = $1;
-	  @{$xrefs->{$matched_db_name}} = map { encode_entities($_) } keys %{ $external_identifiers->{$ext_db_name} };
+        $matched_db_name = $1;
+        @{$xrefs->{$matched_db_name}} = map { encode_entities($_) } keys %{ $external_identifiers->{$ext_db_name} };
       }
   }
   my $xrefs_str = join ';', map { join ',', @{$xrefs->{$_}||[]} } keys %$xrefs;
@@ -941,8 +941,8 @@ sub get_genetree_lookup {
     print "Building gene tree id lookup...\n";
 
     foreach my $dbtype ($genomic_unit, 'pan_homology') {
-	
-	  $dbtype = 'wbparasite' if $dbtype =~ /parasite/;  #ParaSite mod
+      
+      $dbtype = 'wbparasite' if $dbtype =~ /parasite/;  #ParaSite mod
       my $dbname = $conf->{compara}->{$dbtype}->{$release};
       next unless $dbname;
       
@@ -991,7 +991,7 @@ sub get_ortholog_lookup {
   
   # ParaSite mod
   my $orth_species = {
-  	'caenorhabditis_elegans'                  => "wormbase_ortholog",
+    'caenorhabditis_elegans'                  => "wormbase_ortholog",
     'homo_sapiens'                            => "ensembl_ortholog",
   };
   $compara_db = 'wbparasite' if $compara_db =~ /parasite/;

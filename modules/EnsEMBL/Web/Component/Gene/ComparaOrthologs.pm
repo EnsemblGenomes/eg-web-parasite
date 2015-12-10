@@ -208,7 +208,7 @@ sub content {
       # Check if we need to form an external link
       my $link_url; my $location_link;
       if(grep(/$domain/, keys %$species_sets) || $domain eq $species_defs->GENOMIC_UNIT || $domain =~ /^wormbase$/i) {
-      	$link_url = $hub->url({
+        $link_url = $hub->url({
           species => $spp,
           action  => 'Summary',
           g       => $stable_id,
@@ -223,8 +223,8 @@ sub content {
           __clear => 1
         });
       } else {
-	      $link_url  = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id});
-   	      $location_link = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$orthologue->{'location'}});
+        $link_url  = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id});
+        $location_link = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$orthologue->{'location'}});
       }
       my $wb_gene_url = $domain =~ /^wormbase$/i ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View gene at WormBase Central]</span>', uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id}) : '';
       (my $wb_region = $paralogue->{'location'}) =~ s/-/../;

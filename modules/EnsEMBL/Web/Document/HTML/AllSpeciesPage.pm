@@ -53,72 +53,72 @@ sub render {
       my $display = defined($species_defs->TAXON_COMMON_NAME->{$group}) ? $species_defs->TAXON_COMMON_NAME->{$group} : $group;
       
       # Note the classes and ids which are used by the jQuery to show (i.e. expand) these divs
-  	  $html .= qq(<div class="expanding-parent" id="parent-$group">);
-  	  $html .= qq(<div class="expanding-header" id="header-$group"><span id="key-plus-$group">[+]</span><span id="key-minus-$group" style="display: none">[-]</span>&nbsp;$display</div>);
-  	  $html .= qq(<div class="expanding-area" id="expand-$group">);
-  	  
-  	  # Check for the presence of any sub-groups
+      $html .= qq(<div class="expanding-parent" id="parent-$group">);
+      $html .= qq(<div class="expanding-header" id="header-$group"><span id="key-plus-$group">[+]</span><span id="key-minus-$group" style="display: none">[-]</span>&nbsp;$display</div>);
+      $html .= qq(<div class="expanding-area" id="expand-$group">);
+      
+      # Check for the presence of any sub-groups
       my @subgroups;
       foreach my $taxon (@{$species_defs->TAXON_SUB_ORDER->{$group} || ['parent']}) {
         push @subgroups, $taxon;
       }
-  	  
-  	  foreach my $subgroup (@subgroups) {
-		  if($subgroup ne 'parent') {
-		      my $display = defined($species_defs->TAXON_COMMON_NAME->{$subgroup}) ? $species_defs->TAXON_COMMON_NAME->{$subgroup} : $subgroup;
-			  $html .= qq(<div class="expanding-parent" id="parent-$subgroup">);
-			  $html .= qq(<div class="expanding-header" id="header-$subgroup"><span id="key-plus-$subgroup">[+]</span><span id="key-minus-$subgroup" style="display: none">[-]</span>&nbsp;$display</div>);
-			  $html .= qq(<div class="expanding-area" id="expand-$subgroup">);
-		  }
-		  
-		  # Group the genome projects by species name
-		  my %species = ();
-		  my %providers = ();
-		  # Is this a multi-taxon group?
-		  my @taxons = @{$species_defs->TAXON_MULTI->{$subgroup} || [$subgroup]};
-		  foreach my $taxon (@taxons) {
-			  foreach ($species_defs->valid_species) {
-				next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
-				if($taxon eq 'parent') {
-				  next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
-				} else {
-				  next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
-				}
-				my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
-				next unless $common;
-				my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
-				push(@{$species{$scientific}}, $_);
-				$providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
-			  }
-		  }
+      
+      foreach my $subgroup (@subgroups) {
+      if($subgroup ne 'parent') {
+          my $display = defined($species_defs->TAXON_COMMON_NAME->{$subgroup}) ? $species_defs->TAXON_COMMON_NAME->{$subgroup} : $subgroup;
+        $html .= qq(<div class="expanding-parent" id="parent-$subgroup">);
+        $html .= qq(<div class="expanding-header" id="header-$subgroup"><span id="key-plus-$subgroup">[+]</span><span id="key-minus-$subgroup" style="display: none">[-]</span>&nbsp;$display</div>);
+        $html .= qq(<div class="expanding-area" id="expand-$subgroup">);
+      }
+      
+      # Group the genome projects by species name
+      my %species = ();
+      my %providers = ();
+      # Is this a multi-taxon group?
+      my @taxons = @{$species_defs->TAXON_MULTI->{$subgroup} || [$subgroup]};
+      foreach my $taxon (@taxons) {
+        foreach ($species_defs->valid_species) {
+        next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
+        if($taxon eq 'parent') {
+          next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
+        } else {
+          next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
+        }
+        my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
+        next unless $common;
+        my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
+        push(@{$species{$scientific}}, $_);
+        $providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
+        }
+      }
   
-		  # Print the species
-		  my $i = 0;
-		  $html .= '<ul>';
-		  foreach my $scientific (sort(keys(%species))) {
-			$html .= '<li class="home-species-box">';
-			my $species_url = scalar(@{$species{$scientific}}) == 1 ? "/@{$species{$scientific}}[0]/Info/Index/" : "/@{$species{$scientific}}[0]/Info/SpeciesLanding/";  # Only show a URL to the species landing page if there is more than one genome project
-			$html .= qq(<span class="home-species"><a href="$species_url" class="species-link">$scientific</a></span><br /><span class="home-bioproject">);
-			my $i = 0;
-			foreach my $project (sort(@{$species{$scientific}})) {
-				$i++;
-				my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
-				my $summary = "$providers{$project} genome project";
-				$html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
-				if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
-			}
-			$html .= '</span>';
-			$html .= '</li>';
-		  }
-		  $html .= '</ul>';
-		  
-		  if($subgroup ne 'parent') {
-			  $html .= qq(</div></div>);
-		  }
-		  	  
-	  }
-	  
-	  $html .= qq(</div></div>);
+      # Print the species
+      my $i = 0;
+      $html .= '<ul>';
+      foreach my $scientific (sort(keys(%species))) {
+      $html .= '<li class="home-species-box">';
+      my $species_url = scalar(@{$species{$scientific}}) == 1 ? "/@{$species{$scientific}}[0]/Info/Index/" : "/@{$species{$scientific}}[0]/Info/SpeciesLanding/";  # Only show a URL to the species landing page if there is more than one genome project
+      $html .= qq(<span class="home-species"><a href="$species_url" class="species-link">$scientific</a></span><br /><span class="home-bioproject">);
+      my $i = 0;
+      foreach my $project (sort(@{$species{$scientific}})) {
+        $i++;
+        my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
+        my $summary = "$providers{$project} genome project";
+        $html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
+        if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
+      }
+      $html .= '</span>';
+      $html .= '</li>';
+      }
+      $html .= '</ul>';
+      
+      if($subgroup ne 'parent') {
+        $html .= qq(</div></div>);
+      }
+          
+    }
+    
+    $html .= qq(</div></div>);
   
   }
   
