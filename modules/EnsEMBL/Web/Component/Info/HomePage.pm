@@ -665,7 +665,7 @@ sub _tools_text {
   my $blast_url = $hub->url({'type' => 'Tools', 'action' => 'Blast'});
   $html .= qq(<li><a href="$blast_url">Search for sequences in the genome and proteome using BLAST</a></li>);
   $html .= qq(<li><a href="/biomart/martview">Work with lists of data using the WormBase ParaSite BioMart data-mining tool</a></li>);
-  $html .= qq(<li><a href="/api">Programatically access WormBase ParaSite data using the REST API</a></li>);
+  $html .= qq(<li><a href="/rest">Programatically access WormBase ParaSite data using the REST API</a></li>);
   my $new_vep = $species_defs->ENSEMBL_VEP_ENABLED;
   $html .= sprintf(
     qq(<li><a href="%s">Predict the effects of variants using the Variant Effect Predictor</a></li>),
