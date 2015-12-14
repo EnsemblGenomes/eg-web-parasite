@@ -15,11 +15,9 @@ Ensembl.updateURL = function (params, inputURL) {
     // Now replace the relevant parameters
     for (var i in params) {
       if(i == 'r') {
-        params[i] = params[i].replace('-', '..');
-        jbrowseParams['loc'] = params[i]; 
+        jbrowseParams['loc'] = params[i].replace('-', '..');
       } else if(i == 'mr') {
-        params[i] = params[i].replace('-', '..');
-        jbrowseParams['highlight'] = params[i];
+        jbrowseParams['highlight'] = params[i].replace('-', '..');
       }
     }
     //Finally, reconstruct the URL and replace in the DOM
