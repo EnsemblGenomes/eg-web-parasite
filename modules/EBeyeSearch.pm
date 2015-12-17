@@ -398,7 +398,6 @@ sub expand_hit {
       my $transcript = ref $hit->{transcript} eq 'ARRAY' ? $hit->{transcript}->[0] : (split /\n/, $hit->{transcript})[0];
       my $url = "$hit->{species_path}/Gene/Summary?g=$hit->{id}";
       $url .= ";r=$hit->{location}" if $hit->{location};
-      $url .= ";t=$transcript" if $transcript;
       $url .= ";db=$hit->{database}" if $hit->{database}; 
       return $url;
     },
