@@ -51,7 +51,7 @@ sub user_agent {
     $ua->agent('ParaSite Web ' . $ua->agent());
     $ua->env_proxy;
     $ua->proxy(['http', 'https'], $hub->species_defs->ENSEMBL_WWW_PROXY);
-    $ua->timeout(10);
+    $ua->timeout(5);
     $self->{user_agent} = $ua;
   }
   
