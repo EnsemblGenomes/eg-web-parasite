@@ -38,82 +38,82 @@ sub new {
   # find out if any of the alt alleles make this an insertion or a deletion
   my ($is_indel, $ins_count, $total_count);
   foreach my $alt_allele(split /\,/, $alt) {
-	  $is_indel = 1 if $alt_allele =~ /D|I/;
-	  $is_indel = 1 if length($alt_allele) != length($ref);
+    $is_indel = 1 if $alt_allele =~ /D|I/;
+    $is_indel = 1 if length($alt_allele) != length($ref);
   }
   
   # multiple alt alleles?
   if($alt =~ /\,/) {
-	  if($is_indel) {
-	  
-	    my @alts;
-	  
-	    if($alt =~ /D|I/) {
-		    foreach my $alt_allele(split /\,/, $alt) {
-		      # deletion (VCF <4)
-			    if($alt_allele =~ /D/) {
-			      push @alts, '-';
-		      }			
-		      elsif($alt_allele =~ /I/) {
-			      $alt_allele =~ s/^I//g;
-			      push @alts, $alt_allele;
-		      }
-		    }
+    if($is_indel) {
+    
+      my @alts;
+    
+      if($alt =~ /D|I/) {
+        foreach my $alt_allele(split /\,/, $alt) {
+          # deletion (VCF <4)
+          if($alt_allele =~ /D/) {
+            push @alts, '-';
+          }      
+          elsif($alt_allele =~ /I/) {
+            $alt_allele =~ s/^I//g;
+            push @alts, $alt_allele;
+          }
+        }
       }
-	    else {
-		    $ref = substr($ref, 1);
-		    $ref = '-' if $ref eq '';
-		    $start++;
-		
-		    foreach my $alt_allele(split /\,/, $alt) {
-		      $alt_allele = substr($alt_allele, 1);
-		      $alt_allele = '-' if $alt_allele eq '';
-		      push @alts, $alt_allele;
-		    }
-	    }
-	  
-	    $alt = join "/", @alts;
-	  }
-	  else {
-	    # for substitutions we just need to replace ',' with '/' in $alt
-	    $alt =~ s/\,/\//g;
-	  }
+      else {
+        $ref = substr($ref, 1);
+        $ref = '-' if $ref eq '';
+        $start++;
+    
+        foreach my $alt_allele(split /\,/, $alt) {
+          $alt_allele = substr($alt_allele, 1);
+          $alt_allele = '-' if $alt_allele eq '';
+          push @alts, $alt_allele;
+        }
+      }
+    
+      $alt = join "/", @alts;
+    }
+    else {
+      # for substitutions we just need to replace ',' with '/' in $alt
+      $alt =~ s/\,/\//g;
+    }
   }
   else {
-	  if($is_indel) {
-	    # deletion (VCF <4)
-	    if($alt =~ /D/) {
-		    my $num_deleted = $alt;
-		    $num_deleted =~ s/\D+//g;
-		    $end += $num_deleted - 1;
-		    $alt = "-";
-		    $ref .= ("N" x ($num_deleted - 1)) unless length($ref) > 1;
-	    }
-	  
-	    # insertion (VCF <4)
-	    elsif($alt =~ /I/) {
-		    $ref = '-';
-		    $alt =~ s/^I//g;
-		    $start++;
-	    }
-	  
-	    # insertion or deletion (VCF 4+)
-	    else {
-		    # chop off first base
-		    $ref = substr($ref, 1);
-		    $alt = substr($alt, 1);
-		
-		    $start++;
-		
-		    if($ref eq '') {
-		      # make ref '-' if no ref allele left
-		      $ref = '-';
-		    }
-		
-		    # make alt '-' if no alt allele left
-		    $alt = '-' if $alt eq '';
-	    }
-	  }
+    if($is_indel) {
+      # deletion (VCF <4)
+      if($alt =~ /D/) {
+        my $num_deleted = $alt;
+        $num_deleted =~ s/\D+//g;
+        $end += $num_deleted - 1;
+        $alt = "-";
+        $ref .= ("N" x ($num_deleted - 1)) unless length($ref) > 1;
+      }
+    
+      # insertion (VCF <4)
+      elsif($alt =~ /I/) {
+        $ref = '-';
+        $alt =~ s/^I//g;
+        $start++;
+      }
+    
+      # insertion or deletion (VCF 4+)
+      else {
+        # chop off first base
+        $ref = substr($ref, 1);
+        $alt = substr($alt, 1);
+    
+        $start++;
+    
+        if($ref eq '') {
+          # make ref '-' if no ref allele left
+          $ref = '-';
+        }
+    
+        # make alt '-' if no alt allele left
+        $alt = '-' if $alt eq '';
+      }
+    }
   }
 
 ## ParaSite: some of our contigs/scaffolds contain chr, so we do not want to remove this [PARASITE-132]  

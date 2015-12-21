@@ -48,37 +48,37 @@ sub _configure_external_resources {
   
       my $response = $ua->get($url);
       if ($response->is_success) {
-	  if (my $sources = decode_json($response->content)) {
-	      if ($sources->{'total'}) {
-		  foreach $src (@{$sources->{'sources'} || []}) {
-		      my $source  = {
-			  source_name    => $src->{title},
-			  description => $src->{desc},
-			  source_url => $src->{url},
-		      };
+    if (my $sources = decode_json($response->content)) {
+        if ($sources->{'total'}) {
+      foreach $src (@{$sources->{'sources'} || []}) {
+          my $source  = {
+        source_name    => $src->{title},
+        description => $src->{desc},
+        source_url => $src->{url},
+          };
 
-		      foreach my $k (keys %$src) {
-			  $source->{$k} = $src->{$k};
-		      }
-		      
-		      $source->{'menu_name'} ||= 'External data';
-		      $source->{'menu_key'} ||= lc($source->{'menu_name'});
-		      $source->{'menu_key'} =~ s/ /_/g;
-		      
-		      if ($source->{'submenu_name'}) {
-			  $source->{'submenu_key'} ||= lc($source->{'submenu_name'});
-			  $source->{'submenu_key'} =~ s/ /_/g;
-		      }
-		      
-		      unless ($source->{'name'}) {
-			  ($source->{'name'} = $src->{'title'}) =~ s/\s/\_/g;
-		      }
+          foreach my $k (keys %$src) {
+        $source->{$k} = $src->{$k};
+          }
+          
+          $source->{'menu_name'} ||= 'External data';
+          $source->{'menu_key'} ||= lc($source->{'menu_name'});
+          $source->{'menu_key'} =~ s/ /_/g;
+          
+          if ($source->{'submenu_name'}) {
+        $source->{'submenu_key'} ||= lc($source->{'submenu_name'});
+        $source->{'submenu_key'} =~ s/ /_/g;
+          }
+          
+          unless ($source->{'name'}) {
+        ($source->{'name'} = $src->{'title'}) =~ s/\s/\_/g;
+          }
 
-		      my $type = 'BAM';
-		      $self->tree->{'ENSEMBL_INTERNAL_'.$type.'_SOURCES'}{$source->{'name'}} = $source;
-		  }
-	      }
-	  }
+          my $type = 'BAM';
+          $self->tree->{'ENSEMBL_INTERNAL_'.$type.'_SOURCES'}{$source->{'name'}} = $source;
+      }
+        }
+    }
       }
   }
 }

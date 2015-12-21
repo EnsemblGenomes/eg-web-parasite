@@ -47,34 +47,34 @@ sub content {
 
 
 # do reverse so the latest added ( more important :) attribs are displayed first 
-	  foreach my $attr (reverse @attrs) {
-#	      warn join ' * ', $attr->code, $attr->value, "\n";
+    foreach my $attr (reverse @attrs) {
+#        warn join ' * ', $attr->code, $attr->value, "\n";
 
-	      if ($attr->code eq 'external_db') { # if want to display xrefs to the external db for this gene
-		  my $aname = uc($attr->value);
-		  if ($urls && $urls->is_linked($aname)) {
-		      if (my $dblinks = $object->transcript->get_all_DBLinks($aname)) {
-			  if (my $xref = shift @$dblinks) {
-			      my $alink = $urls->get_url($aname, $xref);
-			      $self->add_entry({
-				  type       => $attr->value,
-				  label_html => sprintf(qq{<a href="%s">%s</a>}, $alink, $xref->display_id)
-				  });       
-			  }
-		      }
-		  }
-	      } else {
+        if ($attr->code eq 'external_db') { # if want to display xrefs to the external db for this gene
+      my $aname = uc($attr->value);
+      if ($urls && $urls->is_linked($aname)) {
+          if (my $dblinks = $object->transcript->get_all_DBLinks($aname)) {
+        if (my $xref = shift @$dblinks) {
+            my $alink = $urls->get_url($aname, $xref);
+            $self->add_entry({
+          type       => $attr->value,
+          label_html => sprintf(qq{<a href="%s">%s</a>}, $alink, $xref->display_id)
+          });       
+        }
+          }
+      }
+        } else {
 # for phibase the value of the phibase attribute is also used to pick the gene / transcript colour
 # and it should not have spaces thus the regex
-		  ( my $v = $attr->value ) =~ s/\_/ /g;
+      ( my $v = $attr->value ) =~ s/\_/ /g;
 
-		  $self->add_entry({
-		      type       => $attr->name,
-		      label_html => $v
-		      });       
-	      
-	      }
-	  }
+      $self->add_entry({
+          type       => $attr->name,
+          label_html => $v
+          });       
+        
+        }
+    }
       }
   }
 

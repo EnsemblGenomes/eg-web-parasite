@@ -167,7 +167,7 @@ sub content {
         <div class="species-badge">';
 
   if(-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/${img_url}species/64/$species_short.png") {  # Check if the image exists
-  	$html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$common_name" />) unless $self->is_bacteria;
+    $html .= qq(<img src="${img_url}species/64/$species_short.png" alt="" title="$common_name" />) unless $self->is_bacteria;
   }
 
   my $bioproject = $species_defs->SPECIES_BIOPROJECT;
