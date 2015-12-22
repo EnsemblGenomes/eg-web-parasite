@@ -24,10 +24,11 @@ sub links {
   my $self  = shift;
   my $hub   = $self->hub;
   my $sd    = $self->species_defs;
+  my $species = $hub->species ? $hub->species : 'Multi';
   my @links;
-
+  
   push @links, 'specieslist',   '<a class="constant" href="/species.html">Species List</a>';
-  push @links, 'blast', sprintf '<a class="constant" href="%s">BLAST</a>', $self->hub->url({'species' => '', 'type' => 'Tools', 'action' => 'Blast'}) if $sd->ENSEMBL_BLAST_ENABLED;
+  push @links, 'blast', sprintf '<a class="constant" href="%s">BLAST</a>', $self->hub->url({'species' => $species, 'type' => 'Tools', 'action' => 'Blast'}) if $sd->ENSEMBL_BLAST_ENABLED;
   push @links, 'biomart',       '<a class="constant" href="/biomart/martview/">BioMart</a>';
   push @links, 'api',           '<a class="constant" href="/rest/">REST API</a>';
   push @links, 'downloads',     '<a class="constant" href="/ftp.html">Downloads</a>';
