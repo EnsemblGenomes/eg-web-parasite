@@ -20,8 +20,8 @@ package EnsEMBL::Web::Document::Element::Meta;
 
 sub init {
   my $self = shift;
-  $self->add('description', 'WormBase ParaSite is an open access resource providing genome sequences, genome browsers, semi-automatic annotation and comparative genomics analysis for nematode and platyhelminth parasites.');
-  $self->add('keywords', 'WormBase, WormBase ParaSite, parasitic worms, parasitic nematodes, platyhelminthes, platyhelminth, comparative genomics, parasite genomics, parasite biology, parasite genome sequences, genome, genome browser, variation, SNPs, EST, mRNA, rna-Seq, orthologs, paralogs, synteny, assembly, genes, transcripts, translations, proteins, worms, brugia, onchocerca, pristionchus, ascaris, trichinella, wolbachia, invertebrate');
+  $self->add('description', 'WormBase ParaSite is an open access resource providing genome sequences, genome browsers, semi-automatic annotation and comparative genomics analysis for nematode and platyhelminth parasites (helminths).');
+  $self->add('keywords', 'WormBase, WormBase ParaSite, parasitic worms, parasitic nematodes, platyhelminthes, platyhelminth, helminth, flatworms, parasitic flatworms, comparative genomics, parasite genomics, parasite biology, parasite genome sequences, genome, genome browser, variation, SNPs, EST, mRNA, rna-Seq, orthologs, paralogs, synteny, assembly, genes, transcripts, translations, proteins, worms, brugia, onchocerca, pristionchus, ascaris, trichinella, wolbachia, invertebrate');
   $self->add('google-site-verification', '11sSQcxg_gkbzE1Sdwn5XimeSC3lXZDbLUQBn3T_Opc');
 
   ## ParaSite: Create a Twitter card
