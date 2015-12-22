@@ -22,6 +22,10 @@ use strict;
 
 use base qw(EnsEMBL::Web::Component::TextSequence EnsEMBL::Web::Component::Gene);
 
+sub section_title {
+  return 'Gene Sequence';
+}
+
 sub initialize {
   my ($self, $slice, $start, $end, $adorn) = @_;
   my $hub    = $self->hub;

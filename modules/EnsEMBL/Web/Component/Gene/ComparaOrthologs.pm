@@ -20,6 +20,10 @@ package EnsEMBL::Web::Component::Gene::ComparaOrthologs;
 
 use Data::Dumper;
 
+sub section_title {
+  return "Orthologues";
+}
+
 sub _species_sets {
 ## Group species into sets - separate method so it can be pluggable easily
   my ($self, $orthologue_list, $skipped) = @_;

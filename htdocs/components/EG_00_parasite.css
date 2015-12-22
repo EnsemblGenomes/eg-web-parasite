@@ -197,3 +197,10 @@
   line-height: 1.5em;
 }
 
+.component-collapse {
+
+}
+
+.component-header {
+  cursor: pointer;
+}

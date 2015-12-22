@@ -20,44 +20,42 @@ package EnsEMBL::Web::Configuration::Gene;
 
 use previous qw(modify_tree);
 
-sub modify_tree {
-  my $self = shift;
+sub populate_tree {
+  my $self         = shift;
+  my $hub          = $self->hub;
+  my $species_defs = $hub->species_defs;
 
-  $self->PREV::modify_tree(@_);
-
-  my $compara_menu = $self->get_node('Compara');
-  $compara_menu->set('caption', "Comparative Genomics");
-
-  $self->delete_node('Family');
-  $self->delete_node('Gene_families');
-  $self->delete_node('Literature');
-  $self->delete_node('PanCompara');
-  $self->delete_node('Alleles');
-  $self->delete_node('TranscriptComparison');
-  $self->delete_node('Evidence');
-  $self->delete_node('SecondaryStructure');
-  $self->delete_node('Regulation');
-  $self->delete_node('Expression');
-  $self->delete_node('Compara_Alignments');
-  $self->delete_node('SpeciesTree');
-  $self->delete_node('Variation');
-  $self->delete_node('StructuralVariation_Gene');
-  $self->delete_node('ExternalData');
-  $self->delete_node('UserAnnotation');
-  $self->delete_node('History');
-  $self->delete_node('Idhistory');
-  $self->delete_node('Phenotype');
- 
-  my $summary = $self->get_node('Summary');
-  $summary->set('components',
+  $self->create_node('Summary', 'Gene in Detail',
     [qw(
-      gene_summary  EnsEMBL::Web::Component::Gene::GeneSummary
+      singlepage    EnsEMBL::Web::Component::SinglePage
       wormbase      EnsEMBL::Web::Component::WormBaseLink
       navbar        EnsEMBL::Web::Component::ViewNav
       transcripts   EnsEMBL::Web::Component::Gene::TranscriptsImage
-    )]
+      splice_image  EnsEMBL::Web::Component::Gene::SpliceImage
+      gene_seq      EnsEMBL::Web::Component::Gene::GeneSeq
+      go            EnsEMBL::Web::Component::Gene::Go
+      orthologues   EnsEMBL::Web::Component::Gene::ComparaOrthologs
+      paralogues    EnsEMBL::Web::Component::Gene::ComparaParalogs
+      matches       EnsEMBL::Web::Component::Gene::SimilarityMatches
+    )],
+    { 'availability' => 'gene' }
   );
   
+  $self->create_node('Compara_Tree', 'Gene tree',
+    [qw( image EnsEMBL::Web::Component::Gene::ComparaTree )],
+    { 'availability' => 'gene database:compara core has_gene_tree' }
+  );
+  
+  ### TODO: Only add the elements above if these are actually available - will need a rewrite of this sub
+ 
+}
+
+sub modify_tree {
+  my $self = shift;
+
+#  my $compara_menu = $self->get_node('Compara');
+#  $compara_menu->set('caption', "Comparative Genomics");
+
 }
 
 1;

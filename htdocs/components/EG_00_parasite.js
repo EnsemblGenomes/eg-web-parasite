@@ -34,3 +34,9 @@ $(document).keyup(function(e) {
   }
 });
 
+$('.component-header').click(function() {
+  $(this).next('.component-collapse').slideToggle();
+  $(this).children('.component-plus').toggle();
+  $(this).children('.component-minus').toggle();
+});
+

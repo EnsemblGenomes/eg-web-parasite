@@ -20,6 +20,10 @@ package EnsEMBL::Web::Component::Gene::ComparaParalogs;
 
 use strict;
 
+sub section_title {
+  return "Paralogues";
+}
+
 sub content {
   my $self           = shift;
   my $hub            = $self->hub;

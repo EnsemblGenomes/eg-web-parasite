@@ -1,6 +1,10 @@
 package EnsEMBL::Web::Component::Gene::Go;
 use strict;
 
+sub section_title {
+  return 'Gene Ontology (GO)';
+}
+
 sub biomart_link {
   my ($self, $term) = @_;
 
