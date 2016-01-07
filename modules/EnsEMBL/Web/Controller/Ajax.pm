@@ -83,7 +83,10 @@ sub ajax_search_autocomplete {
     my $bioproj   = $species_defs->get_config($sp, "SPECIES_BIOPROJECT");
     my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
     my @names     = $alt_names ? ($name, @alt_proj) : ($name);
-    my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
+### Disabled linking out to WormBase
+###    my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
+###
+    my $url = "/$sp";
     foreach my $search (@names) {
       next unless $search =~ /\Q$sp_term\E/i;
       next if $sp_genus && ($search !~ /^$sp_genus/i || $search !~ /^(.*?) .*$sp_term.*/i);
