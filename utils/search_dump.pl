@@ -179,13 +179,19 @@ sub get_databases {
     
     # ParaSite mod
     } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {
-    # ParaSite mod
+
+      $db_species =~ s/_collection$//;
+      $latest_release = $db_release if ( $db_release > $latest_release );
+      $dbHash->{$db_species}->{$db_type}->{$db_release} = $dbname;
+     # ParaSite mod
+    
+    } elsif ( ( $db_species, $db_type, $db_release ) = $dbname =~ /^([a-z]+_[a-z0-9]+)(?:_collection)?_([a-z]+)_(\d+)_\w+$/ ) {
 
       $db_species =~ s/_collection$//;
       $latest_release = $db_release if ( $db_release > $latest_release );
       $dbHash->{$db_species}->{$db_type}->{$db_release} = $dbname;
 
-    } 
+    }
   }
 
   map { $dbHash->{$_}->{'compara'} = $compara_hash } keys %$dbHash;
