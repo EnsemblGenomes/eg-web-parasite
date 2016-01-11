@@ -218,6 +218,13 @@ sub content {
     $html .= '</div></div>';
   }
 
+  ## ParaSite: add a link back to WormBase
+  if ($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($species)} =~ /^wormbase$/i) {
+    my $url = $hub->get_ExtURL_link('[View species at WormBase Central]', uc("$species\_URL"));
+    $html .= qq(<div class="wormbase_panel">$url</div>);
+  }
+  ##
+
   my (@sections);
   
 
