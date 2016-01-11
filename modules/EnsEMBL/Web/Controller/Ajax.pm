@@ -148,7 +148,7 @@ sub ajax_species_tree {
         foreach my $taxon (@taxons) {
           foreach ($species_defs->valid_species) {
             next unless defined($species_defs->get_config($_, 'SPECIES_GROUP'));
-            next if $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ne 'parasite';
+            ##next if $species_defs->ENSEMBL_SPECIES_SITE->{lc($_)} ne 'parasite';
             if($taxon eq 'parent') {
               next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
             } else {
