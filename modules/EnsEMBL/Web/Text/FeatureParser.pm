@@ -153,23 +153,25 @@ sub parse {
             $self->store_density_feature($empty->coords($columns));
           }
           else {
-            my $feature = $feature_class->new($columns); 
+            my $feature = $feature_class->new($columns);
             if ($feature->can('score')) {
-          
+
 ## EG - ENSEMBL-3226 infinity        
               if ($feature->score =~ /INF$/i) {
                 $self->{'tracks'}{$self->current_key}{'config'}{'has_pos_infinity'} = 1 if uc($feature->score) eq 'INF';
                 $self->{'tracks'}{$self->current_key}{'config'}{'has_neg_infinity'} = 1 if uc($feature->score) eq '-INF';
               } else {
 ##              
-                $current_max = $self->{'tracks'}{$self->current_key}{'config'}{'max_score'};
-                $current_min = $self->{'tracks'}{$self->current_key}{'config'}{'min_score'};
+              $current_max = $self->{'tracks'}{$self->current_key}{'config'}{'max_score'};
+              $current_min = $self->{'tracks'}{$self->current_key}{'config'}{'min_score'};
+              if ($feature->score && $feature->score =~ /^-*\d+\.?\d*$/) {
                 $current_max = $feature->score if $feature->score > $current_max;
                 $current_min = $feature->score if $feature->score < $current_min;
-                $current_max = 0 unless $current_max; ## Because bad things can happen...
-                $current_min = 0 unless $current_min;
-                $self->{'tracks'}{$self->current_key}{'config'}{'max_score'} = $current_max;
-                $self->{'tracks'}{$self->current_key}{'config'}{'min_score'} = $current_min;
+              }
+              $current_max = 0 unless $current_max; ## Because bad things can happen...
+              $current_min = 0 unless $current_min;
+              $self->{'tracks'}{$self->current_key}{'config'}{'max_score'} = $current_max;
+              $self->{'tracks'}{$self->current_key}{'config'}{'min_score'} = $current_min;
               }
             }
             $self->store_feature($feature);
