@@ -719,7 +719,7 @@ sub _resources_text {
 sub _other_text {
   my ($self, $tag, $species) = @_;
   my $file = "/ssi/species/about_${species}.html";
-  my $content = EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file);
+  my $content = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/$file") ? EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file) : '';
   my ($other_text) = $content =~ /^.*?<!--\s*\{$tag\}\s*-->(.*)<!--\s*\{$tag\}\s*-->.*$/ms;
   #ENSEMBL-2535 strip subs
   $other_text =~ s/(\{\{sub_[^\}]*\}\})//mg;
