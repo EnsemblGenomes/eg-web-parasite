@@ -348,12 +348,13 @@ sub _assembly_text {
 
   $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
 
-  # Link to assembly mapper
-  my $mappings = $species_defs->ASSEMBLY_MAPPINGS;
-  if ($mappings && ref($mappings) eq 'ARRAY') {
-    my $am_url = $hub->url({'type' => 'UserData', 'action' => 'SelectFeatures'});
-    $html .= qq(<p><a href="$am_url" class="modal_link nodeco"><img src="${img_url}24/tool.png" class="homepage-link" />Convert your data to $assembly coordinates</a></p>);
-  }
+#  # Link to assembly mapper
+#  if ($species_defs->ENSEMBL_AC_ENABLED) {
+#    $html .= sprintf('<a href="%s" class="nodeco"><img src="%s24/tool.png" class="homepage-link" />Convert your data to %s coordinates</a></p>', $hub->url({'type' => 'Tools', 'action' => 'AssemblyConverter'}), $img_url, $current_assembly);
+#  }
+#  elsif (ref($species_defs->ASSEMBLY_MAPPINGS) eq 'ARRAY') {
+#    $html .= sprintf('<a href="%s" class="modal_link nodeco" rel="modal_user_data"><img src="%s24/tool.png" class="homepage-link" />Convert your data to %s coordinates</a></p>', $hub->url({'type' => 'UserData', 'action' => 'SelectFeatures', __clear => 1}), $img_url, $current_assembly);
+#  }
 
 #EG no old assemblies
  ## PREVIOUS ASSEMBLIES
