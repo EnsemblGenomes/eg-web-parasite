@@ -54,7 +54,9 @@ sub fasta {
     foreach (@$trans_objects) {
       my $transcript = $_->Obj;
       my $id         = ($object_id ? "$object_id:" : '') . $transcript->stable_id;
+## ParaSite: do not show prediction status
       my $type       = $transcript->biotype;
+##
       
       $intron_id = 1;
       
@@ -103,3 +105,5 @@ sub fasta {
     }
   }
 }
+
+1;
