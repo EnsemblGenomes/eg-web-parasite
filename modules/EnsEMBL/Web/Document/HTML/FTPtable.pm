@@ -61,7 +61,7 @@ sub render {
       genomic_softmasked => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
       annotations        => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a>},
       proteins           => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz">FASTA</a>},
-      mRNA_transcripts   => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
+      mRNA_transcripts   => $spp =~ /^caenorhabditis_angaria|caenorhabditis_sinica|caenorhabditis_tropicalis|panagrellus_redivivus$/i ? 'N/A for this genome' : qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
       CDS_transcripts    => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
     };
     push(@rows, $data);
