@@ -753,11 +753,11 @@ sub _has_compara {
         my $member_adaptor = $db->get_GeneMemberAdaptor;
         my $object_adaptor = $db->get_adaptor($object_type);
   
-        if (my $member = $member_adaptor->fetch_by_source_stable_id('ENSEMBLGENE', $sample_gene_id)) {
+        if (my $member = $member_adaptor->fetch_by_stable_id($sample_gene_id)) {
           if ($object_type eq 'Family' and $self->is_bacteria) {
             $member = $member->get_all_SeqMembers->[0];
           }
-          my $objects = $object_adaptor->fetch_all_by_Member($member);
+          my $objects = $object_type eq 'Family' ? $object_adaptor->fetch_all_by_GeneMember($member) : $object_adaptor->fetch_all_by_Member($member);
           $has_compara = @$objects;
         }
       }
