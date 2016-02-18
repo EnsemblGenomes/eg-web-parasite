@@ -25,58 +25,13 @@ sub content {
   my $url    = $self->href || $self->home_url;
   my $hub    = $self->hub;
   my $type   = $hub->type;
-  #my $e_logo = '<img src="/i/e.png" alt="WormBase ParaSite Home" title="WormBase ParaSite Home" class="print_hide" style="width:43px;height:40px" />'; 
-  my $e_logo = ''; # Removed the small e! logo from ParaSite but kept variable so new logo could be inserted in future releases
-
-  return sprintf( '%s%s%s',
-    $self->e_logo, $self->logo_print, $self->site_menu # Removes drop-down menu and e! logo
-  );
-
-}
-
-sub logo_img {
-### a
-  my $self = shift;
-  return 'WormBase ParaSite'; 
-}
-
-sub e_logo {
-### a
-  my $self = shift;
   my $alt = 'WormBase ParaSite Home';
-  return sprintf(
-    '<a href="%s"><img src="%s%s" alt="%s" title="%s" class="print_hide" style="height:%spx" /></a>',
+
+  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a>',
     '/', $self->img_url, 'parasite.png', $alt, $alt, 34
   );
-  return '';
-}
 
-sub logo_print {
-  my $self = shift;
-  my $alt = 'WormBase ParaSite Home';
-  return sprintf(
-    '<a href="%s"><img src="%s%s" alt="%s" title="%s" class="screen_hide_inline" style="height:%spx" /></a>',
-    '/', $self->img_url, 'parasite.png', $alt, $alt, 34
-  );
-  return '';
-}
-
-sub site_menu {
-  #return q{
-  #  <span class="print_hide">
-  #    <span id="site_menu_button">&#9660;</span>
-  #    <ul id="site_menu" style="display:none">
-  #      <li><a href="http://www.ensemblgenomes.org">WormBase ParaSite</a></li>
-  #      <li><a href="http://bacteria.ensembl.org">Ensembl Bacteria</a></li>
-  #      <li><a href="http://protists.ensembl.org">Ensembl Protists</a></li>
-  #      <li><a href="http://fungi.ensembl.org">Ensembl Fungi</a></li>
-  #      <li><a href="http://plants.ensembl.org">Ensembl Plants</a></li>
-  #      <li><a href="http://metazoa.ensembl.org">Ensembl Metazoa</a></li>
-  #      <li><a href="http://www.ensembl.org">Ensembl (vertebrates)</a></li>
-  #    </ul>
-  #  </span>
-  #};
-  return q{};
 }
 
 1;
+
