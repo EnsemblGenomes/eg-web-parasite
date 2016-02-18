@@ -26,9 +26,12 @@ sub content {
   my $hub    = $self->hub;
   my $type   = $hub->type;
   my $alt = 'WormBase ParaSite Home';
+  my $wbps_release = $hub->species_defs->SITE_RELEASE_VERSION;
+  my $wb_release = $hub->species_defs->WORMBASE_RELEASE_VERSION;
+  my $version = sprintf("WBPS%s (WS%s)", $wbps_release, $wb_release);
 
-  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a>',
-    '/', $self->img_url, 'parasite.png', $alt, $alt, 34
+  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;%s</span>',
+    '/', $self->img_url, 'parasite.png', $alt, $alt, 34, $version
   );
 
 }

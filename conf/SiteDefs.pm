@@ -25,6 +25,7 @@ sub update_conf {
     $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
 
     $SiteDefs::SITE_RELEASE_VERSION = '5';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '251';
     $SiteDefs::SITE_RELEASE_DATE = 'January 2016';
     $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
     $SiteDefs::GENOMIC_UNIT = 'parasite';

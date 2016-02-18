@@ -197,3 +197,11 @@
   line-height: 1.5em;
 }
 
+.header-version {
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: normal;
+  font-size: 0.5em;
+  padding-left: 10px;
+}
+

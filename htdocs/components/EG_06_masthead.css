@@ -11,7 +11,7 @@
 #masthead ul.tools                                 { margin: 0; height: 100%; overflow: hidden; }
 #masthead ul.tools li                              { padding: 0; margin: 0; }
 #masthead ul.tools li.last                         { border: 0; }
-#masthead .logo_holder                             { position: relative; top: 8px; margin-left: 6px; float: left; font-size: 26px; font-family: Helvetica, sans-serif; font-weight: bold; text-decoration: none }
+#masthead .logo_holder                             { position: relative; top: 8px; margin-left: 6px; float: left; font-size: 26px; font-family: Helvetica, sans-serif; font-weight: bold; text-decoration: none; display: table; }
 #masthead .logo_holder .logo-header                { background: url(/i/[[SITE_LOGO]]) no-repeat 0 0; display: inline-block; width: 169px; height: 40px; }
 #masthead .logo_holder a                           { color: #FFFFFF !important; }
 #masthead .logo_holder a:hover                     { color: #CCCCCC !important; }
