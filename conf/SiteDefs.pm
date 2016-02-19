@@ -41,7 +41,6 @@ sub update_conf {
 
     # ParaSite Specific Species
     
-    # Release 1
     $SiteDefs::__species_aliases{'Acanthocheilonema_viteae_prjeb4306'} = [qw(acanthocheilonema_viteae_prjeb4306 Acanthocheilonema_viteae_prjeb4306)];
     $SiteDefs::__species_aliases{'Ancylostoma_caninum_prjna72585'} = [qw(ancylostoma_caninum_prjna72585 Ancylostoma_caninum_prjna72585)];
     $SiteDefs::__species_aliases{'Ancylostoma_ceylanicum_prjna231479'} = [qw(ancylostoma_ceylanicum_prjna231479 Ancylostoma_ceylanicum_prjna231479)];
@@ -64,11 +63,13 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Diphyllobothrium_latum_prjeb1206'} = [qw(diphyllobothrium_latum_prjeb1206 Diphyllobothrium_latum_prjeb1206)];
     $SiteDefs::__species_aliases{'Dirofilaria_immitis_prjeb1797'} = [qw(dirofilaria_immitis_prjeb1797 Dirofilaria_immitis_prjeb1797)];
     $SiteDefs::__species_aliases{'Dracunculus_medinensis_prjeb500'} = [qw(dracunculus_medinensis_prjeb500 Dracunculus_medinensis_prjeb500)];
+    $SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992 Echinococcus_canadensis_prjeb8992)];
     $SiteDefs::__species_aliases{'Echinococcus_granulosus_prjeb121'} = [qw(echinococcus_granulosus_prjeb121 Echinococcus_granulosus_prjeb121)];
     $SiteDefs::__species_aliases{'Echinococcus_multilocularis_prjeb122'} = [qw(echinococcus_multilocularis_prjeb122 Echinococcus_multilocularis_prjeb122)];
     $SiteDefs::__species_aliases{'Echinostoma_caproni_prjeb1207'} = [qw(echinostoma_caproni_prjeb1207 Echinostoma_caproni_prjeb1207)];
     $SiteDefs::__species_aliases{'Elaeophora_elaphi_prjeb502'} = [qw(elaeophora_elaphi_prjeb502 Elaeophora_elaphi_prjeb502)];
     $SiteDefs::__species_aliases{'Enterobius_vermicularis_prjeb503'} = [qw(enterobius_vermicularis_prjeb503 Enterobius_vermicularis_prjeb503)];
+    $SiteDefs::__species_aliases{'Fasciola_hepatica_prjeb6687'} = [qw(fasciola_hepatica_prjeb6687 Fasciola_hepatica_prjeb6687)];
     $SiteDefs::__species_aliases{'Fasciola_hepatica_prjna179522'} = [qw(fasciola_hepatica_prjna179522 Fasciola_hepatica_prjna179522)];
     $SiteDefs::__species_aliases{'Globodera_pallida_prjeb123'} = [qw(globodera_pallida_prjeb123 Globodera_pallida_prjeb123)];
     $SiteDefs::__species_aliases{'Gongylonema_pulchrum_prjeb505'} = [qw(gongylonema_pulchrum_prjeb505 Gongylonema_pulchrum_prjeb505)];
@@ -82,7 +83,9 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Hymenolepis_microstoma_prjeb124'} = [qw(hymenolepis_microstoma_prjeb124 Hymenolepis_microstoma_prjeb124)];
     $SiteDefs::__species_aliases{'Hymenolepis_nana_prjeb508'} = [qw(hymenolepis_nana_prjeb508 Hymenolepis_nana_prjeb508)];
     $SiteDefs::__species_aliases{'Litomosoides_sigmodontis_prjeb3075'} = [qw(litomosoides_sigmodontis_prjeb3075 Litomosoides_sigmodontis_prjeb3075)];
+    $SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086 Loa_loa_prjna246086)];
     $SiteDefs::__species_aliases{'Loa_loa_prjna60051'} = [qw(loa_loa_prjna60051 Loa_loa_prjna60051)];
+    $SiteDefs::__species_aliases{'Macrostomum_lignano_prjna284736'} = [qw(macrostomum_lignano_prjna284736 Macrostomum_lignano_prjna284736)];
     $SiteDefs::__species_aliases{'Meloidogyne_floridensis_prjeb6016'} = [qw(meloidogyne_floridensis_prjeb6016 Meloidogyne_floridensis_prjeb6016)];
     $SiteDefs::__species_aliases{'Meloidogyne_hapla_prjna29083'} = [qw(meloidogyne_hapla_prjna29083 Meloidogyne_hapla_prjna29083)];
     $SiteDefs::__species_aliases{'Meloidogyne_incognita_prjea28837'} = [qw(meloidogyne_incognita_prjea28837 Meloidogyne_incognita_prjea28837)];
@@ -94,8 +97,10 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Onchocerca_ochengi_prjeb1204'} = [qw(onchocerca_ochengi_prjeb1204 Onchocerca_ochengi_prjeb1204)];
     $SiteDefs::__species_aliases{'Onchocerca_ochengi_prjeb1809'} = [qw(onchocerca_ochengi_prjeb1809 Onchocerca_ochengi_prjeb1809)];
     $SiteDefs::__species_aliases{'Onchocerca_volvulus_prjeb513'} = [qw(onchocerca_volvulus_prjeb513 Onchocerca_volvulus_prjeb513)];
+    $SiteDefs::__species_aliases{'Opisthorchis_viverrini_prjna222628'} = [qw(opisthorchis_viverrini_prjna222628 Opisthorchis_viverrini_prjna222628)];
     $SiteDefs::__species_aliases{'Parascaris_equorum_prjeb514'} = [qw(parascaris_equorum_prjeb514 Parascaris_equorum_prjeb514)];
     $SiteDefs::__species_aliases{'Parastrongyloides_trichosuri_prjeb515'} = [qw(parastrongyloides_trichosuri_prjeb515 Parastrongyloides_trichosuri_prjeb515)];
+    $SiteDefs::__species_aliases{'Pristionchus_exspectatus_prjeb6009'} = [qw(pristionchus_exspectatus_prjeb6009 Pristionchus_exspectatus_prjeb6009)];
     $SiteDefs::__species_aliases{'Pristionchus_pacificus_prjna12644'} = [qw(pristionchus_pacificus_prjna12644 Pristionchus_pacificus_prjna12644)];
     $SiteDefs::__species_aliases{'Protopolystoma_xenopodis_prjeb1201'} = [qw(protopolystoma_xenopodis_prjeb1201 Protopolystoma_xenopodis_prjeb1201)];
     $SiteDefs::__species_aliases{'Rhabditophanes_kr3021_prjeb1297'} = [qw(rhabditophanes_kr3021_prjeb1297 Rhabditophanes_kr3021_prjeb1297 Rhabditophanes_sp._kr3021_prjeb1297)];
@@ -111,6 +116,11 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Schmidtea_mediterranea_prjna12585'} = [qw(schmidtea_mediterranea_prjna12585 Schmidtea_mediterranea_prjna12585)];
     $SiteDefs::__species_aliases{'Soboliphyme_baturini_prjeb516'} = [qw(soboliphyme_baturini_prjeb516 Soboliphyme_baturini_prjeb516)];
     $SiteDefs::__species_aliases{'Spirometra_erinaceieuropaei_prjeb1202'} = [qw(spirometra_erinaceieuropaei_prjeb1202 Spirometra_erinaceieuropaei_prjeb1202)];
+    $SiteDefs::__species_aliases{'Steinernema_carpocapsae_prjna202318'} = [qw(steinernema_carpocapsae_prjna202318 Steinernema_carpocapsae_prjna202318)];
+    $SiteDefs::__species_aliases{'Steinernema_feltiae_prjna204661'} = [qw(steinernema_feltiae_prjna204661 Steinernema_feltiae_prjna204661)];
+    $SiteDefs::__species_aliases{'Steinernema_glaseri_prjna204943'} = [qw(steinernema_glaseri_prjna204943 Steinernema_glaseri_prjna204943)];
+    $SiteDefs::__species_aliases{'Steinernema_monticolum_prjna205067'} = [qw(steinernema_monticolum_prjna205067 Steinernema_monticolum_prjna205067)];
+    $SiteDefs::__species_aliases{'Steinernema_scapterisci_prjna204942'} = [qw(steinernema_scapterisci_prjna204942 Steinernema_scapterisci_prjna204942)];
     $SiteDefs::__species_aliases{'Strongyloides_papillosus_prjeb525'} = [qw(strongyloides_papillosus_prjeb525 Strongyloides_papillosus_prjeb525)];
     $SiteDefs::__species_aliases{'Strongyloides_ratti_prjeb125'} = [qw(strongyloides_ratti_prjeb125 Strongyloides_ratti_prjeb125)];
     $SiteDefs::__species_aliases{'Strongyloides_stercoralis_prjeb528'} = [qw(strongyloides_stercoralis_prjeb528 Strongyloides_stercoralis_prjeb528)];
@@ -132,30 +142,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Trichuris_trichiura_prjeb535'} = [qw(trichuris_trichiura_prjeb535 Trichuris_trichiura_prjeb535)];
     $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536 Wuchereria_bancrofti_prjeb536)];
     
-    # Release 2
-    $SiteDefs::__species_aliases{'Fasciola_hepatica_prjeb6687'} = [qw(fasciola_hepatica_prjeb6687 Fasciola_hepatica_prjeb6687)];
-    $SiteDefs::__species_aliases{'Opisthorchis_viverrini_prjna222628'} = [qw(opisthorchis_viverrini_prjna222628 Opisthorchis_viverrini_prjna222628)];
-    $SiteDefs::__species_aliases{'Pristionchus_exspectatus_prjeb6009'} = [qw(pristionchus_exspectatus_prjeb6009 Pristionchus_exspectatus_prjeb6009)];
-    $SiteDefs::__species_aliases{'Steinernema_carpocapsae_prjna202318'} = [qw(steinernema_carpocapsae_prjna202318 Steinernema_carpocapsae_prjna202318)];
-    $SiteDefs::__species_aliases{'Steinernema_feltiae_prjna204661'} = [qw(steinernema_feltiae_prjna204661 Steinernema_feltiae_prjna204661)];
-    $SiteDefs::__species_aliases{'Steinernema_glaseri_prjna204943'} = [qw(steinernema_glaseri_prjna204943 Steinernema_glaseri_prjna204943)];
-    $SiteDefs::__species_aliases{'Steinernema_monticolum_prjna205067'} = [qw(steinernema_monticolum_prjna205067 Steinernema_monticolum_prjna205067)];
-    $SiteDefs::__species_aliases{'Steinernema_scapterisci_prjna204942'} = [qw(steinernema_scapterisci_prjna204942 Steinernema_scapterisci_prjna204942)];
-    
-    # Release 3
-    $SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992 Echinococcus_canadensis_prjeb8992)];
-    $SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086 Loa_loa_prjna246086)];
-    
-    # Release 4
-    # No new genomes added in release 4
-
-    # Release 5
-    # No new genomes added in release 5
-
-    # Release 6
-    $SiteDefs::__species_aliases{'Macrostomum_lignano_prjna284736'} = [qw(macrostomum_lignano_prjna284736 Macrostomum_lignano_prjna284736)];
-
-    # WormBase Species
+    # Imported WormBase Species
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria)];
     $SiteDefs::__species_aliases{'Caenorhabditis_brenneri'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri)];
     $SiteDefs::__species_aliases{'Caenorhabditis_briggsae'} = [qw(caenorhabditis_briggsae Caenorhabditis_briggsae)];
