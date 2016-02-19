@@ -16,7 +16,7 @@ limitations under the License.
 
 =cut
 
-package EBeyeSearch::WormBaseREST;
+package EnsEMBL::Web::EBeyeSearch::WormBaseREST;
 
 # Connects the WormBase search REST interface to the Ensembl genome browser
 
@@ -70,7 +70,7 @@ sub get {
   eval { $can_accept = HTTP::Message::decodable() };
 
   $debug && warn "GET " . $uri->as_string;
-
+  
   my $response = $self->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
   my $content  = $can_accept ? $response->decoded_content : $response->content;
   
@@ -86,8 +86,6 @@ sub get {
     return from_json($content);
   }
 }
-
-#--- API methods ---
 
 sub get_results {
   my ($self, $domain, $query, $args) = @_;

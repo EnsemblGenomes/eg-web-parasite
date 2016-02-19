@@ -16,16 +16,16 @@ limitations under the License.
 
 =cut
 
-
-package EBeyeSearch;
+package EnsEMBL::Web::EBeyeSearch;
 
 use strict;
 use Data::Dumper;
 use Data::Page;
 use DBI;
 use URI::Escape;
-use EBeyeSearch::REST;
-use EBeyeSearch::WormBaseREST;
+use EnsEMBL::Web::EBeyeSearch::REST;
+use EnsEMBL::Web::EBeyeSearch::WormBaseREST;
+use EnsEMBL::Web::DBSQL::MetaDataAdaptor;
 
 my $results_cutoff = 10000;
 my $default_pagesize = 10; 
@@ -37,8 +37,8 @@ sub new {
     
   my $self = bless {
     hub  => $hub,
-    rest => EBeyeSearch::REST->new(base_url => $SiteDefs::EBEYE_REST_ENDPOINT),
-    wormrest => EBeyeSearch::WormBaseREST->new(),
+    rest => EnsEMBL::Web::EBeyeSearch::REST->new(base_url => $SiteDefs::EBEYE_REST_ENDPOINT),
+    wormrest => EnsEMBL::Web::EBeyeSearch::WormBaseREST->new(),
   }, $class;
   
   return $self;
@@ -159,15 +159,15 @@ sub get_hit_counts {
     $hit_counts->{gene}->{by_unit}->{'ensembl'} = $count if $count > 0;
   }
   
-  # species  
-  if ($self->species eq 'all' and my $counts = $self->get_species_hit_counts) {
-    $hit_counts->{species}->{by_unit} = $counts;
-  }
+#  # species  
+#  if ($self->species eq 'all' and my $counts = $self->get_species_hit_counts) {
+#    $hit_counts->{species}->{by_unit} = $counts;
+#  }
   
-  # seq reguion
-  if (my $counts = $self->get_seq_region_hit_counts) {
-    $hit_counts->{'sequence_region'}->{by_unit} = $counts;
-  }
+#  # seq reguion
+#  if (my $counts = $self->get_seq_region_hit_counts) {
+#    $hit_counts->{'sequence_region'}->{by_unit} = $counts;
+#  }
   
   # calculate totals
   my $grand_total = 0;
@@ -194,34 +194,45 @@ sub get_hit_counts {
 
 sub get_hits {
   my $self = shift;
-  if ($self->current_index eq 'species') {
-    return $self->get_species_hits;
-  } elsif ($self->current_index eq 'sequence_region') {
-    return $self->get_seq_region_hits;
-  } else { 
-    return $self->get_gene_hits;  
-  }  
+  my $dispatcher = {
+#    genome          => sub { $self->get_species_hits },
+#    sequence_region => sub { $self->get_seq_region_hits },
+#    variant         => sub { $self->get_variant_hits },
+    gene            => sub { $self->get_gene_hits },
+  };
+  my $hits = $dispatcher->{$self->current_index}->();
+  
+  $debug && Data::Dumper->Dump([$hits], ['$hits']) . "\n";
+
+  return $hits;
 }
 
 sub get_facet_species {
   my $self         = shift;
   my $index        = $self->current_index;
   my $unit         = $self->current_unit;
+  my $division     = 'Ensembl' . $unit eq 'ensembl' ? '' : ucfirst($unit);
   my $domain       = $unit eq 'ensembl' ? "ensembl_$index" : "wormbaseParasite";
   my $query        = $unit eq 'ensembl' ? $self->ebeye_query : $self->ebeye_query . " AND genomic_unit:$unit";
   my $facet_values = $self->rest->get_facet_values($domain, $query, 'TAXONOMY', {facetcount => 1000});
   my @taxon_ids    = map {$_->{value}} @$facet_values;
-  my $dbh          = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db; 
-  my @species; 
+  my $meta         = EnsEMBL::Web::DBSQL::MetaDataAdaptor->new($self->hub);
   
+  unless ($meta and $meta->genome_info_adaptor) {
+    warn "Cannot get facet species: looks like the genome info database is unavailable";
+    return [];
+  }
+
+  my $genomes;
   if (@taxon_ids < 1000 or $unit eq 'ensembl') {
-    @species = @{ $dbh->selectcol_arrayref("SELECT name FROM species_search WHERE taxonomy_id IN ('" . join("', '", @taxon_ids) . "') ORDER BY species") };
+    # get species names for given taxon ids
+    $genomes = $meta->genome_info_adaptor->fetch_all_by_taxonomy_ids(\@taxon_ids);
   } else {
     # we hit the EBEye facet limit - so present all species instead
-    @species = @{ $dbh->selectcol_arrayref("SELECT name FROM species_search WHERE genomic_unit = ?", undef, $unit) };
+    $genomes = $meta->genome_info_adaptor->fetch_all_by_division($division);
   }
   
-  return \@species;  
+  return [ map {ucfirst $_->species} @$genomes ];  
 }
 
 sub get_gene_hits {
@@ -235,7 +246,7 @@ sub get_gene_hits {
   my $pager          = $self->pager;
   my $hits;
 
-  if($unit =~ /wormbase/) {
+  if($unit =~ /^wormbase$/) {
     my @single_fields  = qw(id label taxonomy);
     my @multi_fields   = qw();
     my $query          = $self->ebeye_query;
@@ -248,127 +259,31 @@ sub get_gene_hits {
     my @multi_fields   = qw(transcript gene_synonym genetree WORMBASE_ORTHOLOG);
     my $query          = $self->ebeye_query;
        $query         .= " AND genomic_unit:$unit" if $unit ne 'ensembl';
-       $query         .= " AND species:$filter_species" if $filter_species;  
+       $query         .= " AND species:$filter_species" if $filter_species;
     $hits = $self->rest->get_results_as_hashes($domain, $query, 
       {
-        fields => join ',', @single_fields, @multi_fields, 
+        fields => join(',', @single_fields, @multi_fields), 
         start  => $pager->first - 1, 
         size   => $pager->entries_per_page
       }, 
       { single_values => \@single_fields }
     );
-    $self->expand_hit($_) for @$hits;
   }
 
-  #$debug && warn Data::Dumper::Dumper $hits;
+  foreach my $hit (@$hits) {
+    
+    my $transcript = ref $hit->{transcript} eq 'ARRAY' ? $hit->{transcript}->[0] : (split /\n/, $hit->{transcript})[0];
+    my $url = "$hit->{species_path}/Gene/Summary?g=$hit->{id}";
+    $url .= ";r=$hit->{location}" if $hit->{location};
+    $url .= ";t=$transcript" if $transcript;
+    $url .= ";db=$hit->{database}" if $hit->{database}; 
+    $hit->{url} = $url;
+
+    my $is_ensembl = ($hit->{domain_source} =~ /ensembl_gene/m);
+    $hit->{species_path} = $self->species_path( $hit->{system_name}, $hit->{genomic_unit}, $is_ensembl );
+  }
 
   return $hits;
-}
-
-sub get_seq_region_hit_counts {
-  my ($self) = @_;
-  return $self->{_seq_region_hit_counts} if $self->{_seq_region_hit_counts};
-  return if !$self->query_term;
-      
-  my $species_defs = $self->hub->species_defs;
-  my $dbh = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db;
-  my $counts_by_unit;
-    
-  my @units = $self->site =~ /(ensemblthis|ensemblunit)/i ? ($species_defs->GENOMIC_UNIT) : @{$SiteDefs::EBEYE_SEARCH_UNITS};
-  foreach my $unit (@units) {
-    my $sql = "SELECT COUNT(*) FROM seq_region_search WHERE seq_region_name = " . $dbh->quote($self->query_term);
-    $sql .= " AND species_name = " . $dbh->quote($self->get_production_name($self->species)) if $self->species ne 'all';
-    $sql .= " AND genomic_unit = " . $dbh->quote($unit) if $self->species eq 'all';
-    my $count = $dbh->selectrow_array($sql);
-    $counts_by_unit->{$unit} = $count if $count > 0;
-  }
-  return $self->{_sequence_region_hit_counts} = $counts_by_unit;
-}
-
-sub get_seq_region_hits {
-  my ($self) = @_;
-  
-  #warn "get_seq_region_hits\n";
-  
-  my $species_defs = $self->hub->species_defs;
-  my $pager = $self->pager;
-  my $dbh = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db;
-   
-  # sql
-  my $sql = "SELECT id, seq_region_name, location, coord_system_name, species_name FROM seq_region_search WHERE seq_region_name = " . $dbh->quote($self->query_term);
-  $sql .= " AND species_name = " . $dbh->quote($self->get_production_name($self->species)) if $self->species ne 'all';
-  $sql .= " AND genomic_unit = " . $dbh->quote($self->current_unit) if $self->species eq 'all';
-  $sql .= sprintf(' LIMIT %s, %s', $pager->first - 1, $pager->entries_per_page);
-  my $results = $dbh->selectall_hashref($sql, 'id');
-  
-  # get hits
-  my @hits;
-  foreach my $sr (keys %$results) {
-    my $name = $results->{$sr}->{seq_region_name};    
-    my $species = $results->{$sr}->{species_name};    
-    
-    push (@hits, {
-      'featuretype' => 'Sequence region',
-      'id' => $sr,
-      'name' => $name,
-      'url' => sprintf ('%s/Location/View?r=%s', $self->species_path( $species, $self->current_unit ), $results->{$sr}->{location}),
-      'location' => $results->{$sr}->{location},
-      'coord_system' => $results->{$sr}->{coord_system_name},
-      'species' => $self->get_display_name($species),
-      'species_path' => $self->species_path( $species, $self->current_unit ),
-    });
-  }
-  
-  return \@hits;
-}
-
-sub get_species_hit_counts {
-  my ($self) = @_;
-  return $self->{_species_hit_counts} if $self->{_species_hit_counts};
-  return if !$self->query_term;
-  
-  my $species_defs = $self->hub->species_defs;
-  my $dbh = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db;
-  my $counts_by_unit;
-  my @units = $self->site =~ /(ensemblthis|ensemblunit)/i ? ($species_defs->GENOMIC_UNIT) : @{$SiteDefs::EBEYE_SEARCH_UNITS};
-  foreach my $unit (@units) {
-    my $sql = "SELECT COUNT(*) FROM species_search WHERE keywords LIKE " . $dbh->quote('%' . $self->query_term . '%');
-    $sql .= " AND genomic_unit = " . $dbh->quote($unit);
-    $sql .= " AND collection = " . $dbh->quote($self->collection) if $self->collection ne 'all';
-    my $count = $dbh->selectrow_array($sql);
-    $counts_by_unit->{$unit} = $count if $count > 0;
-  }
-  
-  return $self->{_species_hit_counts} = $counts_by_unit;
-}
-
-sub get_species_hits {
-  my ($self) = @_;
-
-  my $pager = $self->pager;
-  my $dbh = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db;
-  
-  # sql
-  my $sql = "SELECT species, name, assembly_name, taxonomy_id FROM species_search WHERE keywords LIKE " . $dbh->quote('%' . $self->query_term . '%');
-  $sql .= " AND collection = " . $dbh->quote($self->collection) if $self->collection ne 'all';
-  $sql .= " AND genomic_unit = " . $dbh->quote($self->current_unit);
-  $sql .= sprintf(' LIMIT %s, %s', $pager->first - 1, $pager->entries_per_page);
-  my $results = $dbh->selectall_hashref($sql, 'species');
-  
-  # get hits
-  my @hits;
-  foreach my $sp (keys %$results) {
-    push (@hits, {
-      'featuretype' => 'Species',
-      'id' => $sp,
-      'url' => $self->species_path( $sp, $self->current_unit ),
-      'name' => $results->{$sp}->{name},
-      'assembly_name' => $results->{$sp}->{assembly_name},
-      'taxonomy_id' => $results->{$sp}->{taxonomy_id},
-    });
-  }
-  
-  return \@hits;
 }
 
 # Hacky method to make a cross-site species path
@@ -387,27 +302,6 @@ sub species_path {
   $path =~ s/http:\/\/[a-z]+\./http:\/\/www\./ if $want_ensembl;
 
   return $path;
-}
-
-sub expand_hit {
-  my ($self, $hit) =@_;
- 
-  my %lookup = (
-    'GENE' => sub { 
-      my $hit = shift;
-      my $transcript = ref $hit->{transcript} eq 'ARRAY' ? $hit->{transcript}->[0] : (split /\n/, $hit->{transcript})[0];
-      my $url = "$hit->{species_path}/Gene/Summary?g=$hit->{id}";
-      $url .= ";r=$hit->{location}" if $hit->{location};
-      $url .= ";db=$hit->{database}" if $hit->{database}; 
-      return $url;
-    },
-    #...we only have genes for now...
-  );
-
-  my $is_ensembl = ($hit->{domain_source} =~ /ensembl_gene/m);
-   
-  $hit->{species_path} = $self->species_path( $hit->{system_name}, $hit->{genomic_unit}, $is_ensembl );
-  $hit->{url}          = eval { $lookup{uc $hit->{featuretype}}($hit) } || '';
 }
 
 sub unit_sort {
@@ -437,21 +331,5 @@ sub query_string {
   }
   return $core . $extra;
 }
-
-sub get_production_name { 
-  my $self = shift;
-  my $species_name = shift;
-  my $dbh = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db;
-  my $sql = "SELECT species FROM species_search WHERE name = ? LIMIT 1";
-  return @{ $dbh->selectrow_arrayref($sql, undef, $species_name) || ['unknown'] };
-};
-
-sub get_display_name { 
-  my $self = shift;
-  my $species = shift;
-  my $dbh = new EnsEMBL::Web::DBSQL::WebsiteAdaptor($self->hub)->db;
-  my $sql = "SELECT name FROM species_search WHERE species = ? LIMIT 1";
-  return @{ $dbh->selectrow_arrayref($sql, undef, $species) || ['unknown'] };
-};
 
 1;

@@ -16,9 +16,11 @@ limitations under the License.
 
 =cut
 
-package EBeyeSearch::REST;
+package EnsEMBL::Web::EBeyeSearch::REST;
 
 use strict;
+
+my $debug = 0;
 
 sub get {
   my ($self, $method, $args) = @_;
