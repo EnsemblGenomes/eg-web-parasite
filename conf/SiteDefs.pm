@@ -24,9 +24,9 @@ sub update_conf {
     $SiteDefs::ENSEMBL_PORT = 8032;
     $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
 
-    $SiteDefs::SITE_RELEASE_VERSION = '5';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '251';
-    $SiteDefs::SITE_RELEASE_DATE = 'January 2016';
+    $SiteDefs::SITE_RELEASE_VERSION = '6';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '252';
+    $SiteDefs::SITE_RELEASE_DATE = 'March 2016';
     $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
     $SiteDefs::GENOMIC_UNIT = 'parasite';
     $SiteDefs::EBEYE_SEARCH_UNITS = [qw(parasite wormbase)];
@@ -147,7 +147,13 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Loa_loa_prjna246086'} = [qw(loa_loa_prjna246086 Loa_loa_prjna246086)];
     
     # Release 4
-    # No new species added in release 4
+    # No new genomes added in release 4
+
+    # Release 5
+    # No new genomes added in release 5
+
+    # Release 6
+    $SiteDefs::__species_aliases{'Macrostomum_lignano_prjna284736'} = [qw(macrostomum_lignano_prjna284736 Macrostomum_lignano_prjna284736)];
 
     # WormBase Species
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria)];
