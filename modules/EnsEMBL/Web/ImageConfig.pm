@@ -322,12 +322,12 @@ sub _update_missing {
 
 ## ParaSite: do not display the Ensembl version number
   my $info = sprintf(
-    '%s: %s (%s) version %s (%s).  %s:%s-%s',
+    '%s %s: %s (%s).%s Region: %s:%s-%s',
     $species_defs->ENSEMBL_SITETYPE,
+    $species_defs->SITE_RELEASE_VERSION,
     $species_defs->SPECIES_BIO_NAME,
     $species_defs->SPECIES_BIOPROJECT,
-    $species_defs->SPECIES_RELEASE_VERSION,
-    $species_defs->ASSEMBLY_NAME,
+    $species_defs->ASSEMBLY_ACCESSION ? sprintf(" Assembly: %s (%s).", $species_defs->ASSEMBLY_NAME, $species_defs->ASSEMBLY_ACCESSION) : sprintf(" Assembly: %s.", $species_defs->ASSEMBLY_NAME),
     $object->seq_region_type_and_name,
     $object->thousandify($object->seq_region_start),
     $object->thousandify($object->seq_region_end)
