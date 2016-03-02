@@ -108,7 +108,7 @@ sub menus {
 }
 
 sub _add_trackhub {
-  my ($self, $menu_name, $url, $is_poor_name, $existing_menu) = @_;
+  my ($self, $menu_name, $url, $is_poor_name, $existing_menu, $force_hide) = @_;
 
   return ($menu_name, {}) if $self->{'_attached_trackhubs'}{$url};
 
@@ -126,8 +126,7 @@ sub _add_trackhub {
     my $menu     = $existing_menu || $self->tree->append_child($self->create_submenu($menu_name, $menu_name, { external => 1, trackhub_menu => 1 }));
 
     my $node;
-    my $assemblies =
-      $self->hub->species_defs->get_config($self->species,'TRACKHUB_ASSEMBLY_ALIASES');
+    my $assemblies = $self->hub->species_defs->get_config($self->species,'TRACKHUB_ASSEMBLY_ALIASES');
     $assemblies ||= [];
     $assemblies = [ $assemblies ] unless ref($assemblies) eq 'ARRAY';
     foreach my $assembly_var (qw(UCSC_GOLDEN_PATH ASSEMBLY_VERSION)) {
@@ -140,7 +139,7 @@ sub _add_trackhub {
       last if $node;
     }
     if ($node) {
-      $self->_add_trackhub_node($node, $menu, $menu_name);
+      $self->_add_trackhub_node($node, $menu, $menu_name, $force_hide);
 
       $self->{'_attached_trackhubs'}{$url} = 1;
     } else {
