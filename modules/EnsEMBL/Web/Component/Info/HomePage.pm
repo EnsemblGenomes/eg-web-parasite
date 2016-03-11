@@ -246,14 +246,14 @@ sub content {
   my $stats_file = '/ssi/species/stats_' . $self->hub->species . '.html';
   push(@right_sections, sprintf('<h2>Statistics</h2>%s', EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $stats_file)));
 
-  push(@right_sections, $self->_resources_text) if $self->_other_text('resources', $species);
+  push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
   push(@right_sections, $self->_downloads_text);
 
   push(@right_sections, $self->_tools_text);
 
   my $other_text = $self->_other_text('other', $species);
-  push(@right_sections, $other_text) if $other_text =~ /\w/;
+  push(@left_sections, $other_text) if $other_text =~ /\w/;
 
   $html .= '<div class="column-wrapper"><div class="column-two"><div class="column-padding">'; 
   for my $section (@left_sections){
