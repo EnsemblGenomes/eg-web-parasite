@@ -225,51 +225,45 @@ sub content {
   }
   ##
 
-  my (@sections);
+  my @left_sections;
+  my @right_sections;
   
+  push(@left_sections, $self->_assembly_text);
+  push(@left_sections, $self->_genebuild_text) if $species_defs->SAMPLE_DATA && $species_defs->SAMPLE_DATA->{GENE_PARAM};
 
-  push(@sections, $self->_assembly_text);
-# $html .= '<div class="box-left"><div class="round-box home-box unbordered">' . $self->_assembly_text . '</div></div>';
-  push(@sections, $self->_genebuild_text) if $species_defs->SAMPLE_DATA && $species_defs->SAMPLE_DATA->{GENE_PARAM};
- #$html .= '<div class="box-right"><div class="round-box home-box unbordered">' . $self->_genebuild_text . '</div></div>' if $species_defs->SAMPLE_DATA->{GENE_PARAM};
-
-# my @box_class = ('box-left', 'box-right');
-# my $side = 0;
-  
   if ($self->has_compara or $self->has_pan_compara) {
-    push(@sections, $self->_compara_text);
- #  $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $self->_compara_text . '</div></div>';
- #  $side++;
+    push(@left_sections, $self->_compara_text);
   }
 
   if ($hub->database('variation')) {
-    push(@sections, $self->_variation_text);
+    push(@left_sections, $self->_variation_text);
   }
- #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $self->_variation_text . '</div></div>';
- #$side++;
 
   if ($hub->database('funcgen')) {
-    push(@sections, $self->_funcgen_text);
-  # $html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $self->_funcgen_text . '</div></div>';
-  # $side++;
+    push(@left_sections, $self->_funcgen_text);
   }
 
-  push(@sections, $self->_resources_text) if $self->_other_text('resources', $species);
+  my $stats_file = '/ssi/species/stats_' . $self->hub->species . '.html';
+  push(@right_sections, sprintf('<h2>Statistics</h2>%s', EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $stats_file)));
 
-  push(@sections, $self->_downloads_text);
+  push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
-  push(@sections, $self->_tools_text);
+  push(@right_sections, $self->_downloads_text);
+
+  push(@right_sections, $self->_tools_text);
 
   my $other_text = $self->_other_text('other', $species);
-  push(@sections, $other_text) if $other_text =~ /\w/;
- #$html .= '<div class="' . $box_class[$side % 2] . '"><div class="round-box home-box unbordered">' . $other_text . '</div></div>' if $other_text =~ /\w/;
-  
-  my @box_class = ('box-left', 'box-right');
-  my $side = 0;
-  for my $section (@sections){
-    $html .= sprintf(qq{<div class="%s"><div class="round-box home-box">%s</div></div>}, $box_class[$side++ %2],$section);
+  push(@left_sections, $other_text) if $other_text =~ /\w/;
+
+  $html .= '<div class="column-wrapper"><div class="column-two"><div class="column-padding">'; 
+  for my $section (@left_sections){
+    $html .= sprintf(qq{<div class="round-box home-box">%s</div>}, $section);
   }
-    
+  $html .= '</div></div><div class="column-two"><div class="column-padding">';
+  for my $section (@right_sections) {
+    $html .= sprintf(qq{<div class="round-box home-box">%s</div>}, $section);
+  }
+  $html .= '</div></div></div>';
 
   my $ext_source_html = $self->external_sources;
   $html .= '<div class="column-wrapper"><div class="round-box home-box unbordered">' . $ext_source_html . '</div></div>' if $ext_source_html;
@@ -346,8 +340,6 @@ sub _assembly_text {
   $html .= "<h2>Genome assembly: $assembly</h2>";
   $html .= "<p>$assembly_description</p>";
 
-  $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
-
 #  # Link to assembly mapper
 #  if ($species_defs->ENSEMBL_AC_ENABLED) {
 #    $html .= sprintf('<a href="%s" class="nodeco"><img src="%s24/tool.png" class="homepage-link" />Convert your data to %s coordinates</a></p>', $hub->url({'type' => 'Tools', 'action' => 'AssemblyConverter'}), $img_url, $current_assembly);
@@ -422,8 +414,6 @@ sub _genebuild_text {
 
   $html .= "<h2>Gene annotation</h2><p>$annotation_description</p><p><strong>What can I find?</strong> Protein-coding and non-coding genes, splice variants, cDNA and protein sequences, non-coding RNAs.</p>";
 
-  $html .= qq(<p><a href="/$species/Info/Annotation/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
-
   return $html;
 }
 
@@ -484,22 +474,10 @@ sub _compara_text {
 
   $html .= '<h2>Comparative genomics</h2>';
 
-  if ($self->is_bacteria) {
-    $html .= '<p><strong>What can I find?</strong> ';
-    $html .= 'Gene families based on HAMAP and PANTHER classification.</p>'                if $self->has_compara;
-    $html .= 'Homologues and gene trees including species across the pan-taxonomic range.' if $self->has_pan_compara;
-    $html .= '</p>';
-  }
-  else {
-    $html .= '<p><strong>What can I find?</strong>  Homologues, gene trees, and whole genome alignments across multiple species.</p>';
-  }
-  #$html .= qq(<p><a href="http://ensemblgenomes.org/info/data/whole_genome_alignment" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about comparative analysis</a></p>);
+  $html .= '<p><strong>What can I find?</strong>  Orthologues, paralogues, and gene trees across multiple species.</p>';
 
-  #if ($species_defs->ENSEMBL_FTP_URL) {
-  #  my $ftp_url = sprintf '%s/release-%s/emf/ensembl-compara/', $species_defs->ENSEMBL_FTP_URL, $ensembl_version;
-  #  $html .= qq(<p><a href="$ftp_url" class="nodeco"><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download alignments</a> (EMF)</p>) 
-  #    unless $self->is_bacteria;
-  #}
+  $html .= qq(<p><a href="/info/Browsing/compara.html" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
+
   my $aligns = EnsEMBL::Web::Component::GenomicAlignments->new($hub)->content;
   if ($aligns) {
     $html .= sprintf(qq{<p><div class="js_panel"><img src="%s24/info.png" alt="" class="homepage-link" />Genomic alignments [%s]</div></p>}, $img_url, $aligns);
