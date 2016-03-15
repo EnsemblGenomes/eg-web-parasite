@@ -189,7 +189,8 @@ sub node_to_dynatree {
     
     push @output, {
       key      => $name,
-      title    => $name . ' (' . $node->count_leaves . ')',
+      title    => $name,
+#      title    => $name . ' (' . $node->count_leaves . ')',
       children => [ sort {$a->{title} cmp $b->{title}} @children ],
       isFolder => \"1" 
     };
@@ -200,9 +201,11 @@ sub node_to_dynatree {
       my @parts = split("_", $dba->species);
       my $bioproj = uc($parts[2]);  # Extract the BioProject ID from the species key
       my $display = $bioproj eq '' ? $name : "$name ($bioproj)";
+      my $biomart = $bioproj eq '' ? lc(substr($parts[0], 0, 1)) . lc($parts[1]) : lc($bioproj); # The BioMart name is either BioProject (if present) or a combination of the genus initial and species
       push @output, {  
         key   => $dba->species,
         title => $display,
+        biomart => $biomart,
       };
     }
   }  
