@@ -206,13 +206,14 @@ sub _add_trackhub_tracks {
   my $style_mappings = {
                         'bigbed' => {
                                       'full'    => 'as_transcript_label',
+                                      'pack'    => 'as_transcript_label',
                                       'squish'  => 'half_height',
-                                      'pack'    => 'stack',
-                                      'dense'   => 'ungrouped',
+                                      'dense'   => 'as_alignment_nolabel',
                                       },
                         'bigwig' => {
-                                      'full'    => 'tiling',
-                                      'default' => 'compact',
+                                      'full'    => 'signal',
+                                      'default' => 'signal',
+                                      'dense'   => 'compact',
                                     },
                         'vcf' =>    {
                                       'full'    => 'histogram',
@@ -234,10 +235,10 @@ sub _add_trackhub_tracks {
 
     ## FIXME - According to UCSC's documentation, 'squish' is more like half_height than compact
     my $squish       = $track->{'visibility'} eq 'squish' || $config->{'visibility'} eq 'squish'; # FIXME: make it inherit correctly
-## ParaSite: change the parameters for source track to match our way of labelling
-    (my $source_name = $track->{'shortLabel'}) =~ s/_/ /g;
-## ParaSite
-
+## ParaSite: change the way we display the labels
+    (my $source_name = $track->{'longLabel'}) =~ s/_/ /g;
+## 
+    
     ## Translate between UCSC terms and Ensembl ones
     my $default_display = $style_mappings->{lc($type)}{$ucsc_display}
                               || $style_mappings->{lc($type)}{'default'}
@@ -263,6 +264,7 @@ sub _add_trackhub_tracks {
       desc_url    => $track->{'description_url'},
       description => $desc_url ? qq(<span class="_dyna_load"><a class="hidden" href="$desc_url">$track->{'longLabel'}</a>Loading &#133;</span>) : '',
       longLabel   => $track->{'longLabel'},
+      caption     => $track->{'shortLabel'},
       source_url  => $track->{'bigDataUrl'},
       colour      => exists $track->{'color'} ? $track->{'color'} : undef,
       colorByStrand => exists $track->{'colorByStrand'} ? $track->{'colorByStrand'} : undef,
