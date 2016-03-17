@@ -119,4 +119,52 @@ sub intra_species_alignments {
   return $self->{_intra_species_alignments}->{$cache_key};
 }
 
+sub order_species_by_clade {
+### Read the site-wide configuration variables TAXON_LABEL and TAXON_ORDER
+### and sort all the SpeciesTreeNode objects given in $species
+### @param  : arrayref of SpeciesTreeNode objects
+### @return : arrayref of SpeciesTreeNode objects
+
+  my ($self, $species) = @_;
+
+  my $species_defs  = $self->species_defs;
+  my $species_info  = $self->get_species_info;
+  my $labels        = $species_defs->TAXON_LABEL; ## sort out labels
+
+  my (@group_order, %label_check);
+  foreach my $taxon (@{$species_defs->TAXON_ORDER || []}) {
+    my $label = $labels->{$taxon} || $taxon;
+    push @group_order, $label unless $label_check{$label}++;
+  }
+
+  my %stn_by_name = ();
+  foreach my $stn (@$species) {
+    $stn_by_name{$stn->genome_db->name} = $stn;
+  };
+
+  ## Sort species into desired groups
+  my %phylo_tree;
+
+  foreach (keys %$species_info) {
+    my $group = $species_info->{$_}->{'group'};
+    my $group_name = $group ? $labels->{$group} || $group : 'no_group';
+    push @{$phylo_tree{$group_name}}, $_;
+  }
+
+  my @final_sets;
+
+  ## Output in taxonomic groups, ordered by common name
+  foreach my $group_name (@group_order) {
+    my $species_list = $phylo_tree{$group_name};
+
+    if ($species_list && ref $species_list eq 'ARRAY' && scalar @$species_list) {
+      my $name_to_use = ($group_name eq 'no_group') ? (scalar(@group_order) > 1 ? 'Other species' : 'All species') : encode_entities($group_name);
+      my @sorted_by_common = sort { $species_info->{$a}->{'common'} cmp $species_info->{$b}->{'common'} } @$species_list;
+      push @final_sets, [$name_to_use, [map {encode_entities($stn_by_name{lc $_})} @sorted_by_common]];
+    }
+  }
+
+  return \@final_sets;
+}
+
 1;
