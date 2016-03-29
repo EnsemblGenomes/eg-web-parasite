@@ -57,14 +57,15 @@ sub content {
           Filtered by species: <strong>%s</strong> <a href="?%s%s"><img src="/i/16/cross.png" title="Remove filter"></a>
         </span>
       </div>',
-      $search->filter_species,
+## ParaSite
+      sprintf('%s (%s)', $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_BIO_NAME'), $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_BIOPROJECT')),
+##
       $search->query_string
     ); 
   } elsif ($search->hit_count > 1 and $search->current_unit ne 'ensembl' and $search->current_unit ne 'wormbase' and $search->current_index eq 'gene' and $search->species eq 'all') {
    
     my @species = @{ $search->get_facet_species };
-    $html .= @species > 200 ? $self->_render_filter_autocomplete(\@species)
-                            : $self->_render_filter_dropdown(\@species);
+    $html .= $self->_render_filter_dropdown(\@species);
   }
 
   if ($search->hit_count) {
@@ -184,7 +185,10 @@ sub _render_filter_dropdown {
 
   my $options;
   foreach (sort @$species) {
-    $options .= qq{<option value="$_">$_</option>\n};
+## ParaSite: get the correct display name
+    my $display_name = sprintf('%s (%s)', $self->hub->species_defs->get_config($_, 'SPECIES_BIO_NAME'), $self->hub->species_defs->get_config($_, 'SPECIES_BIOPROJECT'));
+##
+    $options .= qq{<option value="$_">$display_name</option>\n};
   }
 
   if(@$species) { 
@@ -205,25 +209,6 @@ sub _render_filter_dropdown {
   } else {
     return '<div id="species_filter" class="js_panel"><div class="search_filter"></div></div>';
   }
-}
-
-sub _render_filter_autocomplete {
-  my ($self, $species)  = @_;
-  my $species_json_html = encode_entities(to_json($species));
-  my $prompt            = 'Start typing a species name...';
-  
-  return qq{
-    <div id="species_filter" class="js_panel">
-      <input type="hidden" class="panel_type" value="SpeciesFilterAutocomplete" />
-      <input type="hidden" id="species_autocomplete_json" value="$species_json_html" />
-      <div class="search_filter">
-        <span>
-          Filter by species: 
-          <input type="text" id="species_autocomplete" class="ui-autocomplete-input inactive" style="width:300px" title="$prompt" value="$prompt" />
-        </span>
-      </div>
-    </div>
-  };
 }
 
 sub render_hit {

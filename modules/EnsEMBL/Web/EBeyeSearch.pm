@@ -111,7 +111,9 @@ sub hit_count {
   if ($self->filter_species) {
   
     # get dynamic hit count based on current species filter
-    my $query = sprintf("%s AND genomic_unit:%s AND species:%s",
+## ParaSite
+    my $query = sprintf("%s AND genomic_unit:%s AND system_name:%s",
+##
       $self->ebeye_query,
       $self->current_unit,
       $self->filter_species,
@@ -231,7 +233,7 @@ sub get_facet_species {
     # we hit the EBEye facet limit - so present all species instead
     $genomes = $meta->genome_info_adaptor->fetch_all_by_division($division);
   }
-  
+
   return [ map {ucfirst $_->species} @$genomes ];  
 }
 
@@ -259,7 +261,9 @@ sub get_gene_hits {
     my @multi_fields   = qw(transcript gene_synonym genetree WORMBASE_ORTHOLOG);
     my $query          = $self->ebeye_query;
        $query         .= " AND genomic_unit:$unit" if $unit ne 'ensembl';
-       $query         .= " AND species:$filter_species" if $filter_species;
+## ParaSite
+       $query         .= " AND system_name:" . lc($filter_species) if $filter_species;
+##
     $hits = $self->rest->get_results_as_hashes($domain, $query, 
       {
         fields => join(',', @single_fields, @multi_fields), 
