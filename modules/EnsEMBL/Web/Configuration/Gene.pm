@@ -30,7 +30,6 @@ sub modify_tree {
 
   $self->delete_node('Family');
   $self->delete_node('Gene_families');
-  $self->delete_node('Literature');
   $self->delete_node('PanCompara');
   $self->delete_node('Alleles');
   $self->delete_node('TranscriptComparison');
