@@ -38,6 +38,7 @@ sub menus {
     prediction          => [ 'Prediction transcripts', 'gene_transcript' ],
     lrg                 => [ 'LRG transcripts',        'gene_transcript' ],
     rnaseq              => [ 'RNASeq models',          'gene_transcript' ],
+    dna_align_ncrna_pred => [ 'ncRNA Predictions',      'gene_transcript' ],
     
 ## ParaSite
     parasite_rnaseq     => 'RNA-Seq Alignments',

@@ -33,6 +33,7 @@ sub init {
     trans_associated
     transcript
     prediction
+    dna_align_ncrna_pred
     dna_align_cdna
     dna_align_est
     dna_align_rna
