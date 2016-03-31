@@ -33,10 +33,11 @@ sub render {
   my $hub                 = $self->hub;
   my $species_defs        = $hub->species_defs;
   my $page_species        = $hub->species || 'Multi';
-  my $species_name        = $page_species eq 'Multi' ? '' : $species_defs->DISPLAY_NAME;
+  my $species_name        = $page_species eq 'Multi' ? '' : $hub->species;
+  my $species_display     = $page_species eq 'Multi' ? '' : $species_defs->DISPLAY_NAME;
   my $search_url          = $species_defs->ENSEMBL_WEB_ROOT . "$page_species/Search/Results";
 
-  my $html = qq{<form action="$search_url" method="GET"><div class="search" style="width: 420px; border: 1px solid lightgrey"><input type="hidden" name="site" value="ensemblthis" /><input type="hidden" name="filter_species" value="$species_name" /><input type="text" id="q" name="q" class="query" style="width: 380px" required placeholder="Search $species_name&hellip;" /><input type="submit" value="1"/></div></form>};
+  my $html = qq{<form action="$search_url" method="GET"><div class="search" style="width: 420px; border: 1px solid lightgrey"><input type="hidden" name="site" value="ensemblthis" /><input type="hidden" name="filter_species" value="$species_name" /><input type="text" id="q" name="q" class="query" style="width: 380px" required placeholder="Search $species_display&hellip;" /><input type="submit" value="1"/></div></form>};
 
   return sprintf '<div id="SpeciesSearch" class="js_panel home-search-flex"><input type="hidden" class="panel_type" value="SearchBox" />%s</div>', $html;
 }
