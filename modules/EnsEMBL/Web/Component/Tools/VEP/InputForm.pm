@@ -181,5 +181,139 @@ sub get_cacheable_form_node {
 
 }
 
+sub _build_identifiers {
+  my ($self, $form) = @_;
+
+  my $hub       = $self->hub;
+  my $object    = $self->object;
+  my $species   = $object->species_list;
+  my $fd        = $object->get_form_details;
+
+  my @fieldsets;
+
+  ## IDENTIFIERS
+  my $current_section = 'Identifiers';
+  my $fieldset        = $form->add_fieldset({'legend' => $current_section, 'no_required_notes' => 1});
+
+  $fieldset->add_field({
+    'type'        => 'checkbox',
+    'name'        => 'symbol',
+    'label'       => $fd->{symbol}->{label},
+    'helptip'     => $fd->{symbol}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 1
+  });
+
+  $fieldset->add_field({
+    'field_class' => '_stt_core _stt_merged _stt_gencode_basic',
+    'type'        => 'checkbox',
+    'name'        => 'ccds',
+    'label'       => $fd->{ccds}->{label},
+   'helptip'     => $fd->{ccds}->{helptip},
+    'value'       => 'yes',
+  });
+
+  $fieldset->add_field({
+    'type'        => 'checkbox',
+    'name'        => 'protein',
+    'label'       => $fd->{protein}->{label},
+    'helptip'     => $fd->{protein}->{helptip},
+    'value'       => 'yes'
+  });
+
+  $fieldset->add_field({
+    'type'        => 'checkbox',
+    'name'        => 'uniprot',
+    'label'       => $fd->{uniprot}->{label},
+    'helptip'     => $fd->{uniprot}->{helptip},
+    'value'       => 'yes'
+  });
+
+## ParaSite: disable HGVS option
+#  $fieldset->add_field({
+#    'type'        => 'checkbox',
+#    'name'        => 'hgvs',
+#    'label'       => $fd->{hgvs}->{label},
+#    'helptip'     => $fd->{hgvs}->{helptip},
+#    'value'       => 'yes'
+#  });
+##
+
+  $self->_end_section(\@fieldsets, $fieldset, $current_section);
+
+  ## FREQUENCY DATA
+  # only for the species that have variants
+  $current_section = 'Frequency data';
+  if ((first { $_->{'variation'} } @$species) || scalar @{$self->_get_plugins_by_section($current_section)}) {
+    $fieldset = $form->add_fieldset({'legend' => $current_section, 'no_required_notes' => 1});
+
+    $fieldset->add_field({
+      'field_class' => '_stt_var',
+      'label'       => $fd->{check_existing}->{label},
+      'helptip'     => $fd->{check_existing}->{helptip},
+      'type'        => 'dropdown',
+      'name'        => "check_existing",
+      'value'       => 'yes',
+      'class'       => '_stt',
+      'values'      => $fd->{check_existing}->{values}
+    });
+
+    $fieldset->append_child('div', {
+      'class'         => '_stt_Homo_sapiens',
+      'children'      => [$fieldset->add_field({
+        'type'          => 'checklist',
+        'label'         => 'Frequency data for co-located variants',
+       'field_class'   => [qw(_stt_yes _stt_allele)],
+        'values'        => [{
+          'name'          => "gmaf",
+          'caption'       => $fd->{gmaf}->{label},
+          'helptip'       => $fd->{gmaf}->{helptip},
+          'value'         => 'yes',
+          'checked'       => 1
+        }, {
+          'name'          => "maf_1kg",
+          'caption'       => $fd->{maf_1kg}->{label},
+          'helptip'       => $fd->{maf_1kg}->{helptip},
+          'value'         => 'yes',
+          'checked'       => 0
+        }, {
+          'name'          => "maf_esp",
+          'caption'       => $fd->{maf_esp}->{label},
+          'helptip'       => $fd->{maf_esp}->{helptip},
+          'value'         => 'yes',
+          'checked'       => 0
+        }, {
+          'name'          => "maf_exac",
+          'caption'       => $fd->{maf_exac}->{label},
+          'helptip'       => $fd->{maf_exac}->{helptip},
+          'value'         => 'yes',
+          'checked'       => 0
+        }]
+      }), $fieldset->add_field({
+        'type' => 'checkbox',
+        'name' => 'pubmed',
+        'label' => $fd->{pubmed}->{label},
+        'helptip' => $fd->{pubmed}->{helptip},
+        'value' => 'yes',
+        'checked' => 1,
+        'field_class'   => [qw(_stt_yes _stt_allele)],
+      }), $fieldset->add_field({
+        'type' => 'checkbox',
+        'name' => 'failed',
+        'label' => $fd->{failed}->{label},
+        'helptip' => $fd->{failed}->{helptip},
+        'value' => 1,
+        'checked' => 0,
+        'field_class'   => [qw(_stt_yes _stt_allele)],
+      })]
+    });
+
+    $self->_end_section(\@fieldsets, $fieldset, $current_section);
+  }
+
+  $self->_plugin_footer($fieldset) if $self->_have_plugins;
+
+  return @fieldsets;
+}
 
 1;

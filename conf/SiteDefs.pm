@@ -168,6 +168,11 @@ sub update_conf {
 
     $SiteDefs::EBI_BLAST_DB_PREFIX = 'wormbase-parasite';
 
+    $SiteDefs::ENSEMBL_VEP_PLUGIN_CONFIG_FILES  = [
+                                                  $SiteDefs::ENSEMBL_SERVERROOT.'/VEP_plugins/plugin_config.txt', # VEP_plugins is cloned from github.com/ensembl-variation/VEP_plugins
+                                                  $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/conf/vep_plugins_web_config.txt'
+                                                ];
+
 }
 
 1;
