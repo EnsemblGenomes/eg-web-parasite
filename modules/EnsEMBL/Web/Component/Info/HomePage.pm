@@ -476,7 +476,7 @@ sub _compara_text {
 
   $html .= '<p><strong>What can I find?</strong>  Orthologues, paralogues, and gene trees across multiple species.</p>';
 
-  $html .= qq(<p><a href="/info/Browsing/compara.html" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
+  $html .= qq(<p><a href="/info/Browsing/compara/index.html" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
 
   my $aligns = EnsEMBL::Web::Component::GenomicAlignments->new($hub)->content;
   if ($aligns) {
