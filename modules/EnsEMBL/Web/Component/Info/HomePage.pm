@@ -337,6 +337,7 @@ sub _assembly_text {
   if ($accession) {
     $assembly = $hub->get_ExtURL_link($current_assembly, 'ENA', $accession);
   }
+  $assembly_description = 'Imported from <a href="http://www.wormbase.org">WormBase</a>' if($species_defs->PROVIDER_NAME =~ /^WormBase$/i && !$assembly_description);
   $html .= "<h2>Genome assembly: $assembly</h2>";
   $html .= "<p>$assembly_description</p>";
 
