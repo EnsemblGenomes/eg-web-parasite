@@ -52,6 +52,7 @@ sub get_result_urls {
   # Target url (only for sources other than genmoic seq)
   if ($source !~ /latestgp/i) {
     my $target = $self->get_target_object($hit, $source);
+    return unless $target;  ## ParaSite: do not error out if the object is not found (i.e. the annotation has changed since the BLAST was run and the table being displayed)
        $target = $target->transcript if $target->isa('Bio::EnsEMBL::Translation');
 
     my $param  = $target->isa('Bio::EnsEMBL::PredictionTranscript') ? 'pt' : 't';
