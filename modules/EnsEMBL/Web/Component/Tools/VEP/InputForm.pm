@@ -316,4 +316,10 @@ sub _build_identifiers {
   return @fieldsets;
 }
 
+sub _plugin_footer {
+  my ($self, $fieldset) = @_;
+
+  return;
+}
+
 1;
