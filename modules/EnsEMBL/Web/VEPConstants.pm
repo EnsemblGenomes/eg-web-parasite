@@ -9,5 +9,25 @@ sub INPUT_FORMATS {
   ];
 }
 
+sub CONFIG_SECTIONS {
+  return [{
+    'id'        => 'identifiers',
+    'title'     => 'Identifiers and frequency data',
+    'caption'   => 'Additional identifiers for genes, transcripts and variants; frequency data'
+  }, {
+    'id'        => 'extra',
+    'title'     => 'Extra options',
+    'caption'   => 'e.g. transcript biotype and protein domains'
+  }, {
+    'id'        => 'filters',
+    'title'     => 'Filtering options',
+    'caption'   => 'Pre-filter results by frequency or consequence type'
+  # }, {
+  #  'id'        => 'plugins',
+  #  'title'     => 'Plugins',
+  #  'caption'   => 'Extra functionality from VEP plugins'
+  }];
+}
+
 1;
 
