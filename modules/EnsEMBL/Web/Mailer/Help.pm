@@ -51,7 +51,6 @@ sub send_help_contact_email {
   $self->subject  = $hub->param('subject') || '(no subject)';
   $self->message  = sprintf "Support question from %s\n\n%s\n\nComments:\n\n%s",
     $sd->ENSEMBL_SERVERNAME,
-    $self->report_header([ 'Last Search', $hub->param('string')||'-none-' ]),
     $hub->param('message')
   ;
   $self->attachment = $hub->param('attachment');
