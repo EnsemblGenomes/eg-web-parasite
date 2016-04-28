@@ -24,9 +24,9 @@ sub update_conf {
     $SiteDefs::ENSEMBL_PORT = 8032;
     $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
 
-    $SiteDefs::SITE_RELEASE_VERSION = '6';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '252';
-    $SiteDefs::SITE_RELEASE_DATE = 'April 2016';
+    $SiteDefs::SITE_RELEASE_VERSION = '7';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '254';
+    $SiteDefs::SITE_RELEASE_DATE = 'August 2016';
     $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
     $SiteDefs::GENOMIC_UNIT = 'parasite';
     $SiteDefs::EBEYE_SEARCH_UNITS = [qw(parasite wormbase)];
