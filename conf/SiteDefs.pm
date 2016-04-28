@@ -21,26 +21,50 @@ use strict;
 
 sub update_conf {
 
-    $SiteDefs::ENSEMBL_PORT = 8032;
-    $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
-
+    ### Release Configuration - to be updated for each release
     $SiteDefs::SITE_RELEASE_VERSION = '7';
     $SiteDefs::WORMBASE_RELEASE_VERSION = '254';
     $SiteDefs::SITE_RELEASE_DATE = 'August 2016';
-    $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
+    
+    ### Website Configuration
+    $SiteDefs::SITE_NAME = 'WormBase ParaSite';
+    $SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
+    $SiteDefs::EG_DIVISION = 'parasite';
     $SiteDefs::GENOMIC_UNIT = 'parasite';
+    $SiteDefs::ENSEMBL_PORT = 8032;
+    $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
+    $SiteDefs::SITE_FTP= 'ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
+    
+    ### Database Configuration
+    $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
+    
+    ### Search Configuration
     $SiteDefs::EBEYE_SEARCH_UNITS = [qw(parasite wormbase)];
     $SiteDefs::EBEYE_SITE_NAMES = {
       parasite => 'WormBase ParaSite',
       wormbase => 'WormBase',
     };
     $SiteDefs::EBEYE_SEARCH_DOMAIN = 'wormbaseParasite';
+
+    ### Tools Configuration
+    $SiteDefs::ENSEMBL_BLAST_ENABLED     = 1;
+    $SiteDefs::ENSEMBL_VEP_ENABLED       = 1;
+    $SiteDefs::ENSEMBL_MART_ENABLED      = 1;
+    $SiteDefs::ENSEMBL_AC_ENABLED        = 0;
+    $SiteDefs::ENSEMBL_IDM_ENABLED       = 0;
     $SiteDefs::ENSEMBL_ENASEARCH_ENABLED = 0;
+    $SiteDefs::ENSEMBL_TOOLS_JOB_DISPATCHER->{Blast} = 'NcbiBlast';
+    $SiteDefs::EBI_BLAST_DB_PREFIX = 'wormbase-parasite';
+    $SiteDefs::ENSEMBL_VEP_PLUGIN_CONFIG_FILES  = [
+                  $SiteDefs::ENSEMBL_SERVERROOT.'/VEP_plugins/plugin_config.txt', # VEP_plugins is cloned from github.com/ensembl-variation/VEP_plugins
+                  $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/conf/vep_plugins_web_config.txt'
+                ];
+    $SiteDefs::NCBIBLAST_REST_ENDPOINT = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
+    $SiteDefs::EBEYE_REST_ENDPOINT     = 'http://www.ebi.ac.uk/ebisearch/ws/rest';
 
+    ### Species Configuration
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
-
     # ParaSite Specific Species
-    
     $SiteDefs::__species_aliases{'Acanthocheilonema_viteae_prjeb4306'} = [qw(acanthocheilonema_viteae_prjeb4306 Acanthocheilonema_viteae_prjeb4306)];
     $SiteDefs::__species_aliases{'Ancylostoma_caninum_prjna72585'} = [qw(ancylostoma_caninum_prjna72585 Ancylostoma_caninum_prjna72585)];
     $SiteDefs::__species_aliases{'Ancylostoma_ceylanicum_prjna231479'} = [qw(ancylostoma_ceylanicum_prjna231479 Ancylostoma_ceylanicum_prjna231479)];
@@ -140,8 +164,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Trichuris_suis_prjna208415'} = [qw(trichuris_suis_prjna208415 Trichuris_suis_prjna208415 Trichuris_suis_prjna208415_-_male)];
     $SiteDefs::__species_aliases{'Trichuris_suis_prjna208416'} = [qw(trichuris_suis_prjna208416 Trichuris_suis_prjna208416 Trichuris_suis_prjna208416_-_female)];
     $SiteDefs::__species_aliases{'Trichuris_trichiura_prjeb535'} = [qw(trichuris_trichiura_prjeb535 Trichuris_trichiura_prjeb535)];
-    $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536 Wuchereria_bancrofti_prjeb536)];
-    
+    $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536 Wuchereria_bancrofti_prjeb536)];  
     # Imported WormBase Species
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria)];
     $SiteDefs::__species_aliases{'Caenorhabditis_brenneri'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri)];
@@ -152,27 +175,15 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Caenorhabditis_sinica'} = [qw(caenorhabditis_sinica Caenorhabditis_sinica)];
     $SiteDefs::__species_aliases{'Caenorhabditis_tropicalis'} = [qw(caenorhabditis_tropicalis Caenorhabditis_tropicalis)];
     $SiteDefs::__species_aliases{'Panagrellus_redivivus'} = [qw(panagrellus_redivivus Panagrellus_redivivus)];
-    
+
+    ### Perl Configuration    
     @SiteDefs::ENSEMBL_PERL_DIRS    = (
       $SiteDefs::ENSEMBL_WEBROOT.'/perl',
       $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-common/perl',
       $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/perl',
     );
     
-    $SiteDefs::EG_DIVISION = 'parasite';
-    $SiteDefs::SITE_NAME = 'WormBase ParaSite';
-    $SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
-    $SiteDefs::SITE_FTP= 'ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
     
-    $SiteDefs::ENSEMBL_IDM_ENABLED = 0;
-
-    $SiteDefs::EBI_BLAST_DB_PREFIX = 'wormbase-parasite';
-
-    $SiteDefs::ENSEMBL_VEP_PLUGIN_CONFIG_FILES  = [
-                                                  $SiteDefs::ENSEMBL_SERVERROOT.'/VEP_plugins/plugin_config.txt', # VEP_plugins is cloned from github.com/ensembl-variation/VEP_plugins
-                                                  $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/conf/vep_plugins_web_config.txt'
-                                                ];
-
 }
 
 1;
