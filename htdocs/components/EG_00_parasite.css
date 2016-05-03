@@ -208,7 +208,20 @@
 .tool_buttons .config-tracks {
   background-color: #A80229;
 }
+
 .tools_bittons .config-tracks a:hover {
   background-color: #C21D44 !important;
+}
+
+.tool_buttons a {
+  border-radius: 10px 10px 10px 10px;
+}
+
+.nav div.header {
+  border-radius: 6px 6px 0 0 !important;
+}
+
+.nav ul {
+  border-radius: 0 0 6px 6px !important;
 }
 
