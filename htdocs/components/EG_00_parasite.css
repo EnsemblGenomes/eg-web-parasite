@@ -205,3 +205,10 @@
   padding-left: 10px;
 }
 
+.tool_buttons .config-tracks {
+  background-color: #A80229;
+}
+.tools_bittons .config-tracks a:hover {
+  background-color: #C21D44 !important;
+}
+
