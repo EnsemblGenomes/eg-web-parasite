@@ -52,6 +52,12 @@ sub modify_tree {
       top      EnsEMBL::Web::Component::Location::Region
     )]
   );
+
+  $self->create_node('EVA_Variant', 'EVA Variant Information',
+    [qw(eva_variant EnsEMBL::Web::Component::Location::EVA_Variant)],
+    { 'no_menu_entry' => 1 }
+  );
+
   ## ParaSite
 
 }

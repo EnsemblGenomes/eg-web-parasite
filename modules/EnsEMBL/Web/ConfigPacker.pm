@@ -229,9 +229,81 @@ sub _munge_meta {
     }
 ##  
 
+## ParaSite: get the tracks from EVA
+    $self->tree($species)->{'EVA_TRACKS'} = $self->get_EVA_tracks($species);
+##
+
   }
 
   $genome_info_adaptor->{dbc}->db_handle->disconnect if $genome_info_adaptor; # EG - hacky, but seems to be needed
+}
+
+sub get_EVA_tracks {
+  my ($self, $species) = @_;
+  
+  my $assembly_info = $self->eva_api("http://www.ebi.ac.uk/eva/webservices/rest/v1/meta/species/list");
+  my $eva_species;
+  my $eva_assembly;
+  foreach my $result_set (@{$assembly_info->{response}}) {
+    if($result_set->{numResults} == 0) {
+      next;
+    }
+    foreach my $dataset (@{$result_set->{result}}) {
+      if($dataset->{assemblyAccession} eq $self->tree->{$species}{'ASSEMBLY_ACCESSION'}) {
+        $eva_species = ucfirst($dataset->{taxonomyEvaName});
+        $eva_assembly = sprintf('%s_%s', $dataset->{taxonomyCode}, $dataset->{assemblyCode});
+      }
+    }
+  }  
+  return unless $eva_species && $eva_assembly;
+
+  my $data_structure = $self->eva_api(sprintf("http://www.ebi.ac.uk/eva/webservices/rest/v1/meta/studies/all?browserType=sgv&species=%s", $eva_species));
+  
+  my $track_list = [];
+  foreach my $result_set (@{$data_structure->{response}}) {
+    if($result_set->{numResults} == 0) {
+      next;
+    }
+    foreach my $dataset (@{$result_set->{result}}) {
+      my $track = {
+        'name'        => $dataset->{name},
+        'study_id'    => $dataset->{id},
+        'description' => $dataset->{description},
+        'eva_species' => $eva_assembly
+      };
+      push(@$track_list, $track);
+    }
+  }
+  
+  return $track_list;
+    
+}
+
+sub eva_api {
+  my ($self, $url) = @_;
+  
+  my $uri = URI->new($url);
+  
+  my $can_accept;
+  eval { $can_accept = HTTP::Message::decodable() };
+
+  unless ($self->{user_agent}) {
+    my $ua = LWP::UserAgent->new();
+    $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
+    $ua->env_proxy;
+    $ua->timeout(10);
+    $self->{user_agent} = $ua;
+  }
+  
+  my $response = $self->{user_agent}->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+  my $content  = $can_accept ? $response->decoded_content : $response->content;
+  
+  if ($response->is_error) {
+    warn 'Error loading EVA data: ' . $response->status_line;
+    return;
+  }
+  
+  return from_json($content); 
 }
 
 1;
