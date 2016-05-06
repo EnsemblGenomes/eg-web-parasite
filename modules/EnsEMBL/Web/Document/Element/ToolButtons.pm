@@ -37,20 +37,20 @@ sub init {
         function  => undef,
       })
     });
-  }
 
-  if($view_config->type eq 'Location') {
-    $self->add_entry({
-      caption => 'Add custom tracks',
-      class   => 'modal_link',
-      rel     => 'modal_user_data',
-      url     => $hub->url({
-        time    => time,
-        type    => 'UserData',
-        action  => $has_data ? 'ManageData' : 'SelectFile',
-        __clear => 1
-      })
-    });
+    if($view_config->type eq 'Location') {
+      $self->add_entry({
+        caption => 'Add custom tracks',
+        class   => 'modal_link',
+        rel     => 'modal_user_data',
+        url     => $hub->url({
+          time    => time,
+          type    => 'UserData',
+          action  => $has_data ? 'ManageData' : 'SelectFile',
+          __clear => 1
+        })
+      });
+    }
   }
 
   if ($object && $object->can_export) {
