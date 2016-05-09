@@ -32,7 +32,6 @@ sub modify_tree {
   $self->delete_node('Gene_families');
   $self->delete_node('PanCompara');
   $self->delete_node('Alleles');
-  $self->delete_node('TranscriptComparison');
   $self->delete_node('Evidence');
   $self->delete_node('SecondaryStructure');
   $self->delete_node('Regulation');
