@@ -230,7 +230,15 @@ sub _add_trackhub_tracks {
 
     my $on_off = $config->{'on_off'} || $track->{'on_off'};
     ## Turn track on if there's no higher setting turning it off
-    if (!$config->{'on_off'} && !$track->{'on_off'}) {
+    if ($track->{'visibility'}  eq 'hide') {
+      $on_off = 'off';
+    }
+## ParaSite: show the track if visibility is specified - as defined in the UCSC specification
+    elsif ($track->{'visibility'} =~ /^full|pack|squish|dense$/) {
+      $on_off = 'on';
+    }
+##
+    elsif (!$config->{'on_off'} && !$track->{'on_off'}) {
       $on_off = 'on';
     }
 
@@ -256,6 +264,8 @@ sub _add_trackhub_tracks {
     else {
       $options{'display'} = 'off';
     }
+warn $ucsc_display;
+warn $options{'display'};
 
     my $desc_url = $track->{'description_url'} ? $hub->url('Ajax', {'type' => 'fetch_html', 'url' => $track->{'description_url'}}) : '';
 

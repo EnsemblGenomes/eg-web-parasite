@@ -227,7 +227,7 @@ sub init {
 
 ## ParaSite
   $self->modify_configs( ['dna_align_ncrna_pred'], {'display'=>'as_alignment_label'} );
-  $self->modify_configs( ['parasite_rnaseq'], {'display'=>'signal', 'strand'=>'r'} );
+  $self->modify_configs( ['parasite_rnaseq'], {'strand'=>'r'} );
 ##
 
 }
