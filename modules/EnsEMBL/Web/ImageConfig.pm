@@ -264,8 +264,6 @@ sub _add_trackhub_tracks {
     else {
       $options{'display'} = 'off';
     }
-warn $ucsc_display;
-warn $options{'display'};
 
     my $desc_url = $track->{'description_url'} ? $hub->url('Ajax', {'type' => 'fetch_html', 'url' => $track->{'description_url'}}) : '';
 
