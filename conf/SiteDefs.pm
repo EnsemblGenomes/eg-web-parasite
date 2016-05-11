@@ -89,6 +89,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Dracunculus_medinensis_prjeb500'} = [qw(dracunculus_medinensis_prjeb500 Dracunculus_medinensis_prjeb500)];
     $SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992 Echinococcus_canadensis_prjeb8992)];
     $SiteDefs::__species_aliases{'Echinococcus_granulosus_prjeb121'} = [qw(echinococcus_granulosus_prjeb121 Echinococcus_granulosus_prjeb121)];
+    $SiteDefs::__species_aliases{'Echinococcus_granulosus_prjna182977'} = [qw(Echinococcus_granulosus_prjna182977 echinococcus_granulosus_prjna182977)];
     $SiteDefs::__species_aliases{'Echinococcus_multilocularis_prjeb122'} = [qw(echinococcus_multilocularis_prjeb122 Echinococcus_multilocularis_prjeb122)];
     $SiteDefs::__species_aliases{'Echinostoma_caproni_prjeb1207'} = [qw(echinostoma_caproni_prjeb1207 Echinostoma_caproni_prjeb1207)];
     $SiteDefs::__species_aliases{'Elaeophora_elaphi_prjeb502'} = [qw(elaeophora_elaphi_prjeb502 Elaeophora_elaphi_prjeb502)];
@@ -156,8 +157,20 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Teladorsagia_circumcincta_prjna72569'} = [qw(teladorsagia_circumcincta_prjna72569 Teladorsagia_circumcincta_prjna72569)];
     $SiteDefs::__species_aliases{'Thelazia_callipaeda_prjeb1205'} = [qw(thelazia_callipaeda_prjeb1205 Thelazia_callipaeda_prjeb1205)];
     $SiteDefs::__species_aliases{'Toxocara_canis_prjeb533'} = [qw(toxocara_canis_prjeb533 Toxocara_canis_prjeb533)];
+    $SiteDefs::__species_aliases{'Toxocara_canis_prjna248777'} = [qw(Toxocara_canis_prjna248777 toxocara_canis_prjna248777)];
+    $SiteDefs::__species_aliases{'Trichinella_britovi_prjna257433'} = [qw(Trichinella_britovi_prjna257433 trichinella_britovi_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_murrelli_prjna257433'} = [qw(Trichinella_murrelli_prjna257433 trichinella_murrelli_prjna257433)];
     $SiteDefs::__species_aliases{'Trichinella_nativa_prjna179527'} = [qw(trichinella_nativa_prjna179527 Trichinella_nativa_prjna179527)];
-    $SiteDefs::__species_aliases{'Trichinella_spiralis_prjna12603'} = [qw(trichinella_spiralis_prjna12603 Trichinella_spiralis_prjna12603)];
+    $SiteDefs::__species_aliases{'Trichinella_nativa_prjna257433'} = [qw(Trichinella_nativa_prjna257433 trichinella_nativa_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_nelsoni_prjna257433'} = [qw(Trichinella_nelsoni_prjna257433 trichinella_nelsoni_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_papuae_prjna257433'} = [qw(Trichinella_papuae_prjna257433 trichinella_papuae_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_patagoniensis_prjna257433'} = [qw(Trichinella_patagoniensis_prjna257433 trichinella_patagoniensis_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_spiralis_prjna12603'} = [qw(Trichinella_spiralis_prjna12603 trichinella_spiralis_prjna12603)];
+    $SiteDefs::__species_aliases{'Trichinella_spiralis_prjna257433'} = [qw(Trichinella_spiralis_prjna257433 trichinella_spiralis_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_t6_prjna257433'} = [qw(Trichinella_t6_prjna257433 trichinella_t6_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_t8_prjna257433'} = [qw(Trichinella_t8_prjna257433 trichinella_t8_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_t9_prjna257433'} = [qw(Trichinella_t9_prjna257433 trichinella_t9_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_zimbabwensis_prjna257433'} = [qw(Trichinella_zimbabwensis_prjna257433 trichinella_zimbabwensis_prjna257433)];
     $SiteDefs::__species_aliases{'Trichobilharzia_regenti_prjeb4662'} = [qw(trichobilharzia_regenti_prjeb4662 Trichobilharzia_regenti_prjeb4662)];
     $SiteDefs::__species_aliases{'Trichuris_muris_prjeb126'} = [qw(trichuris_muris_prjeb126 Trichuris_muris_prjeb126)];
     $SiteDefs::__species_aliases{'Trichuris_suis_prjna179528'} = [qw(trichuris_suis_prjna179528 Trichuris_suis_prjna179528)];
@@ -165,6 +178,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Trichuris_suis_prjna208416'} = [qw(trichuris_suis_prjna208416 Trichuris_suis_prjna208416 Trichuris_suis_prjna208416_-_female)];
     $SiteDefs::__species_aliases{'Trichuris_trichiura_prjeb535'} = [qw(trichuris_trichiura_prjeb535 Trichuris_trichiura_prjeb535)];
     $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536 Wuchereria_bancrofti_prjeb536)];  
+    $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjna275548'} = [qw(Wuchereria_bancrofti_prjna275548 wuchereria_bancrofti_prjna275548)];
     # Imported WormBase Species
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria)];
     $SiteDefs::__species_aliases{'Caenorhabditis_brenneri'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri)];
