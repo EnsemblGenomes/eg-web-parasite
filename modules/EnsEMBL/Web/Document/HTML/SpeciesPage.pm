@@ -135,7 +135,7 @@ sub render {
   
   $html .= qq{<div class="round-box home-box clear"><h2>Contents</h2><p>};
   foreach my $gr (@groups) {
-    my $count = scalar grep { $species{$_}->{'group'} eq $gr && $species{$_}->{'species_site'} =~ /parasite|wormbase/i } keys %species;
+    my $count = scalar grep { $species{$_}->{'group'} eq $gr } keys %species;
     $html .= qq{<a href="#$gr">$gr ($count)</a><br />};
   }
   $html .= qq{</p></div>};
