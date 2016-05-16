@@ -180,15 +180,15 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536 Wuchereria_bancrofti_prjeb536)];  
     $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjna275548'} = [qw(Wuchereria_bancrofti_prjna275548 wuchereria_bancrofti_prjna275548)];
     # Imported WormBase Species
-    $SiteDefs::__species_aliases{'Caenorhabditis_angaria'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_brenneri'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_briggsae'} = [qw(caenorhabditis_briggsae Caenorhabditis_briggsae)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_elegans'} = [qw(caenorhabditis_elegans Caenorhabditis_elegans)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_japonica'} = [qw(caenorhabditis_japonica Caenorhabditis_japonica)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_remanei'} = [qw(caenorhabditis_remanei Caenorhabditis_remanei)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_sinica'} = [qw(caenorhabditis_sinica Caenorhabditis_sinica)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_tropicalis'} = [qw(caenorhabditis_tropicalis Caenorhabditis_tropicalis)];
-    $SiteDefs::__species_aliases{'Panagrellus_redivivus'} = [qw(panagrellus_redivivus Panagrellus_redivivus)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_angaria_prjna51225'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria caenorhabditis_angaria_prjna51225 Caenorhabditis_angaria_prjna51225)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_brenneri_prjna20035'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri caenorhabditis_brenneri_prjna20035 Caenorhabditis_brenneri_prjna20035)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_briggsae_prjna10731'} = [qw(caenorhabditis_briggsae Caenorhabditis_briggsae caenorhabditis_briggsae_prjna10731 Caenorhabditis_briggsae_prjna10731)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_elegans_prjna13758'} = [qw(caenorhabditis_elegans Caenorhabditis_elegans caenorhabditis_elegans_prjna13758 Caenorhabditis_elegans_prjna13758)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_japonica_prjna12591'} = [qw(caenorhabditis_japonica Caenorhabditis_japonica caenorhabditis_japonica_prjna12591 Caenorhabditis_japonica_prjna12591)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_remanei_prjna53967'} = [qw(caenorhabditis_remanei Caenorhabditis_remanei caenorhabditis_remanei_prjna53967 Caenorhabditis_remanei_prjna53967)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_sinica_prjna194557'} = [qw(caenorhabditis_sinica Caenorhabditis_sinica caenorhabditis_sinica_prjna194557 Caenorhabditis_sinica_prjna194557)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_tropicalis_prjna53597_'} = [qw(caenorhabditis_tropicalis Caenorhabditis_tropicalis caenorhabditis_tropicalis_prjna53597_ Caenorhabditis_tropicalis_prjna53597)];
+    $SiteDefs::__species_aliases{'Panagrellus_redivivus_prjna186477'} = [qw(panagrellus_redivivus Panagrellus_redivivus panagrellus_redivivus_prjna186477 Panagrellus_redivivus_prjna186477)];
 
     ### Perl Configuration    
     @SiteDefs::ENSEMBL_PERL_DIRS    = (
