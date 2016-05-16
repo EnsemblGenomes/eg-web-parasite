@@ -110,7 +110,7 @@ sub features {
             'end'            => $variant->{end},
             'gene'           => $variant->{ensemblGeneId},
             'transcript'     => $consequence->{ensemblTranscriptId},
-            'transcript_url' => $self->hub->url({ type => 'Transcript', action => 'Summary', g => $consequence->{ensemblTranscriptId} }),
+            'transcript_url' => $self->hub->url({ type => 'Transcript', action => 'Summary', t => $consequence->{ensemblTranscriptId} }),
             'ref'            => $variant->{reference},
             'alt'            => $variant->{alternate},
             'feature_label'  => $variant->{alternate},
