@@ -87,9 +87,11 @@ sub get_variant_info {
       $html .= "<h3>Consequences</h3>";
       my $consequence_table = $self->new_table($consequence_columns, [], { data_table => 1 });
       foreach my $consequence (@{$annotation->{consequenceTypes}}) {
+        my $gene_url = $self->hub->url({ type => 'Gene', action => 'Summary', g => $consequence->{ensemblGeneId} });
+        my $transcript_url = $self->hub->url({ type => 'Transcript', action => 'Summary', g => $consequence->{ensemblTranscriptId} });
         $consequence_table->add_row([
-          $consequence->{ensemblGeneId},
-          $consequence->{ensemblTranscriptId},
+          sprintf('<a href="%s">%s</a>', $gene_url, $consequence->{ensemblGeneId}),
+          sprintf('<a href="%s">%s</a>', $transcript_url, $consequence->{ensemblTranscriptId}),
           $consequence->{strand},
           $consequence->{biotype},
           $consequence->{cDnaPosition} == 0 ? '-' : $consequence->{cDnaPosition},
