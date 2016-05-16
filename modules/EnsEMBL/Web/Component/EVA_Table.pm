@@ -28,12 +28,12 @@ sub content {
   
   my @rows = map {[
     sprintf('<a href="%s">%s</a>', $_->{'url'}, $_->{'variation_name'}),
-    $_->{'study_id'},
+    sprintf('<a href="http://www.ebi.ac.uk/eva/?eva-study=%s">%s</a>', $_->{'study_id'}, $_->{'study_id'}),
     $_->{'start'},
     $_->{'type'},
     sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
     $_->{'severe'},
-    $_->{'transcript'}
+    sprintf('<a href="%s">%s<a/>', $_->{'transcript_url'}, $_->{'transcript'})
   ]} @{$self->features};
    
   my $table = $self->new_table($columns, \@rows, { data_table => 1 });
@@ -110,6 +110,7 @@ sub features {
             'end'            => $variant->{end},
             'gene'           => $variant->{ensemblGeneId},
             'transcript'     => $consequence->{ensemblTranscriptId},
+            'transcript_url' => $self->hub->url({ type => 'Transcript', action => 'Summary', g => $consequence->{ensemblTranscriptId} }),
             'ref'            => $variant->{reference},
             'alt'            => $variant->{alternate},
             'feature_label'  => $variant->{alternate},
