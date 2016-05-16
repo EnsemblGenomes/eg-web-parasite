@@ -23,6 +23,7 @@ sub content {
     { key => 'type',          title => 'Type',                    align => 'left',  width => '10%' },
     { key => 'alleles',       title => 'Alleles',                 align => 'left',  width => '10%' },
     { key => 'consequence',   title => 'Most Severe Consequence', align => 'left',  width => '10%' },
+    { key => 'transcript',    title => 'Transcript',              align => 'left',  width => '10%' },
   ];
   
   my @rows = map {[
@@ -31,7 +32,8 @@ sub content {
     $_->{'start'},
     $_->{'type'},
     sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
-    $_->{'severe'}
+    $_->{'severe'},
+    $_->{'transcript'}
   ]} @{$self->features};
    
   my $table = $self->new_table($columns, \@rows, { data_table => 1 });
@@ -61,15 +63,9 @@ sub features {
     my $study        = $eva_study->{'study_id'};
     my $species      = $eva_study->{'eva_species'};
     my $slice        = $self->object->slice;
-  ### TODO: Check this way of getting synonyms works with all our species
-    my $feature_name = @{$slice->get_all_synonyms('EMBL')}[0] || $slice->seq_region_name;
-    my $start        = $slice->start;
-    my $end          = $slice->end;
-    my $slice_length = $slice->length;
+    my $stable_id    = $self->object->stable_id;
 
-##### TODO: Query by the gene or transcript ID in order to catch any of the up/downstream variants
-
-    my $url = "http://www.ebi.ac.uk/eva/webservices/rest/v1/segments/$feature_name:$start-$end/variants?merge=true&exclude=sourceEntries&species=$species&studies=$study";
+    my $url = "http://www.ebi.ac.uk/eva/webservices/rest/v1/genes/$stable_id/variants?merge=true&exclude=sourceEntries&species=$species&studies=$study";
     my $uri = URI->new($url);
 
     my $can_accept;
@@ -93,11 +89,11 @@ sub features {
         next;
       }
       foreach my $variant (@{$result_set->{result}}) {
-        # Get the most significant consequence type
-        my $consequence_type;
-        my @consequence_list;
-        my $score = 9999;
         foreach my $consequence (@{$variant->{annotation}->{consequenceTypes}}) {
+          next unless $consequence->{ensemblGeneId} eq $stable_id || $consequence->{ensemblTranscriptId} eq $stable_id;
+          my $consequence_type;
+          my @consequence_list;
+          my $score = 9999;
           foreach my $term (@{$consequence->{soTerms}}) {
             push(@consequence_list, $term->{soName});
             $term->{soName} =~ s/^[\d]KB_//;
@@ -106,25 +102,27 @@ sub features {
               $score = $ct{$term->{soName}};
             }
           }
-        }
 
-        # Create the feature, then push to the features list
-        my $info_url = $self->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species });
-        my $feature = {
-          'start'          => $variant->{start},
-          'end'            => $variant->{end},
-          'class'          => 'group',
-          'ref'            => $variant->{reference},
-          'alt'            => $variant->{alternate},
-          'feature_label'  => $variant->{alternate},
-          'variation_name' => $variant->{id},
-          'severe'         => $consequence_type,
-          'type'           => $variant->{type},
-          'colour_key'     => lc($consequence_type),
-          'study_id'       => $study,
-          'url'            => $info_url
-        };
-        push(@$features_list, $feature);
+          # Create the feature, then push to the features list
+          my $info_url = $self->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species });
+          my $feature = {
+            'start'          => $variant->{start},
+            'end'            => $variant->{end},
+            'gene'           => $variant->{ensemblGeneId},
+            'transcript'     => $consequence->{ensemblTranscriptId},
+            'ref'            => $variant->{reference},
+            'alt'            => $variant->{alternate},
+            'feature_label'  => $variant->{alternate},
+            'variation_name' => $variant->{id},
+            'severe'         => $consequence_type,
+            'type'           => $variant->{type},
+            'colour_key'     => lc($consequence_type),
+            'study_id'       => $study,
+            'url'            => $info_url
+          };
+          push(@$features_list, $feature);
+          
+        }
       }
     }
     
