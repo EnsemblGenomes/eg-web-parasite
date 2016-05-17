@@ -32,7 +32,7 @@ sub content {
     $_->{'start'},
     $_->{'type'},
     sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
-    $_->{'severe'},
+    $_->{'severe_col'} ? sprintf('<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>', $_->{'severe_col'}, $_->{'severe'}) : sprintf('<span class="_ht ht">%s</span>', $_->{'severe'}),
     sprintf('<a href="%s">%s<a/>', $_->{'transcript_url'}, $_->{'transcript'})
   ]} @{$self->features};
    
@@ -103,6 +103,14 @@ sub features {
             }
           }
 
+          # Lookup the colour for the most severe consequence
+          my $colours = $self->hub->species_defs->colour('variation');
+          my $colourmap = $self->hub->colourmap;
+          my $consequence_colour;
+          if(defined($colours->{lc $consequence_type})) {
+            $consequence_colour = $colourmap->hex_by_name($colours->{lc $consequence_type}->{'default'});
+          }
+
           # Create the feature, then push to the features list
           my $info_url = $self->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species });
           my $feature = {
@@ -116,6 +124,7 @@ sub features {
             'feature_label'  => $variant->{alternate},
             'variation_name' => $variant->{id},
             'severe'         => $consequence_type,
+            'severe_col'     => $consequence_colour,
             'type'           => $variant->{type},
             'colour_key'     => lc($consequence_type),
             'study_id'       => $study,
