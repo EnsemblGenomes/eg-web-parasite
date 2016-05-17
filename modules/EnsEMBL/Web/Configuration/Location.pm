@@ -53,7 +53,7 @@ sub modify_tree {
     )]
   );
 
-  $self->create_node('EVA_Variant', 'EVA Variant Information',
+  $self->create_node('EVA_Variant', 'Variant Information',
     [qw(eva_variant EnsEMBL::Web::Component::Location::EVA_Variant)],
     { 'no_menu_entry' => 1 }
   );
