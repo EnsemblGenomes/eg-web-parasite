@@ -29,6 +29,7 @@ use EnsEMBL::Web::RegObj;
 
 use LWP::UserAgent;
 use JSON;
+use List::MoreUtils qw /first_index/;
 
 use base qw(EnsEMBL::Web::Component);
 
