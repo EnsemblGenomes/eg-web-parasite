@@ -243,8 +243,7 @@ sub content {
     push(@left_sections, $self->_funcgen_text);
   }
 
-  my $stats_file = '/ssi/species/stats_' . $self->hub->species . '.html';
-  push(@right_sections, sprintf('<h2>Statistics</h2>%s', EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $stats_file)));
+  push(@right_sections, sprintf('<h2>Statistics</h2>%s', $self->_species_stats));
 
   push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
@@ -790,5 +789,112 @@ sub _get_alt_projects {
 }
 
 # /ParaSite
+
+sub _species_stats {
+  my $self = shift;
+  my $sd = $self->hub->species_defs;
+  my $html;
+  my $db_adaptor = $self->hub->database('core');
+  my $meta_container = $db_adaptor->get_MetaContainer();
+  my $genome_container = $db_adaptor->get_GenomeContainer();
+  my $html;
+
+  my $cols = [
+    { key => 'name', title => '', width => '30%', align => 'left' },
+    { key => 'stat', title => '', width => '70%', align => 'left' },
+  ];
+  my $options = {'header' => 'no', 'rows' => ['bg3', 'bg1']};
+
+  my $summary = $self->new_table($cols, [], $options);
+
+  my( $a_id ) = ( @{$meta_container->list_value_by_key('assembly.name')},
+                    @{$meta_container->list_value_by_key('assembly.default')});
+  if ($a_id) {
+    # look for long name and accession num
+    if (my ($long) = @{$meta_container->list_value_by_key('assembly.long_name')}) {
+      $a_id .= " ($long)";
+    }
+    if (my ($acc) = @{$meta_container->list_value_by_key('assembly.accession')}) {
+      $acc = sprintf('INSDC Assembly <a href="http://www.ebi.ac.uk/ena/data/view/%s">%s</a>', $acc, $acc);
+      $a_id .= ", $acc";
+    }
+  }
+  $summary->add_row({
+      'name' => '<b>Assembly</b>',
+      'stat' => $a_id.', '.$sd->ASSEMBLY_DATE
+  });
+  $summary->add_row({
+      'name' => '<b>Database Version</b>',
+      'stat' => $sd->SITE_RELEASE_VERSION.'.'.$sd->SPECIES_RELEASE_VERSION
+  });
+  my $header = $self->glossary_helptip('Genome Size', 'Golden path length');
+  $summary->add_row({
+      'name' => "<b>$header</b>",
+      'stat' => $self->thousandify($genome_container->get_ref_length())
+  });
+  $summary->add_row({
+      'name' => '<b>Data Source</b>',
+      'stat' => $sd->GENEBUILD_BY
+  });
+  $summary->add_row({
+      'name' => '<b>Genebuild Version</b>',
+      'stat' => $sd->GENEBUILD_VERSION
+  });
+
+  $html .= $summary->render;
+
+  ## GENE COUNTS
+  $html .= $self->_add_gene_counts($genome_container,$sd,$cols,$options,'','');
+
+  return $html;
+  
+}
+
+sub _add_gene_counts {
+  my ($self,$genome_container,$sd,$cols,$options,$tail,$our_type) = @_;
+
+  my @order           = qw(coding_cnt noncoding_cnt noncoding_cnt/s noncoding_cnt/l noncoding_cnt/m pseudogene_cnt transcript);
+  my @suffixes        = (['','~'], ['r',' (incl ~ '.$self->glossary_helptip('readthrough', 'Readthrough').')']);
+  my $glossary_lookup = {
+    'coding_cnt'        => 'Protein coding',
+    'noncoding_cnt/s'   => 'Small non coding gene',
+    'noncoding_cnt/l'   => 'Long non coding gene',
+    'pseudogene_cnt'    => 'Pseudogene',
+    'transcript'        => 'Transcript',
+  };
+
+  my @data;
+  foreach my $statistic (@{$genome_container->fetch_all_statistics()}) {
+    my ($name,$inner,$type) = ($statistic->statistic,'','');
+    if($name =~ s/^(.*?)_(r?)(a?)cnt(_(.*))?$/$1_cnt/) {
+      ($inner,$type) = ($2,$3);
+      $name .= "/$5" if $5;
+    }
+    next unless $type eq $our_type;
+    my $i = first_index { $name eq $_ } @order;
+    next if $i == -1;
+    ($data[$i]||={})->{$inner} = $self->thousandify($statistic->value);
+    $data[$i]->{'_key'} = $name;
+    $data[$i]->{'_name'} = $statistic->name if $inner eq '';
+    $data[$i]->{'_sub'} = ($name =~ m!/!);
+  }
+
+  my $counts = $self->new_table($cols, [], $options);
+  foreach my $d (@data) {
+    my $value = '';
+    foreach my $s (@suffixes) {
+      next unless $d->{$s->[0]};
+      $value .= $s->[1];
+      $value =~ s/~/$d->{$s->[0]}/g;
+    }
+    next unless $value;
+    my $class = '';
+    $class = 'row-sub' if $d->{'_sub'};
+    my $key = $d->{'_name'};
+    $key = $self->glossary_helptip("<b>$d->{'_name'}</b>", $glossary_lookup->{$d->{'_key'}});
+    $counts->add_row({ name => $key, stat => $value, options => { class => $class }});
+  }
+  return "<h3>Gene counts$tail</h3>".$counts->render;
+}
 
 1;
