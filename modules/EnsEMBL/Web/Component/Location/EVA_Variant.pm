@@ -66,6 +66,9 @@ sub get_variant_info {
   my $attrib_columns = [];
   my $attrib_row     = [];
   
+  my $colours = $self->hub->species_defs->colour('variation');
+  my $colourmap = $self->hub->colourmap;
+
   my $html;
   foreach my $result_set (@{$data_structure->{response}}) {
     if($result_set->{numResults} == 0) {
@@ -99,7 +102,7 @@ sub get_variant_info {
           $consequence->{aaPosition} == 0 ? '-' : $consequence->{aaPosition},
           $consequence->{aaChange},
           $consequence->{codon},
-          join('; ', map($_->{soName}, @{$consequence->{soTerms}}))
+          join('<br />', map($self->consequence_colour($_->{soName}, $colours, $colourmap), @{$consequence->{soTerms}}))
         ]);
       }
       $html .= $consequence_table->render;
@@ -132,6 +135,16 @@ sub get_variant_info {
   
   return $html;
   
+}
+
+sub consequence_colour {
+  my ($self, $term, $colours, $colourmap) = @_;
+  (my $term_short = $term) =~ s/^[\d]KB_//;
+  return $colours->{lc $term_short} ? sprintf(
+                            '<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>',
+                            $colourmap->hex_by_name($colours->{lc $term_short}->{'default'}),
+                            $term
+                          ) : $term;
 }
 
 sub user_agent {

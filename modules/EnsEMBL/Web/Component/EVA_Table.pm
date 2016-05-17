@@ -32,7 +32,7 @@ sub content {
     $_->{'start'},
     $_->{'type'},
     sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
-    $_->{'severe_col'} ? sprintf('<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>', $_->{'severe_col'}, $_->{'severe'}) : sprintf('<span class="_ht ht">%s</span>', $_->{'severe'}),
+    $_->{'severe_col'} ? sprintf('<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>', $_->{'severe_col'}, $_->{'severe'}) : sprintf('<span">%s</span>', $_->{'severe'}),
     sprintf('<a href="%s">%s<a/>', $_->{'transcript_url'}, $_->{'transcript'})
   ]} @{$self->features};
    
