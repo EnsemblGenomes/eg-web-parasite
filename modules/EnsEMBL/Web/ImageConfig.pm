@@ -273,7 +273,7 @@ sub _add_trackhub_tracks {
       name        => $track->{'track'},
       source_name => $source_name,
       desc_url    => $track->{'description_url'},
-      description => $desc_url ? qq(<span class="_dyna_load"><a class="hidden" href="$desc_url">$track->{'longLabel'}</a>Loading &#133;</span>) : '',
+      description => $desc_url ? qq(<span style="overflow-wrap: break-word" class="_dyna_load"><a class="hidden" href="$desc_url">$track->{'longLabel'}</a>Loading &#133;</span>) : '',
       longLabel   => $track->{'longLabel'},
       caption     => $track->{'shortLabel'},
       source_url  => $track->{'bigDataUrl'},
