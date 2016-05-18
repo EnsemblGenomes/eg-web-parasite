@@ -48,8 +48,9 @@ sub modify_tree {
     [qw(
       summary  EnsEMBL::Web::Component::Location::Summary
       wormbase EnsEMBL::Web::Component::WormBaseLink
-      nav      EnsEMBL::Web::Component::Location::ViewBottomNav/region
-      top      EnsEMBL::Web::Component::Location::Region
+      top      EnsEMBL::Web::Component::Location::ViewTop
+      botnav   EnsEMBL::Web::Component::Location::ViewBottomNav/region
+      bottom   EnsEMBL::Web::Component::Location::ViewBottom
     )]
   );
   ## ParaSite
