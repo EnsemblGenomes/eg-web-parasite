@@ -24,7 +24,7 @@ sub content {
   my $image_width = $self->image_width || 800; 
   my $context     = $hub->param('context') || 100; 
   my $extent      = $context eq 'FULL' ? 5000 : $context;
-  my @confs       = qw(gene transcripts_top transcripts_bottom);
+  my @confs       = qw(gene transcripts_top transcripts_bottom legend);
   my ($image_configs, $config_type, $snp_counts, $gene_object, $transcript_object, @trans);
 
   if ($object->isa('EnsEMBL::Web::Object::Gene') || $object->isa('EnsEMBL::Web::Object::LRG')){
@@ -144,6 +144,7 @@ sub content {
       $transcript_slice, $image_configs->{'transcripts_top'},
       @containers_and_configs,
       $transcript_slice, $image_configs->{'transcripts_bottom'},
+      $transcript_slice, $image_configs->{'legend'},
     ],
     [ $gene_object->stable_id ]
   );

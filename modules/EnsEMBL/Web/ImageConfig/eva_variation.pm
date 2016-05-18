@@ -75,7 +75,7 @@ sub init_gene {
     renderers  => [ 'off', 'Off', 'compact', 'Collapsed' ],
   };
   $self->add_sequence_variations_default_eva('core', {}, $options);
-  $self->add_track('other', 'variation_legend', 'Variant Legend', 'variation_legend', { strand => 'r', menu => 'no' });
+  #$self->add_track('other', 'variation_legend', 'Variant Legend', 'variation_legend', { strand => 'r', menu => 'no' });
 
   $self->add_tracks('variation',
     [ 'geneexon_bgtrack', '', 'geneexon_bgtrack', { display => 'normal', strand => 'b', menu => 'no', tag => 0, colours => 'bisque', src => 'all'                         }]
@@ -123,6 +123,17 @@ sub init_transcripts_bottom {
   );
   
   $self->get_node($_)->remove for qw(gsv_domain transcript);
+}
+
+sub init_legend {
+  my $self= shift;
+  
+  $self->add_tracks('other',
+    [ 'variation_legend', '', 'variation_legend',     { display => 'on',  strand => 'r', menu => 'no', caption => 'Variant Legend' }], 
+  );
+  
+  $self->get_node($_)->remove for qw(gsv_domain transcript);
+  
 }
 
 1;
