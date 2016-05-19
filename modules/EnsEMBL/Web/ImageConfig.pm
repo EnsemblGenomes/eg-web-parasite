@@ -44,6 +44,7 @@ sub menus {
     
 ## ParaSite
     parasite_rnaseq     => 'RNA-Seq Alignments',
+    community_annotation => 'Community Annotation',
 ##
 
 ## EG used to organise fungi/protists external tracks

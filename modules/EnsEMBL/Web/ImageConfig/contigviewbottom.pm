@@ -48,6 +48,7 @@ sub init {
     dna_align_other
     dna_align_ncrna_pred
     parasite_rnaseq
+    community_annotation
     protein_align
     protein_feature
     rnaseq
