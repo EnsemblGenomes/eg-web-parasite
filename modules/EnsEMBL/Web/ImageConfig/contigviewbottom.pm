@@ -46,10 +46,8 @@ sub init {
     dna_align_est
     dna_align_rna
     dna_align_other
-## ParaSite
     dna_align_ncrna_pred
     parasite_rnaseq
-##
     protein_align
     protein_feature
     rnaseq
