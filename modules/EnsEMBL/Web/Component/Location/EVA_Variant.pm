@@ -40,6 +40,28 @@ sub get_variant_info {
 
   my $data_structure = from_json($content);
   
+  my $vcf_help = {
+    'QUAL' => 'phred-scaled quality score for the assertion made in ALT. i.e. give -10log_10 prob(call in ALT is wrong). If ALT is ”.” (no variant) then this is -10log_10 p(variant), and if ALT is not ”.” this is -10log_10 p(no variant). High QUAL scores indicate high confidence calls. Although traditionally people use integer phred scores, this field is permitted to be a floating point to enable higher resolution for low confidence calls if desired.', 
+    'FILTER' => 'PASS if this position has passed all filters, i.e. a call is made at this position. Otherwise, if the site has not passed all filters, a semicolon-separated list of codes for filters that fail. e.g. “q10;s50” might indicate that at this site the quality is below 10 and the number of samples with data is below 50% of the total number of samples. “0” is reserved and should not be used as a filter String. If filters have not been applied, then this field should be set to the missing value.', 
+    'AA' => 'ancestral allele', 
+    'AC' => 'allele count in genotypes, for each ALT allele, in the same order as listed', 
+    'AF' => 'allele frequency for each ALT allele in the same order as listed: use this when estimated from primary data, not called genotypes', 
+    'AN' => 'total number of alleles in called genotypes', 
+    'BQ' => 'RMS base quality at this position', 
+    'CIGAR' => 'cigar string describing how to align an alternate allele to the reference allele', 
+    'DB' => 'dbSNP membership', 
+    'DP' => 'combined depth across samples, e.g. DP=154', 
+    'END' => 'end position of the variant described in this record (esp. for CNVs)', 
+    'H2' => 'membership in hapmap2', 
+    'MQ' => 'RMS mapping quality, e.g. MQ=52', 
+    'MQ0' => 'Number of MAPQ == 0 reads covering this record', 
+    'NS' => 'Number of samples with data', 
+    'SB' => 'strand bias at this position', 
+    'SOMATIC' => 'indicates that the record is a somatic mutation, for cancer genomics', 
+    'VALIDATED' => 'validated by follow-up experiment',
+    'GT' => 'genotype, encoded as alleles values separated by either of "/" or "|", e.g. The allele values are 0 for the reference allele (what is in the reference sequence), 1 for the first allele listed in ALT, 2 for the second allele list in ALT and so on. For diploid calls examples could be 0/1 or 1|0 etc. For haploid calls, e.g. on Y, male X, mitochondrion, only one allele value should be given. All samples must have GT call information; if a call cannot be made for a sample at a given locus, "." must be specified for each missing allele in the GT field (for example ./. for a diploid). The meanings of the separators are:<br />/ : genotype unphased<br />| : genotype phased'
+  };
+  
   my $anno_columns = [
     { key => 'chr',           title => 'Scaffold/Chromosome', align => 'left',    width => '10%' },
     { key => 'start',         title => 'Start',               align => 'left',    width => '10%' },
@@ -61,11 +83,11 @@ sub get_variant_info {
   ];
   my $gt_columns = [
     { key => 'sample',    title => 'Sample Name', align => 'left',    width => '65%' },
-    { key => 'genotype',  title => 'Genotype',    align => 'left',    width => '35%' },
+    { key => 'genotype',  title => 'Genotype',    align => 'left',    width => '35%', help => $vcf_help->{'GT'} },
   ];
   my $attrib_columns = [];
   my $attrib_row     = [];
-  
+   
   my $colours = $self->hub->species_defs->colour('variation');
   my $colourmap = $self->hub->colourmap;
 
@@ -114,7 +136,7 @@ sub get_variant_info {
         # VCF Attributes
         my $attributes = $result->{sourceEntries}->{$source}->{attributes};
         foreach my $attrib (keys %{$attributes}) {
-          push(@$attrib_columns, { key => $attrib, title => $attrib, align => 'left', width => '10%' });
+          push(@$attrib_columns, { key => $attrib, title => $attrib, align => 'left', width => '10%', help => $vcf_help->{$attrib} ? $vcf_help->{$attrib} : '' });
           push(@$attrib_row, $attributes->{$attrib});
         }
         my $attrib_table = $self->new_table($attrib_columns, [$attrib_row]);
