@@ -62,6 +62,8 @@ sub get_variant_info {
     'GT' => 'genotype, encoded as alleles values separated by either of "/" or "|", e.g. The allele values are 0 for the reference allele (what is in the reference sequence), 1 for the first allele listed in ALT, 2 for the second allele list in ALT and so on. For diploid calls examples could be 0/1 or 1|0 etc. For haploid calls, e.g. on Y, male X, mitochondrion, only one allele value should be given. All samples must have GT call information; if a call cannot be made for a sample at a given locus, "." must be specified for each missing allele in the GT field (for example ./. for a diploid). The meanings of the separators are:<br />/ : genotype unphased<br />| : genotype phased'
   };
   
+  my %consequences = map { $_->SO_term => $_->description } values %Bio::EnsEMBL::Variation::Utils::Constants::OVERLAP_CONSEQUENCES;
+  
   my $anno_columns = [
     { key => 'chr',           title => 'Scaffold/Chromosome', align => 'left',    width => '10%' },
     { key => 'start',         title => 'Start',               align => 'left',    width => '10%' },
@@ -124,7 +126,7 @@ sub get_variant_info {
           $consequence->{aaPosition} == 0 ? '-' : $consequence->{aaPosition},
           $consequence->{aaChange},
           $consequence->{codon},
-          join('<br />', map($self->consequence_colour($_->{soName}, $colours, $colourmap), @{$consequence->{soTerms}}))
+          join('<br />', map($self->consequence_colour($_->{soName}, \%consequences, $colours, $colourmap), @{$consequence->{soTerms}}))
         ]);
       }
       $html .= $consequence_table->render;
@@ -160,12 +162,12 @@ sub get_variant_info {
 }
 
 sub consequence_colour {
-  my ($self, $term, $colours, $colourmap) = @_;
+  my ($self, $term, $consequences, $colours, $colourmap) = @_;
   (my $term_short = $term) =~ s/^[\d]KB_//;
   return $colours->{lc $term_short} ? sprintf(
                             '<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>',
                             $colourmap->hex_by_name($colours->{lc $term_short}->{'default'}),
-                            $term
+                            $self->helptip($term, $consequences->{$term_short})
                           ) : $term;
 }
 

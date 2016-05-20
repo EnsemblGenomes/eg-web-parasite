@@ -25,6 +25,8 @@ sub content {
     { key => 'consequence',   title => 'Most Severe Consequence', align => 'left',  width => '10%' },
     { key => 'transcript',    title => 'Transcript',              align => 'left',  width => '10%' },
   ];
+
+  my %consequences = map { $_->SO_term => $_->description } values %Bio::EnsEMBL::Variation::Utils::Constants::OVERLAP_CONSEQUENCES;
   
   my @rows = map {[
     sprintf('<a href="%s">%s</a>', $_->{'url'}, $_->{'variation_name'}),
@@ -32,7 +34,7 @@ sub content {
     $_->{'start'},
     $_->{'type'},
     sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
-    $_->{'severe_col'} ? sprintf('<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>', $_->{'severe_col'}, $_->{'severe'}) : sprintf('<span">%s</span>', $_->{'severe'}),
+    $_->{'severe_col'} ? sprintf('<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>', $_->{'severe_col'}, $self->helptip($_->{'severe'}, $consequences{$_->{'severe'}})) : sprintf('<span">%s</span>', $_->{'severe'}),
     sprintf('<a href="%s">%s<a/>', $_->{'transcript_url'}, $_->{'transcript'})
   ]} @{$self->features};
    
