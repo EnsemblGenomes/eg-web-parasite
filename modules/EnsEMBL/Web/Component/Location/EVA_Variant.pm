@@ -59,7 +59,7 @@ sub get_variant_info {
     'SB' => 'strand bias at this position', 
     'SOMATIC' => 'indicates that the record is a somatic mutation, for cancer genomics', 
     'VALIDATED' => 'validated by follow-up experiment',
-    'GT' => 'genotype, encoded as alleles values separated by either of "/" or "|", e.g. The allele values are 0 for the reference allele (what is in the reference sequence), 1 for the first allele listed in ALT, 2 for the second allele list in ALT and so on. For diploid calls examples could be 0/1 or 1|0 etc. For haploid calls, e.g. on Y, male X, mitochondrion, only one allele value should be given. All samples must have GT call information; if a call cannot be made for a sample at a given locus, "." must be specified for each missing allele in the GT field (for example ./. for a diploid). The meanings of the separators are:<br />/ : genotype unphased<br />| : genotype phased'
+    'GT' => 'Genotype, shown as alleles values separated by either of "/" or "|".  If a call cannot be made for a sample at a given locus, "." is specified for each missing allele in the GT field (for example ./. for a diploid). The meanings of the separators are:<br />/ : genotype unphased<br />| : genotype phased'
   };
   
   my %consequences = map { $_->SO_term => $_->description } values %Bio::EnsEMBL::Variation::Utils::Constants::OVERLAP_CONSEQUENCES;
@@ -84,8 +84,8 @@ sub get_variant_info {
     { key => 'soTerm',    title => 'SO Term(s)',    align => 'left',    width => '10%' },
   ];
   my $gt_columns = [
-    { key => 'sample',    title => 'Sample Name', align => 'left',    width => '65%' },
-    { key => 'genotype',  title => 'Genotype',    align => 'left',    width => '35%', help => $vcf_help->{'GT'} },
+    { key => 'sample',    title => 'Sample Name',   align => 'left',    width => '40%' },
+    { key => 'genotype',  title => 'Genotype',      align => 'left',    width => '10%', help => $vcf_help->{'GT'} },
   ];
   my $attrib_columns = [];
   my $attrib_row     = [];
@@ -109,6 +109,8 @@ sub get_variant_info {
         $annotation->{alternativeAllele}
       ]]);
       $html .= $anno_table->render;
+      my $ref = $annotation->{referenceAllele};
+      my $alt = $annotation->{alternativeAllele};
 
       # Consequences
       $html .= "<h3>Consequences</h3>";
@@ -147,9 +149,17 @@ sub get_variant_info {
         # Genotypes
         my $table = $self->new_table($gt_columns, [], { data_table => 1 });
         foreach my $sample (keys %{$result->{sourceEntries}->{$source}->{samplesData}}) {
+          my $gt = $result->{sourceEntries}->{$source}->{samplesData}->{$sample}->{GT};
+          my $delimeter = $1 if $gt =~ /.*([|\/]).*/;
+          my @genotypes = split(/[|\/]/, $gt);
+          foreach(@genotypes) {
+            $_ =~ s/0/<span style="color: green">$ref<\/span>/;
+            $_ =~ s/1/<span style="color: red">$alt<\/span>/;
+          }
+          my $actual_gt = join($delimeter, @genotypes);
           $table->add_row([
             $sample,
-            $result->{sourceEntries}->{$source}->{samplesData}->{$sample}->{GT}
+            $actual_gt
           ]);
         }
         $html .= $table->render;
