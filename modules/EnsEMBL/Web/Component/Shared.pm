@@ -476,7 +476,7 @@ sub species_stats {
   });
   $summary->add_row({
       'name' => '<b>Data Source</b>',
-      'stat' => $sd->PROVIDER_NAME
+      'stat' => ref $sd->PROVIDER_NAME eq 'ARRAY' ? join(', ', @{$sd->PROVIDER_NAME}) : $sd->PROVIDER_NAME
   });
   $summary->add_row({
       'name' => '<b>Genebuild Version</b>',
