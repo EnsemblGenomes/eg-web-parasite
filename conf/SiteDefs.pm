@@ -61,7 +61,7 @@ sub update_conf {
                 ];
     $SiteDefs::NCBIBLAST_REST_ENDPOINT = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
     $SiteDefs::EBEYE_REST_ENDPOINT     = 'http://www.ebi.ac.uk/ebisearch/ws/rest';
-    $SiteDefs::GXA                     = 1;
+    $SiteDefs::GXA                     = 0;  # Enable this in each species ini file if GXA widget is required for that species
     $SiteDefs::GXA_REST_URL            = 'http://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
     $SiteDefs::GXA_EBI_URL             = 'http://www.ebi.ac.uk/gxa/resources';
 
