@@ -26,7 +26,7 @@ sub modify_tree {
   $self->PREV::modify_tree(@_);
 
   my $compara_menu = $self->get_node('Compara');
-  $compara_menu->set('caption', "Comparative Genomics");
+  $compara_menu->set('caption', "Comparative genomics");
 
   $self->delete_node('Family');
   $self->delete_node('Gene_families');
@@ -45,7 +45,13 @@ sub modify_tree {
   $self->delete_node('History');
   $self->delete_node('Idhistory');
   $self->delete_node('Phenotype');
- 
+
+  my $transcriptomic_menu = $self->create_submenu('Transcriptomic', 'Transcriptomic data');
+  $transcriptomic_menu->append($self->create_subnode('ExpressionAtlas', 'Gene expression',
+    [qw( atlas EnsEMBL::Web::Component::Gene::ExpressionAtlas )],
+    { 'availability'  => 'gene has_gxa' }
+  ));
+
   my $summary = $self->get_node('Summary');
   $summary->set('components',
     [qw(
