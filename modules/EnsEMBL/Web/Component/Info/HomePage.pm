@@ -244,7 +244,7 @@ sub content {
     push(@left_sections, $self->_funcgen_text);
   }
 
-  push(@right_sections, sprintf('<h2>Statistics</h2>%s', $self->_species_stats));
+  push(@right_sections, sprintf('<h2>Statistics</h2>%s', $self->species_stats));
 
   push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
@@ -790,66 +790,6 @@ sub _get_alt_projects {
 }
 
 # /ParaSite
-
-sub _species_stats {
-  my $self = shift;
-  my $sd = $self->hub->species_defs;
-  my $html;
-  my $db_adaptor = $self->hub->database('core');
-  my $meta_container = $db_adaptor->get_MetaContainer();
-  my $genome_container = $db_adaptor->get_GenomeContainer();
-  my $html;
-
-  my $cols = [
-    { key => 'name', title => '', width => '30%', align => 'left' },
-    { key => 'stat', title => '', width => '70%', align => 'left' },
-  ];
-  my $options = {'header' => 'no', 'rows' => ['bg3', 'bg1']};
-
-  my $summary = $self->new_table($cols, [], $options);
-
-  my( $a_id ) = ( @{$meta_container->list_value_by_key('assembly.name')},
-                    @{$meta_container->list_value_by_key('assembly.default')});
-  if ($a_id) {
-    # look for long name and accession num
-    if (my ($long) = @{$meta_container->list_value_by_key('assembly.long_name')}) {
-      $a_id .= " ($long)";
-    }
-    if (my ($acc) = @{$meta_container->list_value_by_key('assembly.accession')}) {
-      $acc = sprintf('<a href="http://www.ebi.ac.uk/ena/data/view/%s">%s</a>', $acc, $acc);
-      $a_id .= ", $acc";
-    }
-  }
-  $summary->add_row({
-      'name' => '<b>Assembly</b>',
-      'stat' => $a_id.', '.$sd->ASSEMBLY_DATE
-  });
-  $summary->add_row({
-      'name' => '<b>Database Version</b>',
-      'stat' => $sd->SITE_RELEASE_VERSION.'.'.$sd->SPECIES_RELEASE_VERSION
-  });
-  my $header = $self->glossary_helptip('Genome Size', 'Golden path length');
-  $summary->add_row({
-      'name' => "<b>$header</b>",
-      'stat' => $self->thousandify($genome_container->get_ref_length())
-  });
-  $summary->add_row({
-      'name' => '<b>Data Source</b>',
-      'stat' => $sd->PROVIDER_NAME
-  });
-  $summary->add_row({
-      'name' => '<b>Genebuild Version</b>',
-      'stat' => $sd->GENEBUILD_VERSION
-  });
-
-  $html .= $summary->render;
-
-  ## GENE COUNTS
-  $html .= $self->_add_gene_counts($genome_container,$sd,$cols,$options,'','');
-
-  return $html;
-  
-}
 
 sub _add_gene_counts {
   my ($self,$genome_container,$sd,$cols,$options,$tail,$our_type) = @_;
