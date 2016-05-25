@@ -3,13 +3,14 @@ package EnsEMBL::Web::Component::Location::EVA_Variant;
 use strict;
 use LWP;
 use JSON;
+use List::MoreUtils qw(uniq);
 
 use base qw(EnsEMBL::Web::Component);
 
 sub _init {
   my $self = shift;
   $self->cacheable(0);
-  $self->ajaxable(0);
+  $self->ajaxable(1);
 }
 
 sub content {
@@ -115,6 +116,7 @@ sub get_variant_info {
       # Consequences
       $html .= "<h3>Consequences</h3>";
       my $consequence_table = $self->new_table($consequence_columns, [], { data_table => 1 });
+      my @transcripts;
       foreach my $consequence (@{$annotation->{consequenceTypes}}) {
         my $gene_url = $self->hub->url({ type => 'Gene', action => 'Summary', g => $consequence->{ensemblGeneId} });
         my $transcript_url = $self->hub->url({ type => 'Transcript', action => 'Summary', g => $consequence->{ensemblTranscriptId} });
@@ -130,12 +132,15 @@ sub get_variant_info {
           $consequence->{codon},
           join('<br />', map($self->consequence_colour($_->{soName}, \%consequences, $colours, $colourmap), @{$consequence->{soTerms}}))
         ]);
+        push(@transcripts, $consequence->{ensemblTranscriptId});
       }
+      $html .= sprintf("<p>This variant affects %s transcripts</p>", scalar(uniq @transcripts));
       $html .= $consequence_table->render;
       
       # Datasets
       foreach my $source (keys %{$result->{sourceEntries}}) {
-        $html .= "<h3>Source: $source</h3>";
+        $html .= "<h2>Study $source</h2>";
+        $html .= "<h3>Quality Overview</h3>";
         
         # VCF Attributes
         my $attributes = $result->{sourceEntries}->{$source}->{attributes};
@@ -147,6 +152,8 @@ sub get_variant_info {
         $html .= $attrib_table->render;
         
         # Genotypes
+        $html .= "<h3>Genotypes</h3>";
+        $html .= sprintf("<p>This study included %s individuals.  The genotype for each is shown in the table below.</p>", scalar(keys %{$result->{sourceEntries}->{$source}->{samplesData}}));
         my $table = $self->new_table($gt_columns, [], { data_table => 1 });
         foreach my $sample (keys %{$result->{sourceEntries}->{$source}->{samplesData}}) {
           my $gt = $result->{sourceEntries}->{$source}->{samplesData}->{$sample}->{GT};
