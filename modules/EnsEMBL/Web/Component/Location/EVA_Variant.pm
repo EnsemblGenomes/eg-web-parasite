@@ -22,6 +22,11 @@ sub content {
   return $self->get_variant_info($variant_id, $eva_species);
 }
 
+sub caption {
+  my $self = shift;
+  return sprintf("Variant %s", $self->param->('variant_id'));
+}
+
 sub get_variant_info {
   my ($self, $variant_id, $eva_species) = @_;
     
