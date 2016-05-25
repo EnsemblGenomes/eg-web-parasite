@@ -71,6 +71,7 @@ sub get_variant_info {
   my %consequences = map { $_->SO_term => $_->description } values %Bio::EnsEMBL::Variation::Utils::Constants::OVERLAP_CONSEQUENCES;
   
   my $anno_columns = [
+    { key => 'id',            title => 'Variant ID',          align => 'left',    width => '10%' },
     { key => 'chr',           title => 'Scaffold/Chromosome', align => 'left',    width => '10%' },
     { key => 'start',         title => 'Start',               align => 'left',    width => '10%' },
     { key => 'end',           title => 'End',                 align => 'left',    width => '10%' },
@@ -108,6 +109,7 @@ sub get_variant_info {
       # Annotation
       my $annotation = $result->{annotation};
       my $anno_table = $self->new_table($anno_columns, [[
+        $result->{id},
         $annotation->{chromosome},
         $annotation->{start},
         $annotation->{end} == 0 ? '-' : $annotation->{end},
