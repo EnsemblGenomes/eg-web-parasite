@@ -82,7 +82,7 @@ sub render {
         if($taxon eq 'parent') {
           next unless $species_defs->get_config($_, 'SPECIES_GROUP') eq $group;
         } else {
-          next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
+          next unless $species_defs->get_config($_, 'SPECIES_SUBGROUP') && $species_defs->get_config($_, 'SPECIES_SUBGROUP') eq $taxon;
         }
         my $common = $species_defs->get_config($_, 'SPECIES_COMMON_NAME');
         next unless $common;
