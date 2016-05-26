@@ -225,6 +225,6 @@
   border-radius: 0 0 6px 6px !important;
 }
 
-.image_container div {
+div.image_container {
   border-radius: 5px !important;
 }
