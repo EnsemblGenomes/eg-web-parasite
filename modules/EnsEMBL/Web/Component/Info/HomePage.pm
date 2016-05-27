@@ -213,7 +213,7 @@ sub content {
   my @alt_projects = $self->_get_alt_strains($display_name, $species);
   my $alt_strain_count = scalar(@alt_projects);
   my $alt_strain_string = '<p>There ';
-  $alt_strain_string .= $alt_count == 1 ? "is $alt_count alternative strain from this genome project" : "are $alt_count alternative strains from this genome project";
+  $alt_strain_string .= $alt_strain_count == 1 ? "is $alt_strain_count alternative strain from this genome project" : "are $alt_strain_count alternative strains from this genome project";
   $alt_strain_string .= " for <em>$display_name</em> available in WormBase ParaSite: ";
   foreach my $alt (@alt_projects) {
     my $strain = $species_defs->get_config($alt, 'SPECIES_STRAIN');
