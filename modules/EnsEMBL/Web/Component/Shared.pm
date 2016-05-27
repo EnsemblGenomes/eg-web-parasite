@@ -466,8 +466,12 @@ sub species_stats {
       'stat' => $a_id.', '.$sd->ASSEMBLY_DATE
   });
   $summary->add_row({
+      'name' => '<b>Strain</b>',
+      'stat' => $sd->SPECIES_STRAIN
+  });
+  $summary->add_row({
       'name' => '<b>Database Version</b>',
-      'stat' => $sd->SITE_RELEASE_VERSION.'.'.$sd->SPECIES_RELEASE_VERSION
+      'stat' => 'WBPS' . $sd->SITE_RELEASE_VERSION
   });
   my $header = $self->glossary_helptip('Genome Size', 'Golden path length');
   $summary->add_row({
