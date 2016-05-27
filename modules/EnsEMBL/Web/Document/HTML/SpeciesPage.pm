@@ -108,26 +108,26 @@ sub render {
   my $group = '';
 
   my $pre_species = $species_defs->get_config('MULTI', 'PRE_SPECIES');
-  foreach my $species (@taxon_species) { # (keys %$species_info) {
-    $group =  $species if exists $phylo_tree{$species};
-    next if exists $phylo_tree{$species};
+  foreach my $sp (@taxon_species) { # (keys %$species_info) {
+    $group =  $sp if exists $phylo_tree{$sp};
+    next if exists $phylo_tree{$sp};
 
-    my $common = $species_defs->get_config($species, "SPECIES_COMMON_NAME");
     my $info = {
-      'dir'          => $species,
+      'dir'          => $sp,
       'status'       => 'live',
-      'provider'     => $species_defs->get_config($species, "PROVIDER_NAME") || '',
-      'provider_url' => $species_defs->get_config($species, "PROVIDER_URL") || '',
-      'strain'       => $species_defs->get_config($species, "SPECIES_STRAIN") || '',
+      'provider'     => $species_defs->get_config($sp, "PROVIDER_NAME") || '',
+      'provider_url' => $species_defs->get_config($sp, "PROVIDER_URL") || '',
+      'strain'       => $species_defs->get_config($sp, "SPECIES_STRAIN") || '',
       'group'        => $group,
-      'taxid'        => $species_defs->get_config($species, "TAXONOMY_ID") || '',
-      'assembly'     => $species_defs->get_config($species, "ASSEMBLY_NAME") || '',
-      'scientific'   => $species_defs->get_config($species, "SPECIES_SCIENTIFIC_NAME"),
-      'species_site' => $species_defs->ENSEMBL_SPECIES_SITE->{lc($species)}
+      'taxid'        => $species_defs->get_config($sp, "TAXONOMY_ID") || '',
+      'assembly'     => $species_defs->get_config($sp, "ASSEMBLY_NAME") || '',
+      'common'       => $species_defs->get_config($sp, "SPECIES_COMMON_NAME"),
+      'scientific'   => $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME"),
+      'species_site' => $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)}
     };
-    $info->{'status'} = 'pre' if($pre_species && exists $pre_species->{$species});
+    $info->{'status'} = 'pre' if($pre_species && exists $pre_species->{$sp});
 
-    $species{$common} = $info;
+    $species{$sp} = $info;
   }
   my $link_style = 'font-size:1.1em;font-weight:bold;text-decoration:none;font-style:italic;';
 
@@ -142,7 +142,6 @@ sub render {
  
   foreach my $gr (@groups) {  # (sort keys %groups) {
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
-
       $html .= qq{<div class="round-box home-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
                  
       my $total = scalar(@species);
