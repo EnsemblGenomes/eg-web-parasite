@@ -208,8 +208,23 @@ sub content {
     $alt_string .= qq(<a href="/$alt/Info/Index/" title="$summary">$bioproj</a> );
   }
   $alt_string .= '</p>';
+
+  # Check for other assembies from this project
+  my @alt_projects = $self->_get_alt_strains($display_name, $species);
+  my $alt_strain_count = scalar(@alt_projects);
+  my $alt_strain_string = '<p>There ';
+  $alt_strain_string .= $alt_count == 1 ? "is $alt_count alternative strain from this genome project" : "are $alt_count alternative strains from this genome project";
+  $alt_strain_string .= " for <em>$display_name</em> available in WormBase ParaSite: ";
+  foreach my $alt (@alt_projects) {
+    my $strain = $species_defs->get_config($alt, 'SPECIES_STRAIN');
+    my $provider = $species_defs->get_config($alt, 'PROVIDER_NAME');
+    my $summary = $provider;
+    $alt_strain_string .= qq(<a href="/$alt/Info/Index/" title="$summary">$strain</a> );
+  }
+  $alt_strain_string .= '</p>';
     
   my $about_text = $self->_other_text('about', $species_short);
+  $about_text .= $alt_strain_string if $alt_strain_count > 0;
   $about_text .= $alt_string if $alt_count > 0;
   if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
@@ -781,7 +796,19 @@ sub _get_alt_projects {
   my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
   my @species_list = ();
   foreach ($species_defs->valid_species) {
-        if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species && $_ ne $current) {
+        if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species && $_ ne $current && $species_defs->get_config($_, 'SPECIES_BIOPROJECT') ne $species_defs->get_config($current, 'SPECIES_BIOPROJECT')) {
+          push(@species_list, $_);
+        }
+  }
+  return sort(@species_list);
+}
+
+sub _get_alt_strains {
+  my ($self, $species, $current) = @_;
+  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my @species_list = ();
+  foreach ($species_defs->valid_species) {
+        if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species && $species_defs->get_config($_, 'SPECIES_STRAIN') ne $species_defs->get_config($current, 'SPECIES_STRAIN') && $species_defs->get_config($_, 'SPECIES_BIOPROJECT') eq $species_defs->get_config($current, 'SPECIES_BIOPROJECT')) {
           push(@species_list, $_);
         }
   }
