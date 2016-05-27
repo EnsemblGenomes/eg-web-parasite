@@ -150,66 +150,66 @@ sub render {
       my $valid_species = 0;
       for(my $i = 0; $i < $total; $i++) {
 
-      my $common = $species[$i];
-      next unless $common;
-      my $info = $species{$common};
-
-      my $dir = $info->{'dir'};
-
-      (my $name = $dir) =~ s/_/ /g;
-      my $bioproj = $species_defs->get_config($dir, 'SPECIES_BIOPROJECT');
-                  $name =~ s/prj.*//; # Remove the BioProject ID from the name
-      my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
-      
-      my $bgcol = $valid_species % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
-                  $valid_species++;
-
-      $html .= qq(<tr style="background-color:$bgcol">);
-
-      if ($dir) {
-        $html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
-        $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
-        my $provider = $info->{'provider'};
-        my $url  = $info->{'provider_url'};
-
-        my $strain = $info->{'strain'} ? " $info->{'strain'}" : '';
-        $name .= $strain;
-        my $assembly = $info->{'assembly'} ? " $info->{'assembly'}" : '';
-        if ($provider) {
-              if (ref $provider eq 'ARRAY') {
-                my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
-                my $phtml;
-                foreach my $pr (@$provider) {
-                  my $u = shift @urls;
-                  if ($u) {
-                    $u = "http://$u" unless ($u =~ /http/);
-                    $phtml .= qq{<a href="$u">$pr</a> &nbsp;};
+        my $common = $species[$i];
+        next unless $common;
+        my $info = $species{$common};
+  
+        my $dir = $info->{'dir'};
+  
+        (my $name = $dir) =~ s/_/ /g;
+        my $bioproj = $species_defs->get_config($dir, 'SPECIES_BIOPROJECT');
+                    $name =~ s/prj.*//; # Remove the BioProject ID from the name
+        my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
+        
+        my $bgcol = $valid_species % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
+                    $valid_species++;
+  
+        $html .= qq(<tr style="background-color:$bgcol">);
+  
+        if ($dir) {
+          $html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
+          $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
+          my $provider = $info->{'provider'};
+          my $url  = $info->{'provider_url'};
+  
+          my $strain = $info->{'strain'} ? " $info->{'strain'}" : '';
+          $name .= $strain;
+          my $assembly = $info->{'assembly'} ? " $info->{'assembly'}" : '';
+          if ($provider) {
+                if (ref $provider eq 'ARRAY') {
+                  my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
+                  my $phtml;
+                  foreach my $pr (@$provider) {
+                    my $u = shift @urls;
+                    if ($u) {
+                      $u = "http://$u" unless ($u =~ /http/);
+                      $phtml .= qq{<a href="$u">$pr</a> &nbsp;};
+                    } else {
+                      $phtml .= qq{$pr &nbsp;};
+                    }
+                  }
+                  $html .= qq{<td>$phtml</td><td style="width:150px">$assembly</td>};
+                } else {
+                  if ($url) {
+                    $url = "http://$url" unless ($url =~ /http/);
+                    $html .= qq{<td style="width:250px"><a href="$url">$provider</a></td><td style="width:150px">$assembly</td>};
                   } else {
-                    $phtml .= qq{$pr &nbsp;};
+                    $html .= qq{<td style="width:250px">$provider</td><td style="width:150px">$assembly</td>};
                   }
                 }
-                $html .= qq{<td>$phtml</td><td style="width:150px">$assembly</td>};
-              } else {
-                if ($url) {
-                  $url = "http://$url" unless ($url =~ /http/);
-                  $html .= qq{<td style="width:250px"><a href="$url">$provider</a></td><td style="width:150px">$assembly</td>};
-                } else {
-                  $html .= qq{<td style="width:250px">$provider</td><td style="width:150px">$assembly</td>};
-                }
-              }
+          } else {
+            $html .= qq{<td style="width:250px"></td><td style="width:150px">$assembly</td>};
+          }
+          $html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
+          if($info->{'taxid'}){
+           (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
+           $html .= sprintf('<td style="width:100px"><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
+          }
+          $html .= '</td>';
         } else {
-          $html .= qq{<td style="width:250px"></td><td style="width:150px">$assembly</td>};
+          $html .= '&nbsp;';
         }
-        $html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
-        if($info->{'taxid'}){
-         (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
-         $html .= sprintf('<td style="width:100px"><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
-        }
-        $html .= '</td>';
-      } else {
-        $html .= '&nbsp;';
-      }
-      $html .= '</tr>';
+        $html .= '</tr>';
       
       }
 
