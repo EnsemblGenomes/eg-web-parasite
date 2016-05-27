@@ -165,6 +165,11 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Trichinella_nelsoni_prjna257433'} = [qw(Trichinella_nelsoni_prjna257433 trichinella_nelsoni_prjna257433)];
     $SiteDefs::__species_aliases{'Trichinella_papuae_prjna257433'} = [qw(Trichinella_papuae_prjna257433 trichinella_papuae_prjna257433)];
     $SiteDefs::__species_aliases{'Trichinella_patagoniensis_prjna257433'} = [qw(Trichinella_patagoniensis_prjna257433 trichinella_patagoniensis_prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_pseudospiralis_iss13prjna257433'} = [qw(Trichinella_pseudospiralis_iss13prjna257433 trichinella_pseudospiralis_iss13prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_pseudospiralis_iss141prjna257433'} = [qw(Trichinella_pseudospiralis_iss141prjna257433 trichinella_pseudospiralis_iss141prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_pseudospiralis_iss176prjna257433'} = [qw(Trichinella_pseudospiralis_iss176prjna257433 trichinella_pseudospiralis_iss176prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_pseudospiralis_iss470prjna257433'} = [qw(Trichinella_pseudospiralis_iss470prjna257433 trichinella_pseudospiralis_iss470prjna257433)];
+    $SiteDefs::__species_aliases{'Trichinella_pseudospiralis_iss588prjna257433'} = [qw(Trichinella_pseudospiralis_iss588prjna257433 trichinella_pseudospiralis_iss588prjna257433)];
     $SiteDefs::__species_aliases{'Trichinella_spiralis_prjna12603'} = [qw(Trichinella_spiralis_prjna12603 trichinella_spiralis_prjna12603)];
     $SiteDefs::__species_aliases{'Trichinella_spiralis_prjna257433'} = [qw(Trichinella_spiralis_prjna257433 trichinella_spiralis_prjna257433)];
     $SiteDefs::__species_aliases{'Trichinella_t6_prjna257433'} = [qw(Trichinella_t6_prjna257433 trichinella_t6_prjna257433)];
