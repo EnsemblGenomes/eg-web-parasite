@@ -468,7 +468,7 @@ sub species_stats {
   $summary->add_row({
       'name' => '<b>Strain</b>',
       'stat' => $sd->SPECIES_STRAIN
-  });
+  }) if $sd->SPECIES_STRAIN;
   $summary->add_row({
       'name' => '<b>Database Version</b>',
       'stat' => 'WBPS' . $sd->SITE_RELEASE_VERSION
