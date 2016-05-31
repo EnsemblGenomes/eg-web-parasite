@@ -24,6 +24,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use HTML::Entities qw(encode_entities);
+use List::MoreUtils qw(uniq);
 use EnsEMBL::Web::RegObj;
 
 use base qw(EnsEMBL::Web::Document::HTML);
@@ -100,12 +101,26 @@ sub render {
       my $species_url = scalar(@{$species{$scientific}}) == 1 ? "/@{$species{$scientific}}[0]/Info/Index/" : "/@{$species{$scientific}}[0]/Info/SpeciesLanding/";  # Only show a URL to the species landing page if there is more than one genome project
       $html .= qq(<span class="home-species"><a href="$species_url" class="species-link">$scientific</a></span><br /><span class="home-bioproject">);
       my $i = 0;
-      foreach my $project (sort(@{$species{$scientific}})) {
-        $i++;
-        my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
-        my $summary = "$providers{$project} genome project";
-        $html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
-        if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
+      my %projects;
+      foreach(@{$species{$scientific}}) {
+        push(@{$projects{$species_defs->get_config($_, 'SPECIES_BIOPROJECT')}}, $_);
+      }
+      foreach my $bioproject (keys %projects) {
+        if(scalar(@{$projects{$bioproject}}) > 1) {
+          $html .= qq($bioproject: );
+          foreach my $project (@{$projects{$bioproject}}) {
+            $i++;
+            my $strain = $species_defs->get_config($project, 'SPECIES_STRAIN');
+            $html .= qq(<a href="/$project/Info/Index/" title="$strain">$strain</a>);
+            if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
+          }
+        } else {
+            $i++;
+            my $project = @{$projects{$bioproject}}[0];
+            my $summary = "$providers{$project} genome project";
+            $html .= qq(<a href="/$project/Info/Index/" title="$summary">$bioproject</a>);
+            if($i < scalar(@{$species{$scientific}})) { $html .= ' | '; }
+        }
       }
       $html .= '</span>';
       $html .= '</li>';
