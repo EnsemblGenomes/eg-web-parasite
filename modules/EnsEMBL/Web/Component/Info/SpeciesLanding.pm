@@ -91,10 +91,12 @@ sub content {
   foreach my $project (@project_list) {
     my @parts = split('_', $project);
     my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
+    my $strain = $species_defs->get_config($project, 'SPECIES_STRAIN');
     my $project_summary = $self->_other_text('summary', $project);
     $project_summary =~ s/<h2>.*<\/h2>//; # Remove the <h2> and <p> tags
     $project_summary =~ s/<p>//;
     $project_summary =~ s/<\/p>//;
+    $project_summary .= $strain ? "(Strain $strain)" : '';
     if($project_summary =~ /\w/) {
       $project_overview .= qq(<li><a href="/$project/Info/Index">$bioproject</a>: $project_summary</li>);
     } else {
