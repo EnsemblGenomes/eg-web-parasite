@@ -64,7 +64,6 @@ sub update_conf {
 
     ### Species Configuration
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
-    # ParaSite Specific Species
     $SiteDefs::__species_aliases{'Acanthocheilonema_viteae_prjeb4306'} = [qw(acanthocheilonema_viteae_prjeb4306 Acanthocheilonema_viteae_prjeb4306)];
     $SiteDefs::__species_aliases{'Ancylostoma_caninum_prjna72585'} = [qw(ancylostoma_caninum_prjna72585 Ancylostoma_caninum_prjna72585)];
     $SiteDefs::__species_aliases{'Ancylostoma_ceylanicum_prjna231479'} = [qw(ancylostoma_ceylanicum_prjna231479 Ancylostoma_ceylanicum_prjna231479)];
@@ -80,6 +79,14 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Brugia_pahangi_prjeb497'} = [qw(brugia_pahangi_prjeb497 Brugia_pahangi_prjeb497)];
     $SiteDefs::__species_aliases{'Brugia_timori_prjeb4663'} = [qw(brugia_timori_prjeb4663 Brugia_timori_prjeb4663)];
     $SiteDefs::__species_aliases{'Bursaphelenchus_xylophilus_prjea64437'} = [qw(bursaphelenchus_xylophilus_prjea64437 Bursaphelenchus_xylophilus_prjea64437)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_angaria_prjna51225'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria caenorhabditis_angaria_prjna51225 Caenorhabditis_angaria_prjna51225)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_brenneri_prjna20035'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri caenorhabditis_brenneri_prjna20035 Caenorhabditis_brenneri_prjna20035)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_briggsae_prjna10731'} = [qw(caenorhabditis_briggsae Caenorhabditis_briggsae caenorhabditis_briggsae_prjna10731 Caenorhabditis_briggsae_prjna10731)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_elegans_prjna13758'} = [qw(caenorhabditis_elegans Caenorhabditis_elegans caenorhabditis_elegans_prjna13758 Caenorhabditis_elegans_prjna13758)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_japonica_prjna12591'} = [qw(caenorhabditis_japonica Caenorhabditis_japonica caenorhabditis_japonica_prjna12591 Caenorhabditis_japonica_prjna12591)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_remanei_prjna53967'} = [qw(caenorhabditis_remanei Caenorhabditis_remanei caenorhabditis_remanei_prjna53967 Caenorhabditis_remanei_prjna53967)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_sinica_prjna194557'} = [qw(caenorhabditis_sinica Caenorhabditis_sinica caenorhabditis_sinica_prjna194557 Caenorhabditis_sinica_prjna194557)];
+    $SiteDefs::__species_aliases{'Caenorhabditis_tropicalis_prjna53597'} = [qw(caenorhabditis_tropicalis Caenorhabditis_tropicalis caenorhabditis_tropicalis_prjna53597 Caenorhabditis_tropicalis_prjna53597)];
     $SiteDefs::__species_aliases{'Clonorchis_sinensis_prjda72781'} = [qw(clonorchis_sinensis_prjda72781 Clonorchis_sinensis_prjda72781)];
     $SiteDefs::__species_aliases{'Cylicostephanus_goldi_prjeb498'} = [qw(cylicostephanus_goldi_prjeb498 Cylicostephanus_goldi_prjeb498)];
     $SiteDefs::__species_aliases{'Dictyocaulus_viviparus_prjeb5116'} = [qw(dictyocaulus_viviparus_prjeb5116 Dictyocaulus_viviparus_prjeb5116)];
@@ -123,6 +130,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Onchocerca_ochengi_prjeb1809'} = [qw(onchocerca_ochengi_prjeb1809 Onchocerca_ochengi_prjeb1809)];
     $SiteDefs::__species_aliases{'Onchocerca_volvulus_prjeb513'} = [qw(onchocerca_volvulus_prjeb513 Onchocerca_volvulus_prjeb513)];
     $SiteDefs::__species_aliases{'Opisthorchis_viverrini_prjna222628'} = [qw(opisthorchis_viverrini_prjna222628 Opisthorchis_viverrini_prjna222628)];
+    $SiteDefs::__species_aliases{'Panagrellus_redivivus_prjna186477'} = [qw(panagrellus_redivivus Panagrellus_redivivus panagrellus_redivivus_prjna186477 Panagrellus_redivivus_prjna186477)];
     $SiteDefs::__species_aliases{'Parascaris_equorum_prjeb514'} = [qw(parascaris_equorum_prjeb514 Parascaris_equorum_prjeb514)];
     $SiteDefs::__species_aliases{'Parastrongyloides_trichosuri_prjeb515'} = [qw(parastrongyloides_trichosuri_prjeb515 Parastrongyloides_trichosuri_prjeb515)];
     $SiteDefs::__species_aliases{'Pristionchus_exspectatus_prjeb6009'} = [qw(pristionchus_exspectatus_prjeb6009 Pristionchus_exspectatus_prjeb6009)];
@@ -184,16 +192,6 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Trichuris_trichiura_prjeb535'} = [qw(trichuris_trichiura_prjeb535 Trichuris_trichiura_prjeb535)];
     $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjeb536'} = [qw(wuchereria_bancrofti_prjeb536 Wuchereria_bancrofti_prjeb536)];  
     $SiteDefs::__species_aliases{'Wuchereria_bancrofti_prjna275548'} = [qw(Wuchereria_bancrofti_prjna275548 wuchereria_bancrofti_prjna275548)];
-    # Imported WormBase Species
-    $SiteDefs::__species_aliases{'Caenorhabditis_angaria_prjna51225'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria caenorhabditis_angaria_prjna51225 Caenorhabditis_angaria_prjna51225)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_brenneri_prjna20035'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri caenorhabditis_brenneri_prjna20035 Caenorhabditis_brenneri_prjna20035)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_briggsae_prjna10731'} = [qw(caenorhabditis_briggsae Caenorhabditis_briggsae caenorhabditis_briggsae_prjna10731 Caenorhabditis_briggsae_prjna10731)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_elegans_prjna13758'} = [qw(caenorhabditis_elegans Caenorhabditis_elegans caenorhabditis_elegans_prjna13758 Caenorhabditis_elegans_prjna13758)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_japonica_prjna12591'} = [qw(caenorhabditis_japonica Caenorhabditis_japonica caenorhabditis_japonica_prjna12591 Caenorhabditis_japonica_prjna12591)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_remanei_prjna53967'} = [qw(caenorhabditis_remanei Caenorhabditis_remanei caenorhabditis_remanei_prjna53967 Caenorhabditis_remanei_prjna53967)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_sinica_prjna194557'} = [qw(caenorhabditis_sinica Caenorhabditis_sinica caenorhabditis_sinica_prjna194557 Caenorhabditis_sinica_prjna194557)];
-    $SiteDefs::__species_aliases{'Caenorhabditis_tropicalis_prjna53597'} = [qw(caenorhabditis_tropicalis Caenorhabditis_tropicalis caenorhabditis_tropicalis_prjna53597 Caenorhabditis_tropicalis_prjna53597)];
-    $SiteDefs::__species_aliases{'Panagrellus_redivivus_prjna186477'} = [qw(panagrellus_redivivus Panagrellus_redivivus panagrellus_redivivus_prjna186477 Panagrellus_redivivus_prjna186477)];
 
     ### Perl Configuration    
     @SiteDefs::ENSEMBL_PERL_DIRS    = (
