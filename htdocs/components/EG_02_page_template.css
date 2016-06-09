@@ -39,3 +39,4 @@ body.static #widemain { margin-left: 0; }
 }
 #footer img, #wide-footer img { vertical-align: middle; height: 20px }
 #footer p,   #wide-footer p   { padding: 0; margin: 16px 0; }
+#footer, #wide-footer         { clear: both; text-align: center; font-size: 1em; margin: 0 16px; }
