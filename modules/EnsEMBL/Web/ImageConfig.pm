@@ -228,8 +228,11 @@ sub _add_trackhub_tracks {
   foreach (@{$children||[]}) {
     my $track        = $_->data;
     my $type         = ref $track->{'type'} eq 'HASH' ? uc $track->{'type'}{'format'} : uc $track->{'type'};
+## ParaSite: show bigGenePred as bigBed
+    $type =~ s/^BIGGENEPRED$/BIGBED/;
+##
 
-    my $on_off = $config->{'on_off'} || $track->{'on_off'};
+    my $on_off = $config->{'on_off'} || $track->{'on_off'} || 'off';  ## ParaSite
     ## Turn track on if there's no higher setting turning it off
     if ($track->{'visibility'}  eq 'hide') {
       $on_off = 'off';
@@ -241,7 +244,7 @@ sub _add_trackhub_tracks {
 ##
     elsif (!$config->{'on_off'} && !$track->{'on_off'}) {
       $on_off = 'on';
-    }
+   }
 
     my $ucsc_display  = $config->{'visibility'} || $track->{'visibility'};
 
