@@ -257,7 +257,7 @@ sub _add_trackhub_tracks {
     ## Translate between UCSC terms and Ensembl ones
     my $default_display = $style_mappings->{lc($type)}{$ucsc_display}
                               || $style_mappings->{lc($type)}{'default'}
-                              || 'normal';
+                              || 'off';  ## ParaSite: switch off the track by default if no display is given
     $options{'default_display'} = $default_display;
 
     ## Set track style if appropriate 
