@@ -38,7 +38,6 @@ sub init {
   my @components = @{$hub->components};
   my $session    = $hub->session;
   my $user       = $hub->user;
-  my $has_data   = $self->_has_data;
   my $view_config;
      $view_config = $hub->get_viewconfig(@{shift @components}) while !$view_config && scalar @components;
 
@@ -64,7 +63,7 @@ sub init {
         url     => $hub->url({
           time    => time,
           type    => 'UserData',
-          action  => $has_data ? 'ManageData' : 'SelectFile',
+          action  => 'ManageData',
           __clear => 1
         })
       });
