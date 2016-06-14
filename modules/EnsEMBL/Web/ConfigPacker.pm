@@ -40,6 +40,7 @@ sub _munge_meta {
     species.production_name       SPECIES_PRODUCTION_NAME
     species.scientific_name       SPECIES_SCIENTIFIC_NAME
     species.bioproject_id         SPECIES_BIOPROJECT
+    species.ftp_genome_id         SPECIES_FTP_GENOME_ID
     assembly.accession            ASSEMBLY_ACCESSION
     assembly.web_accession_source ASSEMBLY_ACCESSION_SOURCE
     assembly.web_accession_type   ASSEMBLY_ACCESSION_TYPE

@@ -50,7 +50,7 @@ sub render {
     my $collection;
     my $ftp_base_path_stub = $species_defs->SITE_FTP . "/releases/WBPS$rel";
        
-    my $bioproject = $species_defs->get_config($spp, 'SPECIES_BIOPROJECT');
+    my $bioproject = $species_defs->get_config($spp, 'SPECIES_FTP_GENOME_ID');
     my $species_lower = lc(join('_',(split('_', $spp))[0..1]));
 
     my $data = {
