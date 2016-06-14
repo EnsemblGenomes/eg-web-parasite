@@ -663,7 +663,7 @@ sub _tools_text {
   $html .= '<h2>Tools</h2>';
 
   $html .= '<ul>';
-  my $blast_url = $hub->url({'type' => 'Tools', 'action' => 'Blast'});
+  my $blast_url = $hub->url({'type' => 'Tools', 'action' => 'Blast', __clear => 1});
   $html .= qq(<li><a href="$blast_url">Search for sequences in the genome and proteome using BLAST</a></li>);
   $html .= qq(<li><a href="/biomart/martview">Work with lists of data using the WormBase ParaSite BioMart data-mining tool</a></li>);
   $html .= qq(<li><a href="/rest">Programatically access WormBase ParaSite data using the REST API</a></li>);
