@@ -634,7 +634,7 @@ sub _downloads_text {
   my $ftp_base_path_stub = $species_defs->SITE_FTP . "/releases/WBPS$rel";
 
   return unless my ($bioproject) = $species =~ /^.*?_.*?_(.*)$/;
-  $bioproject = uc($bioproject);
+  $bioproject = $species_defs->get_config($species, 'SPECIES_FTP_GENOME_ID');
   my $species_lower = lc(join('_',(split('_', $species))[0..1])); 
 
   my $html = '<h2>Downloads</h2>';
