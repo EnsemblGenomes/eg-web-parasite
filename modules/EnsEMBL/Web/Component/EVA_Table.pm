@@ -30,7 +30,7 @@ sub content {
   
   my @rows = map {[
     sprintf('<a href="%s">%s</a>', $_->{'url'}, $_->{'variation_name'}),
-    sprintf('<a href="http://www.ebi.ac.uk/eva/?eva-study=%s">%s</a>', $_->{'study_id'}, $_->{'study_id'}),
+    sprintf('<a href="%s/?eva-study=%s">%s</a>', $hub->species_defs->EVA_URL, $_->{'study_id'}, $_->{'study_id'}),
     $_->{'start'},
     $_->{'type'},
     sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
@@ -67,7 +67,7 @@ sub features {
     my $slice        = $self->object->slice;
     my $stable_id    = $self->object->stable_id;
 
-    my $url = "http://www.ebi.ac.uk/eva/webservices/rest/v1/genes/$stable_id/variants?merge=true&exclude=sourceEntries&species=$species&studies=$study";
+    my $url = sprintf("%s/webservices/rest/v1/genes/%s/variants?merge=true&exclude=sourceEntries&species=%s&studies=%s", $self->hub->species_defs->EVA_URL, $stable_id, $species, $study);
     my $uri = URI->new($url);
 
     my $can_accept;

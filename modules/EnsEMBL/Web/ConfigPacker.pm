@@ -241,7 +241,7 @@ sub _munge_meta {
 sub get_EVA_tracks {
   my ($self, $species) = @_;
   
-  my $assembly_info = $self->eva_api("http://www.ebi.ac.uk/eva/webservices/rest/v1/meta/species/list");
+  my $assembly_info = $self->eva_api(sprintf("%s/webservices/rest/v1/meta/species/list", $SiteDefs::EVA_URL));
   my $eva_species;
   my $eva_assembly;
   foreach my $result_set (@{$assembly_info->{response}}) {
@@ -257,7 +257,7 @@ sub get_EVA_tracks {
   }  
   return unless $eva_species && $eva_assembly;
 
-  my $data_structure = $self->eva_api(sprintf("http://www.ebi.ac.uk/eva/webservices/rest/v1/meta/studies/all?browserType=sgv&species=%s", $eva_species));
+  my $data_structure = $self->eva_api(sprintf("%s/webservices/rest/v1/meta/studies/all?browserType=sgv&species=%s", $SiteDefs::EVA_URL, $eva_species));
   
   my $track_list = [];
   foreach my $result_set (@{$data_structure->{response}}) {
@@ -283,7 +283,7 @@ sub eva_api {
   my ($self, $url) = @_;
   
   my $uri = URI->new($url);
-  
+ warn $url; 
   my $can_accept;
   eval { $can_accept = HTTP::Message::decodable() };
 

@@ -58,9 +58,9 @@ sub features {
     return [];
   } else {
 
-    my $url = "http://www.ebi.ac.uk/eva/webservices/rest/v1/segments/$feature_name:$start-$end/variants?merge=true&exclude=sourceEntries&species=$species&studies=$study";
+    my $url = sprintf("%s/webservices/rest/v1/segments/%s:%s-%s/variants?merge=true&exclude=sourceEntries&species=%s&studies=%s", $self->{'config'}->hub->species_defs->EVA_URL, $feature_name, $start, $end, $species, $study);
     my $uri = URI->new($url);
-  
+    
     my $can_accept;
     eval { $can_accept = HTTP::Message::decodable() };
 

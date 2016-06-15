@@ -30,7 +30,7 @@ sub caption {
 sub get_variant_info {
   my ($self, $variant_id, $eva_species) = @_;
     
-  my $url = "http://www.ebi.ac.uk/eva/webservices/rest/v1/variants/$variant_id/info?species=$eva_species";
+  my $url = sprintf("%s/webservices/rest/v1/variants/%s/info?species=%s", $self->hub->species_defs->EVA_URL, $variant_id, $eva_species);
   my $uri = URI->new($url);
 
   my $can_accept;
