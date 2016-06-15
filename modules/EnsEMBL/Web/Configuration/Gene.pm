@@ -46,11 +46,14 @@ sub modify_tree {
   $self->delete_node('Idhistory');
   $self->delete_node('Phenotype');
 
-  my $transcriptomic_menu = $self->create_submenu('Transcriptomic', 'Transcriptomic data');
+  my $transcriptomic_menu = $self->create_submenu('Transcriptomic', 'Transcriptomic data', {'availability' => 'gene has_gxa', 'hide_if_unavailable' => 1});
   $transcriptomic_menu->append($self->create_subnode('ExpressionAtlas', 'Gene expression',
     [qw( atlas EnsEMBL::Web::Component::Gene::ExpressionAtlas )],
-    { 'availability'  => 'gene has_gxa' }
+    { 'availability'  => 'gene has_gxa', 'hide_if_unavailable' => 1 }
   ));
+
+  my $comparison = $self->get_node('TranscriptComparison');
+  $comparison->set('hide_if_unavailable', 1);
 
   my $summary = $self->get_node('Summary');
   $summary->set('components',
