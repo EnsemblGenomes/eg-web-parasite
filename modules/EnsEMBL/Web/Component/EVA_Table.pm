@@ -33,7 +33,7 @@ sub content {
     sprintf('<a href="%s/?eva-study=%s">%s</a>', $hub->species_defs->EVA_URL, $_->{'study_id'}, $_->{'study_id'}),
     $_->{'start'},
     $_->{'type'},
-    sprintf('%s/%s', $_->{'ref'}, $_->{'alt'}),
+    sprintf('%s/%s', $_->{'ref'} || '-', $_->{'alt'} || '-'),
     $_->{'severe_col'} ? sprintf('<span class="colour" style="background-color:%s">&nbsp;</span>&nbsp;<span>%s</span>', $_->{'severe_col'}, $self->helptip($_->{'severe'}, $consequences{$_->{'severe'}})) : sprintf('<span">%s</span>', $_->{'severe'}),
     sprintf('<a href="%s">%s<a/>', $_->{'transcript_url'}, $_->{'transcript'})
   ]} @{$self->features};

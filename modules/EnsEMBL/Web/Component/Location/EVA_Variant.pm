@@ -113,12 +113,12 @@ sub get_variant_info {
         $annotation->{chromosome},
         $annotation->{start},
         $annotation->{end} == 0 ? '-' : $annotation->{end},
-        $annotation->{referenceAllele},
-        $annotation->{alternativeAllele}
+        $annotation->{referenceAllele} || '-',
+        $annotation->{alternativeAllele} || '-'
       ]]);
       $html .= $anno_table->render;
-      my $ref = $annotation->{referenceAllele};
-      my $alt = $annotation->{alternativeAllele};
+      my $ref = $annotation->{referenceAllele} || '-';
+      my $alt = $annotation->{alternativeAllele} || '-';
 
       # Consequences
       $html .= "<h3>Consequences</h3>";
