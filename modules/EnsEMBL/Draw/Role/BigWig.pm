@@ -53,7 +53,6 @@ sub _fetch_data {
                     'default_strand' => $self->strand || 1,
 ##
                     'drawn_strand' => $self->strand || 1};
-warn "track: " . $self->{'my_config'}{'id'} . "; strand: " . $self->strand;
 
   my $iow = EnsEMBL::Web::IOWrapper::Indexed::open($url, 'BigWig', $args);
   my $data;
