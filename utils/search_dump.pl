@@ -948,7 +948,7 @@ sub get_genetree_lookup {
 
     foreach my $dbtype ($genomic_unit, 'pan_homology') {
       
-      $dbtype = 'wbparasite' if $dbtype =~ /parasite/;  #ParaSite mod
+      $dbtype = 'parasite' if $dbtype =~ /parasite/;  #ParaSite mod
       my $dbname = $conf->{compara}->{$dbtype}->{$release};
       next unless $dbname;
       
@@ -1000,7 +1000,7 @@ sub get_ortholog_lookup {
     'caenorhabditis_elegans'                  => "wormbase_ortholog",
     'homo_sapiens'                            => "ensembl_ortholog",
   };
-  $compara_db = 'wbparasite' if $compara_db =~ /parasite/;
+  $compara_db = 'parasite' if $compara_db =~ /parasite/;
   # ParaSite mod
   
   #return {} unless delete $orth_species->{$species};                         # do we want orthologs for this species?  ## ParaSite mod
