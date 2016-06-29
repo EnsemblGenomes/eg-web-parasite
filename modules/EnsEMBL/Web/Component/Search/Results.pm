@@ -58,9 +58,9 @@ sub content {
         </span>
       </div>',
 ## ParaSite
-      sprintf('%s (%s)', $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_BIO_NAME'), $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_BIOPROJECT')),
-##
+      sprintf('%s (%s%s)', $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_BIO_NAME'), $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_BIOPROJECT'), $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_STRAIN') ? " - " . $self->hub->species_defs->get_config($search->filter_species, 'SPECIES_STRAIN') : ''),
       $search->query_string
+##
     ); 
   } elsif ($search->hit_count > 1 and $search->current_unit ne 'ensembl' and $search->current_unit ne 'wormbase' and $search->current_index eq 'gene' and $search->species eq 'all') {
    
@@ -146,9 +146,11 @@ sub _render_species_message {
   if(scalar(@matches) > 0) {
     my @links;
     foreach(@matches) {
-      my $common = $hub->species_defs->get_config($_, 'SPECIES_COMMON_NAME');
-      $common =~ s/(.*) \(/<em>$1<\/em> \(/;
-      push(@links, qq{<a href="/$_/">$common</a>});
+      my $scientific = $hub->species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
+      my $bioproject = $hub->species_defs->get_config($_, 'SPECIES_BIOPROJECT');
+      my $strain = $hub->species_defs->get_config($_, 'SPECIES_STRAIN') ? sprintf("; %s", $hub->species_defs->get_config($_, 'SPECIES_STRAIN')) : '';
+      my $display = sprintf("%s (%s%s)", $scientific, $bioproject, $strain);
+      push(@links, qq{<a href="/$_/">$display</a>});
     }
     $string = "<p>Are you looking for " . join(", ", @links) . "?</p>";
     $string =~ s/(.*),/$1 or/;
@@ -186,7 +188,7 @@ sub _render_filter_dropdown {
   my $options;
   foreach (sort @$species) {
 ## ParaSite: get the correct display name
-    my $display_name = sprintf('%s (%s)', $self->hub->species_defs->get_config($_, 'SPECIES_BIO_NAME'), $self->hub->species_defs->get_config($_, 'SPECIES_BIOPROJECT'));
+    my $display_name = sprintf('%s (%s%s)', $self->hub->species_defs->get_config($_, 'SPECIES_BIO_NAME'), $self->hub->species_defs->get_config($_, 'SPECIES_BIOPROJECT'), $self->hub->species_defs->get_config($_, 'SPECIES_STRAIN') ? " - " . $self->hub->species_defs->get_config($_, 'SPECIES_STRAIN') : '');
 ##
     $options .= qq{<option value="$_">$display_name</option>\n};
   }
@@ -217,9 +219,8 @@ sub render_hit {
   my $hub = $self->hub;
   my $species_defs = $hub->species_defs;
 
-  my $species = ucfirst($hit->{species});
-  $species =~ s/_/ /;
-  
+  my $species_name = ucfirst $hit->{system_name};
+  my $species = sprintf('%s (%s%s)', $hub->species_defs->get_config($species_name, 'SPECIES_BIO_NAME'), $hub->species_defs->get_config($species_name, 'SPECIES_BIOPROJECT'), $hub->species_defs->get_config($species_name, 'SPECIES_STRAIN') ? " - " . $hub->species_defs->get_config($species_name, 'SPECIES_STRAIN') : '');
   my $name = $hit->{name};
   
   my $table = EnsEMBL::Web::Document::TwoCol->new;
