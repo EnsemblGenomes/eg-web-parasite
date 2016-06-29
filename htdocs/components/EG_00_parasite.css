@@ -229,3 +229,7 @@ div.image_container {
   border-radius: 5px !important;
   overflow: hidden;
 }
+
+#page_nav {
+  position: fixed;
+}
