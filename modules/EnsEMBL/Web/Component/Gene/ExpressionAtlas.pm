@@ -23,7 +23,7 @@ sub content {
     #this script tag has been kept here as it was easier to call the perl param within the script tag (the js file wasn't getting the param)
     $html = qq{
       <script type="text/javascript">
-        expressionAtlasHeatmap.render ({
+        expressionAtlasHeatmapHighcharts.render ({
               gxaBaseUrl: "http://www.ebi.ac.uk/gxa/",
 // ParaSite
               params:'geneQuery=$stable_id&species=$species&source=DEVELOPMENTAL_STAGE',

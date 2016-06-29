@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 use parent qw(EnsEMBL::Web::Document::Element);
+use previous qw(content);
 
 sub init {
   my $self          = shift;
@@ -40,6 +41,23 @@ sub init {
       $self->add_script($_->minified_url_path);
     }
   }
+}
+
+sub content {
+  my $self = shift;
+
+  my $main_js = $self->PREV::content(@_);
+
+  return $main_js unless $self->hub->action && $self->hub->action eq 'ExpressionAtlas' && $self->hub->gxa_status; #adding js only for gxa view and do not add them if their site is down
+
+  # don't forget to remove their jquery lib as this will cause conflict with our one which is the latest one
+  $main_js .=  qq{
+    <script language="JavaScript" type="text/javascript" src="$SiteDefs::GXA_EBI_URL/js-bundles/vendorCommons.bundle.js"></script>
+    <script language="JavaScript" type="text/javascript" src="$SiteDefs::GXA_EBI_URL/js-bundles/expressionAtlasHeatmapHighcharts.bundle.js"></script>
+  };
+
+  return $main_js;
+
 }
 
 1;
