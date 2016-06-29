@@ -498,8 +498,10 @@ sub dumpGene {
       
       my $ortholog_lookup     = get_ortholog_lookup($conf, $production_name, $genomic_unit);
       my $ortholog_lookup_pan = get_ortholog_lookup($conf, $production_name, 'pan_homology');
-      
-      (my $filename = "Gene_${species}_${DB}") =~ s/[\W]/_/g;
+
+## ParaSite: use the production name in dump filename     
+      (my $filename = "Gene_${production_name}_${DB}") =~ s/[\W]/_/g;
+##
       my $file = "$dir/$filename." . ($format eq 'solr' ? 'tsv' : 'xml');
       $file .= ".gz" unless $nogzip;
       my $start_time = time;
