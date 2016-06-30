@@ -61,6 +61,7 @@ sub update_conf {
                 ];
     $SiteDefs::NCBIBLAST_REST_ENDPOINT = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
     $SiteDefs::EBEYE_REST_ENDPOINT     = 'http://www.ebi.ac.uk/ebisearch/ws/rest';
+    $SiteDefs::EVA_URL = 'http://www.ebi.ac.uk/eva';
 
     ### Species Configuration
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
