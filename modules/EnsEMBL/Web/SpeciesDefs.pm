@@ -51,4 +51,24 @@ sub assembly_lookup {
   return $lookup;
 }
 
+sub species_label {
+  my ($self, $key, $no_formatting) = @_;
+
+  if( my $sdhash          = $self->SPECIES_DISPLAY_NAME) {
+      (my $lcspecies = lc $key) =~ s/ /_/g;
+      return $sdhash->{$lcspecies} if $sdhash->{$lcspecies};
+  }
+
+## ParaSite: use the SPECIES_COMMON_NAME instead of SPECIES_DISPLAY_NAME
+  $key = ucfirst $key;
+warn $key;
+  my $scientific = $self->get_config($key, 'SPECIES_BIO_NAME');
+  my $display    = $self->get_config($key, 'SPECIES_COMMON_NAME');
+  my $bioproject = $self->get_config($key, 'SPECIES_BIOPROJECT');
+  return $display ? $display : sprintf('<i>%s</i> (%s)', $scientific, $bioproject);
+
+##
+
+}
+
 1;
