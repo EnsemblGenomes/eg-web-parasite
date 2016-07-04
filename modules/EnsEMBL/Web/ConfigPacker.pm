@@ -283,7 +283,6 @@ sub eva_api {
   my ($self, $url) = @_;
   
   my $uri = URI->new($url);
- warn $url; 
   my $can_accept;
   eval { $can_accept = HTTP::Message::decodable() };
 
