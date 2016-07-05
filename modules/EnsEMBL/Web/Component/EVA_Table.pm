@@ -29,7 +29,7 @@ sub content {
   my %consequences = map { $_->SO_term => $_->description } values %Bio::EnsEMBL::Variation::Utils::Constants::OVERLAP_CONSEQUENCES;
   
   my @rows = map {[
-    sprintf('<a href="%s">%s</a>', $_->{'url'}, $_->{'variation_name'}),
+    sprintf('<a href="%s">%s</a>', $_->{'url'}, $_->{'variation_name'} || sprintf('%s:%s-%s', $_->{'chromosome'}, $_->{'start'}, $_->{'end'} || $_->{'start'})),
     sprintf('<a href="%s/?eva-study=%s">%s</a>', $hub->species_defs->EVA_URL, $_->{'study_id'}, $_->{'study_id'}),
     $_->{'start'},
     $_->{'type'},
@@ -114,8 +114,10 @@ sub features {
           }
 
           # Create the feature, then push to the features list
-          my $info_url = $self->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species });
+          my $feature_name = $self->object->seq_region_name;
+          my $info_url = $self->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species, r => sprintf('%s:%s-%s', $feature_name, $variant->{start}, $variant->{end} || $variant->{start}) });
           my $feature = {
+            'chromosome'     => $variant->{chromosome},
             'start'          => $variant->{start},
             'end'            => $variant->{end},
             'gene'           => $variant->{ensemblGeneId},

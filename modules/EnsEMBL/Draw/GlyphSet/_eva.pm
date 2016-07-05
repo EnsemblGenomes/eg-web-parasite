@@ -100,7 +100,7 @@ sub features {
         }
 
         # Create the feature, then push to the features list
-        my $info_url = $self->{'config'}->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species });
+        my $info_url = $self->{'config'}->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species, r => sprintf('%s:%s-%s', $feature_name, $variant->{start}, $variant->{end} || $variant->{start}) });
         my $feature = {
           'start'          => $variant->{start} - $start + 1,
           'end'            => $variant->{end} - $start + 1,
