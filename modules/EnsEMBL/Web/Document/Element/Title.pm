@@ -67,7 +67,7 @@ sub init {
     } elsif($type eq 'Tools') {
       $self->set(sprintf('%s - %s', $species_defs->ENSEMBL_SITE_NAME, $title));
     } elsif($type eq 'Location' && $hub->action eq 'EVA_Variant') {
-      $self->set(sprintf('Variant %s - %s', $hub->param('variant_id'), $species_defs->ENSEMBL_SITE_NAME));
+      $self->set(sprintf('%s - %s: Variant %s', $species_defs->ENSEMBL_SITE_NAME, $species_defs->SPECIES_BIO_NAME, $hub->param('variant_id') || $hub->param('r')));
     } else {
       $title .= " - $caption" if($caption && $title !~ /$caption/ );
       $title = " - $title" if ($title);
