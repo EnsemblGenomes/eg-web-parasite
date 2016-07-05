@@ -47,8 +47,7 @@ sub features {
   my $study        = $self->my_config('study_id');
   my $species      = $self->my_config('eva_species');
   my $slice        = $self->{'container'};
-### TODO: Check this way of getting synonyms works with all our species
-  my $feature_name = @{$slice->get_all_synonyms('EMBL')}[0] || $slice->seq_region_name;
+  my $feature_name = @{$slice->get_all_synonyms('INSDC')}[0] || $slice->seq_region_name;
   my $start        = $slice->start;
   my $end          = $slice->end;
   my $slice_length = $slice->length;

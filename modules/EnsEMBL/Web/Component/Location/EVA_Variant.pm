@@ -31,8 +31,7 @@ sub get_variant_info {
     $url = sprintf("%s/webservices/rest/v1/variants/%s/info?species=%s", $self->hub->species_defs->EVA_URL, $variant_id, $eva_species);
   } else {
     my $object = $self->object || $self->hub->core_object('location');
-## TODO: Change the external_db_name here when we make it consistent in all the databases
-    my $feature_name = @{$object->slice->get_all_synonyms('EMBL')}[0] || $object->slice->seq_region_name;
+    my $feature_name = @{$object->slice->get_all_synonyms('INSDC')}[0] || $object->slice->seq_region_name;
     my $start = $object->slice->start;
     my $end = $object->slice->end;
     $url = sprintf("%s/webservices/rest/v1/segments/%s:%s-%s/variants?merge=true&exclude=sourceEntries&species=%s", $self->hub->species_defs->EVA_URL, $feature_name, $start, $end, $eva_species);
