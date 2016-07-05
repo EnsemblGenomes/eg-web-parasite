@@ -117,42 +117,14 @@ sub get_result_links {
   my $urls  = $self->object->get_result_urls($job, $result);
   my $sp    = $hit->{'species'};
 
-## ParaSite: deal with linking out to WormBase for the non-ParaSite species
-  if($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE') {
-    my @genes;
-    if($hit->{'genes'}) {
-      my $adaptor = $hub->get_adaptor("get_GeneAdaptor", 'core', $sp);
-      my @genead = map { $adaptor->fetch_by_stable_id($_) } @{$hit->{'genes'}};
-      @genes = map($hub->get_ExtURL_link($_->display_xref ? $_->display_xref->display_id : $_->stable_id, uc($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)}) . "_GENE", $_->stable_id), @genead);
-    }
-    return {
-      'gene'              => join(', ', @genes),
-      'target'            => $hub->get_ExtURL_link($hit->{'tid'}, uc($hub->species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)}) . "_TRANSCRIPT", $hit->{'tid'}),
-      'location'          => $hub->get_ExtURL_link($hit->{'gid'} . ":" . $hit->{'gstart'} . "-" . $hit->{'gend'}, uc($sp) . "_GBROWSE_TRACK", {
-                                'CHR'    => $hit->{'gid'},
-                                'START'  => ($hit->{'gstart'}-25),
-                                'END'    => ($hit->{'gend'}+25),
-                                'TCHR'   => $hit->{'gid'},
-                                'TSTART' => $hit->{'gstart'},
-                                'TEND'   => $hit->{'gend'},
-                                'TTYPE'  => 'ParaSite-BLAST',
-                                'TNAME'  => 'Hit'
-                             }),
-      'genomic_sequence'  => sprintf('<a href="%s" class="small _ht" title="View Genomic Sequence">[Sequence]</a>', $hub->url($urls->{'genomic_sequence'})),
-      'query_sequence'    => sprintf('<a href="%s" class="small _ht" title="View Query Sequence">[Sequence]</a>', $hub->url($urls->{'query_sequence'})),
-      'alignment'         => sprintf('<a href="%s" class="small _ht" title="View Alignment">[Alignment]</a>', $hub->url($urls->{'alignment'}))
-    };
-  } else {
-    return {
-      'gene'              => join(', ', map { sprintf '<a href="%2$s">%1$s</a>', delete $_->{'label'}, $hub->url($_) } @{$urls->{'gene'}}) || '',
-      'target'            => $urls->{'target'} ? sprintf('<a href="%s">%s</a>', $hub->url($urls->{'target'}), $hit->{'tid'}) : '',
-      'location'          => sprintf('<a href="%s" class="_ht" title="Region in Detail">%s:%s-%s</a>', $hub->url($urls->{'location'}), $hit->{'gid'}, $hit->{'gstart'}, $hit->{'gend'}),
-      'genomic_sequence'  => sprintf('<a href="%s" class="small _ht" title="View Genomic Sequence">[Sequence]</a>', $hub->url($urls->{'genomic_sequence'})),
-      'query_sequence'    => sprintf('<a href="%s" class="small _ht" title="View Query Sequence">[Sequence]</a>', $hub->url($urls->{'query_sequence'})),
-      'alignment'         => sprintf('<a href="%s" class="small _ht" title="View Alignment">[Alignment]</a>', $hub->url($urls->{'alignment'}))
-    };
-  }
-## ParaSite
+  return {
+    'gene'              => join(', ', map { sprintf '<a href="%2$s">%1$s</a>', delete $_->{'label'}, $hub->url($_) } @{$urls->{'gene'}}) || '',
+    'target'            => $urls->{'target'} ? sprintf('<a href="%s">%s</a>', $hub->url($urls->{'target'}), $hit->{'tid'}) : '',
+    'location'          => sprintf('<a href="%s" class="_ht" title="Region in Detail">%s:%s-%s</a>', $hub->url($urls->{'location'}), $hit->{'gid'}, $hit->{'gstart'}, $hit->{'gend'}),
+    'genomic_sequence'  => sprintf('<a href="%s" class="small _ht" title="View Genomic Sequence">[Sequence]</a>', $hub->url($urls->{'genomic_sequence'})),
+    'query_sequence'    => sprintf('<a href="%s" class="small _ht" title="View Query Sequence">[Sequence]</a>', $hub->url($urls->{'query_sequence'})),
+    'alignment'         => sprintf('<a href="%s" class="small _ht" title="View Alignment">[Alignment]</a>', $hub->url($urls->{'alignment'}))
+  };
 }
 
 1;
