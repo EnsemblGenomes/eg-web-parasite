@@ -250,14 +250,6 @@ sub content {
     push(@left_sections, $self->_compara_text);
   }
 
-  if ($hub->database('variation')) {
-    push(@left_sections, $self->_variation_text);
-  }
-
-  if ($hub->database('funcgen')) {
-    push(@left_sections, $self->_funcgen_text);
-  }
-
   push(@right_sections, sprintf('<h2>Statistics</h2>%s', $self->species_stats));
 
   push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
@@ -281,32 +273,6 @@ sub content {
 
   my $ext_source_html = $self->external_sources;
   $html .= '<div class="column-wrapper"><div class="round-box home-box unbordered">' . $ext_source_html . '</div></div>' if $ext_source_html;
-
-  return $html;
-}
-
-sub _whatsnew_text {
-  my $self         = shift;
-  my $hub          = $self->hub;
-  my $species_defs = $hub->species_defs;
-  my $species      = $hub->species;
-  my $news_url     = $hub->url({'action' => 'WhatsNew'});
-
-  my $html = sprintf(qq(<h2><a href="%s" title="More release news"><img src="%s24/announcement.png" style="vertical-align:middle" alt="" /></a> What's New in %s release %s</h2>), $news_url, $self->img_url, $species_defs->SPECIES_COMMON_NAME, $species_defs->ENSEMBL_VERSION,);
-
-  if ($species_defs->multidb->{'DATABASE_PRODUCTION'}{'NAME'}) {
-    my $adaptor = EnsEMBL::Web::DBSQL::ProductionAdaptor->new($hub);
-    my $params  = {'release' => $species_defs->ENSEMBL_VERSION, 'species' => $species, 'limit' => 3};
-    my @changes = @{$adaptor->fetch_changelog($params)};
-
-    $html .= '<ul>';
-
-    foreach my $record (@changes) {
-      my $record_url = $news_url . '#change_' . $record->{'id'};
-      $html .= sprintf('<li><a href="%s" class="nodeco">%s</a></li>', $record_url, $record->{'title'});
-    }
-    $html .= '</ul>';
-  }
 
   return $html;
 }
@@ -500,124 +466,6 @@ sub _compara_text {
   return $html;
 }
 
-sub _variation_text {
-  my $self         = shift;
-  my $hub          = $self->hub;
-  my $species_defs = $hub->species_defs;
-  my $species      = $hub->species;
-  my $img_url      = $self->img_url;
-  my $sample_data  = $species_defs->SAMPLE_DATA;
-  my $ensembl_version = $species_defs->SITE_RELEASE_VERSION;
-  my $display_name    = $species_defs->SPECIES_SCIENTIFIC_NAME;
-  my $html;
-
-  if ($hub->database('variation')) {
-    $html .= '<div class="homepage-icon">';
-
-    if ($sample_data->{'VARIATION_PARAM'}) {
-      my $var_url  = $species_defs->species_path . '/Variation/Explore?v=' . $sample_data->{'VARIATION_PARAM'};
-      my $var_text = $sample_data->{'VARIATION_TEXT'};
-      $html .= qq(
-        <a class="nodeco _ht" href="$var_url" title="Go to variant $var_text"><img src="${img_url}96/variation.png" class="bordered" /><span>Example variant</span></a>
-      );
-    }
-
-    if ($sample_data->{'PHENOTYPE_PARAM'}) {
-      my $phen_text = $sample_data->{'PHENOTYPE_TEXT'};
-      my $phen_url  = $species_defs->species_path . '/Phenotype/Locations?ph=' . $sample_data->{'PHENOTYPE_PARAM'};
-      $html .= qq(<a class="nodeco _ht" href="$phen_url" title="Go to phenotype $phen_text"><img src="${img_url}96/phenotype.png" class="bordered" /><span>Example phenotype</span></a>);
-    }
-
-    if ($sample_data->{'STRUCTURAL_PARAM'}) {
-      my $struct_text = $sample_data->{'STRUCTURAL_TEXT'};
-      my $struct_url = $species_defs->species_path .'/StructuralVariation/Explore?sv='.$sample_data->{'STRUCTURAL_PARAM'};
-      $html .= qq(<a class="nodeco _ht"  href="$struct_url" title="Go to structural variant $struct_text"><img src="${img_url}96/struct_var.png" class="bordered" /><span>Example structural variant</span></a>);
-    }
-
-    $html .= '</div>';
-    $html .= '<h2>Variation</h2><p><strong>What can I find?</strong> Short sequence variants';
-    if ($species_defs->databases->{'DATABASE_VARIATION'}{'STRUCTURAL_VARIANT_COUNT'}) {
-      $html .= ' and longer structural variants';
-    }
-    if ($sample_data->{'PHENOTYPE_PARAM'}) {
-      $html .= '; disease and other phenotypes';
-    }
-    $html .= '.</p>';
-
-    if ($self->_other_text('variation', $species)) {
-      $html .= qq(<p><a href="/$species/Info/Annotation#variation" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about variation in $display_name</a></p>);
-    }
-
-    my $site = $species_defs->ENSEMBL_SITETYPE;
-    $html .= qq(<p><a href="http://ensemblgenomes.org/info/data/variation" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about variation in $site</a></p>);
-
-    if ($species_defs->ENSEMBL_FTP_URL) {
-      my @links;
-      foreach my $format (qw/gvf vcf vep/){
-        push(@links, sprintf('<a href="%s/release-%s/%s/%s/" class="nodeco _ht" title="Download (via FTP) all <em>%s</em> variants in %s format">%s</a>', $species_defs->ENSEMBL_FTP_URL, $ensembl_version, $format, lc $species, $display_name, uc $format,uc $format));
-      }
-      my $links = join(" - ", @links);
-      $html .= qq[<p><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download all variants - $links</p>];
-    }
-  }
-
-  return $html;
-}
-
-sub _funcgen_text {
-  my $self            = shift;
-  my $hub             = $self->hub;
-  my $species_defs    = $hub->species_defs;
-  my $species         = $hub->species;
-  my $img_url         = $self->img_url;
-  my $sample_data     = $species_defs->SAMPLE_DATA;
-  my $ensembl_version = $species_defs->ENSEMBL_VERSION;
-  my $site            = $species_defs->ENSEMBL_SITETYPE;
-  my $html;
-
-  my $sample_data = $species_defs->SAMPLE_DATA;
-  if ($sample_data->{'REGULATION_PARAM'}) {
-    $html = '<div class="homepage-icon">';
-
-    my $reg_url  = $species_defs->species_path . '/Regulation/Cell_line?db=funcgen;rf=' . $sample_data->{'REGULATION_PARAM'};
-    my $reg_text = $sample_data->{'REGULATION_TEXT'};
-    $html .= qq(<a class="nodeco _ht" href="$reg_url" title="Go to regulatory feature $reg_text"><img src="${img_url}96/regulation.png" class="bordered" /><span>Example regulatory feature</span></a>);
-    $html .= '</div>';
-    $html .= '<h2>Regulation</h2><p><strong>What can I find?</strong> DNA methylation, transcription factor binding sites, histone modifications, and regulatory features such as enhancers and repressors, and microarray annotations.</p>';
-
-    # EG add a link to about_[spp]#regulation
-    my $display_name = $species_defs->SPECIES_SCIENTIFIC_NAME;
-    if ($self->_other_text('regulation', $species)) {
-      $html .= qq(<p><a href="/$species/Info/Annotation#regulation" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about regulation in $display_name</a></p>);
-    }
-
-    $html .= qq(<p><a href="/info/docs/funcgen/" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about the $site regulatory build</a> and <a href="/info/docs/microarray_probe_set_mapping.html" class="nodeco">microarray annotation</a></p>);
-
-    if ($species_defs->ENSEMBL_FTP_URL) {
-      my $ftp_url = sprintf '%s/release-%s/regulation/%s/', $species_defs->ENSEMBL_FTP_URL, $ensembl_version, lc $species;
-      $html .= qq(<p><a href="$ftp_url" class="nodeco"><img src="${img_url}24/download.png" alt="" class="homepage-link" />Download all regulatory features</a> (GFF)</p>);
-    }
-  }
-  else {
-    $html .= '<h2>Regulation</h2><p><strong>What can I find?</strong> Microarray annotations.</p>';
-
-    # EG add a link to about_[spp]#regulation
-    my $display_name = $species_defs->SPECIES_SCIENTIFIC_NAME;
-    if ($self->_other_text('regulation', $species)) {
-      $html .= qq(<p><a href="/$species/Info/Annotation#regulation" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about regulation in $display_name</a></p>);
-    }
-    $html .= qq(<p><a href="http://ensemblgenomes.org/info/data/microarray_mapping" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about the $site microarray annotation strategy</a></p>);
-
-    # EG add a link to about_[spp]#regulation
-    my $display_name = $species_defs->SPECIES_SCIENTIFIC_NAME;
-    if ($self->_other_text('regulation', $species)) {
-      $html .= qq(<p><a href="/$species/Info/Annotation#regulation" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More about regulation in $display_name</a></p>);
-    }
-  }
-
-  return $html;
-}
-
 # ParaSite specific Downloads section
 sub _downloads_text {
   my $self         = shift;
@@ -772,19 +620,6 @@ sub _has_compara {
 sub has_compara     { 
   my $self = shift;
   return $self->_has_compara('compara', @_); 
-}
-
-sub has_pan_compara     { 
-  my $self = shift;
-  return $self->_has_compara('compara_pan_ensembl', @_); 
-}
-
-sub is_bacteria {
-  my $self = shift;
-  if (!defined $self->{_is_bacteria}) {
-    $self->{_is_bacteria} = $self->hub->species_defs->GENOMIC_UNIT =~ /bacteria/i ? 1 : 0;
-  }
-  return $self->{_is_bacteria};
 }
 
 # /EG
