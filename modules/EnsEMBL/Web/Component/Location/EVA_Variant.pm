@@ -156,7 +156,7 @@ sub get_variant_info {
         
         # VCF Attributes
         my $attributes = $result->{sourceEntries}->{$source}->{attributes};
-        foreach my $attrib (keys %{$attributes}) {
+        foreach my $attrib (sort keys %{$attributes}) {
           next if $attrib eq 'src';
           push(@$attrib_columns, { key => $attrib, title => $attrib, align => 'left', width => '10%', help => $vcf_help->{$attrib} ? $vcf_help->{$attrib} : '' });
           push(@$attrib_row, $attributes->{$attrib});
