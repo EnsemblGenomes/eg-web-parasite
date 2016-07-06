@@ -25,6 +25,8 @@ sub modify_tree {
     [qw(pan_species EnsEMBL::Web::Component::Info::SpeciesLanding)]
   );
 
+  $self->delete_node('Annotation');
+
 }
 
 1;
