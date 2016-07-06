@@ -274,7 +274,7 @@ sub get_EVA_tracks {
       if ($response->is_success) {
         my $result = XMLin($response->decoded_content);
         my $submitter = $result->{PROJECT}{center_name};
-        my $name = $result->{PROJECT}->{NAME};
+        my $name = $result->{PROJECT}->{NAME} || $result->{PROJECT}->{TITLE};
         my $formatted;
         if($result->{PROJECT}->{DESCRIPTION}) {
           $formatted = encode_entities($result->{PROJECT}->{DESCRIPTION});
