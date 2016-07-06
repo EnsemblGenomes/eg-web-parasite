@@ -2,7 +2,9 @@ package EnsEMBL::Web::Component::Location::EVA_Variant;
 
 use strict;
 use LWP;
+use HTML::Entities;
 use JSON;
+use XML::Simple;
 use List::MoreUtils qw(uniq);
 
 use base qw(EnsEMBL::Web::Component);
@@ -152,6 +154,23 @@ sub get_variant_info {
       # Datasets
       foreach my $source (keys %{$result->{sourceEntries}}) {
         $html .= "<h2>Study $source</h2>";
+        
+        my $ena_url = sprintf("http://www.ebi.ac.uk/ena/data/view/%s&display=xml", $result->{sourceEntries}->{$source}->{studyId});
+        my $ua = LWP::UserAgent->new();
+        my $response = $ua->get($ena_url);
+        if ($response->is_success) {
+          my $result = XMLin($response->decoded_content);
+          my $submitter = $result->{PROJECT}{center_name};
+          my $name = $result->{PROJECT}->{NAME};
+          my $formatted;
+          if($result->{PROJECT}->{DESCRIPTION}) {
+            $formatted = encode_entities($result->{PROJECT}->{DESCRIPTION});
+          } elsif($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION}) {
+            $formatted = encode_entities($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION});
+          }
+          $html .= qq(<h3>Study Overview</h3><p><b>Study Name:</b> $name<br /><b>Submitter:</b> $submitter</p>);
+        }
+
         $html .= "<h3>Quality Overview</h3>";
         
         # VCF Attributes
@@ -166,7 +185,7 @@ sub get_variant_info {
         
         # Genotypes
         $html .= "<h3>Genotypes</h3>";
-        $html .= sprintf("<p>This study included %s individuals.  The genotype for each is shown in the table below.</p>", scalar(keys %{$result->{sourceEntries}->{$source}->{samplesData}}));
+        $html .= sprintf("<p>This study included %s samples.  The genotype for each is shown in the table below.</p>", scalar(keys %{$result->{sourceEntries}->{$source}->{samplesData}}));
         my $table = $self->new_table($gt_columns, [], { data_table => 1 });
         foreach my $sample (keys %{$result->{sourceEntries}->{$source}->{samplesData}}) {
           my $gt = $result->{sourceEntries}->{$source}->{samplesData}->{$sample}->{GT};

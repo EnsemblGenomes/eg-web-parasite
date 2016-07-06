@@ -19,6 +19,8 @@ limitations under the License.
 package EnsEMBL::Web::ConfigPacker;
 
 use LWP::UserAgent;
+use HTML::Entities;
+use XML::Simple;
 use JSON;
 use Data::Dumper;
 
@@ -265,10 +267,26 @@ sub get_EVA_tracks {
       next;
     }
     foreach my $dataset (@{$result_set->{result}}) {
+      my $ena_url = sprintf("http://www.ebi.ac.uk/ena/data/view/%s&display=xml", $dataset->{id});
+      my $ua = LWP::UserAgent->new();
+      my $response = $ua->get($ena_url);
+      my $description;
+      if ($response->is_success) {
+        my $result = XMLin($response->decoded_content);
+        my $submitter = $result->{PROJECT}{center_name};
+        my $name = $result->{PROJECT}->{NAME};
+        my $formatted;
+        if($result->{PROJECT}->{DESCRIPTION}) {
+          $formatted = encode_entities($result->{PROJECT}->{DESCRIPTION});
+        } elsif($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION}) {
+          $formatted = encode_entities($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION});
+        }
+        $description = qq(<h3>Study Overview</h3><p><b>Study Name:</b> $name<br /><b>Submitter:</b> $submitter<br /><b>Project Description:</b> $formatted<br /><i>Description provided by <a href="http://www.ebi.ac.uk/ena">ENA</a></i></p>);
+      }
       my $track = {
         'name'        => $dataset->{name},
         'study_id'    => $dataset->{id},
-        'description' => $dataset->{description},
+        'description' => $description,
         'eva_species' => $eva_assembly
       };
       push(@$track_list, $track);
