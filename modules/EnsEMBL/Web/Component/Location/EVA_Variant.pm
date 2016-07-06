@@ -34,7 +34,7 @@ sub get_variant_info {
     my $feature_name = @{$object->slice->get_all_synonyms('INSDC')}[0] || $object->slice->seq_region_name;
     my $start = $object->slice->start;
     my $end = $object->slice->end;
-    $url = sprintf("%s/webservices/rest/v1/segments/%s:%s-%s/variants?merge=true&exclude=sourceEntries&species=%s", $self->hub->species_defs->EVA_URL, $feature_name, $start, $end, $eva_species);
+    $url = sprintf("%s/webservices/rest/v1/segments/%s:%s-%s/variants?merge=true&species=%s", $self->hub->species_defs->EVA_URL, $feature_name, $start, $end, $eva_species);
   }
   my $uri = URI->new($url);
 
@@ -157,6 +157,7 @@ sub get_variant_info {
         # VCF Attributes
         my $attributes = $result->{sourceEntries}->{$source}->{attributes};
         foreach my $attrib (keys %{$attributes}) {
+          next if $attrib eq 'src';
           push(@$attrib_columns, { key => $attrib, title => $attrib, align => 'left', width => '10%', help => $vcf_help->{$attrib} ? $vcf_help->{$attrib} : '' });
           push(@$attrib_row, $attributes->{$attrib});
         }
@@ -172,6 +173,7 @@ sub get_variant_info {
           my $delimeter = $1 if $gt =~ /.*([|\/]).*/;
           my @genotypes = split(/[|\/]/, $gt);
           foreach(@genotypes) {
+            $_ =~ s/-1/./;
             $_ =~ s/0/<span style="color: green">$ref<\/span>/;
             $_ =~ s/1/<span style="color: red">$alt<\/span>/;
           }
