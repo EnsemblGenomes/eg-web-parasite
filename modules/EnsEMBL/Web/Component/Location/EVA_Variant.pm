@@ -112,7 +112,7 @@ sub get_variant_info {
     if($result_set->{numResults} == 0) {
       next;
     }
-    $html .= sprintf('<p>There %s %s variants located at this position.</p>', $result_set->{numResults} == 1 ? 'is' : 'are', $result_set->{numResults});
+    $html .= sprintf('<p>There %s %s %s located at this position.</p>', $result_set->{numResults} == 1 ? 'is' : 'are', $result_set->{numResults} == 1 ? 'variant' : 'variants', $result_set->{numResults});
     my $j = 0;
     foreach my $result (@{$result_set->{result}}) {  
       $j++;
