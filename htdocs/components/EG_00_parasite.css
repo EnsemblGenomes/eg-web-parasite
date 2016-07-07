@@ -36,7 +36,7 @@
 }
 .home-left .home-button h3 {
   font-face: Helvetica, Arial, sans-serif;
-  font-size: 1.1vw;
+  font-size: 1.1em;
   color: #000000;
   padding-top: 22%;
 }
@@ -45,7 +45,7 @@
   color: #000000;
 }
 .home-left .home-button .home-button-symbol {
-  font-size: 2.5vw;
+  font-size: 2.5em;
   padding-top: 10%;
 }
 .home-left .home-species-nav {
