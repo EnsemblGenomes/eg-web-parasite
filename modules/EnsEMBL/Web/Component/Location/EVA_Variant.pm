@@ -112,16 +112,20 @@ sub get_variant_info {
     if($result_set->{numResults} == 0) {
       next;
     }
+    $html .= sprintf('<p>There %s %s variants located at this position.</p>', $result_set->{numResults} == 1 ? 'is' : 'are', $result_set->{numResults});
+    my $j = 0;
     foreach my $result (@{$result_set->{result}}) {  
+      $j++;
+      $html .= $result_set->{numResults} > 1 ? "<hr><h2>Variant $j</h2>" : '';
       # Annotation
       my $annotation = $result->{annotation};
       my $anno_table = $self->new_table($anno_columns, [[
         $result->{id} || '-',
-        $annotation->{chromosome},
-        $annotation->{start},
-        $annotation->{end} == 0 ? '-' : $annotation->{end},
-        $annotation->{referenceAllele} || '-',
-        $annotation->{alternativeAllele} || '-'
+        $result->{chromosome},
+        $result->{start},
+        $result->{end} == 0 ? '-' : $result->{end},
+        $result->{reference} || '-',
+        $result->{alternate} || '-'
       ]]);
       $html .= $anno_table->render;
       my $ref = $annotation->{referenceAllele} || '-';
@@ -186,6 +190,8 @@ sub get_variant_info {
         # Genotypes
         $html .= "<h3>Genotypes</h3>";
         $html .= sprintf("<p>This study included %s samples.  The genotype for each is shown in the table below.</p>", scalar(keys %{$result->{sourceEntries}->{$source}->{samplesData}}));
+        my @alleles = ( $ref, $alt );
+        push(@alleles, @{$result->{sourceEntries}->{$source}->{secondaryAlternates}});
         my $table = $self->new_table($gt_columns, [], { data_table => 1 });
         foreach my $sample (keys %{$result->{sourceEntries}->{$source}->{samplesData}}) {
           my $gt = $result->{sourceEntries}->{$source}->{samplesData}->{$sample}->{GT};
@@ -193,8 +199,10 @@ sub get_variant_info {
           my @genotypes = split(/[|\/]/, $gt);
           foreach(@genotypes) {
             $_ =~ s/-1/./;
-            $_ =~ s/0/<span style="color: green">$ref<\/span>/;
-            $_ =~ s/1/<span style="color: red">$alt<\/span>/;
+            for(my $i = 0; $i < scalar(@alleles); $i++) {
+              my $col = $i == 0 ? 'green' : 'red';
+              $_ =~ s/$i/<span style="color: $col">$alleles[$i]<\/span>/;
+            }
           }
           my $actual_gt = join($delimeter, @genotypes);
           $table->add_row([
