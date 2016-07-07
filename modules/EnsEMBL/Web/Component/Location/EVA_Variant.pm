@@ -207,6 +207,8 @@ sub get_variant_info {
     }
   }
   
+  $html .= sprintf('<p>Data loaded from the <a href="%s">European Variation Archive</a></p>', $self->hub->species_defs->EVA_URL);
+
   return $html;
   
 }
