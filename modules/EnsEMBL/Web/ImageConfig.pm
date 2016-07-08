@@ -20,6 +20,66 @@ package EnsEMBL::Web::ImageConfig;
 
 use strict;
 
+sub load_tracks {
+  my ($self,$params) = @_;
+  my $species      = $self->{'species'};
+  my $species_defs = $self->species_defs;
+  my $dbs_hash     = $self->databases;
+
+  my %data_types = (
+    core => [
+      'add_dna_align_features',     # Add to cDNA/mRNA, est, RNA, other_alignment trees
+      'add_data_files',             # Add to gene/rnaseq tree
+#     'add_ditag_features',         # Add to ditag_feature tree
+      'add_genes',                  # Add to gene, transcript, align_slice_transcript, tsv_transcript trees
+      'add_trans_associated',       # Add to features associated with transcripts
+      'add_marker_features',        # Add to marker tree
+      'add_qtl_features',           # Add to marker tree
+      'add_genome_attribs',         # Add to genome_attribs tree
+      'add_misc_features',          # Add to misc_feature tree
+      'add_prediction_transcripts', # Add to prediction_transcript tree
+      'add_protein_align_features', # Add to protein_align_feature_tree
+      'add_protein_features',       # Add to protein_feature_tree
+      'add_repeat_features',        # Add to repeat_feature tree
+      'add_simple_features',        # Add to simple_feature tree
+      'add_sequence_variations_eva',# ParaSite - add EVA variation tracks, even if we don't have a variation database
+      'add_decorations'
+    ],
+    compara => [
+      'add_synteny',                # Add to synteny tree
+      'add_alignments'              # Add to compara_align tree
+    ],
+    funcgen => [
+      'add_regulation_builds',      # Add to regulation_feature tree
+      'add_regulation_features',    # Add to regulation_feature tree
+      'add_oligo_probes'            # Add to oligo tree
+    ],
+    variation => [
+      'add_sequence_variations',          # Add to variation_feature tree
+      'add_phenotypes',                   # Add to variation_feature tree
+      'add_structural_variations',        # Add to variation_feature tree
+      'add_copy_number_variant_probes',   # Add to variation_feature tree
+      'add_recombination',                # Moves recombination menu to the end of the variation_feature tree
+      'add_somatic_mutations',            # Add to somatic tree
+      'add_somatic_structural_variations' # Add to somatic tree
+    ],
+  );
+
+  foreach my $type (keys %data_types) {
+    my ($check, $databases) = $type eq 'compara' ? ($species_defs->multi_hash, $species_defs->compara_like_databases) : ($dbs_hash, $self->sd_call("${type}_like_databases"));
+
+    foreach my $db (grep exists $check->{$_}, @{$databases || []}) {
+      my $key = lc substr $db, 9;
+      $self->$_($key, $check->{$db}{'tables'} || $check->{$db}, $species,$params) for @{$data_types{$type}}; # Look through tables in databases and add data from each one      
+    }
+  }
+
+  $self->add_options('information', [ 'opt_empty_tracks', 'Display empty tracks', undef, undef, 'off' ]) unless $self->get_parameter('opt_empty_tracks') eq '0';
+  $self->add_options('information', [ 'opt_subtitles', 'Display in-track labels', undef, undef, 'normal' ]);
+  $self->add_options('information', [ 'opt_highlight_feature', 'Highlight current feature', undef, undef, 'normal' ]);
+  $self->tree->append_child($self->create_option('track_order')) if $self->get_parameter('sortable_tracks');
+}
+
 sub menus {
   return $_[0]->{'menus'} ||= {
     # Sequence
@@ -357,5 +417,54 @@ sub _update_missing {
   return { count => $count_missing, information => $info };
 }
 
+sub add_sequence_variations_eva {
+  my ($self, $key, $hashref) = @_;
+  return if $key ne 'core';
+  
+  my $menu = $self->get_node('variation');
+  return unless $menu;
+
+  my $options = {
+    db         => $key,
+    glyphset   => '_eva',
+    strand     => 'r',
+    depth      => 0.5,
+    bump_width => 0,
+    colourset  => 'variation',
+    display    => 'off',
+    renderers  => [ 'off', 'Off', 'compact', 'Collapsed' ],
+  };
+ 
+  $self->add_sequence_variations_default_eva($key, $hashref, $options);
+ 
+  $self->add_track('information', 'variation_legend', 'Variant Legend', 'variation_legend', { strand => 'r' });
+  
+}
+
+sub add_sequence_variations_default_eva {
+  my ($self, $key, $hashref, $options) = @_;
+  my $menu = $self->get_node('variation');
+  my $sequence_variation = ($menu->get_node('variants')) ? $menu->get_node('variants') : $self->create_submenu('variants', 'Sequence variants');
+
+  foreach my $study (@{$self->hub->species_defs->EVA_TRACKS}) {
+    my $title = $study->{'name'};
+    my $name  = "variation_feature_eva_" . $study->{'study_id'};
+    $sequence_variation->append($self->create_track($name, $title, {
+      %$options,
+      caption     => $study->{'study_id'} . " Variations",
+      sources     => undef,
+      study_id    => $study->{'study_id'},
+      eva_species => $study->{'eva_species'},
+      description => sprintf('%s<br />Variants loaded from study <a href="%s/?eva-study=%s">%s</a> in the European Variation Archive.',
+                             $study->{'description'},
+                             $self->hub->species_defs->EVA_URL,
+                             $study->{'study_id'},
+                             $study->{'study_id'}),
+    }));
+  }
+  
+  $menu->append($sequence_variation);
+
+}
 
 1;

@@ -55,7 +55,7 @@ sub init {
        $title        =~ s/\s*\(.*\[\[.*\]\].*\)\s*//;
     my $type  = $hub->type;
 
-    # eg: 
+## ParaSite 
     if ($type eq 'Help') {
       $self->set("WormBase ParaSite Helpdesk");
     }
@@ -66,16 +66,17 @@ sub init {
       $self->set(sprintf('%s - %s', $species_defs->ENSEMBL_SITE_NAME, $type));
     } elsif($type eq 'Tools') {
       $self->set(sprintf('%s - %s', $species_defs->ENSEMBL_SITE_NAME, $title));
+    } elsif($type eq 'Location' && $hub->action eq 'EVA_Variant') {
+      $self->set(sprintf('%s - %s: Variant %s', $species_defs->ENSEMBL_SITE_NAME, $species_defs->SPECIES_BIO_NAME, $hub->param('variant_id') || $hub->param('r')));
     } else {
       $title .= " - $caption" if($caption && $title !~ /$caption/ );
       $title = " - $title" if ($title);
       $self->set(sprintf('%s: %s%s', $species_defs->ENSEMBL_SITE_NAME, $species_defs->SPECIES_BIO_NAME, $title));
     }    
-    # eg
+##
 
     ## Short title to be used in the bookmark link
     if ($hub->user) {
-
       if ($type eq 'Location' && $caption =~ /: ([\d,-]+)/) {
         (my $strip_commas = $1) =~ s/,//g;
         $caption =~ s/: [\d,-]+/:$strip_commas/;
