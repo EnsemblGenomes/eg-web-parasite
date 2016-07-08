@@ -446,6 +446,8 @@ sub add_sequence_variations_default_eva {
   my $menu = $self->get_node('variation');
   my $sequence_variation = ($menu->get_node('variants')) ? $menu->get_node('variants') : $self->create_submenu('variants', 'Sequence variants');
 
+  return unless $self->hub->species_defs->EVA_TRACKS;
+
   foreach my $study (@{$self->hub->species_defs->EVA_TRACKS}) {
     my $title = $study->{'name'};
     my $name  = "variation_feature_eva_" . $study->{'study_id'};
