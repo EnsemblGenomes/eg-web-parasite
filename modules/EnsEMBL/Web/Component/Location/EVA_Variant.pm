@@ -199,6 +199,7 @@ sub get_variant_info {
           my @genotypes = split(/[|\/]/, $gt);
           foreach(@genotypes) {
             $_ =~ s/-1/./;
+            $_ =~ s/\./0/;  # Replace 'no call' with reference allele
             for(my $i = 0; $i < scalar(@alleles); $i++) {
               my $col = $i == 0 ? 'green' : 'red';
               $_ =~ s/$i/<span style="color: $col">$alleles[$i]<\/span>/;
