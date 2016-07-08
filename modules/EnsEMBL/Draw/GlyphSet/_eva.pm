@@ -47,7 +47,9 @@ sub features {
   my $study        = $self->my_config('study_id');
   my $species      = $self->my_config('eva_species');
   my $slice        = $self->{'container'};
-  my $feature_name = @{$slice->get_all_synonyms('INSDC')}[0] || $slice->seq_region_name;
+  #my $feature_name = @{$slice->get_all_synonyms('INSDC')}[0] || $slice->seq_region_name;
+  my $feature_name = $slice->seq_region_name;
+  $feature_name =~ s/^Smp\.Chr_//;  # Temporary hack until INSDC accessions are used in EVA
   my $start        = $slice->start;
   my $end          = $slice->end;
   my $slice_length = $slice->length;
@@ -99,7 +101,7 @@ sub features {
         }
 
         # Create the feature, then push to the features list
-        my $info_url = $self->{'config'}->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species, r => sprintf('%s:%s-%s', $feature_name, $variant->{start}, $variant->{end} || $variant->{start}) });
+        my $info_url = $self->{'config'}->hub->url({ type => 'Location', action => 'EVA_Variant', variant_id => $variant->{id}, eva_species => $species, r => sprintf('%s:%s-%s', $self->{'container'}->seq_region_name, $variant->{start}, $variant->{end} || $variant->{start}) });
         my $feature = {
           'start'          => $variant->{start} - $start + 1,
           'end'            => $variant->{end} - $start + 1,

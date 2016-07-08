@@ -33,7 +33,9 @@ sub get_variant_info {
     $url = sprintf("%s/webservices/rest/v1/variants/%s/info?species=%s", $self->hub->species_defs->EVA_URL, $variant_id, $eva_species);
   } else {
     my $object = $self->object || $self->hub->core_object('location');
-    my $feature_name = @{$object->slice->get_all_synonyms('INSDC')}[0] || $object->slice->seq_region_name;
+    #my $feature_name = @{$object->slice->get_all_synonyms('INSDC')}[0] || $object->slice->seq_region_name;
+    my $feature_name = $object->slice->seq_region_name;
+    $feature_name =~ s/^Smp\.Chr_//;  # Temporary hack until INSDC accessions are used in EVA
     my $start = $object->slice->start;
     my $end = $object->slice->end;
     $url = sprintf("%s/webservices/rest/v1/segments/%s:%s-%s/variants?merge=true&species=%s", $self->hub->species_defs->EVA_URL, $feature_name, $start, $end, $eva_species);
