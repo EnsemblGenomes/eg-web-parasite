@@ -19,6 +19,8 @@ limitations under the License.
 package EnsEMBL::Web::ConfigPacker;
 
 use LWP::UserAgent;
+use HTML::Entities;
+use XML::Simple;
 use JSON;
 use Data::Dumper;
 
@@ -230,9 +232,96 @@ sub _munge_meta {
     }
 ##  
 
+## ParaSite: get the tracks from EVA
+    $self->tree($species)->{'EVA_TRACKS'} = $self->get_EVA_tracks($species);
+##
+
   }
 
   $genome_info_adaptor->{dbc}->db_handle->disconnect if $genome_info_adaptor; # EG - hacky, but seems to be needed
+}
+
+sub get_EVA_tracks {
+  my ($self, $species) = @_;
+  
+  my $assembly_info = $self->eva_api(sprintf("%s/webservices/rest/v1/meta/species/list", $SiteDefs::EVA_URL));
+  my $eva_species;
+  my $eva_assembly;
+  foreach my $result_set (@{$assembly_info->{response}}) {
+    if($result_set->{numResults} == 0) {
+      next;
+    }
+    foreach my $dataset (@{$result_set->{result}}) {
+      if($dataset->{assemblyAccession} eq $self->tree->{$species}{'ASSEMBLY_ACCESSION'}) {
+        $eva_species = ucfirst($dataset->{taxonomyEvaName});
+        $eva_assembly = sprintf('%s_%s', $dataset->{taxonomyCode}, $dataset->{assemblyCode});
+      }
+    }
+  }  
+  return unless $eva_species && $eva_assembly;
+
+  my $data_structure = $self->eva_api(sprintf("%s/webservices/rest/v1/meta/studies/all?browserType=sgv&species=%s", $SiteDefs::EVA_URL, $eva_species));
+  
+  my $track_list = [];
+  foreach my $result_set (@{$data_structure->{response}}) {
+    if($result_set->{numResults} == 0) {
+      next;
+    }
+    foreach my $dataset (@{$result_set->{result}}) {
+      my $ena_url = sprintf("http://www.ebi.ac.uk/ena/data/view/%s&display=xml", $dataset->{id});
+      my $ua = LWP::UserAgent->new();
+      my $response = $ua->get($ena_url);
+      my $description;
+      if ($response->is_success) {
+        my $result = XMLin($response->decoded_content);
+        my $submitter = $result->{PROJECT}{center_name};
+        my $name = $result->{PROJECT}->{NAME} || $result->{PROJECT}->{TITLE};
+        my $formatted;
+        if($result->{PROJECT}->{DESCRIPTION}) {
+          $formatted = encode_entities($result->{PROJECT}->{DESCRIPTION});
+        } elsif($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION}) {
+          $formatted = encode_entities($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION});
+        }
+        $description = qq(<h3>Study Overview</h3><p><b>Study Name:</b> $name<br /><b>Submitter:</b> $submitter<br /><b>Project Description:</b> $formatted<br /><i>Description provided by <a href="http://www.ebi.ac.uk/ena">ENA</a></i></p>);
+      }
+      my $track = {
+        'name'        => $dataset->{name},
+        'study_id'    => $dataset->{id},
+        'description' => $description,
+        'eva_species' => $eva_assembly
+      };
+      push(@$track_list, $track);
+    }
+  }
+  
+  return $track_list;
+    
+}
+
+sub eva_api {
+  my ($self, $url) = @_;
+  
+  my $uri = URI->new($url);
+  my $can_accept;
+  eval { $can_accept = HTTP::Message::decodable() };
+
+  unless ($self->{user_agent}) {
+    my $ua = LWP::UserAgent->new();
+    $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
+    $ua->env_proxy;
+    $ua->timeout(10);
+    $self->{user_agent} = $ua;
+  }
+  
+  my $response = $self->{user_agent}->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+  my $content  = $can_accept ? $response->decoded_content : $response->content;
+  
+  if ($response->is_error) {
+    warn 'Error loading EVA data: ' . $response->status_line;
+    return;
+  }
+  
+  return from_json($content); 
 }
 
 1;

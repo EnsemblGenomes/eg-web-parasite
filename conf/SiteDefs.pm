@@ -64,6 +64,7 @@ sub update_conf {
     $SiteDefs::GXA                     = 0;  # Enable this in each species ini file if GXA widget is required for that species
     $SiteDefs::GXA_REST_URL            = 'http://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
     $SiteDefs::GXA_EBI_URL             = 'http://www.ebi.ac.uk/gxa/resources';
+    $SiteDefs::EVA_URL = 'http://www.ebi.ac.uk/eva';
 
     ### Species Configuration
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;

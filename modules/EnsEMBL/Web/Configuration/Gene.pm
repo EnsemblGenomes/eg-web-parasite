@@ -54,6 +54,20 @@ sub modify_tree {
 
   my $comparison = $self->get_node('TranscriptComparison');
   $comparison->set('hide_if_unavailable', 1);
+ 
+  my $variation = $self->create_node('EVA', 'Variation', [],
+    { availability => 0 }
+  );
+  $variation->append(
+    $self->create_node('EVA_Table', 'Variation Table',
+      [qw(eva_table EnsEMBL::Web::Component::Gene::EVA_Table)]
+    )
+  );
+  $variation->append(
+    $self->create_node('EVA_Image', 'Variation Image',
+      [qw(eva_image EnsEMBL::Web::Component::Gene::EVA_Image)]
+    )
+  );
 
   my $summary = $self->get_node('Summary');
   $summary->set('components',
