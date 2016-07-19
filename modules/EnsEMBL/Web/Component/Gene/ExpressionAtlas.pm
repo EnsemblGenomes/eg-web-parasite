@@ -39,7 +39,7 @@ sub content {
     $html = $self->_info_panel("error", "Gene expression atlas site down!", "<p>The widget cannot be displayed as the gene expression atlas site is down. Please check again later.</p>");
   } else {
     #this script tag has been kept here as it was easier to call the perl param within the script tag (the js file wasn't getting the param)
-// ParaSite
+## ParaSite
     $html = sprintf(qq{
       <script type="text/javascript">
         expressionAtlasHeatmapHighcharts.render ({
@@ -53,7 +53,7 @@ sub content {
       </script>  
       <div id="expressionAtlas"></div>    
     }, $SiteDefs::GXA_EBI_URL, $stable_id, $species);
-//
+##
   }
 
   return $html;
