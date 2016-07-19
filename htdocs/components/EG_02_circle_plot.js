@@ -114,7 +114,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var width = $('#assembly_stats').width();
   var height = $('#assembly_stats').height();
   var max_size = width / 1.34;
-  var size = 600;
+  var size = 1000;
   var margin = 100;
   var tick = 10;
   var w = 12; // coloured box size for legend
@@ -123,9 +123,10 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var parent = d3.select('#' + parent_div);
   var svg = parent.append('svg');
 
-  svg.attr('width', '100%')
-    .attr('height', max_size + 'px')
-    .attr('viewBox', '0 0 ' + size + ' ' + (size + 50))
+  svg.css('width', '100%')
+    .css('height', '100%')
+    .css('display', 'block')
+    .attr('viewBox', '0 0 ' + size + ' ' + (size * 0.6))
     .attr('preserveAspectRatio', 'xMidYMid meet')
 
   // setup radii for circular plots
@@ -174,7 +175,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
 
   // create a group for the plot
   var g = svg.append('g')
-    .attr("transform", "translate(" + size / 3 + "," + size / 2 + ")")
+    .attr("transform", "translate(" + size * 0.4 + "," + size * 0.5 + ")")
     .attr("id", "asm-g-plot");
 
   // draw base composition axis fill
