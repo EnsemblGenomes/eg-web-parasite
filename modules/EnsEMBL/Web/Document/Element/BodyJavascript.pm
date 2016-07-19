@@ -49,8 +49,8 @@ sub content {
   my $main_js = $self->PREV::content(@_);
 
   $main_js .=  qq{
-    <script language="JavaScript" type="text/javascript" src="$SiteDefs::GXA_EBI_URL/js-bundles/vendorCommons.bundle.js"></script>
-    <script language="JavaScript" type="text/javascript" src="$SiteDefs::GXA_EBI_URL/js-bundles/expressionAtlasHeatmapHighcharts.bundle.js"></script>
+    <script language="JavaScript" type="text/javascript" src="$SiteDefs::GXA_EBI_URL/resources/js-bundles/vendorCommons.bundle.js"></script>
+    <script language="JavaScript" type="text/javascript" src="$SiteDefs::GXA_EBI_URL/resources/js-bundles/expressionAtlasHeatmapHighcharts.bundle.js"></script>
   };
 
   return $main_js;
