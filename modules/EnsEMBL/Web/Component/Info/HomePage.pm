@@ -560,7 +560,7 @@ sub _assembly_stats {
     <div class="js_panel">
       <h2>Assembly Statistics</h2>
       <input type="hidden" class="panel_type" value="AssemblyStats" />
-      <input type="hidden" id="assembly_file" value="/ssi/species/assembly_$sp.html" />
+      <input type="hidden" id="assembly_file" value="/ssi/species/assembly_$sp.json" />
       <div id="assembly_stats"></div>
       <p style="font-size: 8pt">This widget has been derived from the <a href="https://github.com/rjchallis/assembly-stats">assembly-stats code</a> developed by the Lepbase project at the University of Edinburgh</p>
     </div>
