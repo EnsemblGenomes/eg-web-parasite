@@ -4,11 +4,13 @@
 
 $(document).ready(function() {
   var filename = $('#assembly_file').val();
-  d3.json(filename, function(error, json) {
-    if (error) return console.warn(error);
-    asm = new Assembly(json);
-    asm.drawPlot('assembly_stats');
-  });
+  if(typeof filename !== 'undefined') {
+    d3.json(filename, function(error, json) {
+      if (error) return console.warn(error);
+      asm = new Assembly(json);
+      asm.drawPlot('assembly_stats');
+    });
+  }
 });
 
 function Assembly(stats, scaffolds, contigs) {
