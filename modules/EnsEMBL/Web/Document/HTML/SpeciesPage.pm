@@ -18,36 +18,21 @@ limitations under the License.
 
 package EnsEMBL::Web::Document::HTML::SpeciesPage;
 
-### Renders the content of the  "Find a species page" linked to from the SpeciesList module
-
 use strict;
 use warnings;
 use Data::Dumper;
+use JSON;
 use HTML::Entities qw(encode_entities);
 use EnsEMBL::Web::RegObj;
 
+use base qw(EnsEMBL::Web::Component);
+
 sub render {
 
-  my ($class, $request) = @_;
+  my ($self, $class, $request) = @_;
 
   my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
-  my $sitename = $species_defs->SITE_NAME;
   my $html;
-
-  # check if we've got static content with species available resources and if so, use it
-  # if not, use all the species page with no resources shown (red letters V P G A).
-  my $content;
-  my $filename = $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-'.$species_defs->GENOMIC_UNIT."/htdocs/info/data/resources.html";
-
-  if (-e $filename) {
-    open(my $fh, '<', $filename);
-    {
-        local $/;
-        $content = <$fh>;
-    }
-    close($fh);
-    return $content;
-  }
 
   # taxon order:
   my $species_info = {};
@@ -139,15 +124,38 @@ sub render {
     $html .= qq{<a href="#$gr">$gr ($count)</a><br />};
   }
   $html .= qq{</p></div>};
- 
+
+  $html .= q(<div class="js_panel">
+      <input class="panel_type" type="hidden" value="Piechart" />
+      <input class="graph_config" type="hidden" name="stroke" value="'#999'" />
+      <input class="graph_config" type="hidden" name="legend" value="false" />
+      <input class="graph_dimensions" type="hidden" value="[15,15,14]" />
+      <input class="graph_config" type="hidden" name="colors" value="['#254d71','#6f8da8','#c2d1df','#ffffff']" />
+  ); 
+  
+  my $columns = [
+    { key => 'species_name',  title => 'Species Name',   sort => 'string',  align => 'left', width => '15%' },
+    { key => 'provider',      title => 'Provider',       sort => 'string',  align => 'left', width => '15%' },
+    { key => 'assembly',      title => 'Assembly',       sort => 'string',  align => 'left', width => '10%' },
+    { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',  align => 'left', width => '10%' },
+    { key => 'cegma',         title => 'CEGMA',          sort => 'none',    align => 'left', width => '4%'  },
+    { key => 'busco',         title => 'BUSCO',          sort => 'none',    align => 'left', width => '4%'  },
+    { key => 'n50',           title => 'N50',            sort => 'numeric', align => 'left', width => '4%'  },
+  ];
+
+  my $j = 0;
   foreach my $gr (@groups) {  # (sort keys %groups) {
+  
+      my $table = $self->new_table($columns, [], { data_table => 1, sorting => ['species_name asc'] });
+      
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
-      $html .= qq{<div class="round-box home-box clear"><a name="$gr"></a><h2>$gr</h2><table style="padding-bottom:10px"><tr><th>Species Name</th><th>Provider</th><th>Assembly</th><th>Strain</th><th>BioProject ID</th><th>Taxonomy ID</th></tr>};
                  
       my $total = scalar(@species);
      
       my $valid_species = 0;
       for(my $i = 0; $i < $total; $i++) {
+      
+        my @col_data;
 
         my $common = $species[$i];
         next unless $common;
@@ -157,64 +165,99 @@ sub render {
   
         (my $name = $dir) =~ s/_/ /g;
         my $bioproj = $species_defs->get_config($dir, 'SPECIES_BIOPROJECT');
-                    $name =~ s/prj.*//; # Remove the BioProject ID from the name
+        $name =~ s/prj.*//; # Remove the BioProject ID from the name
         my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
-        
-        my $bgcol = $valid_species % 2 == 0 ? "#FFFFFF" : "#E5E5E5"; # Alternate the row background colour
-                    $valid_species++;
-  
-        $html .= qq(<tr style="background-color:$bgcol">);
-  
+
         if ($dir) {
-          $html .= qq(<td style="width:250px"><a href="/$dir/Info/Index/" style="$link_style">$link_text</a></td>);
-          $html .= ' (preview - assembly only)' if ($info->{'status'} eq 'pre');
+          push(@col_data, sprintf(qq(<a href="/%s/Info/Index/" style="%s">%s</a>), $dir, $link_style, $link_text));
           my $provider = $info->{'provider'};
           my $url  = $info->{'provider_url'};
   
           my $strain = $info->{'strain'} ? "$info->{'strain'}" : '-';
           $name .= $strain;
-          my $assembly = $info->{'assembly'} ? "$info->{'assembly'}" : '';
           if ($provider) {
-                if (ref $provider eq 'ARRAY') {
-                  my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
-                  my $phtml;
-                  foreach my $pr (@$provider) {
-                    my $u = shift @urls;
-                    if ($u) {
-                      $u = "http://$u" unless ($u =~ /http/);
-                      $phtml .= qq{<a href="$u">$pr</a> &nbsp;};
-                    } else {
-                      $phtml .= qq{$pr &nbsp;};
-                    }
-                  }
-                  $html .= qq{<td>$phtml</td><td style="width:150px">$assembly</td>};
+            if (ref $provider eq 'ARRAY') {
+              my @urls = ref $url eq 'ARRAY' ? @$url : ($url);
+              my $phtml;
+              foreach my $pr (@$provider) {
+                my $u = shift @urls;
+                if ($u) {
+                  $u = "http://$u" unless ($u =~ /http/);
+                  $phtml .= qq{<a href="$u">$pr</a> &nbsp;};
                 } else {
-                  if ($url) {
-                    $url = "http://$url" unless ($url =~ /http/);
-                    $html .= qq{<td style="width:250px"><a href="$url">$provider</a></td><td style="width:150px">$assembly</td>};
-                  } else {
-                    $html .= qq{<td style="width:250px">$provider</td><td style="width:150px">$assembly</td>};
-                  }
+                  $phtml .= qq{$pr &nbsp;};
                 }
-          } else {
-            $html .= qq{<td style="width:250px"></td><td style="width:150px">$assembly</td>};
+              }
+              push(@col_data, $phtml);
+            } else {
+              if ($url) {
+                $url = "http://$url" unless ($url =~ /http/);
+                push(@col_data, qq(<a href="$url">$provider</a>));
+              } else {
+                push(@col_data, $provider);
+              }
+            }
           }
-          $html .= qq(<td style="width:100px">$strain</td>);
-          $html .= qq{<td style="width:100px"><a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a></td>};
-          if($info->{'taxid'}){
-           (my $uniprot_url = $species_defs->ENSEMBL_EXTERNAL_URLS->{'UNIPROT_TAXONOMY'}) =~ s/###ID###/$info->{taxid}/;
-           $html .= sprintf('<td style="width:100px"><a href="%s">%s</a></td>', $uniprot_url, $info->{'taxid'});
-          }
-          $html .= '</td>';
         } else {
-          $html .= '&nbsp;';
+          push(@col_data, '&nbsp;');
         }
-        $html .= '</tr>';
-      
+        my $assembly = $info->{'assembly'} ? "$info->{'assembly'}" : '';
+        push(@col_data, $assembly);
+
+        push(@col_data, qq{<a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a>});
+        
+        ## ParaSite: assembly stats - loaded in from a JSON file
+
+        my $file = "/ssi/species/assembly_${dir}.json";
+        my $content = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/$file") ? EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file) : '';
+
+        if($content) {
+          my $assembly = from_json($content);
+         
+          my $cegma_comp = 90;
+          my $cegma_part = 5;
+          if($cegma_comp && $cegma_part) {
+          push(@col_data, sprintf(qq(
+            <div style="display: none;">
+              <input class="graph_data" type="hidden" value="[%s,%s,%s,%s]" />
+            </div>
+            <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;"></div>
+          ), 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j));
+          $j++;
+          } else {
+            push(@col_data, '-');
+          }
+
+          my $busco = $assembly->{busco};
+          if($busco) {
+            my $busco_d = $busco->{D};
+            my $busco_c = $busco->{C};
+            my $busco_f = $busco->{F};
+            push(@col_data, sprintf(q(
+              <div style="display: none;">
+                <input class="graph_data" type="hidden" value="[%s,%s,%s,%s]" />
+              </div>
+              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;"></div>
+            ), $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j));
+            $j++;
+          } else {
+            push(@col_data, '-');
+          }
+          
+          my $n50 = $assembly->{binned_scaffold_lengths}[500];
+          push(@col_data, $n50 ? $n50 : '-');
+        } else {
+          push(@col_data, ('-', '-', '-'));
+        }
+        
+        $table->add_row(\@col_data);
+               
       }
 
-      $html .= '</tr></table></div>';
+      $html .= sprintf(qq{<div class="round-box home-box clear"><a name="%s"></a><h2>%s</h2><div>%s</div></div>}, $gr, $gr, $table->render);
   }
+
+  $html .= '</div>';
 
   return $html;
 
