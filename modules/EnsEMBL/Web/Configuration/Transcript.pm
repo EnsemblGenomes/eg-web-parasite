@@ -39,15 +39,17 @@ sub modify_tree {
   $self->delete_node('UserAnnotation');
   $self->delete_node('History');
   
-  my $variation = $self->create_node('EVA', 'Variation', [],
-    { availability => 0 }
-  );
-  $variation->append(
-    $self->create_node('EVA_Table', 'Variation Table',
-      [qw(eva_table EnsEMBL::Web::Component::Transcript::EVA_Table)]
-    )
-  );
-
+  if($self->hub->species_defs->EVA_TRACKS) {
+    my $variation = $self->create_node('EVA', 'Variation', [],
+      { availability => 0 }
+    );
+    $variation->append(
+      $self->create_node('EVA_Table', 'Variation Table',
+        [qw(eva_table EnsEMBL::Web::Component::Transcript::EVA_Table)]
+      )
+    );
+  }
+  
   my $summary = $self->get_node('Summary');
   $summary->set('components',
     [qw(
