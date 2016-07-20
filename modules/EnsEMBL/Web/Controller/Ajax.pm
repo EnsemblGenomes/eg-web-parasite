@@ -192,5 +192,15 @@ sub ajax_species_tree {
 
 }
 
+sub ajax_assembly_stats {
+  my ($self, $hub) = @_;
+  my $species = $hub->param('species');
+
+  my $file = "/ssi/species/assembly_${species}.json";
+  my $content = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/$file") ? EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file) : '';
+
+  print $content;
+
+}
 
 1;
