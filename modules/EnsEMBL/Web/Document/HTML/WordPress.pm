@@ -47,7 +47,7 @@ sub render {
   $ua->agent('ParaSite Web ' . $ua->agent());
   $ua->env_proxy;
   $ua->proxy(['http', 'https'], $species_defs->ENSEMBL_WWW_PROXY);
-  $ua->timeout(10);
+  $ua->timeout(2);
   
   my $URL = 'https://public-api.wordpress.com/rest/v1.1/sites/wbparasite.wordpress.com/posts/?number=5';
 
