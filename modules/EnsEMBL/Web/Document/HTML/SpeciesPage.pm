@@ -135,13 +135,13 @@ sub render {
   ); 
   
   my $columns = [
-    { key => 'species_name',  title => 'Species Name',   sort => 'string',  align => 'left', width => '15%' },
-    { key => 'provider',      title => 'Provider',       sort => 'string',  align => 'left', width => '15%' },
-    { key => 'assembly',      title => 'Assembly',       sort => 'string',  align => 'left', width => '10%' },
-    { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',  align => 'left', width => '10%' },
-    { key => 'cegma',         title => 'CEGMA',          sort => 'none',    align => 'left', width => '4%'  },
-    { key => 'busco',         title => 'BUSCO',          sort => 'none',    align => 'left', width => '4%'  },
-    { key => 'n50',           title => 'N50',            sort => 'numeric', align => 'left', width => '4%'  },
+    { key => 'species_name',  title => 'Species Name',   sort => 'string',         align => 'left', width => '15%' },
+    { key => 'provider',      title => 'Provider',       sort => 'string',         align => 'left', width => '15%' },
+    { key => 'assembly',      title => 'Assembly',       sort => 'string',         align => 'left', width => '10%' },
+    { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',         align => 'left', width => '10%' },
+    { key => 'cegma',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%'  },
+    { key => 'busco',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%'  },
+    { key => 'n50',           title => 'N50',            sort => 'numeric_hidden', align => 'left', width => '4%'  },
   ];
 
   my $j = 0;
@@ -219,11 +219,12 @@ sub render {
           my $cegma_part = 5;
           if($cegma_comp && $cegma_part) {
           push(@col_data, sprintf(qq(
+            <span class="hidden">%s</span>
             <div style="display: none;">
               <input class="graph_data" type="hidden" value="[%s,%s,%s,%s]" />
             </div>
             <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;"></div>
-          ), 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j));
+          ), $cegma_comp, 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j));
           $j++;
           } else {
             push(@col_data, '-');
@@ -235,18 +236,19 @@ sub render {
             my $busco_c = $busco->{C};
             my $busco_f = $busco->{F};
             push(@col_data, sprintf(q(
+              <span class="hidden">%s</span>
               <div style="display: none;">
                 <input class="graph_data" type="hidden" value="[%s,%s,%s,%s]" />
               </div>
               <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;"></div>
-            ), $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j));
+            ), $busco_c, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j));
             $j++;
           } else {
             push(@col_data, '-');
           }
           
           my $n50 = $assembly->{binned_scaffold_lengths}[500];
-          push(@col_data, $n50 ? format_number($n50) : '-');
+          push(@col_data, $n50 ? sprintf(qq(<span class="hidden">%s</span>%s), $n50, format_number($n50)) : '-');
         } else {
           push(@col_data, ('-', '-', '-'));
         }
