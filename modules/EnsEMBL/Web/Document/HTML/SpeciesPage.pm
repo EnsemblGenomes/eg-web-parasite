@@ -23,6 +23,7 @@ use warnings;
 use Data::Dumper;
 use JSON;
 use HTML::Entities qw(encode_entities);
+use Number::Format qw(format_number);
 use EnsEMBL::Web::RegObj;
 
 use base qw(EnsEMBL::Web::Component);
@@ -245,7 +246,7 @@ sub render {
           }
           
           my $n50 = $assembly->{binned_scaffold_lengths}[500];
-          push(@col_data, $n50 ? $n50 : '-');
+          push(@col_data, $n50 ? format_number($n50) : '-');
         } else {
           push(@col_data, ('-', '-', '-'));
         }
