@@ -139,15 +139,15 @@ sub render {
     { key => 'provider',      title => 'Provider',       sort => 'string',         align => 'left', width => '15%' },
     { key => 'assembly',      title => 'Assembly',       sort => 'string',         align => 'left', width => '10%' },
     { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',         align => 'left', width => '10%' },
-    { key => 'cegma',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%'  },
-    { key => 'busco',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%'  },
+    { key => 'cegma',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export"  },
+    { key => 'busco',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export"  },
     { key => 'n50',           title => 'N50',            sort => 'numeric_hidden', align => 'left', width => '4%'  },
   ];
 
   my $j = 0;
   foreach my $gr (@groups) {  # (sort keys %groups) {
   
-      my $table = $self->new_table($columns, [], { data_table => 1, sorting => ['species_name asc'] });
+      my $table = $self->new_table($columns, [], { data_table => 1, sorting => ['species_name asc'], id => "species_table_$gr" });
       
       my @species = sort grep { $species{$_}->{'group'} eq $gr } keys %species;
                  
@@ -215,16 +215,16 @@ sub render {
         if($content) {
           my $assembly = from_json($content);
          
-          my $cegma_comp = 90;
-          my $cegma_part = 5;
-          if($cegma_comp && $cegma_part) {
+          my $cegma_comp = $assembly->{cegma_complete};
+          my $cegma_part = $assembly->{cegma_partial} - $assembly->{cegma_complete};
+          if($cegma_comp >= 0 && $cegma_part >= 0) {
           push(@col_data, sprintf(qq(
             <span class="hidden">%s</span>
             <div style="display: none;">
-              <input class="graph_data" type="hidden" value="[%s,%s,%s,%s]" />
+              <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
             </div>
-            <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;"></div>
-          ), $cegma_comp, 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j));
+            <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="CEGMA Score: Complete %s; Partial %s"></div>
+          ), $cegma_comp, $j, 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j, $cegma_comp, ($cegma_comp + $cegma_part)));
           $j++;
           } else {
             push(@col_data, '-');
@@ -238,10 +238,10 @@ sub render {
             push(@col_data, sprintf(q(
               <span class="hidden">%s</span>
               <div style="display: none;">
-                <input class="graph_data" type="hidden" value="[%s,%s,%s,%s]" />
+                <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
               </div>
-              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;"></div>
-            ), $busco_c, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j));
+              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: D %s, C %s, F %s"></div>
+            ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_d, $busco_c, $busco_f));
             $j++;
           } else {
             push(@col_data, '-');
