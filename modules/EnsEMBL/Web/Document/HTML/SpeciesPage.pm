@@ -156,7 +156,7 @@ sub render {
       my $valid_species = 0;
       for(my $i = 0; $i < $total; $i++) {
       
-        my @col_data;
+        my @row;
 
         my $common = $species[$i];
         next unless $common;
@@ -170,7 +170,7 @@ sub render {
         my $link_text = $info->{'scientific'}; # Use the scientific name from the database rather than the directory name
 
         if ($dir) {
-          push(@col_data, sprintf(qq(<a href="/%s/Info/Index/" style="%s">%s</a>), $dir, $link_style, $link_text));
+          push(@row, sprintf(qq(<a href="/%s/Info/Index/" style="%s">%s</a>), $dir, $link_style, $link_text));
           my $provider = $info->{'provider'};
           my $url  = $info->{'provider_url'};
   
@@ -189,23 +189,23 @@ sub render {
                   $phtml .= qq{$pr &nbsp;};
                 }
               }
-              push(@col_data, $phtml);
+              push(@row, $phtml);
             } else {
               if ($url) {
                 $url = "http://$url" unless ($url =~ /http/);
-                push(@col_data, qq(<a href="$url">$provider</a>));
+                push(@row, qq(<a href="$url">$provider</a>));
               } else {
-                push(@col_data, $provider);
+                push(@row, $provider);
               }
             }
           }
         } else {
-          push(@col_data, '&nbsp;');
+          push(@row, '&nbsp;');
         }
         my $assembly = $info->{'assembly'} ? "$info->{'assembly'}" : '';
-        push(@col_data, $assembly);
+        push(@row, $assembly);
 
-        push(@col_data, qq{<a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a>});
+        push(@row, qq{<a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a>});
         
         ## ParaSite: assembly stats - loaded in from a JSON file
 
@@ -218,7 +218,7 @@ sub render {
           my $cegma_comp = $assembly->{cegma_complete};
           my $cegma_part = $assembly->{cegma_partial} - $assembly->{cegma_complete};
           if($cegma_comp >= 0 && $cegma_part >= 0) {
-          push(@col_data, sprintf(qq(
+          push(@row, sprintf(qq(
             <span class="hidden">%s</span>
             <div style="display: none;">
               <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
@@ -227,7 +227,7 @@ sub render {
           ), $cegma_comp, $j, 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j, $cegma_comp, ($cegma_comp + $cegma_part)));
           $j++;
           } else {
-            push(@col_data, '-');
+            push(@row, '-');
           }
 
           my $busco = $assembly->{busco};
@@ -235,7 +235,7 @@ sub render {
             my $busco_d = $busco->{D};
             my $busco_c = $busco->{C};
             my $busco_f = $busco->{F};
-            push(@col_data, sprintf(q(
+            push(@row, sprintf(q(
               <span class="hidden">%s</span>
               <div style="display: none;">
                 <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
@@ -244,16 +244,16 @@ sub render {
             ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_d, $busco_c, $busco_f));
             $j++;
           } else {
-            push(@col_data, '-');
+            push(@row, '-');
           }
           
           my $n50 = $assembly->{binned_scaffold_lengths}[500];
-          push(@col_data, $n50 ? sprintf(qq(<span class="hidden">%s</span>%s), $n50, format_number($n50)) : '-');
+          push(@row, $n50 ? sprintf(qq(<span class="hidden">%s</span>%s), $n50, format_number($n50)) : '-');
         } else {
-          push(@col_data, ('-', '-', '-'));
+          push(@row, ('-', '-', '-'));
         }
         
-        $table->add_row(\@col_data);
+        $table->add_row(\@row);
                
       }
 
