@@ -252,11 +252,13 @@ sub content {
 
   push(@right_sections, sprintf('<h2>Statistics</h2>%s', $self->species_stats));
 
+  push(@right_sections, $self->_assembly_stats);
+
   push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
-  push(@right_sections, $self->_downloads_text);
+  push(@left_sections, $self->_downloads_text);
 
-  push(@right_sections, $self->_tools_text);
+  push(@left_sections, $self->_tools_text);
 
   my $other_text = $self->_other_text('other', $species);
   push(@left_sections, $other_text) if $other_text =~ /\w/;
@@ -547,6 +549,26 @@ sub _resources_text {
   return $html;
   
 }
+
+# ParaSite: assembly stats
+sub _assembly_stats {
+  my $self = shift;
+  my $hub = $self->hub;
+  my $sp = $hub->species;
+
+  my $html = qq(
+    <div class="js_panel">
+      <h2>Assembly Statistics</h2>
+      <input type="hidden" class="panel_type" value="AssemblyStats" />
+      <input type="hidden" id="assembly_file" value="/Multi/Ajax/assembly_stats?species=$sp" />
+      <div id="assembly_stats"></div>
+      <p style="font-size: 8pt">This widget has been derived from the <a href="https://github.com/rjchallis/assembly-stats">assembly-stats code</a> developed by the Lepbase project at the University of Edinburgh</p>
+    </div>
+  );
+
+}
+
+
 
 # EG
 
