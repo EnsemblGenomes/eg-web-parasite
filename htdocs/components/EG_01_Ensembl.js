@@ -17,7 +17,11 @@ Ensembl.updateURL = function (params, inputURL) {
       if(i == 'r') {
         jbrowseParams['loc'] = params[i].replace('-', '..');
       } else if(i == 'mr') {
-        jbrowseParams['highlight'] = params[i].replace('-', '..');
+        if(typeof params[i] !== 'undefined' && params[i] !== false) {
+          jbrowseParams['highlight'] = params[i].replace('-', '..');
+        } else {
+          jbrowseParams['highlight'] = '';
+        }
       }
     }
     //Finally, reconstruct the URL and replace in the DOM
