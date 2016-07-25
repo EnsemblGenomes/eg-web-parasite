@@ -106,4 +106,103 @@ sub fasta {
   }
 }
 
+sub config {
+  my $self = shift;
+
+  $self->__data->{'config'} = {
+    fasta => {
+      label => 'FASTA sequence',
+      formats => [
+        [ 'fasta', 'FASTA sequence' ]
+      ],
+      params => [
+        [ 'cdna',    'cDNA' ],
+        [ 'coding',  'Coding sequence' ],
+        [ 'peptide', 'Peptide sequence' ],
+        [ 'utr5',    "5' UTR" ],
+        [ 'utr3',    "3' UTR" ],
+        [ 'exon',    'Exons' ],
+        [ 'intron',  'Introns' ]
+      ]
+    },
+    features => {
+      label => 'Feature File',
+      formats => [
+        [ 'csv',  'CSV (Comma separated values)' ],
+        [ 'tab',  'Tab separated values' ],
+        [ 'gtf',  'Gene Transfer Format (GTF)' ],
+        [ 'gff',  'Generic Feature Format' ],
+        [ 'gff3', 'Generic Feature Format Version 3' ],
+      ],
+      params => [
+        [ 'similarity', 'Similarity features' ],
+        [ 'repeat',     'Repeat features' ],
+        #[ 'genscan',    'Prediction features (genscan)' ],
+        #[ 'variation',  'Variation features' ],
+        #[ 'probe',      'Probe features' ],
+        [ 'gene',       'Gene information' ],
+        [ 'transcript', 'Transcripts' ],
+        [ 'exon',       'Exons' ],
+        [ 'intron',     'Introns' ],
+        [ 'cds',        'Coding sequences' ]
+      ]
+    },
+    bed => {
+      label => 'Bed Format',
+      formats => [
+        [ 'bed',  'BED Format' ],
+      ],
+      params => [
+        #[ 'variation',  'Variation features' ],
+        [ 'probe',      'Probe features' ],
+        [ 'gene',       'Gene information' ],
+        [ 'repeat',     'Repeat features' ],
+        [ 'similarity', 'Similarity features' ],
+        #[ 'genscan',    'Prediction features (genscan)' ],
+        [ 'userdata',  'Uploaded Data' ],
+      ]
+    },
+    flat => {
+      label => 'Flat File',
+      formats => [
+        [ 'embl',    'EMBL' ],
+        [ 'genbank', 'GenBank' ]
+      ],
+      params => [
+        [ 'similarity', 'Similarity features' ],
+        [ 'repeat',     'Repeat features' ],
+        #[ 'genscan',    'Prediction features (genscan)' ],
+        [ 'contig',     'Contig Information' ],
+        #[ 'variation',  'Variation features' ],
+        #[ 'marker',     'Marker features' ],
+        [ 'gene',       'Gene Information' ],
+        #[ 'vegagene',   'Vega Gene Information' ],
+        #[ 'estgene',    'EST Gene Information' ]
+      ]
+    },
+    pip => {
+      label => 'PIP (%age identity plot)',
+      formats => [
+        [ 'pipmaker', 'Pipmaker / zPicture format' ],
+        [ 'vista',    'Vista Format' ]
+      ]
+    },
+  };
+
+  if ($self->function eq 'Location') {
+    $self->__data->{'config'}{'fasta'} = {
+      label => 'FASTA sequence',
+      formats => [
+        [ 'fasta', 'FASTA sequence' ]
+      ],
+      params => []
+    };
+  }
+
+  my $func = sprintf 'modify_%s_options', lc $self->function;
+  $self->$func if $self->can($func);
+
+  return $self->__data->{'config'};
+}
+
 1;
