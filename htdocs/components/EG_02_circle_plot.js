@@ -542,86 +542,86 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   key.append('text').attr('x', w + 3).attr('y', w * 7 - 1).text('N90 length (' + getReadableSeqSizeString(this.npct_length[899]) + ')').attr('class', 'asm-key');
 
   //draw contig legend if available
-  if (this.contigs) {
-    var lctg = lg.append('g')
-      .attr("id", "asm-g-contig_legend");
-    var txt = lctg.append('text')
-      .attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 70) + ')')
-      .attr('class', 'asm-bl_title');
-    txt.append('tspan').text('Contig statistics');
+  //if (this.contigs) {
+  //  var lctg = lg.append('g')
+  //    .attr("id", "asm-g-contig_legend");
+  //  var txt = lctg.append('text')
+  //    .attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 70) + ')')
+  //    .attr('class', 'asm-bl_title');
+  //  txt.append('tspan').text('Contig statistics');
 
-    var key = lctg.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 62) + ')');
-    key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-contig_count asm-toggle');
-    var count_txt = key.append('text').attr('x', w + 2).attr('y', w - 1).attr('class', 'asm-key')
-    count_txt.append('tspan').text('Log')
-    count_txt.append('tspan').attr('baseline-shift', 'sub').attr('font-size', '75%').text(10)
-    count_txt.append('tspan').text(' contig count (total ' + this.contig_count.toLocaleString() + ')');
-    key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-contig asm-toggle');
-    key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Contig length').attr('class', 'asm-key');
-  }
+  //  var key = lctg.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 62) + ')');
+  //  key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-contig_count asm-toggle');
+  //  var count_txt = key.append('text').attr('x', w + 2).attr('y', w - 1).attr('class', 'asm-key')
+  //  count_txt.append('tspan').text('Log')
+  //  count_txt.append('tspan').attr('baseline-shift', 'sub').attr('font-size', '75%').text(10)
+  //  count_txt.append('tspan').text(' contig count (total ' + this.contig_count.toLocaleString() + ')');
+  //  key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-contig asm-toggle');
+  //  key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Contig length').attr('class', 'asm-key');
+  //}
 
   // add adjustable scale legend
-  var lscl = lg.append('g')
-    .attr("id", "asm-g-scale_legend");
-  var txt = lscl.append('text')
-    .attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 150) + ')')
-    .attr('class', 'asm-bl_title');
-  txt.append('tspan').text('Scale');
+  //var lscl = lg.append('g')
+  //  .attr("id", "asm-g-scale_legend");
+  //var txt = lscl.append('text')
+  //  .attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 150) + ')')
+  //  .attr('class', 'asm-bl_title');
+  //txt.append('tspan').text('Scale');
 
-  var key = lscl.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 142) + ')');
-  var circ_key = key.append('g').attr('width', '100px').attr('height', '14px').attr('transform', 'translate(0,8)').attr('id', 'asm-circ_scale_g');
-  var circ_scale_rect = circ_key.append('rect').attr('x', w + 5).attr('y', -3).attr('width', '80px').attr('height', '18px').attr('class', 'asm-scale_rect');
-  circ_key.append('circle').attr('cx', w / 2).attr('cy', w / 2).attr('r', w / 2).attr('class', 'asm-axis');
-  circ_key.append('line').attr('x1', w / 2).attr('y1', 0).attr('x2', w / 2).attr('y2', w / 2).attr('class', 'asm-axis asm-narrow');
-  var readable_circle_span = getReadableSeqSizeString(circle_span, 1)
-  circ_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_circle_span).attr('class', 'asm-key')
-  var rad_key = key.append('g').attr('width', '100px').attr('height', '14px').attr('transform', 'translate(0,' + (w * 2.5) + ')').attr('id', 'asm-rad_scale_g');
-  var rad_scale_rect = rad_key.append('rect').attr('x', w + 5).attr('y', -3).attr('width', '80px').attr('height', '18px').attr('class', 'asm-scale_rect');
-  rad_key.append('circle').attr('cx', w / 2).attr('cy', w / 2).attr('r', w / 2).attr('class', 'asm-axis asm-narrow');
-  rad_key.append('line').attr('x1', w / 2).attr('y1', 0).attr('x2', w / 2).attr('y2', w / 2).attr('class', 'asm-axis');
-  var readable_longest = getReadableSeqSizeString(longest, 1);
-  rad_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_longest).attr('class', 'asm-key');
+  //var key = lscl.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 142) + ')');
+  //var circ_key = key.append('g').attr('width', '100px').attr('height', '14px').attr('transform', 'translate(0,8)').attr('id', 'asm-circ_scale_g');
+  //var circ_scale_rect = circ_key.append('rect').attr('x', w + 5).attr('y', -3).attr('width', '80px').attr('height', '18px').attr('class', 'asm-scale_rect');
+  //circ_key.append('circle').attr('cx', w / 2).attr('cy', w / 2).attr('r', w / 2).attr('class', 'asm-axis');
+  //circ_key.append('line').attr('x1', w / 2).attr('y1', 0).attr('x2', w / 2).attr('y2', w / 2).attr('class', 'asm-axis asm-narrow');
+  //var readable_circle_span = getReadableSeqSizeString(circle_span, 1)
+  //circ_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_circle_span).attr('class', 'asm-key')
+  //var rad_key = key.append('g').attr('width', '100px').attr('height', '14px').attr('transform', 'translate(0,' + (w * 2.5) + ')').attr('id', 'asm-rad_scale_g');
+  //var rad_scale_rect = rad_key.append('rect').attr('x', w + 5).attr('y', -3).attr('width', '80px').attr('height', '18px').attr('class', 'asm-scale_rect');
+  //rad_key.append('circle').attr('cx', w / 2).attr('cy', w / 2).attr('r', w / 2).attr('class', 'asm-axis asm-narrow');
+  //rad_key.append('line').attr('x1', w / 2).attr('y1', 0).attr('x2', w / 2).attr('y2', w / 2).attr('class', 'asm-axis');
+  //var readable_longest = getReadableSeqSizeString(longest, 1);
+  //rad_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_longest).attr('class', 'asm-key');
 
-  // setup form
-  var form_div_wrapper = parent.append('div').attr('id', 'asm-scale_form_wrapper').attr('class', 'hidden');
-  var form_div_bg = form_div_wrapper.append('div').attr('id', 'asm-scale_form_bg');
-  var form_div = form_div_bg.append('div').attr('id', 'asm-scale_form_div')
-  var form = form_div.append('form').attr('id', 'asm-scale_form')
-  form.append('label').attr('for', 'asm-circ_scale_input').text('circumference scale:').attr('class', 'asm-form_label')
-  form.append('input').attr('type', 'text').property('value', readable_circle_span).attr('placeholder', readable_circle_span).attr('id', 'asm-circ_scale_input').attr('class', 'asm-form_element')
-  form.append('br')
-  form.append('label').attr('for', 'asm-rad_scale_input').text('radial scale:').attr('class', 'asm-form_label')
-  form.append('input').attr('type', 'text').property('value', readable_longest).attr('placeholder', readable_longest).attr('id', 'asm-rad_scale_input').attr('class', 'asm-form_element')
-  form.append('br')
-  form.append('input').attr('type', 'submit').attr('class', 'asm-form_element')
-  var asm = this;
-  $('#'+parent_div+' #asm-scale_form').submit(function(e) {
-    e.preventDefault();
-    var circ_val = toInt($('#'+parent_div+' #asm-circ_scale_input').val());
-    var rad_val = toInt($('#'+parent_div+' #asm-rad_scale_input').val());
-    asm.reDrawPlot(parent, rad_val, circ_val);
-  })
+  //// setup form
+  //var form_div_wrapper = parent.append('div').attr('id', 'asm-scale_form_wrapper').attr('class', 'hidden');
+  //var form_div_bg = form_div_wrapper.append('div').attr('id', 'asm-scale_form_bg');
+  //var form_div = form_div_bg.append('div').attr('id', 'asm-scale_form_div')
+  //var form = form_div.append('form').attr('id', 'asm-scale_form')
+  //form.append('label').attr('for', 'asm-circ_scale_input').text('circumference scale:').attr('class', 'asm-form_label')
+  //form.append('input').attr('type', 'text').property('value', readable_circle_span).attr('placeholder', readable_circle_span).attr('id', 'asm-circ_scale_input').attr('class', 'asm-form_element')
+  //form.append('br')
+  //form.append('label').attr('for', 'asm-rad_scale_input').text('radial scale:').attr('class', 'asm-form_label')
+  //form.append('input').attr('type', 'text').property('value', readable_longest).attr('placeholder', readable_longest).attr('id', 'asm-rad_scale_input').attr('class', 'asm-form_element')
+  //form.append('br')
+  //form.append('input').attr('type', 'submit').attr('class', 'asm-form_element')
+  //var asm = this;
+  //$('#'+parent_div+' #asm-scale_form').submit(function(e) {
+  //  e.preventDefault();
+  //  var circ_val = toInt($('#'+parent_div+' #asm-circ_scale_input').val());
+  //  var rad_val = toInt($('#'+parent_div+' #asm-rad_scale_input').val());
+  //  asm.reDrawPlot(parent, rad_val, circ_val);
+  //})
 
-  // hide form
-  form_div_wrapper.on('click', function() {
-    form_div_wrapper.classed('hidden', true)
-  });
-  form_div.on('click', function() {
-    d3.event.stopPropagation();
-  });
+  //// hide form
+  //form_div_wrapper.on('click', function() {
+  //  form_div_wrapper.classed('hidden', true)
+  //});
+  //form_div.on('click', function() {
+  //  d3.event.stopPropagation();
+  //});
 
-  // toggle form visibility
-  // TODO - fix bug with position in screen coords
-  d3.selectAll('#'+parent_div+' .asm-scale_rect').on('click', function() {
-    form_div_wrapper.classed('hidden', !form_div_wrapper.classed('hidden'))
-    var rect = svg.node().getBoundingClientRect();
-    form_div_wrapper.style('height', rect.height)
-    form_div_wrapper.style('width', rect.width)
+  //// toggle form visibility
+  //// TODO - fix bug with position in screen coords
+  //d3.selectAll('#'+parent_div+' .asm-scale_rect').on('click', function() {
+  //  form_div_wrapper.classed('hidden', !form_div_wrapper.classed('hidden'))
+  //  var rect = svg.node().getBoundingClientRect();
+  //  form_div_wrapper.style('height', rect.height)
+  //  form_div_wrapper.style('width', rect.width)
 
-    form_div_bg.style('height', rect.height > rect.width ? rect.width : rect.height)
-    form_div_bg.style('width', rect.height > rect.width ? rect.width : rect.height)
+  //  form_div_bg.style('height', rect.height > rect.width ? rect.width : rect.height)
+  //  form_div_bg.style('width', rect.height > rect.width ? rect.width : rect.height)
 
-  });
+  //});
 
   // toggle plot features
   $('#'+parent_div+' .asm-toggle').on('click', function() {
