@@ -78,11 +78,11 @@ sub ajax_search_autocomplete {
   my ($sp_term, $sp_genus) = $term =~ /^([A-Za-z])[\.]? ([A-Za-z]+)/ ? ($2, $1) : ($term, undef); # Deal with abbreviation of the genus
   $sp_term =~ s/genome$//; # Some users put the word genome at the end of their search string - remove this so we still get a match
   foreach my $sp (@species) {
-    my $name    = $species_defs->get_config($sp, "SPECIES_COMMON_NAME") || $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME");
+    my $name      = sprintf('%s (%s%s)', $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME"), $species_defs->get_config($sp, "SPECIES_BIOPROJECT"), $species_defs->get_config($sp, "SPECIES_STRAIN") ? " - " . $species_defs->get_config($sp, "SPECIES_STRAIN") : '');
     my $alt_names = $species_defs->get_config($sp, "SPECIES_ALTERNATIVE_NAME");
-    my $bioproj   = $species_defs->get_config($sp, "SPECIES_BIOPROJECT");
-    my @alt_proj  = map {qq/$_ \($bioproj\)/} @{$alt_names};
-    my @names     = $alt_names ? ($name, @alt_proj) : ($name);
+    my $bioproj   = sprintf('%s%s', $species_defs->get_config($sp, "SPECIES_BIOPROJECT"), $species_defs->get_config($sp, "SPECIES_STRAIN") ? " - " . $species_defs->get_config($sp, "SPECIES_STRAIN") : '');
+    my @names     = map {qq/$_ \($bioproj\)/} @{$alt_names};
+    unshift(@names, $name);
 ### Disabled linking out to WormBase
 ###    my $url       = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)} eq 'WORMBASE' ? $hub->get_ExtURL(uc($sp) . "_URL", {'SPECIES'=>$sp}) : "/$sp"; # Link back to WormBase if this is a non-parasitic species
 ###
