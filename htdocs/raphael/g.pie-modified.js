@@ -18,6 +18,8 @@ Raphael.fn.g.piechart = function (cx, cy, r, values, opts) {
         len = values.length,
         angle = 0,
         total = 0,
+        non_zero = 0,
+        non_zero_item,
         others = 0,
         cut = 9,
         defcut = false;
@@ -45,8 +47,22 @@ Raphael.fn.g.piechart = function (cx, cy, r, values, opts) {
             return res;
         }
         for (var i = 0; i < len; i++) {
+            if(values[i] > 0) {
+              non_zero = non_zero + 1;
+              non_zero_item = i;
+            }
             total += values[i];
             values[i] = {value: values[i], order: i, valueOf: function () { return this.value; }};
+        }
+        if(non_zero == 1) {
+          if(values[non_zero_item] == total) {
+            series.push(this.circle(cx, cy, r).attr({fill: opts.colors[non_zero_item] || "#666", stroke: opts.stroke || "#fff", "stroke-width": opts.strokewidth == null ? 1 : opts.strokewidth}));
+            covers.push(this.circle(cx, cy, r).attr(this.g.shim));
+            total = values[0];
+            values[0] = {value: values[0], order: 0, valueOf: function () { return this.value; }};
+            series[0].middle = {x: cx, y: cy};
+            series[0].mangle = 180;
+          }
         }
 				// Remove the sector sorted by value
         //values.sort(function (a, b) {
