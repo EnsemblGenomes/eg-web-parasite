@@ -224,6 +224,7 @@ sub content {
   $alt_strain_string .= '</p>';
     
   my $about_text = $self->_other_text('about', $species_short);
+  $about_text = $self->_other_text('about', $species) unless $about_text;
   $about_text .= $alt_strain_string if $alt_strain_count > 0;
   $about_text .= $alt_string if $alt_count > 0;
   if ($about_text) {
