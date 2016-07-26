@@ -20,7 +20,7 @@ use LWP::Simple;
 use XML::Simple;
 use HTML::Entities;
 
-my $outdir = "/nfs/public/rw/ensembl/websites/parasite/current/browser/eg-web-parasite/htdocs/ssi/species";
+my $outdir = "/nfs/public/rw/ensembl/staging/websites/parasite/current/browser/eg-web-parasite/htdocs/ssi/species";
 
 my @files_to_delete = <$outdir/about_*_*.html>;
 unlink(@files_to_delete);
@@ -40,7 +40,7 @@ my %labels = (1 => 'Summary', 2 => 'Assembly', 3 => 'Annotation', 4 => 'Resource
 while (my $result = $sth->fetchrow_arrayref) {
   my @results = @{$result};
   print "$results[0]\n";
-  open(OUTFILE, ">$outdir/about_$results[0].html");
+  open(OUTFILE, ">$outdir/about_assembly_$results[0].html");
   for(my $i = 1; $i <= 5; $i++) {
     if($results[$i] ne '') {
       $results[$i] = parse_references($results[$i]) if $i ==5;
@@ -64,7 +64,7 @@ my %keys = (1 => 'about');
 while (my $result = $sth->fetchrow_arrayref) {
   my @results = @{$result};
   print "$results[0]\n";
-  open(OUTFILE, ">/$outdir/about_$results[0].html");
+  open(OUTFILE, ">/$outdir/about_species_$results[0].html");
   if($results[0] ne '') {
     print OUTFILE qq(<!-- \{$keys{1}\} --><a name="$keys{1}"></a>\n);
     print OUTFILE qq(<p>$results[1]</p>\n);
