@@ -1,18 +1,3 @@
-Ensembl.Panel.Piechart.prototype.init = function () {
-  var panel = this;
-
-  this.base();
-
-  if (typeof Raphael === 'undefined') {
-    $.getScript('/raphael/raphael-min.js', function () {
-      $.getScript('/raphael/g.raphael-min.js', function () {
-        $.getScript('/raphael/g.pie-modified.js', function () { panel.getContent(); });
-      });
-    });
-  }
-};
-
-
 Ensembl.Panel.Piechart.prototype.getContent = function() {
   var panel   = this;
   var visible = [];
