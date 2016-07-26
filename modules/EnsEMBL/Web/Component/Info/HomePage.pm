@@ -582,7 +582,7 @@ sub _assembly_stats {
 
 sub _other_text {
   my ($self, $tag, $species) = @_;
-  my $file = $tag eq 'about' ? "/ssi/species/about_about_${species}.html" : "/ssi/species/about_assembly_${species}.html";
+  my $file = $tag eq 'about' ? "/ssi/species/about_species_${species}.html" : "/ssi/species/about_assembly_${species}.html";
   my $content = (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/$file") ? EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file) : '';
   my ($other_text) = $content =~ /^.*?<!--\s*\{$tag\}\s*-->(.*)<!--\s*\{$tag\}\s*-->.*$/ms;
   #ENSEMBL-2535 strip subs
