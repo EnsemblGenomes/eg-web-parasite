@@ -583,7 +583,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   //rad_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_longest).attr('class', 'asm-key');
 
   //// setup form
-  //var form_div_wrapper = parent.append('div').attr('id', 'asm-scale_form_wrapper').attr('class', 'hidden');
+  //var form_div_wrapper = parent.append('div').attr('id', 'asm-scale_form_wrapper').attr('class', 'asm-hidden');
   //var form_div_bg = form_div_wrapper.append('div').attr('id', 'asm-scale_form_bg');
   //var form_div = form_div_bg.append('div').attr('id', 'asm-scale_form_div')
   //var form = form_div.append('form').attr('id', 'asm-scale_form')
@@ -604,7 +604,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
 
   //// hide form
   //form_div_wrapper.on('click', function() {
-  //  form_div_wrapper.classed('hidden', true)
+  //  form_div_wrapper.classed('asm-hidden', true)
   //});
   //form_div.on('click', function() {
   //  d3.event.stopPropagation();
@@ -613,7 +613,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   //// toggle form visibility
   //// TODO - fix bug with position in screen coords
   //d3.selectAll('#'+parent_div+' .asm-scale_rect').on('click', function() {
-  //  form_div_wrapper.classed('hidden', !form_div_wrapper.classed('hidden'))
+  //  form_div_wrapper.classed('asm-hidden', !form_div_wrapper.classed('asm-hidden'))
   //  var rect = svg.node().getBoundingClientRect();
   //  form_div_wrapper.style('height', rect.height)
   //  form_div_wrapper.style('width', rect.width)
@@ -683,15 +683,15 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var path = overlay.append('path');
   var overoverlay = overlay.append('g');
   var output = overlay.append('g').attr('transform', 'translate(' + (size / 2 - 142) + ',' + (size / 2 - 128) + ')');
-  var output_rect = output.append('rect').attr('class', 'asm-live_stats hidden').attr('height', 110).attr('width', 150);
-  var output_text = output.append('g').attr('transform', 'translate(' + (2) + ',' + (18) + ')').attr('class', 'hidden');
-//  var output_gc = output.append('g').attr('transform', 'translate(' + (17) + ',' + (18) + ')').attr('class', 'hidden');
+  var output_rect = output.append('rect').attr('class', 'asm-live_stats asm-hidden').attr('height', 110).attr('width', 150);
+  var output_text = output.append('g').attr('transform', 'translate(' + (2) + ',' + (18) + ')').attr('class', 'asm-hidden');
+//  var output_gc = output.append('g').attr('transform', 'translate(' + (17) + ',' + (18) + ')').attr('class', 'asm-hidden');
   var gc_circle = overoverlay.append('circle').attr('r', radii.percent[0]).attr('fill', 'white').style('opacity', 0);
   var stat_circle = overoverlay.append('circle').attr('r', radii.core[1]).attr('fill', 'white').style('opacity', 0);
   stat_circle.on('mousemove', function() {
-    output_rect.classed('hidden', false);
-    output_text.classed('hidden', false);
-    path.classed('hidden', false);
+    output_rect.classed('asm-hidden', false);
+    output_text.classed('asm-hidden', false);
+    path.classed('asm-hidden', false);
     output_text.selectAll('text').remove();
 
 
@@ -720,15 +720,15 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
         output_text.append('text').attr('x', 120).attr('y', w * 4.2 + 18).text('>= ' + getReadableSeqSizeString(nctg_length[(angle * 10)-1])).attr('class', 'asm-key asm-right');
       }
     } else {
-      output_rect.classed('hidden', true);
-      output_text.classed('hidden', true);
-      path.classed('hidden', true);
+      output_rect.classed('asm-hidden', true);
+      output_text.classed('asm-hidden', true);
+      path.classed('asm-hidden', true);
     }
   });
   stat_circle.on('mouseout', function() {
-    output_rect.classed('hidden', true);
-    output_text.classed('hidden', true);
-    path.classed('hidden', true);
+    output_rect.classed('asm-hidden', true);
+    output_text.classed('asm-hidden', true);
+    path.classed('asm-hidden', true);
   });
 
   // update gc content stats on mouseover
@@ -753,10 +753,10 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
 
     gc_circle.on('mousemove', function() {
       clearTimeout(slow_plot);
-//      output_rect.classed('hidden', false);
-//      output_text.classed('hidden', false);
-//      output_gc.classed('hidden', false);
-      path.classed('hidden', false);
+//      output_rect.classed('asm-hidden', false);
+//      output_text.classed('asm-hidden', false);
+//      output_gc.classed('asm-hidden', false);
+      path.classed('asm-hidden', false);
 //      output_text.selectAll('text').remove();
 
 
@@ -801,7 +801,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
         $('#'+parent_div+' #asm-at_value').text(at_text);
         $('#'+parent_div+' #asm-gc_value').text(gc_text);
         $('#'+parent_div+' #asm-n_value').text(n_text);
-        path.classed('hidden', true);
+        path.classed('asm-hidden', true);
       }
     });
     gc_circle.on('mouseout', function() {
@@ -809,7 +809,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
       $('#'+parent_div+' #asm-at_value').text(at_text);
       $('#'+parent_div+' #asm-gc_value').text(gc_text);
       $('#'+parent_div+' #asm-n_value').text(n_text);
-      path.classed('hidden', true);
+      path.classed('asm-hidden', true);
     });
   }
 }
