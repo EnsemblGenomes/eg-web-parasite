@@ -87,7 +87,7 @@ sub get_cacheable_form_node {
          'name'   => 'species',
          'values' => [{
            'value' => $hub->data_species,
-           'caption' => $hub->data_species =~ /^Multi$/ ? 'Select a species' : $hub->species_defs->species_display_label($hub->data_species)
+           'caption' => $hub->data_species =~ /^Multi$/ ? 'Select a species' : sprintf('%s (%s%s)', $sd->get_config($hub->data_species, 'SPECIES_SCIENTIFIC_NAME'), $sd->get_config($hub->data_species, 'SPECIES_BIOPROJECT'), $sd->get_config($hub->data_species, 'SPECIES_STRAIN') ? ' - ' . $sd->get_config($hub->data_species, 'SPECIES_STRAIN') : '')
           }]
         }]
     });
