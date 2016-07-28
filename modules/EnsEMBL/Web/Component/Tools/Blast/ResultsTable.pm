@@ -92,7 +92,8 @@ sub table_row {
   
 ## ParaSite: prettify the genome project name for multi-species results
   my $hub = $self->hub;
-  $result_row->{'species'} = $hub->species_defs->get_config($result_row->{'species'}, 'SPECIES_COMMON_NAME');
+  my $sd  = $hub->species_defs;
+  $result_row->{'species'} = sprintf('%s (%s%s)', $sd->get_config($result_row->{'species'}, 'SPECIES_SCIENTIFIC_NAME'), $sd->get_config($result_row->{'species'}, 'SPECIES_BIOPROJECT'), $sd->get_config($result_row->{'species'}, 'SPECIES_STRAIN') ? $sd->get_config($result_row->{'species'}, 'SPECIES_STRAIN') : '');
 ##
 
   # orientation columns
