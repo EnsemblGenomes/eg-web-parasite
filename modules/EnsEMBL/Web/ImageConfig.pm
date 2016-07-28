@@ -457,6 +457,7 @@ sub add_sequence_variations_default_eva {
       sources     => undef,
       study_id    => $study->{'study_id'},
       eva_species => $study->{'eva_species'},
+      display     => 'compact',
       description => sprintf('%s<br />Variants loaded from study <a href="%s/?eva-study=%s">%s</a> in the European Variation Archive.',
                              $study->{'description'},
                              $self->hub->species_defs->EVA_URL,
