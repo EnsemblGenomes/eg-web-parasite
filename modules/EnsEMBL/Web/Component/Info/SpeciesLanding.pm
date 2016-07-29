@@ -75,11 +75,11 @@ sub content {
   $html .= '</div>'; # column-wrapper
   
   my $about_text = $self->_other_text('about', $species);
-  #if ($about_text) {
+  if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
     $html .= $about_text;
     $html .= '</div>';
-  #}
+  }
 
   my (@sections);
   
