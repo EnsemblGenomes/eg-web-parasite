@@ -139,9 +139,9 @@ sub render {
     { key => 'provider',      title => 'Provider',       sort => 'string',         align => 'left', width => '15%' },
     { key => 'assembly',      title => 'Assembly',       sort => 'string',         align => 'left', width => '10%' },
     { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',         align => 'left', width => '10%' },
-    { key => 'cegma',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export"  },
-    { key => 'busco',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export"  },
-    { key => 'n50',           title => 'N50',            sort => 'numeric_hidden', align => 'left', width => '4%'  },
+    { key => 'cegma',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export", help => "CEGMA is a method of measuring assembly quality developed by the Korf Lab at UC Davis. It involves looking for a set of highly conserved genes present in most eukaryotes in the genome assembly. The more of these proteins are completely (or at least partially) retrieved in the assembly, the higher its quality." },
+    { key => 'busco',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export", help => "BUSCO is a method of measuring assembly quality developed at the University of Geneva. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of animals. The percentages of complete, duplicated and partial genes recovered are reported." },
+    { key => 'n50',           title => 'N50',            sort => 'numeric_hidden', align => 'left', width => '4%', help => "N50 is the length of the smallest contig such as the sum of the sequences larger than this contig covers half of the genome assembly." },
   ];
 
   my $j = 0;
@@ -240,7 +240,7 @@ sub render {
               <div style="display: none;">
                 <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
               </div>
-              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: D %s, C %s, F %s"></div>
+              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: Duplicated %s, Complete %s, Fragmented %s"></div>
             ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_d, $busco_c, $busco_f));
             $j++;
           } else {
