@@ -55,6 +55,19 @@ sub init {
       })
     });
 
+   if($hub->species_defs->RNASEQ) {
+     $self->add_entry({
+       caption => 'Add RNA-Seq tracks',
+       class   => 'modal_link config-tracks config',
+       rel     => "modal_config_$component",
+       url     => $hub->url('Config', {
+          type     => $view_config->type,
+          action   => $component,
+          function => 'parasite_rnaseq',
+       })
+     });
+   }
+
     if($view_config->type eq 'Location') {
       $self->add_entry({
         caption => 'Add custom tracks',
