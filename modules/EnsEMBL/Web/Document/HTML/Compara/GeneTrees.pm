@@ -53,7 +53,7 @@ sub get_html_for_gene_tree_coverage {
 ## ParaSite: add BioProject
         'species' => $bioproject ? sprintf('<i>%s</i> (%s)', $sp->node_name, $bioproject) : $sp->node_name,
 ##
-        'piechart_cov' => $piecharts->[1],
+        'piechart_cov' => $piecharts->[0],
 #        'piechart_dup' => $sp->get_value_for_tag('nb_genes_in_tree') ? $piecharts->[0] : '',
         map {($_ => $sp->get_value_for_tag($_) || 0)} (qw(nb_genes nb_seq nb_orphan_genes nb_genes_in_tree nb_genes_in_tree_single_species nb_genes_in_tree_multi_species nb_gene_splits nb_dup_nodes)),
       });
