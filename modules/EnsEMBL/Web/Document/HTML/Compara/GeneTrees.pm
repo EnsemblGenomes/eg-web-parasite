@@ -36,9 +36,9 @@ sub get_html_for_gene_tree_coverage {
   $table->add_columns(
     { key => 'nb_gene_splits',                  width => '9%', align => 'center', sort => 'numeric', style => 'color:#69f', title => '# Gene splits', },
   ) if $method eq 'PROTEIN_TREES';
-  $table->add_columns(
-    { key => 'piechart_dup',                      width => '5%',  align => 'center', sort => 'none',    title => 'Gene events', },
-  );
+#  $table->add_columns(
+#    { key => 'piechart_dup',                      width => '5%',  align => 'center', sort => 'none',    title => 'Gene events', },
+#  );
 
   my $common_names = $self->hub->species_defs->multi_hash->{'DATABASE_COMPARA'}{'TAXON_NAME'};
 
@@ -54,7 +54,7 @@ sub get_html_for_gene_tree_coverage {
         'species' => $bioproject ? sprintf('<i>%s</i> (%s)', $sp->node_name, $bioproject) : $sp->node_name,
 ##
         'piechart_cov' => $piecharts->[1],
-        'piechart_dup' => $sp->get_value_for_tag('nb_genes_in_tree') ? $piecharts->[0] : '',
+#        'piechart_dup' => $sp->get_value_for_tag('nb_genes_in_tree') ? $piecharts->[0] : '',
         map {($_ => $sp->get_value_for_tag($_) || 0)} (qw(nb_genes nb_seq nb_orphan_genes nb_genes_in_tree nb_genes_in_tree_single_species nb_genes_in_tree_multi_species nb_gene_splits nb_dup_nodes)),
       });
   }
