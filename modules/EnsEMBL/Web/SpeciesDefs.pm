@@ -70,4 +70,25 @@ sub species_label {
 
 }
 
+sub _get_NCBIBLAST_source_file {
+  my ($self, $species, $source_type) = @_;
+
+  my $assembly = $self->get_config($species, 'ASSEMBLY_NAME');
+
+  (my $type = lc $source_type) =~ s/_/\./;
+
+  my $unit = $self->GENOMIC_UNIT;
+  my $path = $self->EBI_BLAST_DB_PREFIX || "wormbase-parasite";
+
+  my $dataset = $self->get_config($species, 'SPECIES_DATASET');
+
+  return sprintf '%s/%s.%s.%s', $path, $species, $assembly, $type unless $type =~ /latestgp/;
+
+  $type =~ s/latestgp(.*)/dna$1\.toplevel/;
+  $type =~ s/.masked/_rm/;
+  $type =~ s/.soft/_sm/;
+
+  return sprintf '%s/%s.%s.%s', $path, $species, $assembly, $type;
+}
+
 1;
