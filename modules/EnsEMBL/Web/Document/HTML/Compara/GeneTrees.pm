@@ -116,5 +116,27 @@ sub draw_tree {
 
 }
 
+sub get_piecharts_for_species {
+  my ($self, $node, $counter_raphael_holders) = @_;
+  my $v1 = $node->get_value_for_tag('nb_orphan_genes');
+  my $v2 = $node->get_value_for_tag('nb_genes_in_tree_single_species');
+  my $v3 = $node->get_value_for_tag('nb_genes_in_tree_multi_species');
+  my $v5 = $node->get_value_for_tag('nb_split_genes');
+  my $v6 = $node->get_value_for_tag('nb_long_genes');
+  my $v7 = $node->get_value_for_tag('nb_short_genes');
+  my $v8 = $node->get_value_for_tag('nb_genes_in_tree');
+
+
+
+  my $piechart2 = $self->piechart_data([0, 0, 0, $v1, $v2, $v3], $counter_raphael_holders, sprintf("Gene coverage (%s)", $node->node_name));
+  my $piechart = $self->piechart_data([$v8-$v7-$v6-$v5, 0, $v5, 0, 0, 0, $v7, $v6], $counter_raphael_holders, sprintf("Gene QC (%s)", $node->node_name));
+
+##ParaSite: only show the Gene Coverage piechart
+  #return [$piechart, $piechart2];
+  return [$piechart2];
+##
+
+}
+
 1;
 
