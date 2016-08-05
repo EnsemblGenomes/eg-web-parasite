@@ -112,6 +112,7 @@ sub get_results_as_hashes {
   foreach my $entry (@{$results->{results}}) {
     my %hash = ();
     # Map to the EG search keys
+warn Data::Dumper::Dumper $entry;
     $hash{'system_name'} = $entry->{taxonomy}->{genus} . '_' . $entry->{taxonomy}->{species};
     $hash{'species'}     = ucfirst($entry->{taxonomy}->{genus}) . ' ' . $entry->{taxonomy}->{species};
     $hash{'description'} = $entry->{concise_description}->[0];

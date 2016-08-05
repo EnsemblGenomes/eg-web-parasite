@@ -221,6 +221,8 @@ sub render_hit {
 
   my $species_name = ucfirst $hit->{system_name};
   my $species = sprintf('%s (%s%s)', $hub->species_defs->get_config($species_name, 'SPECIES_BIO_NAME'), $hub->species_defs->get_config($species_name, 'SPECIES_BIOPROJECT'), $hub->species_defs->get_config($species_name, 'SPECIES_STRAIN') ? " - " . $hub->species_defs->get_config($species_name, 'SPECIES_STRAIN') : '');
+  $species = $hub->species_defs->SPECIES_DISPLAY_NAME->{lc($species_name)} unless $hub->species_defs->get_config($species_name, 'SPECIES_BIO_NAME');
+
   my $name = $hit->{name};
   
   my $table = EnsEMBL::Web::Document::TwoCol->new;
