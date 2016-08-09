@@ -146,6 +146,13 @@ sub init {
     $self->modify_configs($tracks, {display => 'compact'});
   }
 
+  ## ParaSite: display the EVA tracks by default
+  foreach my $study (@{$self->hub->species_defs->EVA_TRACKS}) {
+    my $track  = "variation_feature_eva_" . $study->{'study_id'};
+    $self->modify_configs([$track], {display => 'compact'});
+  }
+  ##
+
   # These tracks get added after the "auto-loaded tracks get addded
   if ($self->species_defs->ENSEMBL_MOD) {
     $self->add_track('information', 'mod', '', 'text', {
