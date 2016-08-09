@@ -138,8 +138,8 @@ sub get_variant_info {
       my $consequence_table = $self->new_table($consequence_columns, [], { data_table => 1 });
       my @transcripts;
       foreach my $consequence (@{$annotation->{consequenceTypes}}) {
-        my $gene_url = $self->hub->url({ type => 'Gene', action => 'Summary', g => $consequence->{ensemblGeneId} });
-        my $transcript_url = $self->hub->url({ type => 'Transcript', action => 'Summary', g => $consequence->{ensemblTranscriptId} });
+        my $gene_url = $self->hub->url({ type => 'Gene', action => 'Summary', g => $consequence->{ensemblGeneId}, __clear => 1 });
+        my $transcript_url = $self->hub->url({ type => 'Transcript', action => 'Summary', g => $consequence->{ensemblTranscriptId}, __clear => 1 });
         $consequence_table->add_row([
           sprintf('<a href="%s">%s</a>', $gene_url, $consequence->{ensemblGeneId}),
           sprintf('<a href="%s">%s</a>', $transcript_url, $consequence->{ensemblTranscriptId}),
