@@ -147,9 +147,11 @@ sub init {
   }
 
   ## ParaSite: display the EVA tracks by default
-  foreach my $study (@{$self->hub->species_defs->EVA_TRACKS}) {
-    my $track  = "variation_feature_eva_" . $study->{'study_id'};
-    $self->modify_configs([$track], {display => 'compact'});
+  if($self->hub->species_defs->EVA_TRACKS) {
+    foreach my $study (@{$self->hub->species_defs->EVA_TRACKS}) {
+      my $track  = "variation_feature_eva_" . $study->{'study_id'};
+      $self->modify_configs([$track], {display => 'compact'});
+    }
   }
   ##
 
