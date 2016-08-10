@@ -55,7 +55,7 @@ sub init {
       })
     });
 
-   if($hub->species_defs->RNASEQ) {
+   if($hub->species_defs->RNASEQ && $view_config->type eq 'Location') {
      $self->add_entry({
        caption => 'Add RNA-Seq tracks',
        class   => 'modal_link config-tracks config',
