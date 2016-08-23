@@ -129,7 +129,7 @@ sub get_piecharts_for_species {
 
 
   my $piechart2 = $self->piechart_data([0, 0, 0, $v1, $v2, $v3], $counter_raphael_holders, sprintf("Gene coverage (%s)", $node->node_name));
-  my $piechart = $self->piechart_data([$v8-$v7-$v6-$v5, 0, $v5, 0, 0, 0, $v7, $v6], $counter_raphael_holders, sprintf("Gene QC (%s)", $node->node_name));
+  #my $piechart = $self->piechart_data([$v8-$v7-$v6-$v5, 0, $v5, 0, 0, 0, $v7, $v6], $counter_raphael_holders, sprintf("Gene QC (%s)", $node->node_name));
 
 ##ParaSite: only show the Gene Coverage piechart
   #return [$piechart, $piechart2];
