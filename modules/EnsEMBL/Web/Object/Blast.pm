@@ -52,9 +52,14 @@ sub get_result_urls {
   # Target url (only for sources other than genmoic seq)
   if ($source !~ /latestgp/i) {
     my $target = $self->get_target_object($hit, $source);
-       $target = $target->transcript if $target->isa('Bio::EnsEMBL::Translation');
+    my $param;
+    if($target) {
+      $target = $target->transcript if $target->isa('Bio::EnsEMBL::Translation');
 
-    my $param  = $target->isa('Bio::EnsEMBL::PredictionTranscript') ? 'pt' : 't';
+      $param  = $target->isa('Bio::EnsEMBL::PredictionTranscript') ? 'pt' : 't';
+    } else {
+      $param = 't';
+    }
 
     $urls->{'target'} = {
       'species' => $species,
@@ -154,9 +159,10 @@ sub get_genes_for_hit {
 
     } else {
       my $target = $self->get_target_object($hit, $source);
-         $target = $target->transcript if $target->isa('Bio::EnsEMBL::Translation');
-
-      push @genes, $target->get_Gene || () unless $target->isa('Bio::EnsEMBL::PredictionTranscript');
+      if($target) {
+        $target = $target->transcript if $target->isa('Bio::EnsEMBL::Translation');
+        push @genes, $target->get_Gene || () unless $target->isa('Bio::EnsEMBL::PredictionTranscript');
+      }
     }
 
     # cache it in the db
