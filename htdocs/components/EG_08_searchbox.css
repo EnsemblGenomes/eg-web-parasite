@@ -17,10 +17,10 @@
 #masthead form                      { padding: 0; border: 0; margin: 0; }
 div.search                          { background: #FFFFFF; margin: 1px 1px 0 0; padding: 2px; height: 30px; border-radius: 6px 6px 6px 6px; -moz-border-radius: 6px 6px 6px 6px; -webkit-border-radius: 6px 6px 6px 6px; }
 div.search input[type=submit]       { cursor: pointer; border: none; background: none; font-family: EBI-Functional; font-size: 14px; }
-div.search input[type=text]         { width: 475px; height: 18px; font: 12pt sans-serif; padding: 6px 6px 6px 6px; color: [[CONTRAST_TEXT]]; outline: 0; border: 0; }
+div.search input[type=text]         { width: 40vw; min-width: 50px; max-width: 475px; height: 18px; font: 12pt sans-serif; padding: 6px 6px 6px 6px; color: [[CONTRAST_TEXT]]; outline: 0; border: 0; }
 
 div.search-home                     { width: 70%; background: #FFFFFF; margin: 0 auto; padding: 2px; height: 35px; border: 1pt solid grey; border-radius: 6px 6px 6px 6px; -moz-border-radius: 6px 6px 6px 6px; -webkit-border-radius: 6px 6px 6px 6px; }
 div.search-home input[type=submit]  { cursor: pointer; border: none; background: none; font-family: EBI-Functional; font-size: 14px; }
-div.search-home input[type=text]    { width: 90%; height: 25px; font: 18pt sans-serif; padding: 6px 6px 6px 6px; color: [[CONTRAST_TEXT]]; outline: 0; border: 0; }
+div.search-home input[type=text]    { width: 40wv; min-width: 50px; max-width: 475px; height: 25px; font: 18pt sans-serif; padding: 6px 6px 6px 6px; color: [[CONTRAST_TEXT]]; outline: 0; border: 0; }
 
 body.ie6 div.search div             { height: 22px; overflow: hidden; }
