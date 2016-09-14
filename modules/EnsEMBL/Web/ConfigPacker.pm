@@ -324,4 +324,8 @@ sub eva_api {
   return from_json($content); 
 }
 
+sub _summarise_website_db {
+  return;
+}
+
 1;
