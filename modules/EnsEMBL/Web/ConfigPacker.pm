@@ -324,4 +324,14 @@ sub eva_api {
   return from_json($content); 
 }
 
+sub _summarise_website_db {
+  my $self    = shift;
+  my $db_name = 'DATABASE_WEBSITE';
+  my $dbh     = $self->db_connect( $db_name );
+
+  $self->db_tree->{'ENSEMBL_HELP'} = undef;
+
+  $dbh->disconnect();
+}
+
 1;
