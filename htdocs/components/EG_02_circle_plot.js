@@ -1004,7 +1004,7 @@ function toInt(number) {
 function getReadableSeqSizeString(seqSizeInBases, fixed) {
   // function based on answer at http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable
   var i = -1;
-  var baseUnits = [' kB', ' MB', ' GB', ' TB'];
+  var baseUnits = [' kb', ' Mb', ' Gb', ' Tb'];
   do {
     seqSizeInBases = seqSizeInBases / 1000;
     i++;
