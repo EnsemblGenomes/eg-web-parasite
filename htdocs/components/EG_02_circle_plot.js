@@ -320,11 +320,6 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var scaf_counts = $.map(this.npct_count, function(value, index) {
     return [value];
   });
-//  scdg.append("path")
-//    .datum(scaf_counts)
-//    .attr("class", "asm-count asm-remote")
-//    .attr("d", line);
-
 
   // plot scaffold lengths
   var slg = g.append('g')
@@ -398,9 +393,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var slgg = slg.append('g')
     .attr("id", "asm-g-scaffold_length_gridlines");
   length_seq.forEach(function(i, index) {
-    //if(Math.pow(10,i+4) > longest && Math.pow(10,i+1) > npct_length[1000]){
     if (Math.pow(10, i + 4) >= longest && Math.pow(10, i + 1) > npct_length[900] && Math.pow(10, i) < npct_length[100]) {
-      //plot_arc(slgg,radii.core[1]-lScale(Math.pow(10,i)),radii.core[1]-lScale(Math.pow(10,i)),pScale(0),pScale(100),'asm-length_axis asm-dashed');
       slgg.append('circle')
         .attr('r', radii.core[1] - lScale(Math.pow(10, i)))
         .attr('cx', 0)
@@ -525,11 +518,6 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   //txt.append('tspan').text('distribution').attr('x',0).attr('dy',20);
 
   var key = lsg.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (-size / 2 + 28) + ')');
-  //key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-count asm-toggle');
-  //var count_txt = key.append('text').attr('x', w + 3).attr('y', w - 1).attr('class', 'asm-key')
-  //count_txt.append('tspan').text('Log')
-  //count_txt.append('tspan').attr('baseline-shift', 'sub').attr('font-size', '75%').text(10)
-  //count_txt.append('tspan').text(' scaffold count (total ' + this.scaffold_count.toLocaleString() + ')');
   key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-pie asm-toggle');
   key.append('text').attr('x', w + 3).attr('y', w - 1).text('Scaffold length (total ' + getReadableSeqSizeString(this.assembly, 0) + ')').attr('class', 'asm-key');
 
@@ -540,89 +528,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   key.append('text').attr('x', w + 3).attr('y', w * 4 - 1).text('N50 length (' + getReadableSeqSizeString(this.npct_length[499]) + ')').attr('class', 'asm-key');
   key.append('rect').attr('y', w * 4.5).attr('height', w).attr('width', w).attr('class', 'asm-n90_pie asm-toggle');
   key.append('text').attr('x', w + 3).attr('y', w * 5.5 - 1).text('N90 length (' + getReadableSeqSizeString(this.npct_length[899]) + ')').attr('class', 'asm-key');
-
-  //draw contig legend if available
-  //if (this.contigs) {
-  //  var lctg = lg.append('g')
-  //    .attr("id", "asm-g-contig_legend");
-  //  var txt = lctg.append('text')
-  //    .attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 70) + ')')
-  //    .attr('class', 'asm-bl_title');
-  //  txt.append('tspan').text('Contig statistics');
-
-  //  var key = lctg.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 62) + ')');
-  //  key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-contig_count asm-toggle');
-  //  var count_txt = key.append('text').attr('x', w + 2).attr('y', w - 1).attr('class', 'asm-key')
-  //  count_txt.append('tspan').text('Log')
-  //  count_txt.append('tspan').attr('baseline-shift', 'sub').attr('font-size', '75%').text(10)
-  //  count_txt.append('tspan').text(' contig count (total ' + this.contig_count.toLocaleString() + ')');
-  //  key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-contig asm-toggle');
-  //  key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Contig length').attr('class', 'asm-key');
-  //}
-
-  // add adjustable scale legend
-  //var lscl = lg.append('g')
-  //  .attr("id", "asm-g-scale_legend");
-  //var txt = lscl.append('text')
-  //  .attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 150) + ')')
-  //  .attr('class', 'asm-bl_title');
-  //txt.append('tspan').text('Scale');
-
-  //var key = lscl.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (size / 2 - 142) + ')');
-  //var circ_key = key.append('g').attr('width', '100px').attr('height', '14px').attr('transform', 'translate(0,8)').attr('id', 'asm-circ_scale_g');
-  //var circ_scale_rect = circ_key.append('rect').attr('x', w + 5).attr('y', -3).attr('width', '80px').attr('height', '18px').attr('class', 'asm-scale_rect');
-  //circ_key.append('circle').attr('cx', w / 2).attr('cy', w / 2).attr('r', w / 2).attr('class', 'asm-axis');
-  //circ_key.append('line').attr('x1', w / 2).attr('y1', 0).attr('x2', w / 2).attr('y2', w / 2).attr('class', 'asm-axis asm-narrow');
-  //var readable_circle_span = getReadableSeqSizeString(circle_span, 1)
-  //circ_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_circle_span).attr('class', 'asm-key')
-  //var rad_key = key.append('g').attr('width', '100px').attr('height', '14px').attr('transform', 'translate(0,' + (w * 2.5) + ')').attr('id', 'asm-rad_scale_g');
-  //var rad_scale_rect = rad_key.append('rect').attr('x', w + 5).attr('y', -3).attr('width', '80px').attr('height', '18px').attr('class', 'asm-scale_rect');
-  //rad_key.append('circle').attr('cx', w / 2).attr('cy', w / 2).attr('r', w / 2).attr('class', 'asm-axis asm-narrow');
-  //rad_key.append('line').attr('x1', w / 2).attr('y1', 0).attr('x2', w / 2).attr('y2', w / 2).attr('class', 'asm-axis');
-  //var readable_longest = getReadableSeqSizeString(longest, 1);
-  //rad_key.append('text').attr('x', w + 8).attr('y', w - 1).text(readable_longest).attr('class', 'asm-key');
-
-  //// setup form
-  //var form_div_wrapper = parent.append('div').attr('id', 'asm-scale_form_wrapper').attr('class', 'asm-hidden');
-  //var form_div_bg = form_div_wrapper.append('div').attr('id', 'asm-scale_form_bg');
-  //var form_div = form_div_bg.append('div').attr('id', 'asm-scale_form_div')
-  //var form = form_div.append('form').attr('id', 'asm-scale_form')
-  //form.append('label').attr('for', 'asm-circ_scale_input').text('circumference scale:').attr('class', 'asm-form_label')
-  //form.append('input').attr('type', 'text').property('value', readable_circle_span).attr('placeholder', readable_circle_span).attr('id', 'asm-circ_scale_input').attr('class', 'asm-form_element')
-  //form.append('br')
-  //form.append('label').attr('for', 'asm-rad_scale_input').text('radial scale:').attr('class', 'asm-form_label')
-  //form.append('input').attr('type', 'text').property('value', readable_longest).attr('placeholder', readable_longest).attr('id', 'asm-rad_scale_input').attr('class', 'asm-form_element')
-  //form.append('br')
-  //form.append('input').attr('type', 'submit').attr('class', 'asm-form_element')
-  //var asm = this;
-  //$('#'+parent_div+' #asm-scale_form').submit(function(e) {
-  //  e.preventDefault();
-  //  var circ_val = toInt($('#'+parent_div+' #asm-circ_scale_input').val());
-  //  var rad_val = toInt($('#'+parent_div+' #asm-rad_scale_input').val());
-  //  asm.reDrawPlot(parent, rad_val, circ_val);
-  //})
-
-  //// hide form
-  //form_div_wrapper.on('click', function() {
-  //  form_div_wrapper.classed('asm-hidden', true)
-  //});
-  //form_div.on('click', function() {
-  //  d3.event.stopPropagation();
-  //});
-
-  //// toggle form visibility
-  //// TODO - fix bug with position in screen coords
-  //d3.selectAll('#'+parent_div+' .asm-scale_rect').on('click', function() {
-  //  form_div_wrapper.classed('asm-hidden', !form_div_wrapper.classed('asm-hidden'))
-  //  var rect = svg.node().getBoundingClientRect();
-  //  form_div_wrapper.style('height', rect.height)
-  //  form_div_wrapper.style('width', rect.width)
-
-  //  form_div_bg.style('height', rect.height > rect.width ? rect.width : rect.height)
-  //  form_div_bg.style('width', rect.height > rect.width ? rect.width : rect.height)
-
-  //});
-
+  
   // toggle plot features
   $('#'+parent_div+' .asm-toggle').on('click', function() {
     var button = this;
@@ -685,7 +591,6 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var output = overlay.append('g').attr('transform', 'translate(' + (size / 2 - 142) + ',' + (size / 2 - 128) + ')');
   var output_rect = output.append('rect').attr('class', 'asm-live_stats asm-hidden').attr('height', 110).attr('width', 150);
   var output_text = output.append('g').attr('transform', 'translate(' + (2) + ',' + (18) + ')').attr('class', 'asm-hidden');
-//  var output_gc = output.append('g').attr('transform', 'translate(' + (17) + ',' + (18) + ')').attr('class', 'asm-hidden');
   var gc_circle = overoverlay.append('circle').attr('r', radii.percent[0]).attr('fill', 'white').style('opacity', 0);
   var stat_circle = overoverlay.append('circle').attr('r', radii.core[1]).attr('fill', 'white').style('opacity', 0);
   stat_circle.on('mousemove', function() {
@@ -740,24 +645,10 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
       GCs = GCs.map(function(d){return d.mean});
     }
     var slow_plot;
-//      var sgcg = output_gc.append('g')
-//        .attr('transform', 'translate(' + (radii.ceg[2] + tick * 1) + ',' + (radii.ceg[2] + tick * 1) + ')')
-//        .attr("id", "asm-segment_gc");
-//      var sgcdg = sgcg.append('g')
-//        .attr("id", "asm-segment_gc_data");
-//      var sgcag = sgcg.append('g')
-//        .attr("id", "asm-segment_gc_axis");
-      //ccag.append('circle').attr('r', radii.ceg[1]).attr('class', 'asm-ceg_line');
-      //ccag.append('line').attr('y2', -radii.ceg[2]).attr('class', 'asm-axis');
-//      cegma_axis(sgcag, radii, p100Scale);
 
     gc_circle.on('mousemove', function() {
       clearTimeout(slow_plot);
-//      output_rect.classed('asm-hidden', false);
-//      output_text.classed('asm-hidden', false);
-//      output_gc.classed('asm-hidden', false);
       path.classed('asm-hidden', false);
-//      output_text.selectAll('text').remove();
 
 
       var point = d3.mouse(this);
@@ -789,11 +680,6 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
           $('#'+parent_div+' #asm-at_value').text('AT (' + (100 - seg_gc).toFixed(1) + '%)');
           $('#'+parent_div+' #asm-gc_value').text('GC (' + seg_gc.toFixed(1) + '%)');
           $('#'+parent_div+' #asm-n_value').text('N (' + seg_n.toFixed(1) + '%)');
-          //plot_arc(sgcdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(100), 'asm-ns');
-          //plot_arc(sgcdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(seg_gc_start), p100Scale(seg_gc_start + (100 - seg_n)), 'asm-atgc');
-          //plot_arc(sgcdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(seg_gc_start), p100Scale(seg_gc), 'asm-gc');
-
-          //sgcdg.append('circle').attr('r', radii.ceg[1]/1.5).attr('class', 'asm-axis');
         })
 
       } else {
