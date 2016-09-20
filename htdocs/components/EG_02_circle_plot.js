@@ -320,10 +320,10 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var scaf_counts = $.map(this.npct_count, function(value, index) {
     return [value];
   });
-  scdg.append("path")
-    .datum(scaf_counts)
-    .attr("class", "asm-count asm-remote")
-    .attr("d", line);
+//  scdg.append("path")
+//    .datum(scaf_counts)
+//    .attr("class", "asm-count asm-remote")
+//    .attr("d", line);
 
 
   // plot scaffold lengths
@@ -525,21 +525,21 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   //txt.append('tspan').text('distribution').attr('x',0).attr('dy',20);
 
   var key = lsg.append('g').attr('transform', 'translate(' + (-size / 2 + 10) + ',' + (-size / 2 + 28) + ')');
-  key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-count asm-toggle');
-  var count_txt = key.append('text').attr('x', w + 3).attr('y', w - 1).attr('class', 'asm-key')
-  count_txt.append('tspan').text('Log')
-  count_txt.append('tspan').attr('baseline-shift', 'sub').attr('font-size', '75%').text(10)
-  count_txt.append('tspan').text(' scaffold count (total ' + this.scaffold_count.toLocaleString() + ')');
-  key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-pie asm-toggle');
-  key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Scaffold length (total ' + getReadableSeqSizeString(this.assembly, 0) + ')').attr('class', 'asm-key');
+  //key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-count asm-toggle');
+  //var count_txt = key.append('text').attr('x', w + 3).attr('y', w - 1).attr('class', 'asm-key')
+  //count_txt.append('tspan').text('Log')
+  //count_txt.append('tspan').attr('baseline-shift', 'sub').attr('font-size', '75%').text(10)
+  //count_txt.append('tspan').text(' scaffold count (total ' + this.scaffold_count.toLocaleString() + ')');
+  key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-pie asm-toggle');
+  key.append('text').attr('x', w + 3).attr('y', w - 1).text('Scaffold length (total ' + getReadableSeqSizeString(this.assembly, 0) + ')').attr('class', 'asm-key');
 
 
-  key.append('rect').attr('y', w * 3).attr('height', w).attr('width', w).attr('class', 'asm-longest_pie asm-toggle');
-  key.append('text').attr('x', w + 3).attr('y', w * 4 - 1).text('Longest scaffold (' + getReadableSeqSizeString(this.scaffolds[0]) + ')').attr('class', 'asm-key');
-  key.append('rect').attr('y', w * 4.5).attr('height', w).attr('width', w).attr('class', 'asm-n50_pie asm-toggle');
-  key.append('text').attr('x', w + 3).attr('y', w * 5.5 - 1).text('N50 length (' + getReadableSeqSizeString(this.npct_length[499]) + ')').attr('class', 'asm-key');
-  key.append('rect').attr('y', w * 6).attr('height', w).attr('width', w).attr('class', 'asm-n90_pie asm-toggle');
-  key.append('text').attr('x', w + 3).attr('y', w * 7 - 1).text('N90 length (' + getReadableSeqSizeString(this.npct_length[899]) + ')').attr('class', 'asm-key');
+  key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-longest_pie asm-toggle');
+  key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Longest scaffold (' + getReadableSeqSizeString(this.scaffolds[0]) + ')').attr('class', 'asm-key');
+  key.append('rect').attr('y', w * 3).attr('height', w).attr('width', w).attr('class', 'asm-n50_pie asm-toggle');
+  key.append('text').attr('x', w + 3).attr('y', w * 4 - 1).text('N50 length (' + getReadableSeqSizeString(this.npct_length[499]) + ')').attr('class', 'asm-key');
+  key.append('rect').attr('y', w * 4.5).attr('height', w).attr('width', w).attr('class', 'asm-n90_pie asm-toggle');
+  key.append('text').attr('x', w + 3).attr('y', w * 5.5 - 1).text('N90 length (' + getReadableSeqSizeString(this.npct_length[899]) + ')').attr('class', 'asm-key');
 
   //draw contig legend if available
   //if (this.contigs) {
