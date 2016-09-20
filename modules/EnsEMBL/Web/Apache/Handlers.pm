@@ -347,23 +347,4 @@ sub handler {
   return DECLINED;
 }
 
-sub _check_species {
-## Do this in a private function so it's more easily pluggable, e.g. on Pre!
-## This default version just checks if this is a valid species for the site
-  my $args = shift;
-  return $args->{'lookup'}{$args->{'map'}{lc $args->{'dir'}}};
-}
-
-sub logHandler {
-  my $r = shift;
-  my $T = time;
-
-  $r->subprocess_env->{'ENSEMBL_CHILD_COUNT'}  = $ENSEMBL_WEB_REGISTRY->timer->get_process_child_count;
-  $r->subprocess_env->{'ENSEMBL_SCRIPT_START'} = sprintf '%0.6f', $T;
-  $r->subprocess_env->{'ENSEMBL_SCRIPT_END'}   = sprintf '%0.6f', $ENSEMBL_WEB_REGISTRY->timer->get_script_start_time;
-  $r->subprocess_env->{'ENSEMBL_SCRIPT_TIME'}  = sprintf '%0.6f', $T - $ENSEMBL_WEB_REGISTRY->timer->get_script_start_time;
-
-  return DECLINED;
-}
-
 1;
