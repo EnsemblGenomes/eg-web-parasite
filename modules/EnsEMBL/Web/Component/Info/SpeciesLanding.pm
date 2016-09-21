@@ -23,7 +23,6 @@ use strict;
 use EnsEMBL::Web::Document::HTML::HomeSearch;
 use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
-use EnsEMBL::Web::RegObj;
 use Data::Dumper;
 
 use LWP::UserAgent;
@@ -127,7 +126,7 @@ sub _other_text {
 
 sub _get_projects {
   my ($self, $species) = @_;
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my @species_list = ();
   foreach ($species_defs->valid_species) {
     if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species) {

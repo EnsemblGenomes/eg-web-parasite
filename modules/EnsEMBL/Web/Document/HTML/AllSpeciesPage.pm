@@ -25,7 +25,6 @@ use warnings;
 use Data::Dumper;
 use HTML::Entities qw(encode_entities);
 use List::MoreUtils qw(uniq);
-use EnsEMBL::Web::RegObj;
 
 use base qw(EnsEMBL::Web::Document::HTML);
 
@@ -33,7 +32,7 @@ sub render {
 
   my ($class, $request) = @_;
 
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my $sitename = $species_defs->SITE_NAME;
   my $species_info = {};
   

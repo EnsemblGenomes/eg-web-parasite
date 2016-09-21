@@ -24,7 +24,6 @@ use Data::Dumper;
 use JSON;
 use HTML::Entities qw(encode_entities);
 use Number::Format qw(format_number);
-use EnsEMBL::Web::RegObj;
 
 use base qw(EnsEMBL::Web::Component);
 
@@ -32,7 +31,7 @@ sub render {
 
   my ($self, $class, $request) = @_;
 
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my $html;
 
   # taxon order:

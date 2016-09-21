@@ -20,7 +20,6 @@ package EnsEMBL::Web::Document::HTML::HomeStats;
 
 use strict;
 use warnings;
-use EnsEMBL::Web::RegObj;
 use List::MoreUtils qw(uniq);
 use HTML::Entities qw(encode_entities);
 
@@ -28,7 +27,7 @@ use base qw(EnsEMBL::Web::Document::HTML);
 
 sub render {
   my ($class, $request) = @_;
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   
   my @items;
 

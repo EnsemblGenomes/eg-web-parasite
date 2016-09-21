@@ -28,7 +28,6 @@ use Net::SSL;
 use DateTime;
 use DateTime::Duration;
 use DateTime::Format::ISO8601;
-use EnsEMBL::Web::RegObj;
 use HTML::Entities qw(encode_entities);
 
 use base qw(EnsEMBL::Web::Document::HTML);
@@ -38,7 +37,7 @@ sub render {
 
   my $debug = 0;
 
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
 
   $ENV{HTTPS_PROXY} = $species_defs->ENSEMBL_WWW_PROXY;
   my $ua = LWP::UserAgent->new(
