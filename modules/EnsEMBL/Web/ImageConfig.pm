@@ -114,7 +114,7 @@ sub menus {
 sub _update_missing {
   my ($self, $object) = @_;
   my $species_defs    = $self->species_defs;
-  my $count_missing   = grep { $_->get('display') eq 'off' || !$_->get('display') } $self->get_tracks;
+  my $count_missing   = grep { !$_->get('display') || !$_->get('display') eq 'off' } @{$self->get_tracks};
   my $missing         = $self->get_node('missing');
 
   $missing->set('extra_height', 4) if $missing;
