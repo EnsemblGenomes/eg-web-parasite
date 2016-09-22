@@ -22,7 +22,7 @@ use strict;
 
 use base qw(EnsEMBL::Web::ImageConfig);
 
-sub init {
+sub init_cacheable {
   my $self = shift;
   
   my %colours;
