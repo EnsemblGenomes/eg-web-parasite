@@ -51,7 +51,7 @@ sub get_html_for_gene_tree_coverage {
     my $piecharts = $self->get_piecharts_for_species($sp, $counter_raphael_holders);
     $table->add_row({
 ## ParaSite: add BioProject
-        'species' => $bioproject ? sprintf('<i>%s</i> (%s)', $sp->node_name, $bioproject) : $sp->node_name,
+        'species' => $bioproject ? sprintf('<em>%s</em> (%s)', $sp->node_name, $bioproject) : $sp->node_name,
 ##
         'piechart_cov' => $piecharts->[0],
 #        'piechart_dup' => $sp->get_value_for_tag('nb_genes_in_tree') ? $piecharts->[0] : '',
