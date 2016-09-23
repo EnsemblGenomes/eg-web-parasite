@@ -475,7 +475,7 @@ sub species_stats {
   });
   my $header = $self->glossary_helptip('Genome Size', 'Golden path length');
   $summary->add_row({
-      'name' => "<span style="font-weight: bold">$header</span>",
+      'name' => qq(<span style="font-weight: bold">$header</span>),
       'stat' => $self->thousandify($genome_container->get_ref_length())
   });
   $summary->add_row({
