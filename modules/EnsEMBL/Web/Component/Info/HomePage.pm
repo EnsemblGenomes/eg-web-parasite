@@ -716,7 +716,7 @@ sub _add_gene_counts {
     my $class = '';
     $class = 'row-sub' if $d->{'_sub'};
     my $key = $d->{'_name'};
-    $key = $self->glossary_helptip("<b>$d->{'_name'}</b>", $glossary_lookup->{$d->{'_key'}});
+    $key = $self->glossary_helptip(qq(<span style="font-weight: bold">$d->{'_name'}</span>), $glossary_lookup->{$d->{'_key'}});
     $counts->add_row({ name => $key, stat => $value, options => { class => $class }});
   }
   return "<h3>Gene counts$tail</h3>".$counts->render;

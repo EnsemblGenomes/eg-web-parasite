@@ -31,8 +31,8 @@ sub get_form_details {
       core_type => {
         'label'   => 'Transcript database to use',
         'helptip' =>
-          '<b>Gencode basic:</b> a subset of the Ensembl transcript set; partial and other low quality transcripts are removed<br/>'.
-          '<b>RefSeq:</b> aligned transcripts from NCBI RefSeq',
+          '<span style="font-weight: bold">Gencode basic:</span> a subset of the Ensembl transcript set; partial and other low quality transcripts are removed<br/>'.
+          '<span style="font-weight: bold">RefSeq:</span> aligned transcripts from NCBI RefSeq',
         'values'  => [
           { 'value' => 'core',          'caption' => 'Ensembl transcripts'            },
           { 'value' => 'gencode_basic', 'caption' => 'Gencode basic transcripts'      },

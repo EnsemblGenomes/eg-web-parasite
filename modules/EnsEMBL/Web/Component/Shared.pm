@@ -462,28 +462,28 @@ sub species_stats {
     }
   }
   $summary->add_row({
-      'name' => '<b>Assembly</b>',
+      'name' => '<span style="font-weight: bold">Assembly</span>',
       'stat' => $a_id.', '.$sd->ASSEMBLY_DATE
   });
   $summary->add_row({
-      'name' => '<b>Strain</b>',
+      'name' => '<span style="font-weight: bold">Strain</span>',
       'stat' => $sd->SPECIES_STRAIN
   }) if $sd->SPECIES_STRAIN;
   $summary->add_row({
-      'name' => '<b>Database Version</b>',
+      'name' => '<span style="font-weight: bold">Database Version</span>',
       'stat' => 'WBPS' . $sd->SITE_RELEASE_VERSION
   });
   my $header = $self->glossary_helptip('Genome Size', 'Golden path length');
   $summary->add_row({
-      'name' => "<b>$header</b>",
+      'name' => "<span style="font-weight: bold">$header</span>",
       'stat' => $self->thousandify($genome_container->get_ref_length())
   });
   $summary->add_row({
-      'name' => '<b>Data Source</b>',
+      'name' => '<span style="font-weight: bold">Data Source</span>',
       'stat' => ref $sd->PROVIDER_NAME eq 'ARRAY' ? join(', ', @{$sd->PROVIDER_NAME}) : $sd->PROVIDER_NAME
   });
   $summary->add_row({
-      'name' => '<b>Annotation Version</b>',
+      'name' => '<span style="font-weight: bold">Annotation Version</span>',
       'stat' => $sd->GENEBUILD_VERSION
   });
 
