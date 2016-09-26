@@ -73,7 +73,7 @@ sub content {
   $html .= '</div>'; # box-right
   $html .= '</div>'; # column-wrapper
   
-  my $about_text = $self->_other_text('about', $species);
+  my $about_text = $self->_other_text('about', 'about_species', $species);
   if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
     $html .= $about_text;
@@ -91,7 +91,7 @@ sub content {
     my @parts = split('_', $project);
     my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
     my $strain = $species_defs->get_config($project, 'SPECIES_STRAIN');
-    my $project_summary = $self->_other_text('summary', $project);
+    my $project_summary = $self->_other_text('summary', 'about_assembly', $project);
     $project_summary =~ s/<h2>.*<\/h2>//; # Remove the <h2> and <p> tags
     $project_summary =~ s/<p>//;
     $project_summary =~ s/<\/p>//;
@@ -115,8 +115,8 @@ sub content {
 }
 
 sub _other_text {
-  my ($self, $tag, $species) = @_;
-  my $file = "/ssi/species/about_${species}.html";
+  my ($self, $tag, $prefix, $species) = @_;
+  my $file = "/ssi/species/${prefix}_${species}.html";
   my $content = EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file);
   my ($other_text) = $content =~ /^.*?<!--\s*\{$tag\}\s*-->(.*)<!--\s*\{$tag\}\s*-->.*$/ms;
   #ENSEMBL-2535 strip subs
