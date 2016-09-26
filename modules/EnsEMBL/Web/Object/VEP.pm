@@ -132,17 +132,14 @@ sub get_form_details {
 
       tsl => {
         'label'   => 'Transcript support level',
-        'helptip' => encode_entities($self->hub->glossary_lookup->{'TSL'} || ''),
       },
 
       appris => {
         'label'   => 'APPRIS',
-        'helptip' => encode_entities($self->hub->glossary_lookup->{'APPRIS'} || ''),
       },
 
       canonical => {
         'label'   => 'Identify canonical transcripts',
-        'helptip' => encode_entities($self->hub->glossary_lookup->{'Canonical transcript'} || ''),
       },
 
       sift => {
