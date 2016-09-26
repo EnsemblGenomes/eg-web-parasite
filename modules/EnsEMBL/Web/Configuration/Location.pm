@@ -17,7 +17,6 @@ limitations under the License.
 =cut
 
 package EnsEMBL::Web::Configuration::Location;
-use Data::Dumper;
 
 sub modify_tree {
   my $self = shift;
@@ -40,16 +39,6 @@ sub modify_tree {
       wormbase EnsEMBL::Web::Component::WormBaseLink
       top      EnsEMBL::Web::Component::Location::ViewTop
       botnav   EnsEMBL::Web::Component::Location::ViewBottomNav
-      bottom   EnsEMBL::Web::Component::Location::ViewBottom
-    )]
-  );
-  my $overview = $self->get_node('Overview');
-  $overview->set('components', 
-    [qw(
-      summary  EnsEMBL::Web::Component::Location::Summary
-      wormbase EnsEMBL::Web::Component::WormBaseLink
-      top      EnsEMBL::Web::Component::Location::ViewTop
-      botnav   EnsEMBL::Web::Component::Location::ViewBottomNav/region
       bottom   EnsEMBL::Web::Component::Location::ViewBottom
     )]
   );
