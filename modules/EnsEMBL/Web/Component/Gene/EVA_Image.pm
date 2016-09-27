@@ -21,8 +21,8 @@ sub content {
   my $ic_type     = 'eva_variation';
   my $hub         = $self->hub;
   my $object      = $self->object || $hub->core_object(lc($hub->param('data_type')));
-  my $image_width = $self->image_width || 800; 
-  my $context     = $hub->param('context') || 100; 
+  my $image_width = $self->image_width || 800;
+  my $context     = $hub->param('context') || 100;
   my $extent      = $context eq 'FULL' ? 5000 : $context;
   my @confs       = qw(gene transcripts_top transcripts_bottom legend);
   my ($image_configs, $config_type, $snp_counts, $gene_object, $transcript_object, @trans);
@@ -37,7 +37,7 @@ sub content {
   }
   
   foreach (@confs) { 
-    $image_configs->{$_} = $hub->get_imageconfig($_ eq 'gene' ? $ic_type : $config_type, $_);  
+    $image_configs->{$_} = $hub->get_imageconfig({'type' => $_ eq 'gene' ? $ic_type : $config_type, $_, 'cache_code' => $_});
     $image_configs->{$_}->set_parameters({
       image_width => $image_width, 
       context     => $context
@@ -75,7 +75,7 @@ sub content {
 
   foreach my $trans_obj (@sorted_trans) {
     next if $transcript_object && $trans_obj->stable_id ne $transcript_object->stable_id;
-    my $image_config = $hub->get_imageconfig($ic_type, $trans_obj->stable_id);
+    my $image_config = $hub->get_imageconfig({type => $ic_type, cache_code => $trans_obj->stable_id});
     $image_config->init_transcript;
     
     # create config and store information on it

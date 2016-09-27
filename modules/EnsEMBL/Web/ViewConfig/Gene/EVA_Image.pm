@@ -6,8 +6,8 @@ use base qw(EnsEMBL::Web::ViewConfig);
 
 sub init {
   my $self = shift;
-  $self->add_image_config('eva_variation');
-  $self->title = 'Variation Image';
+  $self->image_config_type('eva_variation');
+  $self->set_default_options({ 'context' => 100 });
 }
 
 1;
