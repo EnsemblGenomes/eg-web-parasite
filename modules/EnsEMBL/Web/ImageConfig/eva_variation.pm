@@ -20,10 +20,12 @@ package EnsEMBL::Web::ImageConfig::eva_variation;
 
 use strict;
 
-use base qw(EnsEMBL::Web::ImageConfig);
+use parent qw(EnsEMBL::Web::ImageConfig);
 
 sub init_cacheable {
   my $self = shift;
+  
+  $self->SUPER::init_cacheable(@_);
   
   my %colours;
   $colours{$_} = $self->species_defs->colour($_) for qw(variation haplotype);
@@ -41,7 +43,6 @@ sub init_cacheable {
   $self->create_menus(qw(
     transcript
     variation 
-    somatic 
     gsv_transcript
     other 
     gsv_domain
@@ -49,15 +50,15 @@ sub init_cacheable {
   
   $self->load_tracks;
   
-  $self->get_node('transcript')->set('caption', 'Other genes');
+  $self->get_node('transcript')->set_data('caption', 'Other genes');
   
   $self->modify_configs(
     [ 'variation', 'somatic', 'gsv_transcript', 'other' ],
     { menu => 'no' }
   );
      
-  if ($self->{'code'} ne $self->{'type'}) {
-    my $func = "init_$self->{'code'}";
+  if ($self->cache_code ne $self->type) {
+    my $func = "init_".$self->cache_code;
     $self->$func if $self->can($func);
   }
 }
