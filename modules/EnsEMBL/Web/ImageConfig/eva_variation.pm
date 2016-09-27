@@ -41,22 +41,20 @@ sub init_cacheable {
   });
   
   $self->create_menus(qw(
+    gene
     transcript
-    variation 
+    variation
     gsv_transcript
-    other 
     gsv_domain
+    other
   ));
   
   $self->load_tracks;
-  
-  $self->get_node('transcript')->set_data('caption', 'Other genes');
-  
+   
   $self->modify_configs(
     [ 'variation', 'somatic', 'gsv_transcript', 'other' ],
     { menu => 'no' }
   );
-     
   if ($self->cache_code ne $self->type) {
     my $func = "init_".$self->cache_code;
     $self->$func if $self->can($func);

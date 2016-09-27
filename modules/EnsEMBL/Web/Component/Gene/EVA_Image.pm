@@ -37,7 +37,7 @@ sub content {
   }
   
   foreach (@confs) { 
-    $image_configs->{$_} = $hub->get_imageconfig({'type' => $_ eq 'gene' ? $ic_type : $config_type, $_, 'cache_code' => $_});
+    $image_configs->{$_} = $hub->get_imageconfig({'type' => $_ eq 'gene' ? $ic_type : $config_type, 'cache_code' => $_});
     $image_configs->{$_}->set_parameters({
       image_width => $image_width, 
       context     => $context
