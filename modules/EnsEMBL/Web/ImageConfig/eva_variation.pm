@@ -41,18 +41,18 @@ sub init_cacheable {
   });
   
   $self->create_menus(qw(
-    gene
     transcript
     variation
     gsv_transcript
     gsv_domain
+    domain_variation
     other
   ));
   
   $self->load_tracks;
    
   $self->modify_configs(
-    [ 'variation', 'somatic', 'gsv_transcript', 'other' ],
+    [ 'variation', 'gsv_transcript', 'other' ],
     { menu => 'no' }
   );
   if ($self->cache_code ne $self->type) {
@@ -76,8 +76,7 @@ sub init_gene {
     renderers  => [ 'off', 'Off', 'compact', 'Collapsed' ],
   };
   $self->add_sequence_variations_default_eva('core', {}, $options);
-  #$self->add_track('other', 'variation_legend', 'Variant Legend', 'variation_legend', { strand => 'r', menu => 'no' });
-
+  
   $self->add_tracks('variation',
     [ 'geneexon_bgtrack', '', 'geneexon_bgtrack', { display => 'normal', strand => 'b', menu => 'no', tag => 0, colours => 'bisque', src => 'all'                         }]
   );
@@ -92,13 +91,22 @@ sub init_gene {
   
 }
 
-
 sub init_transcripts_top {
   my $self = shift;
   
   $self->add_tracks('other',
     [ 'geneexon_bgtrack', '', 'geneexon_bgtrack', { display => 'normal', strand => 'f', menu => 'no', tag => 1, colours => 'bisque', src => 'all'                                        }],
   );
+  
+  my $options = {
+    db         => 'core',
+    glyphset   => '_eva',
+    strand     => 'f',
+    colourset  => 'variation',
+    display    => 'compact',
+    renderers  => [ 'off', 'Off', 'compact', 'Collapsed' ],
+  };
+  $self->add_sequence_variations_default_eva('core', {}, $options, 'domain_variation');
   
   $self->get_node($_)->remove for qw(gsv_domain transcript);
 }

@@ -166,8 +166,8 @@ sub add_sequence_variations_eva {
 }
 
 sub add_sequence_variations_default_eva {
-  my ($self, $key, $hashref, $options) = @_;
-  my $menu = $self->get_node('variation');
+  my ($self, $key, $hashref, $options, $node) = @_;
+  my $menu = $self->get_node($node || 'variation');
   my $sequence_variation = ($menu->get_node('variants')) ? $menu->get_node('variants') : $self->create_submenu('variants', 'Sequence variants');
 
   return unless $self->hub->species_defs->EVA_TRACKS;

@@ -106,13 +106,13 @@ sub content {
 
     $image_config->{'transcript'}{lc($_) . '_hits'} = $transformed_slice->{lc($_) . '_hits'} for @domain_logic_names;
     $image_config->set_parameters({ container_width => $gene_object->__data->{'slices'}{'transcripts'}[3] });
-
+    
     if ($gene_object->seq_region_strand < 0) {
       push @containers_and_configs, $transcript_slice, $image_config;
     } else {
       unshift @containers_and_configs, $transcript_slice, $image_config; # If forward strand we have to draw these in reverse order (as forced on -ve strand)
     }
-    
+        
     push @transcripts, { exons => $transformed_slice->{'exons'} };
   }
   
