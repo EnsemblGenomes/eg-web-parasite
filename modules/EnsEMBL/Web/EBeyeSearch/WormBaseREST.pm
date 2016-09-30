@@ -96,11 +96,14 @@ sub get_results {
 
 sub get_results_count {
   my ($self, $domain, $query) = @_;
-  
   my $results = $self->get($domain, {plain => 1, url => "http://www.wormbase.org/search/count//gene/$query"});
   $results =~ s/K$/000/; # Hack to deal with WormBase API returning values suffixed with K instead of an integer
   $results =~ s/\+$//g;
-  return $results || 0;
+  if($results =~ /^[+-]?\d+$/) {
+    return $results || 0;
+  } else {
+    return 0;
+  }
 }
 
 sub get_results_as_hashes {
