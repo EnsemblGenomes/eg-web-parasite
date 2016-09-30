@@ -233,7 +233,10 @@ sub _munge_meta {
 ##  
 
 ## ParaSite: get the tracks from EVA
-    $self->tree($species)->{'EVA_TRACKS'} = $self->get_EVA_tracks($species);
+    if($self->tree($species)->{'EVA_TRACK'}) {
+      $self->tree($species)->{'EVA_TRACKS'} = [];
+      push(@{$self->tree($species)->{'EVA_TRACKS'}}, $self->tree($species)->{'EVA_TRACK'});
+    }
 ##
 
   }
