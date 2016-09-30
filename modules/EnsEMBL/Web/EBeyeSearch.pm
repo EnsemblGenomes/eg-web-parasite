@@ -277,14 +277,16 @@ sub get_gene_hits {
   foreach my $hit (@$hits) {
   
     my $is_ensembl = ($hit->{domain_source} =~ /ensembl_gene/m);
-    $hit->{species_path} = $self->species_path( $hit->{system_name}, $hit->{genomic_unit}, $is_ensembl );
+    $hit->{species_path} = $hit->{species_path} || $self->species_path( $hit->{system_name}, $hit->{genomic_unit}, $is_ensembl );
   
     my $transcript = ref $hit->{transcript} eq 'ARRAY' ? $hit->{transcript}->[0] : (split /\n/, $hit->{transcript})[0];
-    my $url = "$hit->{species_path}/Gene/Summary?g=$hit->{id}";
-    $url .= ";r=$hit->{location}" if $hit->{location};
-    #$url .= ";t=$transcript" if $transcript;  ## ParaSite: do not append a transcript by default
-    $url .= ";db=$hit->{database}" if $hit->{database}; 
-    $hit->{url} = $url;
+    unless($hit->{url}) {
+      my $url = "$hit->{species_path}/Gene/Summary?g=$hit->{id}";
+      $url .= ";r=$hit->{location}" if $hit->{location};
+      #$url .= ";t=$transcript" if $transcript;  ## ParaSite: do not append a transcript by default
+      $url .= ";db=$hit->{database}" if $hit->{database}; 
+      $hit->{url} = $url;
+    }
 
   }
 
