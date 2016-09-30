@@ -28,7 +28,7 @@ sub populate_tree {
   my $hub            = $self->hub;
   my $search         = $self->object->Obj;
   my $filter_species = $hub->param('filter_species') ? 'filter_species='.$hub->param('filter_species') : '';
-  my $sp             = $hub->species =~ /^(multi|common)/i ? 'all species' : '<i>' . $hub->species_defs->species_display_label($hub->species) . '</i>';
+  my $sp             = $hub->species =~ /^(multi|common)/i ? 'all species' : '<em>' . $hub->species_defs->species_display_label($hub->species) . '</em>';
   my $title          = "Search results for '" . $search->query_term . "'";
 
   $self->create_node('New', 'New Search',

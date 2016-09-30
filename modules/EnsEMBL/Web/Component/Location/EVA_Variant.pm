@@ -174,7 +174,7 @@ sub get_variant_info {
           } elsif($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION}) {
             $formatted = encode_entities($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION});
           }
-          $html .= qq(<h3>Study Overview</h3><p><b>Study Name:</b> $name<br /><b>Submitter:</b> $submitter</p>);
+          $html .= qq(<h3>Study Overview</h3><p><span style="font-weight: bold">Study Name:</span> $name<br /><span style="font-weight: bold">Submitter:</span> $submitter</p>);
         }
 
         $html .= "<h3>Quality Overview</h3>";

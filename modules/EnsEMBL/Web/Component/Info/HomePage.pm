@@ -25,7 +25,6 @@ use strict;
 use EnsEMBL::Web::Document::HTML::HomeSearch;
 use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
-use EnsEMBL::Web::RegObj;
 
 use LWP::UserAgent;
 use JSON;
@@ -652,7 +651,7 @@ sub has_compara     {
 
 sub _get_alt_projects {
   my ($self, $species, $current) = @_;
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my @species_list = ();
   foreach ($species_defs->valid_species) {
         if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species && $_ ne $current && $species_defs->get_config($_, 'SPECIES_BIOPROJECT') ne $species_defs->get_config($current, 'SPECIES_BIOPROJECT')) {
@@ -664,7 +663,7 @@ sub _get_alt_projects {
 
 sub _get_alt_strains {
   my ($self, $species, $current) = @_;
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my @species_list = ();
   foreach ($species_defs->valid_species) {
         if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species && $species_defs->get_config($_, 'SPECIES_STRAIN') ne $species_defs->get_config($current, 'SPECIES_STRAIN') && $species_defs->get_config($_, 'SPECIES_BIOPROJECT') eq $species_defs->get_config($current, 'SPECIES_BIOPROJECT')) {
@@ -717,7 +716,7 @@ sub _add_gene_counts {
     my $class = '';
     $class = 'row-sub' if $d->{'_sub'};
     my $key = $d->{'_name'};
-    $key = $self->glossary_helptip("<b>$d->{'_name'}</b>", $glossary_lookup->{$d->{'_key'}});
+    $key = $self->glossary_helptip(qq(<span style="font-weight: bold">$d->{'_name'}</span>), $glossary_lookup->{$d->{'_key'}});
     $counts->add_row({ name => $key, stat => $value, options => { class => $class }});
   }
   return "<h3>Gene counts$tail</h3>".$counts->render;

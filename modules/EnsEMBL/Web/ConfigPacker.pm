@@ -282,7 +282,7 @@ sub get_EVA_tracks {
         } elsif($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION}) {
           $formatted = encode_entities($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION});
         }
-        $description = qq(<h3>Study Overview</h3><p><b>Study Name:</b> $name<br /><b>Submitter:</b> $submitter<br /><b>Project Description:</b> $formatted<br /><i>Description provided by <a href="http://www.ebi.ac.uk/ena">ENA</a></i></p>);
+        $description = qq(<h3>Study Overview</h3><p><span style="font-weight: bold">Study Name:</span> $name<br /><span style="font-weight: bold">Submitter:</span> $submitter<br /><span style="font-weight: bold">Project Description:</span> $formatted<br /><em>Description provided by <a href="http://www.ebi.ac.uk/ena">ENA</a></em></p>);
       }
       my $track = {
         'name'        => $dataset->{name},
@@ -322,6 +322,16 @@ sub eva_api {
   }
   
   return from_json($content); 
+}
+
+sub _summarise_website_db {
+  my $self    = shift;
+  my $db_name = 'DATABASE_WEBSITE';
+  my $dbh     = $self->db_connect( $db_name );
+
+  $self->db_tree->{'ENSEMBL_HELP'} = undef;
+
+  $dbh->disconnect();
 }
 
 1;

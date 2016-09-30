@@ -26,23 +26,26 @@ sub render_masthead {
   my $page = $self->page;
 
 ## ParaSite - layout changes
-  my $tabs        = $elements->{'tabs'} ? qq(<div id="mh-tabs" class="js_panel"><input type="hidden" class="panel_type" value="Masthead" /><div class="tabs_holder print_hide">$elements->{'tabs'}</div></div>) : '';
+  my $tabs        = $elements->{'tabs'} ? qq(<div id="mh-tabs"><div class="tabs_holder print_hide">$elements->{'tabs'}</div></div>) : '';
   ## MASTHEAD & GLOBAL NAVIGATION
   return qq(
   <div id="min_width_container">
     <div id="min_width_holder">
-      <div id="masthead">
-        <div class="logo_holder">$elements->{'logo'}</div>
-        <div class="mh print_hide">
-          <div class="search_holder print_hide">$elements->{'search_box'}</div>
+      <div class="js_panel">
+        <input type="hidden" class="panel_type" value="Masthead" />
+        <div id="masthead">
+          <div class="logo_holder">$elements->{'logo'}</div>
+          <div class="mh print_hide">
+            <div class="search_holder print_hide">$elements->{'search_box'}</div>
+          </div>
         </div>
-      </div>
-      <div id="masthead-menu">
-        <div class="mh-tools print_hide">
-          <div class="mh_tools_holder">$elements->{'tools'}</div>
+        <div id="masthead-menu">
+          <div class="mh-tools print_hide">
+            <div class="mh_tools_holder">$elements->{'tools'}</div>
+          </div>
         </div>
+        $tabs
       </div>
-      $tabs
   );
 ##
 }

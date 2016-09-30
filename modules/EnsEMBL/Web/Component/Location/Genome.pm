@@ -15,4 +15,4 @@ sub buttons {
   return @buttons;
 }
 
-;
+1;

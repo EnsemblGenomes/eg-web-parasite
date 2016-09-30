@@ -1,6 +1,6 @@
 
 /* Masthead */
-#masthead                                          { background-color: #000000; color: #FFFFFF; height: 46px; padding: 6px 8px; position: relative; }
+#masthead                                          { background-color: #000000; color: #FFFFFF; height: 46px; padding: 6px 8px; position: relative; min-width: 1000px; }
 #masthead div                                      { background-color: #000000 important; }
 #masthead a,
 #masthead span.disabled                            { color: #555555; text-decoration: none; outline: none; }
@@ -26,7 +26,7 @@ body.ie67 #masthead                                { z-index: 9999; }
 body.ie6 #masthead div.search_holder               { width: 320px; left: 100%; margin-left: -325px; }
 
 /* Masthead Menu Bar */
-#masthead-menu                                     { background-color: #AAAAAA; height: 24px; position: relative; border-top: 1pt #808080 solid; border-bottom: 1pt #808080 solid; }
+#masthead-menu                                     { background-color: #AAAAAA; height: 24px; position: relative; border-top: 1pt #808080 solid; border-bottom: 1pt #808080 solid; min-width: 1000px; }
 #masthead-menu ul                                  { list-style: none; margin: 0; padding: 0 }
 #masthead-menu li                                  { list-style: none; float: left; text-align: center; white-space: nowrap; margin: 0; }
 #masthead-menu .tools-left                         { float: left; }
@@ -81,7 +81,7 @@ body.ie6 #masthead-menu div.toggle h4              { width: 100%; }
 #mh-tabs div.dropdown ul li a.bold                 { font-weight: bold; font-size: 90%; }
 #mh-tabs div.dropdown.species                      { width: 1100px; }
 #mh-tabs div.dropdown.species ul li                { width: 300px; float: left; }
-#mh-tabs .tabs_holder                              { position: absolute; bottom: 0; clear: both; }
+#mh-tabs .tabs_holder                              { position: absolute; bottom: 0; clear: both; min-width: 1000px; }
 
 @media print {
   #masthead   { background: #ffffff; }

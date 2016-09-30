@@ -114,7 +114,7 @@ sub get_cacheable_form_node {
       'type'          => 'noedit',
       'noinput'       => 1,
       'is_html'       => 1,
-      'caption'       => sprintf('<span class="small"><b>Examples:&nbsp;</b>%s</span>',
+      'caption'       => sprintf('<span class="small" style="font-weight: bold">Examples:&nbsp;%s</span>',
         join(', ', map { sprintf('<a href="#" class="_example_input" rel="%s">%s</a>', $_->{'value'}, $_->{'caption'}) } @$input_formats)
       )
 ## ParaSite: remove the preview button

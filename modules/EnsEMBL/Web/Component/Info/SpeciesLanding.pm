@@ -23,7 +23,6 @@ use strict;
 use EnsEMBL::Web::Document::HTML::HomeSearch;
 use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
-use EnsEMBL::Web::RegObj;
 use Data::Dumper;
 
 use LWP::UserAgent;
@@ -74,7 +73,7 @@ sub content {
   $html .= '</div>'; # box-right
   $html .= '</div>'; # column-wrapper
   
-  my $about_text = $self->_other_text('about', $species);
+  my $about_text = $self->_other_text('about', 'about_species', $species);
   if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
     $html .= $about_text;
@@ -92,7 +91,7 @@ sub content {
     my @parts = split('_', $project);
     my $bioproject = $species_defs->get_config($project, 'SPECIES_BIOPROJECT');
     my $strain = $species_defs->get_config($project, 'SPECIES_STRAIN');
-    my $project_summary = $self->_other_text('summary', $project);
+    my $project_summary = $self->_other_text('summary', 'about_assembly', $project);
     $project_summary =~ s/<h2>.*<\/h2>//; # Remove the <h2> and <p> tags
     $project_summary =~ s/<p>//;
     $project_summary =~ s/<\/p>//;
@@ -116,8 +115,8 @@ sub content {
 }
 
 sub _other_text {
-  my ($self, $tag, $species) = @_;
-  my $file = "/ssi/species/about_${species}.html";
+  my ($self, $tag, $prefix, $species) = @_;
+  my $file = "/ssi/species/${prefix}_${species}.html";
   my $content = EnsEMBL::Web::Controller::SSI::template_INCLUDE($self, $file);
   my ($other_text) = $content =~ /^.*?<!--\s*\{$tag\}\s*-->(.*)<!--\s*\{$tag\}\s*-->.*$/ms;
   #ENSEMBL-2535 strip subs
@@ -127,7 +126,7 @@ sub _other_text {
 
 sub _get_projects {
   my ($self, $species) = @_;
-  my $species_defs = $ENSEMBL_WEB_REGISTRY->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my @species_list = ();
   foreach ($species_defs->valid_species) {
     if ($species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME') eq $species) {
