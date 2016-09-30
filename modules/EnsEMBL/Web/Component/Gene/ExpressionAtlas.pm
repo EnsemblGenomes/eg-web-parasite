@@ -42,6 +42,8 @@ sub content {
 ## ParaSite
     (my $gxa_url = $SiteDefs::GXA_EBI_URL) =~ s/\/gxa\/$//;
     $html = sprintf(qq{
+      <script language="JavaScript" type="text/javascript" src="%s/resources/js-bundles/vendorCommons.bundle.js"></script>
+      <script language="JavaScript" type="text/javascript" src="%s/resources/js-bundles/expressionAtlasHeatmapHighcharts.bundle.js"></script>
       <script type="text/javascript">
         expressionAtlasHeatmapHighcharts.render ({
               atlasHost: "%s",
@@ -53,7 +55,7 @@ sub content {
         });
       </script>  
       <div id="expressionAtlas"></div>    
-    }, $gxa_url, $stable_id, $species);
+    }, $SiteDefs::GXA_EBI_URL, $SiteDefs::GXA_EBI_URL, $gxa_url, $stable_id, $species);
 ##
   }
   return $html;
