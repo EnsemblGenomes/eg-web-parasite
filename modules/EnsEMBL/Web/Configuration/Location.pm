@@ -25,6 +25,9 @@ sub modify_tree {
   my $species_defs = $hub->species_defs;
   my $object = $self->object;
 
+  my $view = $self->get_node('View');
+  $view->set_data('genoverse', 1) if $view;
+
   $self->delete_node('Overview');
   $self->delete_node('Variation');
   $self->delete_node('Marker');
