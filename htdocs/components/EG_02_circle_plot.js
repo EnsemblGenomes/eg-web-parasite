@@ -128,6 +128,7 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
 
   svg.attr('width', '100%')
     .attr('height', '100%')
+    .attr('class', 'asm-widg')
     .attr('style', 'display:block')
     .attr('viewBox', '0 0 ' + viewboxSize + ' ' + (viewboxSize * 0.65))
     .attr('preserveAspectRatio', 'xMidYMid meet')
