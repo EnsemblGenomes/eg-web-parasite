@@ -1,185 +1,185 @@
-  rect {
+  .asm-widg rect {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     cursor: pointer;
   }
-  .asm-hidden {
+  .asm-widg .asm-hidden {
     visibility: hidden;
   }
-  .asm-ns {
+  .asm-widg .asm-ns {
     stroke: #dddddd;
     stroke-width: 0px;
     fill: #dddddd;
   }
-  .asm-genome {
+  .asm-widg .asm-genome {
     stroke: rgb(177, 89, 40);
     stroke-width: 0px;
     fill: rgb(255, 255, 255);
     visibility: hidden;
   }
-  .asm-genome.asm-toggle {
+  .asm-widg .asm-genome.asm-toggle {
     visibility: visible;
   }
-  .asm-assembly {
+  .asm-widg .asm-assembly {
     stroke: rgb(212, 168, 122);
     stroke-width: 0px;
     fill: rgb(255, 255, 255);
     visibility: hidden;
   }
-  .asm-assembly.asm-toggle {
+  .asm-widg .asm-assembly.asm-toggle {
     visibility: visible;
   }
-  .asm-atgc {
+  .asm-widg .asm-atgc {
     stroke: rgb(166, 206, 227);
     stroke-width: 0px;
     fill: rgb(166, 206, 227);
   }
-  .asm-gc {
+  .asm-widg .asm-gc {
     stroke: rgb(31, 120, 180);
     stroke-width: 0px;
     fill: rgb(31, 120, 180);
   }
-  .asm-atgc-line {
+  .asm-widg .asm-atgc-line {
     stroke: rgb(166, 206, 227);
     stroke-width: 0.25px;
     fill: none;
   }
-  .asm-gc-line {
+  .asm-widg .asm-gc-line {
     stroke: rgb(31, 120, 180);
     stroke-width: 0.5px;
     fill: none;
   }
-  .asm-busco_C {
+  .asm-widg .asm-busco_C {
     stroke: #6f8da8;
     stroke-width: 0px;
     fill: #6f8da8;
   }
-  .asm-busco_F {
+  .asm-widg .asm-busco_F {
     stroke: #c2d1df;
     stroke-width: 0px;
     fill: #c2d1df;
   }
-  .asm-busco_D {
+  .asm-widg .asm-busco_D {
     stroke: #254d71;
     stroke-width: 0px;
     fill: #254d71;
   }
-  .asm-ceg_comp {
+  .asm-widg .asm-ceg_comp {
     stroke: #6f8da8;
     stroke-width: 0px;
     fill: #6f8da8;
   }
-  .asm-ceg_part {
+  .asm-widg .asm-ceg_part {
     stroke: #c2d1df;
     stroke-width: 0px;
     fill: #c2d1df;
   }
-  .asm-ceg_line {
+  .asm-widg .asm-ceg_line {
     stroke: #555555;
     stroke-width: 0.67px;
     fill: none;
     opacity: 0;
   }
-  .asm-contig_count {
+  .asm-widg .asm-contig_count {
     stroke: rgb(202, 178, 214);
     stroke-width: 0px;
     fill: rgb(202, 178, 214);
     visibility: hidden;
   }
-  .asm-contig_count.asm-toggle {
+  .asm-widg .asm-contig_count.asm-toggle {
     visibility: visible;
     fill: rgb(255, 255, 255);
   }
-  .asm-count {
+  .asm-widg .asm-count {
     stroke: #b2b4d6;
     stroke-width: 0px;
     fill: #b2b4d6;
   }
-  .asm-count_axis {
+  .asm-widg .asm-count_axis {
     stroke: white;
     stroke-width: 2px;
     fill: none;
   }
-  .asm-length_axis {
+  .asm-widg .asm-length_axis {
     stroke: #555555;
     stroke-width: 0.67px;
     fill: none;
     opacity: 0.6;
   }
-  .asm-n50_pie {
+  .asm-widg .asm-n50_pie {
     stroke: #2f5603;
     stroke-width: 0px;
     fill: #2f5603;
   }
-  .asm-n90_pie {
+  .asm-widg .asm-n90_pie {
     stroke: #9ecc6a;
     stroke-width: 0px;
     fill: #9ecc6a;
   }
-  .asm-longest_pie {
+  .asm-widg .asm-longest_pie {
     stroke: #e67a00;
     stroke-width: 0px;
     fill: #e67a00;
   }
-  .asm-live_segment {
+  .asm-widg .asm-live_segment {
     stroke: none;
     stroke-width: 0px;
     fill: rgb(217, 217, 217);
     opacity: 0.4;
   }
-  .asm-contig {
+  .asm-widg .asm-contig {
     stroke: #999999;
     stroke-width: 0px;
     fill: #999999;
     visibility: hidden;
   }
-  .asm-contig.asm-toggle {
+  .asm-widg .asm-contig.asm-toggle {
     visibility: visible;
     fill: rgb(255, 255, 255);
   }
-  .asm-toggle {
+  .asm-widg .asm-toggle {
     stroke-width: 2px;
   }
-  .asm-highlight {
+  .asm-widg .asm-highlight {
     stroke-width: 2px;
   }
-  #asm-g-scaffold_length_highlight {
+  .asm-widg #asm-g-scaffold_length_highlight {
     opacity: 1;
   }
-  #asm-g-contig_length_data {}
+  .asm-widg #asm-g-contig_length_data {}
   .asm-pie {
     stroke: #bbbbbb;
     stroke-width: 2px;
     fill: #bbbbbb;
   }
-  .asm-majorTick {
+  .asm-widg .asm-majorTick {
     stroke: #555555;
     stroke-width: 2px;
     fill: none;
   }
-  .asm-minorTick {
+  .asm-widg .asm-minorTick {
     stroke: #555555;
     fill: none;
   }
-  .asm-axis {
+  .asm-widg  .asm-axis {
     stroke: #555555;
     stroke-width: 2px;
     fill: none;
   }
-  .asm-narrow {
+  .asm-widg .asm-narrow {
     stroke: #999999;
     stroke-width: 1px;
   }
-  .asm-live_stats {
+  .asm-widg .asm-live_stats {
     fill: white;
   }
-  .asm-scale_rect {
+  .asm-widg .asm-scale_rect {
     fill: #eeeeee;
     stroke: #999999;
     stroke-width: 1px;
   }
-  text {
+  .asm-widg text {
     dominant-baseline: middle;
     text-anchor: middle;
     font-size: 8pt;
@@ -187,61 +187,61 @@
     fill: #555555;
     pointer-events: none;
   }
-  text.asm-count_label {
+  .asm-widg text.asm-count_label {
     dominant-baseline: middle;
     text-anchor: end;
     fill: white;
     visibility: hidden;
   }
-  text.asm-length_label {
+  .asm-widg text.asm-length_label {
     dominant-baseline: middle;
     text-anchor: start;
     stroke: none;
     fill: #555555;
   }
-  text.asm-assembly_label {
+  .asm-widg text.asm-assembly_label {
     dominant-baseline: middle;
     text-anchor: start;
     fill: white;
     visibility: hidden;
   }
-  text.asm-tl_title {
+  .asm-widg text.asm-tl_title {
     dominant-baseline: middle;
     text-anchor: start;
     fill: black;
     font-size: 12pt;
   }
-  text.asm-br_title {
+  .asm-widg text.asm-br_title {
     dominant-baseline: middle;
     text-anchor: start;
     fill: black;
     font-size: 12pt;
   }
-  text.asm-bl_title {
+  .asm-widg text.asm-bl_title {
     dominant-baseline: middle;
     text-anchor: start;
     fill: black;
     font-size: 12pt;
   }
-  text.asm-live_title {
+  .asm-widg text.asm-live_title {
     dominant-baseline: middle;
     text-anchor: start;
     fill: black;
     font-size: 12pt;
   }
-  text.asm-tr_title {
+  .asm-widg text.asm-tr_title {
     dominant-baseline: middle;
     text-anchor: start;
     fill: black;
     font-size: 12pt;
   }
-  .asm-key {
+  .asm-widg .asm-key {
     dominant-baseline: auto;
     text-anchor: start;
     fill: #555555;
     font-size: 10pt;
   }
-  .asm-right {
+  .asm-widg .asm-right {
     text-anchor: end;
   }
   .assembly_stats {
@@ -249,7 +249,7 @@
     height:600px;
     width: 600px;
   }
-  #asm-scale_form_wrapper {
+  .asm-widg #asm-scale_form_wrapper {
     position: absolute;
     text-align: center;
     height:100%;
@@ -260,14 +260,14 @@
     font-family: sans-serif;
     fill: #555555;
   }
-  #asm-scale_form_bg {
+  .asm-widg #asm-scale_form_bg {
     position: relative;
     display: inline-block;
     height:100%;
     width:100%;
     background-color: rgba(0, 0, 0, 0.5);
   }
-  #asm-scale_form_div {
+  .asm-widg #asm-scale_form_div {
     padding-top: 50px;
     width: 200px;
     height: 150px;
@@ -278,11 +278,11 @@
     background-color: white;
     border-radius: 100px;
   }
-  .asm-form_label:after {
+  .asm-widg .asm-form_label:after {
     content: " ";
     display: block;
     clear: both;
   }
-  .asm-form_element {
+  .asm-widg .asm-form_element {
     margin-bottom: 1em;
   }
