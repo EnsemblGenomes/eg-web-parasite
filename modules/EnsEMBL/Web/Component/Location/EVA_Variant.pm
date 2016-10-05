@@ -166,11 +166,11 @@ sub get_variant_info {
         my $response = $ua->get($ena_url);
         if ($response->is_success) {
           my $result = XMLin($response->decoded_content);
-          my $submitter = $result->{center_name};
-          my $name = $result->{NAME} || $result->{TITLE};
+          my $submitter = $result->{PROJECT}{center_name};
+          my $name = $result->{PROJECT}->{NAME} || $result->{PROJECT}->{TITLE};
           my $formatted;
-          if($result->{DESCRIPTION}) {
-            $formatted = encode_entities($result->{DESCRIPTION});
+          if($result->{PROJECT}->{DESCRIPTION}) {
+            $formatted = encode_entities($result->{PROJECT}->{DESCRIPTION});
           } elsif($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION}) {
             $formatted = encode_entities($result->{STUDY}->{DESCRIPTOR}->{STUDY_DESCRIPTION});
           }
