@@ -5,6 +5,55 @@ package EnsEMBL::Web::ImageConfig;
 use strict;
 use warnings;
 
+sub _add_trackhub {
+  my ($self, $menu_name, $url, $is_poor_name, $existing_menu, $force_hide) = @_;
+
+  ## Check if this trackhub is already attached - now that we can attach hubs via
+  ## URL, they may not be saved in the imageconfig
+  my $already_attached = $self->get_node($menu_name);
+## ParaSite: we need to attach tracks by default - standard Ensembl method doesn't work here as it appears the track is already attached
+  return ($menu_name, {}) if ($self->{'_attached_trackhubs'}{$url});
+##
+
+  my $trackhub  = EnsEMBL::Web::File::Utils::TrackHub->new('hub' => $self->hub, 'url' => $url);
+  my $hub_info = $trackhub->get_hub({'assembly_lookup' => $self->species_defs->assembly_lookup,
+                                      'parse_tracks' => 1}); ## Do we have data for this species?
+
+  if ($hub_info->{'error'}) {
+    ## Probably couldn't contact the hub
+    push @{$hub_info->{'error'}||[]}, '<br /><br />Please check the source URL in a web browser.';
+  } else {
+    my $shortLabel = $hub_info->{'details'}{'shortLabel'};
+    $menu_name = $shortLabel if $shortLabel and $is_poor_name;
+
+    my $menu     = $existing_menu || $self->tree->root->append_child($self->create_menu_node($menu_name, $menu_name, { external => 1, trackhub_menu => 1, description =>  $hub_info->{'details'}{'longLabel'}}));
+
+    my $node;
+    my $assemblies = $self->hub->species_defs->get_config($self->species,'TRACKHUB_ASSEMBLY_ALIASES');
+    $assemblies ||= [];
+    $assemblies = [ $assemblies ] unless ref($assemblies) eq 'ARRAY';
+    foreach my $assembly_var (qw(UCSC_GOLDEN_PATH ASSEMBLY_VERSION)) {
+      my $assembly = $self->hub->species_defs->get_config($self->species,$assembly_var);
+      next unless $assembly;
+      push @$assemblies,$assembly;
+    }
+    foreach my $assembly (@$assemblies) {
+      $node = $hub_info->{'genomes'}{$assembly}{'tree'};
+      $node = $node->root if $node;
+      last if $node;
+    }
+    if ($node) {
+      $self->_add_trackhub_node($node, $menu, $menu_name, $force_hide);
+
+      $self->{'_attached_trackhubs'}{$url} = 1;
+    } else {
+      my $assembly = $self->hub->species_defs->get_config($self->species, 'ASSEMBLY_VERSION');
+      $hub_info->{'error'} = ["No sources could be found for assembly $assembly. Please check the hub's genomes.txt file for supported assemblies."];
+    }
+  }
+  return ($menu_name, $hub_info);
+}
+
 sub _add_trackhub_tracks {
   my ($self, $parent, $children, $config, $menu, $name) = @_;
   my $hub    = $self->hub;
