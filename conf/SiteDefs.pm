@@ -108,11 +108,14 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Fasciola_hepatica_prjeb6687'} = [qw(fasciola_hepatica_prjeb6687 Fasciola_hepatica_prjeb6687)];
     $SiteDefs::__species_aliases{'Fasciola_hepatica_prjna179522'} = [qw(fasciola_hepatica_prjna179522 Fasciola_hepatica_prjna179522)];
     $SiteDefs::__species_aliases{'Globodera_pallida_prjeb123'} = [qw(globodera_pallida_prjeb123 Globodera_pallida_prjeb123)];
+    $SiteDefs::__species_aliases{'Globodera_rostochiensis_prjeb13504'} = [qw(globodera_rostochiensis_prjeb13504 Globodera_rostochiensis_prjeb13504)];
     $SiteDefs::__species_aliases{'Gongylonema_pulchrum_prjeb505'} = [qw(gongylonema_pulchrum_prjeb505 Gongylonema_pulchrum_prjeb505)];
+    $SiteDefs::__species_aliases{'Gyrodactylus_salaris_prjna244375'} = [qw(gyrodactylus_salaris_prjna244375 Gyrodactylus_salaris_prjna244375)];
     $SiteDefs::__species_aliases{'Haemonchus_contortus_prjeb506'} = [qw(haemonchus_contortus_prjeb506 Haemonchus_contortus_prjeb506)];
     $SiteDefs::__species_aliases{'Haemonchus_contortus_prjna205202'} = [qw(haemonchus_contortus_prjna205202 Haemonchus_contortus_prjna205202)];
     $SiteDefs::__species_aliases{'Haemonchus_placei_prjeb509'} = [qw(haemonchus_placei_prjeb509 Haemonchus_placei_prjeb509)];
     $SiteDefs::__species_aliases{'Heligmosomoides_polygyrus_prjeb1203'} = [qw(heligmosomoides_bakeri_prjeb1203 Heligmosomoides_bakeri_prjeb1203 Heligmosomoides_polygyrus_prjeb1203 heligmosomoides_polygyrus_prjeb1203)];
+    $SiteDefs::__species_aliases{'Heligmosomoides_polygyrus_prjeb15396'} = [qw(heligmosomoides_polygyrus_prjeb15396 Heligmosomoides_polygyrus_prjeb15396)];
     $SiteDefs::__species_aliases{'Heterorhabditis_bacteriophora_prjna13977'} = [qw(heterorhabditis_bacteriophora_prjna13977 Heterorhabditis_bacteriophora_prjna13977)];
     $SiteDefs::__species_aliases{'Hydatigera_taeniaeformis_prjeb534'} = [qw(hydatigera_taeniaeformis_prjeb534 Hydatigera_taeniaeformis_prjeb534)];
     $SiteDefs::__species_aliases{'Hymenolepis_diminuta_prjeb507'} = [qw(hymenolepis_diminuta_prjeb507 Hymenolepis_diminuta_prjeb507)];
