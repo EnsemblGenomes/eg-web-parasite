@@ -184,9 +184,28 @@ taxonTreeData = [
                   "isFolder" : true,
                   "children" : [
                      {
-                        "biomart" : "xenopprjeb1201",
-                        "title" : "Protopolystoma xenopodis (PRJEB1201)",
-                        "key" : "protopolystoma_xenopodis_prjeb1201"
+                        "isFolder" : true,
+                        "children" : [
+                           {
+                              "biomart" : "salarprjna244375",
+                              "title" : "Gyrodactylus salaris (PRJNA244375)",
+                              "key" : "gyrodactylus_salaris_prjna244375"
+                           }
+                        ],
+                        "title" : "Monopisthocotylea",
+                        "key" : "Monopisthocotylea"
+                     },
+                     {
+                        "isFolder" : true,
+                        "children" : [
+                           {
+                              "biomart" : "xenopprjeb1201",
+                              "title" : "Protopolystoma xenopodis (PRJEB1201)",
+                              "key" : "protopolystoma_xenopodis_prjeb1201"
+                           }
+                        ],
+                        "title" : "Polyopisthocotylea",
+                        "key" : "Polyopisthocotylea"
                      }
                   ],
                   "title" : "Monogenea",
@@ -239,6 +258,44 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
+                                                "biomart" : "sinenprjda72781",
+                                                "title" : "Clonorchis sinensis (PRJDA72781)",
+                                                "key" : "clonorchis_sinensis_prjda72781"
+                                             }
+                                          ],
+                                          "title" : "Clonorchis",
+                                          "key" : "Clonorchis"
+                                       },
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "biomart" : "viverprjna222628",
+                                                "title" : "Opisthorchis viverrini (PRJNA222628)",
+                                                "key" : "opisthorchis_viverrini_prjna222628"
+                                             }
+                                          ],
+                                          "title" : "Opisthorchis",
+                                          "key" : "Opisthorchis"
+                                       }
+                                    ],
+                                    "title" : "Opisthorchiidae",
+                                    "key" : "Opisthorchiidae"
+                                 }
+                              ],
+                              "title" : "Opisthorchiida",
+                              "key" : "Opisthorchiida"
+                           },
+                           {
+                              "isFolder" : true,
+                              "children" : [
+                                 {
+                                    "isFolder" : true,
+                                    "children" : [
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
                                                 "biomart" : "caproprjeb1207",
                                                 "title" : "Echinostoma caproni (PRJEB1207)",
                                                 "key" : "echinostoma_caproni_prjeb1207"
@@ -269,46 +326,8 @@ taxonTreeData = [
                                     "key" : "Echinostomatoidea"
                                  }
                               ],
-                              "title" : "Echinostomida",
-                              "key" : "Echinostomida"
-                           },
-                           {
-                              "isFolder" : true,
-                              "children" : [
-                                 {
-                                    "isFolder" : true,
-                                    "children" : [
-                                       {
-                                          "isFolder" : true,
-                                          "children" : [
-                                             {
-                                                "biomart" : "sinenprjda72781",
-                                                "title" : "Clonorchis sinensis (PRJDA72781)",
-                                                "key" : "clonorchis_sinensis_prjda72781"
-                                             }
-                                          ],
-                                          "title" : "Clonorchis",
-                                          "key" : "Clonorchis"
-                                       },
-                                       {
-                                          "isFolder" : true,
-                                          "children" : [
-                                             {
-                                                "biomart" : "viverprjna222628",
-                                                "title" : "Opisthorchis viverrini (PRJNA222628)",
-                                                "key" : "opisthorchis_viverrini_prjna222628"
-                                             }
-                                          ],
-                                          "title" : "Opisthorchis",
-                                          "key" : "Opisthorchis"
-                                       }
-                                    ],
-                                    "title" : "Opisthorchiidae",
-                                    "key" : "Opisthorchiidae"
-                                 }
-                              ],
-                              "title" : "Opisthorchiida",
-                              "key" : "Opisthorchiida"
+                              "title" : "Plagiorchiida",
+                              "key" : "Plagiorchiida"
                            },
                            {
                               "isFolder" : true,
@@ -717,7 +736,7 @@ taxonTreeData = [
                                                    },
                                                    {
                                                       "biomart" : "sinicprjna194557",
-                                                      "title" : "Caenorhabditis sp. REH-2014 (PRJNA194557)",
+                                                      "title" : "Caenorhabditis sinica (PRJNA194557)",
                                                       "key" : "caenorhabditis_sinica_prjna194557"
                                                    },
                                                    {
@@ -836,8 +855,8 @@ taxonTreeData = [
                                                       "key" : "oesophagostomum_dentatum_prjna72579"
                                                    }
                                                 ],
-                                                "title" : "Chabertiidae",
-                                                "key" : "Chabertiidae"
+                                                "title" : "Cloacinidae",
+                                                "key" : "Cloacinidae"
                                              },
                                              {
                                                 "isFolder" : true,
@@ -940,8 +959,13 @@ taxonTreeData = [
                                                 "children" : [
                                                    {
                                                       "biomart" : "polygprjeb1203",
-                                                      "title" : "Heligmosomoides bakeri (PRJEB1203)",
+                                                      "title" : "Heligmosomoides polygyrus (PRJEB1203)",
                                                       "key" : "heligmosomoides_polygyrus_prjeb1203"
+                                                   },
+                                                   {
+                                                      "biomart" : "polygprjeb15396",
+                                                      "title" : "Heligmosomoides polygyrus (PRJEB15396)",
+                                                      "key" : "heligmosomoides_polygyrus_prjeb15396"
                                                    }
                                                 ],
                                                 "title" : "Heligmosomatidae",
@@ -1184,9 +1208,21 @@ taxonTreeData = [
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "palliprjeb123",
-                                                      "title" : "Globodera pallida (PRJEB123)",
-                                                      "key" : "globodera_pallida_prjeb123"
+                                                      "isFolder" : true,
+                                                      "children" : [
+                                                         {
+                                                            "biomart" : "palliprjeb123",
+                                                            "title" : "Globodera pallida (PRJEB123)",
+                                                            "key" : "globodera_pallida_prjeb123"
+                                                         },
+                                                         {
+                                                            "biomart" : "rostoprjeb13504",
+                                                            "title" : "Globodera rostochiensis (PRJEB13504)",
+                                                            "key" : "globodera_rostochiensis_prjeb13504"
+                                                         }
+                                                      ],
+                                                      "title" : "Globodera",
+                                                      "key" : "Globodera"
                                                    }
                                                 ],
                                                 "title" : "Heteroderidae",
