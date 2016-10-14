@@ -31,7 +31,7 @@ use base qw(EnsEMBL::Web::Document::HTML);
 sub render {
   my $self = shift;
 
-  my $hub             = new EnsEMBL::Web::Hub;
+  my $hub             = $self->hub;
   my $species_defs    = $hub->species_defs;
 
   my $rel = $species_defs->SITE_RELEASE_VERSION;
