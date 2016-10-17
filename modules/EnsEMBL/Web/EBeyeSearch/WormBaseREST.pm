@@ -47,7 +47,7 @@ sub user_agent {
   my $self = shift;
   
   my $hub = $self->hub;
-  my $species_defs = $hub->species_defs;
+  my $species_defs = EnsEMBL::Web::SpeciesDefs->new;
   unless ($self->{user_agent}) {
     my $ua = LWP::UserAgent->new();
     $ua->agent('ParaSite Web ' . $ua->agent());
