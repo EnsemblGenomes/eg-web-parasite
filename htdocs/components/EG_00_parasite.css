@@ -232,3 +232,8 @@ div.image_container {
 #page_nav {
   position: fixed;
 }
+
+div.fasta-input {
+  font: 12px monospace;
+}
+
