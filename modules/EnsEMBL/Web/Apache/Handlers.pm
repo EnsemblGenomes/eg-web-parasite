@@ -36,7 +36,7 @@ sub parse_ensembl_uri {
   my $uri_query   = $parsed_uri->query // '';
 
 ## ParaSite: do not redirect to index.html on the homepage - it is pointless
-  $r->subprocess_env('ENSEMBL_PATH', '/'.join('/', @$path_seg));
+  $r->subprocess_env('ENSEMBL_PATH', '/');
   return join '?', $uri_query if $uri_path eq '/';
 ## ParaSite
 
