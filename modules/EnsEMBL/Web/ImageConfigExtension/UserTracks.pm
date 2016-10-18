@@ -151,7 +151,7 @@ sub _add_trackhub_tracks {
     my $ucsc_display  = $config->{'visibility'} || $track->{'visibility'};
 
     ## FIXME - According to UCSC's documentation, 'squish' is more like half_height than compact
-    my $squish       = $track->{'visibility'} eq 'squish' || $config->{'visibility'} eq 'squish'; # FIXME: make it inherit correctly
+    my $squish       = $ucsc_display eq 'squish';
 ## ParaSite: change the way we display the labels
     (my $source_name = $track->{'longLabel'}) =~ s/_/ /g;
 ## 
@@ -196,7 +196,7 @@ sub _add_trackhub_tracks {
 
     if (exists $track->{'viewLimits'}) {
       $source->{'viewLimits'} = $track->{'viewLimits'};
-    } elsif ($track->{'autoScale'} eq 'off') {
+    } elsif ($track->{'autoScale'} && $track->{'autoScale'} eq 'off') {
       $source->{'viewLimits'} = '0:127';
     }
 
