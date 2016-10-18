@@ -22,7 +22,6 @@ sub _check_cached_index {
     my $remote_time = int eval { $ua->head($index_url)->last_modified };
 ##
     if ($local_time <= $remote_time) {
-      warn "Cached BAM index is older than remote - deleting $tmp_file";
       unlink $tmp_file;
     }
   }
