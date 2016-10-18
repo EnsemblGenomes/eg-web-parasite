@@ -88,7 +88,7 @@ if($hub->param('species_select') eq 'concat') {
     push @blast_dbs, $sd->get_blast_datasource_filename($species, $blast_type, $params->{'source'});
   }
   for my $sequence (@$sequences) {
-    my $summary = sprintf('%s genomes, %s (%s)', $hub->param('species_group') eq 'custom' ? scalar(@blast_dbs) : ($hub->param('species_group') ne 'all' ? sprintf('%s (%s)', ucfirst($hub->param('species_group')), ucfirst($hub->param('species_' . $hub->param('species_group')))) : 'All'), $search_method, $source_types->{$params->{'source'}});
+    my $summary = sprintf('%s %s, %s (%s)', $hub->param('species_group') eq 'custom' ? scalar(@blast_dbs) : ($hub->param('species_group') ne 'all' ? sprintf('%s (%s)', ucfirst($hub->param('species_group')), $sd->TAXON_COMMON_NAME->{$hub->param('species_' . $hub->param('species_group'))}) : 'All'), scalar(@blast_dbs) > 1 ? 'genomes' : 'genome', $search_method, $source_types->{$params->{'source'}});
     push @$jobs, [ {
       'job_number'  => ++$job_num,
       'job_desc'    => $desc || $sequence->{'display_id'} || $summary,
