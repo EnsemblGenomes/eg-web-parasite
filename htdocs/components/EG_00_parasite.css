@@ -237,3 +237,7 @@ div.fasta-input {
   font: 12px monospace;
 }
 
+div.taxon_selector_list li {
+  border: 0;
+}
+
