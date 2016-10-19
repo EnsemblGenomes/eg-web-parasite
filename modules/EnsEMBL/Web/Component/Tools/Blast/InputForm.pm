@@ -71,7 +71,7 @@ sub get_cacheable_form_node {
   $query_seq_elements->[1]->first_child->append_children(map { $query_seq_elements->[$_]->remove_attribute('class', $query_seq_field->CSS_CLASS_ELEMENT_DIV); $query_seq_elements->[$_]; } 2..4);
 
   my $species_defs    = $hub->species_defs;
-  my $default_species = $species_defs->valid_species($hub->species) ? $hub->species : $hub->get_favourite_species->[0];
+  my $default_species = $hub->species || 'Multi';
 
   my @species         = $hub->param('species') || $default_species || ();
 
@@ -291,7 +291,7 @@ sub get_cacheable_form_node {
 sub getSpeciesDisplayHtml {
   my $self = shift;
   my $species = shift;
-  my $common_name = $self->hub->species_defs->get_config($species, 'SPECIES_COMMON_NAME');
+  my $common_name = $species eq 'Multi' ? '' : $self->hub->species_defs->get_config($species, 'SPECIES_COMMON_NAME');
   return $common_name . '<br />';
 }
 
