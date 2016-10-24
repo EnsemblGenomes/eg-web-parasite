@@ -26,5 +26,34 @@ sub gxa_check {
   return 1;
 }
 
+sub get_homologue_alignments {
+  my $self        = shift;
+  my $compara_db  = shift || 'compara';
+  my $type        = shift || 'ENSEMBL_ORTHOLOGUES';
+  my $database    = $self->database($compara_db);
+  my $hub         = $self->hub;
+  my $msa;
+
+  if ($database) {
+    my $member  = $database->get_GeneMemberAdaptor->fetch_by_stable_id($self->Obj->stable_id);
+    my $tree    = $database->get_GeneTreeAdaptor->fetch_default_for_Member($member);
+    my @params  = ($member, $type);
+    my $species = [];
+## ParaSite: check the species is actually in compara
+    my $genome_adaptor  = $database->get_adaptor('GenomeDB');
+    foreach (grep { /species_/ } $hub->param) {
+      (my $sp = $_) =~ s/species_//;
+      my $g = $genome_adaptor->fetch_by_name_assembly($sp);
+         $g = $genome_adaptor->fetch_by_registry_name($sp) unless $g;
+      push @$species, $sp if $hub->param($_) eq 'yes' && $g;
+    }
+##
+    push @params, $species if scalar @$species;
+    $msa        = $tree->get_alignment_of_homologues(@params);
+    $tree->release_tree;
+  }
+  return $msa;
+}
+
 1;
 
