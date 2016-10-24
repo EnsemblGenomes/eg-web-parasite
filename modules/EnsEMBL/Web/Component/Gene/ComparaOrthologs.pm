@@ -354,4 +354,50 @@ sub content {
   return $html;
 }
 
+sub buttons {
+  my $self    = shift;
+  my $hub     = $self->hub;
+  my @buttons;
+
+  if ($button_set{'download'}) {
+
+    my $gene    =  $self->object->Obj;
+
+    my $dxr  = $gene->can('display_xref') ? $gene->display_xref : undef;
+    my $name = $dxr ? $dxr->display_id : $gene->stable_id;
+
+    my $params  = {
+                  'type'        => 'DataExport',
+                  'action'      => 'Orthologs',
+                  'data_type'   => 'Gene',
+                  'component'   => 'ComparaOrthologs',
+                  'data_action' => $hub->action,
+                  'gene_name'   => $name,
+                };
+
+    ## Add any species settings
+## ParaSite: check the species is actually in compara
+    my $compara_db = $self->hub->database('compara');
+    return unless $compara_db;
+    my $genome_adaptor  = $compara_db->get_adaptor('GenomeDB');
+
+    foreach (grep { /^species_/ } $hub->param) {
+      (my $s = $_) =~ s/^species_//;
+      my $g = $genome_adaptor->fetch_by_name_assembly($s);
+         $g = $genome_adaptor->fetch_by_registry_name($s) unless $g;
+      $params->{$_} = $hub->param($_) if $g;
+    }
+##
+
+    push @buttons, {
+                    'url'     => $hub->url($params),
+                    'caption' => 'Download orthologues',
+                    'class'   => 'export',
+                    'modal'   => 1
+                    };
+  }
+
+  return @buttons;
+}
+
 1;
