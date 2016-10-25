@@ -10,14 +10,14 @@ sub csrf_safe_process {
   my $object      = $self->object;
   my $hub         = $self->hub;
   my $user        = $hub->user;
-  my $basket_id = $hub->param('id');
-
-  my $basket = $object->fetch_basket($basket_id);
-
-  $basket->$_($hub->param($_) || '') for qw(gene_id object);
-  $basket->save({'user' => $user});
+  my $basket_id   = $hub->param('id');
   
-  return;
+  my ($basket, $record_owner) = $object->fetch_basket_with_owner($basket_id ? $basket_id : 0);
+
+  $basket->$_($hub->param($_) || '') for qw(g object);
+  $basket->save({'user' => $user});
+
+  return $self->ajax_redirect({'action' => 'Basket',  'function' => 'View'}));
 }
 
 1;

@@ -19,7 +19,7 @@ sub content {
   $form->add_hidden({'name' => 'object',          'value' => $basket->name || $hub->referer->{'ENSEMBL_TYPE'} }) if $is_add_new;
   $form->add_hidden({'name' => $self->_JS_CANCEL, 'value' => $hub->PREFERENCES_PAGE });
 
-  $form->add_field({'type'  => 'string', 'name'  => 'gene_id', 'label' => 'Gene ID', 'value' => $is_add_new ? $hub->param('g') || '' : $basket->gene_id,  'required' => 1 });
+  $form->add_field({'type'  => 'string', 'name'  => 'g', 'label' => 'Gene ID', 'value' => $is_add_new ? $hub->param('g') || '' : $basket->g,  'required' => 1 });
 
   my @buttons = ({'type' => 'submit', 'name' => 'button', 'value' => $is_add_new ? 'Add' : 'Save'});
 
