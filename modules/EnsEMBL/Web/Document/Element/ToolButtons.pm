@@ -100,6 +100,17 @@ sub init {
     })
   });
 
+  $self->add_entry({
+    caption => 'Add to basket',
+    class   => 'modal_link',
+    url     => $hub->url({
+      type      => 'Account',
+      '__clear' => 1,
+      action    => 'Basket/Add',
+      g         => $hub->param('g')
+    })
+  });
+
 }
 
 1;
