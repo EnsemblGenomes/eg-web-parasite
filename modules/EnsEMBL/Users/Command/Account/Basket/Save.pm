@@ -15,7 +15,7 @@ sub csrf_safe_process {
   
   my ($basket, $record_owner) = $object->fetch_basket_with_owner($basket_id ? $basket_id : 0);
 
-  $basket->$_($hub->param($_) || '') for qw(g object);
+  $basket->data->{$_} = ($hub->param($_) || '') for qw(gene_id object);
   $basket->save({'user' => $user});
 
   return $self->ajax_redirect($hub->url({'action' => 'Basket', 'function' => 'View'}));

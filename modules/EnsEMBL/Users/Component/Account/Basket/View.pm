@@ -29,7 +29,7 @@ sub basket_table {
 
   my $user        = $self->hub->user;
   my $table       = $self->new_table([{
-    'key'           => 'g',
+    'key'           => 'gene_id',
     'title'         => 'Gene ID',
     'width'         => '90%',
     'sort'          => 'html'
@@ -44,8 +44,8 @@ sub basket_table {
 
   for (@{$params->{'basket'}}) {
     my $basket_id   = $_->get_primary_key_value;
-    my $basket_row  = { 'g' => $self->html_encode($_->data->{'g'}) };
-    push @gene_ids, $_->data->{'g'};
+    my $basket_row  = { 'gene_id' => $self->html_encode($_->data->{'gene_id'}) };
+    push @gene_ids, $_->data->{'gene_id'};
 
     $basket_row->{'buttons'} = sprintf '<div class="sprites-nowrap">%s</div>', join('',
       $self->js_link({

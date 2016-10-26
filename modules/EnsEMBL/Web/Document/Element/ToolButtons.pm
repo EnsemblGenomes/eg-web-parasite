@@ -105,9 +105,9 @@ sub init {
     class   => 'modal_link',
     url     => $hub->url({
       type      => 'Account',
-      '__clear' => 1,
+      __clear   => 1,
       action    => 'Basket/Add',
-      g         => $hub->param('g')
+      gene_id   => $hub->param('g')
     })
   });
 
