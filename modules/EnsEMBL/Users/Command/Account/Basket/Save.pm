@@ -6,7 +6,6 @@ use warnings;
 use parent qw(EnsEMBL::Users::Command::Account);
 
 sub csrf_safe_process {
- warn "in save"; 
   my $self        = shift;
   my $object      = $self->object;
   my $hub         = $self->hub;
