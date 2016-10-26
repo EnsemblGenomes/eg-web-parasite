@@ -17,6 +17,8 @@ sub modify_tree {
      'add_basket'      =>  'EnsEMBL::Users::Component::Account::Basket::AddEdit'
    ], { 'availability'   =>  1 }));
 
+  $self->create_node("Basket/$_", '', [], { 'no_menu_entry' => 1, 'command' => "EnsEMBL::Users::Command::Account::Basket::$_"   }) for qw(Save Remove);
+
 }
 
 1;

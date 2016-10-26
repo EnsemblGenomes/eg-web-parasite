@@ -6,6 +6,7 @@ use warnings;
 use parent qw(EnsEMBL::Users::Command::Account);
 
 sub csrf_safe_process {
+ warn "in save"; 
   my $self        = shift;
   my $object      = $self->object;
   my $hub         = $self->hub;
@@ -17,7 +18,7 @@ sub csrf_safe_process {
   $basket->$_($hub->param($_) || '') for qw(g object);
   $basket->save({'user' => $user});
 
-  return $self->ajax_redirect({'action' => 'Basket',  'function' => 'View'}));
+  return $self->ajax_redirect($hub->url({'action' => 'Basket', 'function' => 'View'}));
 }
 
 1;
