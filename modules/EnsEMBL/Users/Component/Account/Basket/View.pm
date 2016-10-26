@@ -49,7 +49,7 @@ sub basket_table {
 
     $basket_row->{'buttons'} = sprintf '<div class="sprites-nowrap">%s</div>', join('',
       $self->js_link({
-        'href'    => {'action' => 'basket', 'function' => 'Remove', 'id' => $basket_id, 'csrf_safe' => 1},
+        'href'    => {'action' => 'Basket', 'function' => 'Remove', 'id' => $basket_id, 'csrf_safe' => 1},
         'helptip' => 'Remove',
         'sprite'  => 'delete_icon',
         'confirm' => 'You are about to remove the gene from the basket. This action can not be undone.'
