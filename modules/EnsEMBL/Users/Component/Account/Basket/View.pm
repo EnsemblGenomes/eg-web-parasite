@@ -40,16 +40,15 @@ sub basket_table {
     'sort'          => 'none'
   }], [], {'class' => 'tint', 'data_table' => 'no_col_toggle', 'exportable' => 0});
 
+  my @gene_ids;
+
   for (@{$params->{'basket'}}) {
     my $basket_id   = $_->get_primary_key_value;
     my $basket_row  = { 'g' => $self->html_encode($_->data->{'g'}) };
+    push @gene_ids, $_->data->{'g'};
 
     $basket_row->{'buttons'} = sprintf '<div class="sprites-nowrap">%s</div>', join('',
       $self->js_link({
-        'href'    => {'action' => 'basket', 'function' => 'Edit', 'id' => $basket_id},
-        'helptip' => 'Edit',
-        'sprite'  => 'edit_icon'
-      }), $self->js_link({
         'href'    => {'action' => 'basket', 'function' => 'Remove', 'id' => $basket_id, 'csrf_safe' => 1},
         'helptip' => 'Remove',
         'sprite'  => 'delete_icon',
@@ -60,7 +59,12 @@ sub basket_table {
     $table->add_row($basket_row);
   }
 
-  return $table->render;
+  my $biomart_link = sprintf(
+    '<p><a href="%s" target="_blank">Send list to BioMart</a></p>',
+    sprintf('/biomart/martview?VIRTUALSCHEMANAME=parasite_mart&ATTRIBUTES=wbps_gene.default.feature_page.production_name_1010|wbps_gene.default.feature_page.ensembl_gene_id&FILTERS=wbps_gene.default.naive_filters.ensembl_gene_id.%%22%s%%22&VISIBLEPANEL=filterpanel', join(',', @gene_ids))
+  );
+
+  return $table->render . $biomart_link;
 }
 
 1;
