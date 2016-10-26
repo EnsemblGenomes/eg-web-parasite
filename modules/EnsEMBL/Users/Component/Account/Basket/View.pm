@@ -42,7 +42,7 @@ sub basket_table {
 
   for (@{$params->{'basket'}}) {
     my $basket_id   = $_->get_primary_key_value;
-    my $basket_row  = { 'g' => $self->html_encode($_->g) };
+    my $basket_row  = { 'g' => $self->html_encode($_->data->{'g'}) };
 
     $basket_row->{'buttons'} = sprintf '<div class="sprites-nowrap">%s</div>', join('',
       $self->js_link({
