@@ -101,7 +101,7 @@ sub init {
   });
 
   $self->add_entry({
-    caption => 'Add to basket',
+    caption => 'Add to saved gene list',
     class   => 'modal_link',
     url     => $hub->url({
       type      => 'Account',

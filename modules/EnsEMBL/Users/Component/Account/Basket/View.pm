@@ -17,7 +17,7 @@ sub content {
       'heading'           => 'Basket',
       'heading_links'     => [{
         'href'              => {qw(action Basket function Add)},
-        'title'             => 'Add gene to basket',
+        'title'             => 'Add gene to saved gene list',
         'sprite'            => 'basket_icon'
       }],
       'subsections'       => [ @$basket ? $self->basket_table({'basket' => $basket}) : $self->no_bookmark_message ]
