@@ -463,7 +463,7 @@ sub species_stats {
   }
   $summary->add_row({
       'name' => '<span style="font-weight: bold">Assembly</span>',
-      'stat' => $a_id.', '.$sd->ASSEMBLY_DATE
+      'stat' => sprintf('%s%s', $a_id, $sd->ASSEMBLY_DATE ? ', '.$sd->ASSEMBLY_DATE : '')
   });
   $summary->add_row({
       'name' => '<span style="font-weight: bold">Strain</span>',
