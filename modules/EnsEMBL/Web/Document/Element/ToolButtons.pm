@@ -101,7 +101,7 @@ sub init {
   });
 
   $self->add_entry({
-    caption => 'Add to saved gene list',
+    caption => 'Add to BioMart gene list',
     class   => 'modal_link',
     url     => $hub->url({
       type      => 'Account',

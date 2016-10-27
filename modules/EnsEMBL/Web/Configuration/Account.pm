@@ -10,11 +10,11 @@ sub modify_tree {
   my $preference_menu = $self->get_node('Preferences');
 
   if($preference_menu) {
-    $preference_menu->append($self->create_node('Basket/View', 'View saved gene list', [
+    $preference_menu->append($self->create_node('Basket/View', 'View BioMart gene list', [
       'add_basket'      =>  'EnsEMBL::Users::Component::Account::Basket::View'
     ], { 'availability'   =>  1 }));
   
-    $preference_menu->append($self->create_node('Basket/Add', 'Add gene to saved gene list', [
+    $preference_menu->append($self->create_node('Basket/Add', 'Add gene to BioMart gene list', [
       'add_basket'      =>  'EnsEMBL::Users::Component::Account::Basket::AddEdit'
     ], { 'availability'   =>  1 }));
   
