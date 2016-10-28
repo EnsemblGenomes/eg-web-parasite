@@ -20,9 +20,10 @@ sub modify_tree {
   
     $self->create_node("Basket/$_", '', [], { 'no_menu_entry' => 1, 'command' => "EnsEMBL::Users::Command::Account::Basket::$_"   }) for qw(Save Remove);
   
-    foreach(qw(Bookmark/View Bookmark/Edit Bookmark/Add Share/Bookmark)) {
-      $self->delete_node($_);
-    }
+  }
+
+  foreach(qw(Bookmark/View Bookmark/Edit Bookmark/Add Share/Bookmark)) {
+    $self->delete_node($_);
   }
 
 }
