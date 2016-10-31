@@ -168,6 +168,8 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Strongylus_vulgaris_prjeb531'} = [qw(strongylus_vulgaris_prjeb531 Strongylus_vulgaris_prjeb531)];
     $SiteDefs::__species_aliases{'Syphacia_muris_prjeb524'} = [qw(syphacia_muris_prjeb524 Syphacia_muris_prjeb524)];
     $SiteDefs::__species_aliases{'Taenia_asiatica_prjeb532'} = [qw(taenia_asiatica_prjeb532 Taenia_asiatica_prjeb532)];
+    $SiteDefs::__species_aliases{'Taenia_asiatica_prjna299871'} = [qw(taenia_asiatica_prjna299871 Taenia_asiatica_prjna299871)];
+    $SiteDefs::__species_aliases{'Taenia_saginata_prjna71493'} = [qw(taenia_saginata_prjna71493 Taenia_saginata_prjna71493)];
     $SiteDefs::__species_aliases{'Taenia_solium_prjna170813'} = [qw(taenia_solium_prjna170813 Taenia_solium_prjna170813)];
     $SiteDefs::__species_aliases{'Teladorsagia_circumcincta_prjna72569'} = [qw(teladorsagia_circumcincta_prjna72569 Teladorsagia_circumcincta_prjna72569)];
     $SiteDefs::__species_aliases{'Thelazia_callipaeda_prjeb1205'} = [qw(thelazia_callipaeda_prjeb1205 Thelazia_callipaeda_prjeb1205)];
