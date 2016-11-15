@@ -999,7 +999,7 @@ sub get_ortholog_lookup {
   
   # ParaSite mod
   my $orth_species = {
-    'caenorhabditis_elegans'                  => "wormbase_ortholog",
+    'caenorhabditis_elegans_prjna13758'       => "wormbase_ortholog",
     'homo_sapiens'                            => "ensembl_ortholog",
   };
   $compara_db = 'parasite' if $compara_db =~ /parasite/;
