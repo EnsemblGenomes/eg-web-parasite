@@ -244,8 +244,8 @@ sub render {
               <div style="display: none;">
                 <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
               </div>
-              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: Duplicated %s, Complete %s, Fragmented %s"></div>
-            ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_d, $busco_c, $busco_f));
+              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: Complete: %s [Duplicated %s, Single %s], Fragmented %s"></div>
+            ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_c, $busco_d, ($busco_c - $busco_d), $busco_f));
             $j++;
           } else {
             push(@row, '-');
