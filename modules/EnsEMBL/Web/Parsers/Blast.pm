@@ -37,7 +37,7 @@ sub parse_xml {
     my ($description) = $hit->{description} =~ /description:"(.+)"/;
 
 ## ParaSite: determine the species for each hit (rather than each job) as it is possible to have a single job query multiple species
-    my ($species) = $hit->{description} =~ /species:(.+)/;  # This works becuase we have species:xxxxxx appended to the end of the FASTA header line in the dumps
+    my ($species) = $hit->{description} =~ /species:(\S*)/;
     my $db = $hub->database('core', $species);
     $hit_id =~ s/$species://;
 ## ParaSite
