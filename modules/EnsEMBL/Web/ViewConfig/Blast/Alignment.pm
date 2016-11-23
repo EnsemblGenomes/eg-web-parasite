@@ -29,7 +29,7 @@ sub init {
 
   $self->SUPER::init;
 
-  $self->set_defaults({
+  $self->set_default_options({
     display_width  => 60,
     align_display  => 'line',
     exon_display   => 'core',
