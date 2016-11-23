@@ -50,23 +50,23 @@ sub get_sequence_data {
     my $transcript = $adaptor->fetch_by_stable_id($hit->{'tid'});
        $transcript = $transcript->transcript unless $transcript->isa('Bio::EnsEMBL::Transcript');
        $object     = $self->new_object('Transcript', $transcript, $self->object->__data);
+    $_->{'transcript'} = $object for(@$slices);
   }
-  
+
+  my $view = $self->view;
+  $view->set_annotations($config);
+  $view->prepare_ropes($config,$slices);
+  my @sequences = @{$view->sequences};
   foreach my $slice (@$slices) {
+    my $sequence = shift @sequences;
     my $seq = uc($slice->{'seq'} || $slice->{'slice'}->seq(1));
     my $mk  = {};
-    
-    $self->set_sequence($config, $sequence, $mk, $seq, $slice->{'name'});
-    
-    unless ($slice->{'no_markup'} || $source_type =~ /latestgp/i) {
-      $self->set_exons($config, $slice, $mk, $object, $seq)      if $config->{'exon_display'};
-      $self->set_variations($config, $slice, $mk, $object, $seq) if $config->{'snp_display'};
-    }
-    
+
+    $view->annotate($config,$slice,$mk,$seq,$sequence);
     push @markup, $mk;
   }
 
-  return ($sequence, \@markup);
+  return ([@{$view->sequences}], \@markup);
 }
 
 1;
