@@ -112,8 +112,13 @@ sub get_cacheable_form_node {
   }
 
   # Populathe the species checkboxes with everything if no species selected
-  my $list            = join '', map { '<li>' . $self->getSpeciesDisplayHtml($_) . '</li>' } @species;
-  my $checkboxes = join '<br />', map { sprintf('<input type="checkbox" name="species" value="%s" checked>%s', $_, $_) } $species_defs->valid_species if $url_species eq 'Multi';
+  my $list = join '', map { '<li>' . $self->getSpeciesDisplayHtml($_) . '</li>' } @species;
+  my $checkboxes;
+  if($url_species eq 'Multi') {
+    $checkboxes = join '<br />', map { sprintf('<input type="checkbox" name="species" value="%s" checked>%s', $_, $_) } $species_defs->valid_species;
+  } else {
+    $checkboxes = join '<br />', map { sprintf('<input type="checkbox" name="species" value="%s" checked>%s', $_, $_) } @species;
+  }
 
   my $html = qq{
     <div style="display:none">
