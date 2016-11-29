@@ -26,7 +26,7 @@ sub biomart_link {
 
   my $vschema        = sprintf '%s_mart', $self->hub->species_defs->GENOMIC_UNIT;
 ## ParaSite: all our species have the same prefix in BioMart
-  my $attr_prefix    = 'wbps_eg_gene';
+  my $attr_prefix    = 'wbps_gene';
 ##
   my ($ontology)     = split /:/, $term;
   my $biomart_filter = EnsEMBL::Web::Constants::ONTOLOGY_SETTINGS->{$ontology}->{biomart_filter};
