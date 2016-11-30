@@ -403,10 +403,9 @@ sub content {
                    $hub->species_defs->ENSEMBL_REST_URL,
                    $gt_id,
                    $node_id);
-    my $link = sprintf (
-                      '/wasabi/wasabi.htm?tree=%s',
-                      uri_escape($rest_url)
-                    );
+    my $link = $hub->get_ExtURL('WASABI_ENSEMBL', {
+              'URL' => uri_escape($rest_url)
+            });
 ##
 
     # Wasabi Tree Link
