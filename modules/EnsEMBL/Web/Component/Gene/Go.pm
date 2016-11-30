@@ -32,7 +32,7 @@ sub biomart_link {
   my $biomart_filter = EnsEMBL::Web::Constants::ONTOLOGY_SETTINGS->{$ontology}->{biomart_filter};
 
   my $url  = sprintf(
-    qq{/biomart/martview?VIRTUALSCHEMANAME=%s&ATTRIBUTES=%s.default.feature_page.ensembl_gene_id|%s.default.feature_page.ensembl_transcript_id&FILTERS=%s.default.filters.%s.%s&VISIBLEPANEL=resultspanel},
+    qq{/biomart/martview?VIRTUALSCHEMANAME=%s&ATTRIBUTES=%s.default.feature_page.wbps_gene_id|%s.default.feature_page.wbps_transcript_id&FILTERS=%s.default.filters.%s.%s&VISIBLEPANEL=resultspanel},
     $vschema,
     $attr_prefix,
     $attr_prefix,
