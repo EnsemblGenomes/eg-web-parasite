@@ -67,13 +67,15 @@ sub render {
   my $html;
 
   # Put the 'sticky' posts at the top
-  $html .= qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2>);
+  my $announce_html;
+  my $announce_count = 0;
   foreach my $post (@{$output->{'posts'}}) {
     next if $post->{'tags'}->{'Hidden'};
     next unless $post->{'sticky'};
-    $html .= print_post($post);
+    $announce_html .= print_post($post);
+    $announce_count++;
   }
-  $html .= qq(</div>);
+  $html .= sprintf(qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2>%s</div>), $announce_html) if $announce_count > 0;
 
   # Then everything else
   $html .= qq(<div class="blog-story round-box home-box"><h2 data-social-icon="R">Blog</h2>);
