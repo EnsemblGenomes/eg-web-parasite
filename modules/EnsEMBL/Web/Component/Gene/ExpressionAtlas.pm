@@ -31,31 +31,19 @@ sub content {
   my $stable_id   = $hub->param('g');
 ## ParaSite: can't use the species name as it contains the BioProject 
   my $species     = $hub->species_defs->SPECIES_SCIENTIFIC_NAME;
+  my $gxa_url     = $SiteDefs::GXA_EBI_URL;
 ##
   my $html;
 
   $species        =~ s/_/ /gi; #GXA require the species with no underscore.  
+
   if (!$hub->gxa_status) {
     $html = $self->_info_panel("error", "Gene expression atlas site down!", "<p>The widget cannot be displayed as the gene expression atlas site is down. Please check again later.</p>");
   } else {
     #this script tag has been kept here as it was easier to call the perl param within the script tag (the js file wasn't getting the param)
-## ParaSite
-    (my $gxa_url = $SiteDefs::GXA_EBI_URL) =~ s/\/gxa\/$//;
-    $html = sprintf(qq{
-      <script type="text/javascript">
-        expressionAtlasHeatmapHighcharts.render ({
-              atlasHost: "%s",
-              params:'geneQuery=%s&species=%s&source=DEVELOPMENTAL_STAGE',
-              isMultiExperiment: true,
-              showAnatomogram: false,
-              analyticsSearch: true,
-              target : "expressionAtlas"
-        });
-      </script>  
-      <div id="expressionAtlas"></div>    
-    }, $gxa_url, $stable_id, $species);
-##
+    $html = sprintf '<input class="panel_type" value="GXA" type="hidden" /><input type="hidden" class="js_param" name="geneId" value="%s" /><input type="hidden" class="js_param" name="species" value="%s" /><input type="hidden" class="js_param" name="gxa_url" value="%s" />', $stable_id, $species, $gxa_url;
   }
+
   return $html;
 }
 
