@@ -39,6 +39,10 @@ sub modify_tree {
   $self->delete_node('UserAnnotation');
   $self->delete_node('History');
   
+  $self->create_node('ChEMBL', 'ChEMBL Hits',
+    [qw( chembl EnsEMBL::Web::Component::Transcript::ChEMBLHits )]
+  );
+
   if($self->hub->species_defs->EVA_TRACKS) {
     my $variation = $self->create_node('EVA', 'Variation', [],
       { availability => 0 }
