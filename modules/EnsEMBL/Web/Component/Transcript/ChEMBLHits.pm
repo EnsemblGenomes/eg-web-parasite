@@ -28,13 +28,13 @@ sub content {
   
   $table->add_columns(
     { key => 'acc',      title => 'ChEMBL ID',   width => '10%',   sort => 'html'                          },
-    { key => 'species',  title => 'Species',     width => '10%',   sort => 'string'                        },
-    { key => 'desc',     title => 'Description', width => '15%',   sort => 'string'                        },
+    { key => 'species',  title => 'Species',     width => '15%',   sort => 'string'                        },
+    { key => 'desc',     title => 'Description', width => '20%',   sort => 'string'                        },
     { key => 'start',    title => 'Hit Start',   width => '10%',   sort => 'numeric', hidden_key => '_loc' },
     { key => 'end',      title => 'Hit End',     width => '10%',   sort => 'numeric'                       },
-    { key => 'score',    title => 'Score',       width => '15%',   sort => 'numeric'                       },
-    { key => 'evalue',   title => 'E-Value',     width => '15%',   sort => 'numeric'                       },
-    { key => 'percid',   title => '%ID',         width => '15%',   sort => 'numeric'                       },
+    { key => 'score',    title => 'Score',       width => '10%',   sort => 'numeric'                       },
+    { key => 'evalue',   title => 'E-Value',     width => '10%',   sort => 'numeric'                       },
+    { key => 'percid',   title => '%ID',         width => '10%',   sort => 'numeric'                       },
   );
   
   foreach my $hit (
