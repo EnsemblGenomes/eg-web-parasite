@@ -22,8 +22,6 @@ sub content {
   my @hits = @{$translation->get_all_ProteinFeatures('chembl')};
   return unless @hits;
 
-  my $html = '';
-  
   my $table = $self->new_table([], [], { data_table => 1 });
   
   $table->add_columns(
@@ -60,8 +58,7 @@ sub content {
     
   }
   
-  $html .= '<h2>ChEMBL Hits</h2>' . $table->render;
-  return $html;
+  return $table->render;
 }
 
 1;
