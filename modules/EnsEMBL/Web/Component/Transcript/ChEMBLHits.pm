@@ -51,14 +51,14 @@ sub content {
    
     $table->add_row({
       type     => $db,
-      desc     => $chembl_data->{'pref_name'},
+      desc     => $chembl_data->{'pref_name'} || '-',
       acc      => $hit->hseqname,
       start    => $hit->start,
       end      => $hit->end,
       score    => $hit->score,
       evalue   => $hit->p_value,
       percid   => $hit->percent_id,
-      species  => $chembl_data->{'organism'},
+      species  => $chembl_data->{'organism'} || '-',
       _loc     => join('::', $hit->start, $hit->end),
     });
     
