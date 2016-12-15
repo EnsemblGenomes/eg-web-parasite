@@ -98,7 +98,7 @@ sub get_external_ChEMBL_data {
     return [];
   }
 
-  my $data_structure = XMLin($content);
+  return XMLin($content);
 }
 
 1;
