@@ -65,6 +65,7 @@ sub update_conf {
     $SiteDefs::GXA_REST_URL            = 'http://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
     $SiteDefs::GXA_EBI_URL             = 'http://www.ebi.ac.uk/gxa/resources';
     $SiteDefs::EVA_URL = 'http://www.ebi.ac.uk/eva';
+    $SiteDefs::CHEMBL_REST_URL         = 'https://www.ebi.ac.uk/chembl/api/data';
 
     ### Species Configuration
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;

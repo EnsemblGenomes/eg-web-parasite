@@ -84,7 +84,7 @@ sub user_agent {
 sub get_external_ChEMBL_data {
   my ($self, $chembl_endpoint, $chembl_target_id) = @_;
   
-  my $url = sprintf("https://www.ebi.ac.uk/chembl/api/data/%s/%s", $chembl_endpoint, $chembl_target_id);
+  my $url = sprintf("%s/%s/%s", $self->hub->species_defs->CHEMBL_REST_URL, $chembl_endpoint, $chembl_target_id);
   my $uri = URI->new($url);
 
   my $can_accept;
