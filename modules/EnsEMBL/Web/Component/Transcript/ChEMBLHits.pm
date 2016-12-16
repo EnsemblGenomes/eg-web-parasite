@@ -2,7 +2,7 @@ package EnsEMBL::Web::Component::Transcript::ChEMBLHits;
 
 use strict;
 use LWP;
-use XML::Simple;
+use JSON;
 
 use base qw(EnsEMBL::Web::Component::Transcript);
 
@@ -84,7 +84,7 @@ sub user_agent {
 sub get_external_ChEMBL_data {
   my ($self, $chembl_endpoint, $chembl_target_id) = @_;
   
-  my $url = sprintf("%s/%s/%s", $self->hub->species_defs->CHEMBL_REST_URL, $chembl_endpoint, $chembl_target_id);
+  my $url = sprintf("%s/%s/%s?format=json", $self->hub->species_defs->CHEMBL_REST_URL, $chembl_endpoint, $chembl_target_id);
   my $uri = URI->new($url);
 
   my $can_accept;
@@ -98,7 +98,7 @@ sub get_external_ChEMBL_data {
     return [];
   }
 
-  return XMLin($content);
+  return from_json($content);
 }
 
 1;
