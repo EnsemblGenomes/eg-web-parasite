@@ -33,9 +33,9 @@ sub content {
     { key => 'desc',     title => 'Description', width => '20%',   sort => 'string'                        },
     { key => 'start',    title => 'Start',       width => '10%',   sort => 'numeric', hidden_key => '_loc' },
     { key => 'end',      title => 'End',         width => '10%',   sort => 'numeric'                       },
-    { key => 'score',    title => 'Score',       width => '5%',   sort => 'numeric'                       },
+    { key => 'score',    title => 'Score',       width => '5%',    sort => 'numeric'                       },
     { key => 'evalue',   title => 'E-Value',     width => '10%',   sort => 'numeric'                       },
-    { key => 'percid',   title => '%ID',         width => '5%',   sort => 'numeric'                       },
+    { key => 'percid',   title => '%ID',         width => '5%',    sort => 'numeric'                       },
   );
   
   # Avoid making lots of requests to ChEMBL - just determine everything we need now, make one request to ChEMBL then store it in a hash
