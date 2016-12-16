@@ -28,13 +28,14 @@ sub content {
   
   $table->add_columns(
     { key => 'acc',      title => 'ChEMBL ID',   width => '10%',   sort => 'html'                          },
+    { key => 'uniprot',  title => 'UniProt ID',  width => '10%',   sort => 'html'                          },
     { key => 'species',  title => 'Species',     width => '15%',   sort => 'string'                        },
     { key => 'desc',     title => 'Description', width => '20%',   sort => 'string'                        },
     { key => 'start',    title => 'Start',       width => '10%',   sort => 'numeric', hidden_key => '_loc' },
     { key => 'end',      title => 'End',         width => '10%',   sort => 'numeric'                       },
-    { key => 'score',    title => 'Score',       width => '10%',   sort => 'numeric'                       },
+    { key => 'score',    title => 'Score',       width => '5%',   sort => 'numeric'                       },
     { key => 'evalue',   title => 'E-Value',     width => '10%',   sort => 'numeric'                       },
-    { key => 'percid',   title => '%ID',         width => '10%',   sort => 'numeric'                       },
+    { key => 'percid',   title => '%ID',         width => '5%',   sort => 'numeric'                       },
   );
   
   # Avoid making lots of requests to ChEMBL - just determine everything we need now, make one request to ChEMBL then store it in a hash
@@ -69,6 +70,7 @@ sub content {
       type     => $db,
       desc     => $chembl_target_data->{'pref_name'} || '-',
       acc      => $chembl_target_id,
+      uniprot  => $chembl_uniprot_id || '-',
       start    => $hit->start,
       end      => $hit->end,
       score    => $hit->score,
