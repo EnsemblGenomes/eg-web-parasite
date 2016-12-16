@@ -37,6 +37,18 @@ sub content {
     { key => 'percid',   title => '%ID',         width => '10%',   sort => 'numeric'                       },
   );
   
+  # Avoid making lots of requests to ChEMBL - just determine everything we need now, make one request to ChEMBL then store it in a hash
+  my @chembl_ids = map { $_->hseqname } @hits;
+  my $chembl_targets_response = $self->get_external_ChEMBL_data('target/set', join(";", @chembl_ids));
+  my %chembl_targets;
+  my %chembl_uniprot_mapping;
+  foreach (@{$chembl_targets_response->{'targets'}}) {
+    $chembl_targets{$_->{'target_chembl_id'}} = $_;
+    foreach (@{$_->{'target_components'}}) {
+      $chembl_uniprot_mapping{$_->{'accession'}} = $_->{'component_id'};
+    }
+  }
+
   foreach my $hit (
     sort {
       $a->idesc cmp $b->idesc ||
@@ -49,12 +61,8 @@ sub content {
     my $db            = $hit->analysis->db;
     
     my ($chembl_target_id, $chembl_uniprot_id) = split(":", $hit->hseqname);
-    my $chembl_target_data = $self->get_external_ChEMBL_data('target', $chembl_target_id);
+    my $chembl_target_data = $chembl_targets{$chembl_target_id};
 
-    my %chembl_uniprot_mapping;
-    foreach (@{$chembl_target_data->{'target_components'}}) {
-      $chembl_uniprot_mapping{$_->{'accession'}} = $_->{'component_id'};
-    }
     my $chembl_component_data = $self->get_external_ChEMBL_data('target_component', $chembl_uniprot_mapping{$chembl_uniprot_id}) if $chembl_uniprot_id;
     
     $table->add_row({
