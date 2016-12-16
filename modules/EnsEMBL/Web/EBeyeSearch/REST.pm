@@ -19,6 +19,7 @@ limitations under the License.
 package EnsEMBL::Web::EBeyeSearch::REST;
 
 use strict;
+use EnsEMBL::LWP_UserAgent;
 
 my $debug = 0;
 
@@ -35,7 +36,7 @@ sub get {
 
   $debug && warn "GET " . $uri->as_string;
 
-  my $response = $self->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+  my $response = EnsEMBL::LWP_UserAgent->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
   my $content  = $can_accept ? $response->decoded_content : $response->content;
 
   if ($response->is_error) {

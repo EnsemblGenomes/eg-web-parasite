@@ -23,6 +23,7 @@ use HTML::Entities;
 use XML::Simple;
 use JSON;
 use Data::Dumper;
+use EnsEMBL::LWP_UserAgent;
 
 use previous qw(munge_config_tree);
 
@@ -305,15 +306,7 @@ sub eva_api {
   my $can_accept;
   eval { $can_accept = HTTP::Message::decodable() };
 
-  unless ($self->{user_agent}) {
-    my $ua = LWP::UserAgent->new();
-    $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
-    $ua->env_proxy;
-    $ua->timeout(10);
-    $self->{user_agent} = $ua;
-  }
-  
-  my $response = $self->{user_agent}->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+  my $response = EnsEMBL::LWP_UserAgent->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
   my $content  = $can_accept ? $response->decoded_content : $response->content;
   
   if ($response->is_error) {

@@ -22,6 +22,7 @@ package EnsEMBL::Web::EBeyeSearch::WormBaseREST;
 
 use strict;
 use warnings;
+use EnsEMBL::LWP_UserAgent;
 use Data::Dumper;
 use HTTP::Message;
 use LWP;
@@ -43,23 +44,6 @@ sub new {
 
 sub base_url { $_[0]->{base_url} }
 
-sub user_agent { 
-  my $self = shift;
-  
-  my $hub = $self->hub;
-  my $species_defs = EnsEMBL::Web::SpeciesDefs->new;
-  unless ($self->{user_agent}) {
-    my $ua = LWP::UserAgent->new();
-    $ua->agent('ParaSite Web ' . $ua->agent());
-    $ua->env_proxy;
-    $ua->proxy(['http', 'https'], $species_defs->ENSEMBL_WWW_PROXY);
-    $ua->timeout(5);
-    $self->{user_agent} = $ua;
-  }
-  
-  return $self->{user_agent};
-}
-
 sub get { 
   my ($self, $method, $args) = @_;
   my $query = $args->{'query'};
@@ -73,7 +57,7 @@ sub get {
 
   $debug && warn "GET " . $uri->as_string;
   
-  my $response = $self->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+  my $response = EnsEMBL::LWP_UserAgent->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
   my $content  = $can_accept ? $response->decoded_content : $response->content;
   
   if ($response->is_error) {

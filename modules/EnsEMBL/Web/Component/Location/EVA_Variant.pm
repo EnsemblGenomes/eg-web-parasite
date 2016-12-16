@@ -1,6 +1,7 @@
 package EnsEMBL::Web::Component::Location::EVA_Variant;
 
 use strict;
+use EnsEMBL::LWP_UserAgent;
 use LWP;
 use HTML::Entities;
 use JSON;
@@ -45,7 +46,7 @@ sub get_variant_info {
   my $can_accept;
   eval { $can_accept = HTTP::Message::decodable() };
 
-  my $response = $self->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+  my $response = EnsEMBL::LWP_UserAgent->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
   my $content  = $can_accept ? $response->decoded_content : $response->content;
 
   if ($response->is_error) {
@@ -232,20 +233,6 @@ sub consequence_colour {
                             $colourmap->hex_by_name($colours->{lc $term_short}->{'default'}),
                             $self->helptip($term, $consequences->{$term_short})
                           ) : $term;
-}
-
-sub user_agent {
-  my $self = shift;
-
-  unless ($self->{user_agent}) {
-    my $ua = LWP::UserAgent->new();
-    $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
-    $ua->env_proxy;
-    $ua->timeout(10);
-    $self->{user_agent} = $ua;
-  }
-
-  return $self->{user_agent};
 }
 
 1;

@@ -59,13 +59,17 @@ sub update_conf {
                   $SiteDefs::ENSEMBL_SERVERROOT.'/VEP_plugins/plugin_config.txt', # VEP_plugins is cloned from github.com/ensembl-variation/VEP_plugins
                   $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/conf/vep_plugins_web_config.txt'
                 ];
+    
+    ### GXA widget config
+    $SiteDefs::GXA = 0;  # Enable this in each species ini file if GXA widget is required for that species
+    
+    ### URLs for external services
     $SiteDefs::NCBIBLAST_REST_ENDPOINT = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
     $SiteDefs::EBEYE_REST_ENDPOINT     = 'http://www.ebi.ac.uk/ebisearch/ws/rest';
-    $SiteDefs::GXA                     = 0;  # Enable this in each species ini file if GXA widget is required for that species
     $SiteDefs::GXA_REST_URL            = 'http://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
     $SiteDefs::GXA_EBI_URL             = 'http://www.ebi.ac.uk/gxa/resources';
-    $SiteDefs::EVA_URL = 'http://www.ebi.ac.uk/eva';
     $SiteDefs::CHEMBL_REST_URL         = 'https://www.ebi.ac.uk/chembl/api/data';
+    $SiteDefs::EVA_URL                 = 'http://www.ebi.ac.uk/eva';
 
     ### Species Configuration
     map {delete($SiteDefs::__species_aliases{$_}) } keys %SiteDefs::__species_aliases;
