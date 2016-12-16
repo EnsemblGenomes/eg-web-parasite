@@ -80,9 +80,9 @@ sub content {
 }
 
 sub get_external_ChEMBL_data {
-  my ($self, $chembl_endpoint, $chembl_target_id) = @_;
+  my ($self, $endpoint, $id) = @_;
   
-  my $url = sprintf("%s/%s/%s?format=json", $self->hub->species_defs->CHEMBL_REST_URL, $chembl_endpoint, $chembl_target_id);
+  my $url = sprintf("%s/%s/%s?format=json", $self->hub->species_defs->CHEMBL_REST_URL, $endpoint, $id);
   my $uri = URI->new($url);
 
   my $can_accept;
