@@ -47,18 +47,26 @@ sub content {
     } @hits
   ) {
     my $db            = $hit->analysis->db;
-    my $chembl_data   = $self->get_external_ChEMBL_data('target', $hit->hseqname);
-   
+    
+    my ($chembl_target_id, $chembl_uniprot_id) = split(":", $hit->hseqname);
+    my $chembl_target_data = $self->get_external_ChEMBL_data('target', $chembl_target_id);
+
+    my %chembl_uniprot_mapping;
+    foreach (@{$chembl_target_data->{'target_components'}}) {
+      $chembl_uniprot_mapping{$_->{'accession'}} = $_->{'component_id'};
+    }
+    my $chembl_component_data = $self->get_external_ChEMBL_data('target_component', $chembl_uniprot_mapping{$chembl_uniprot_id}) if $chembl_uniprot_id;
+    
     $table->add_row({
       type     => $db,
-      desc     => $chembl_data->{'pref_name'} || '-',
-      acc      => $hit->hseqname,
+      desc     => $chembl_target_data->{'pref_name'} || '-',
+      acc      => $chembl_target_id,
       start    => $hit->start,
       end      => $hit->end,
       score    => $hit->score,
       evalue   => $hit->p_value,
       percid   => $hit->percent_id,
-      species  => $chembl_data->{'organism'} || '-',
+      species  => $chembl_target_data->{'organism'} || '-',
       _loc     => join('::', $hit->start, $hit->end),
     });
     
