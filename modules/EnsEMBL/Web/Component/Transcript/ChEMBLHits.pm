@@ -39,7 +39,7 @@ sub content {
   );
   
   # Avoid making lots of requests to ChEMBL - just determine everything we need now, make one request to ChEMBL then store it in a hash
-  my @chembl_ids = map { $_->hseqname } @hits;
+  my @chembl_ids = map { $_->hseqname =~ /^(\w*):{0,1}(\w*)$/; $1 } @hits;
   my $chembl_targets_response = $self->get_external_ChEMBL_data('target/set', join(";", @chembl_ids));
   my %chembl_targets;
   my %chembl_uniprot_mapping;
@@ -64,7 +64,8 @@ sub content {
     my ($chembl_target_id, $chembl_uniprot_id) = split(":", $hit->hseqname);
     my $chembl_target_data = $chembl_targets{$chembl_target_id};
 
-    my $chembl_component_data = $self->get_external_ChEMBL_data('target_component', $chembl_uniprot_mapping{$chembl_uniprot_id}) if $chembl_uniprot_id;
+    # TODO: disabled as we're not doing anything with this data yet
+    #my $chembl_component_data = $self->get_external_ChEMBL_data('target_component', $chembl_uniprot_mapping{$chembl_uniprot_id}) if $chembl_uniprot_id;
     
     $table->add_row({
       type     => $db,
