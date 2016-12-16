@@ -25,7 +25,7 @@ sub content {
   my @hits = @{$translation->get_all_ProteinFeatures('chembl')};
   return "There are no hits in ChEMBL for this transcript" unless @hits;
 
-  my $table = $self->new_table([], [], { data_table => 1 });
+  my $table = $self->new_table([], [], { data_table => 1, sorting => ['score desc']});
   
   $table->add_columns(
     { key => 'acc',      title => 'ChEMBL ID',   width => '10%',   sort => 'html'                          },
@@ -51,15 +51,7 @@ sub content {
     }
   }
 
-  foreach my $hit (
-    sort {
-      $a->idesc cmp $b->idesc ||
-      $b->score <=> $a->score || 
-      $a->start <=> $b->start || 
-      $a->end   <=> $b->end   || 
-      $a->analysis->db cmp $b->analysis->db 
-    } @hits
-  ) {
+  foreach my $hit (@hits) {
     my $db            = $hit->analysis->db;
     
     my ($chembl_target_id, $chembl_uniprot_id) = split(":", $hit->hseqname);
