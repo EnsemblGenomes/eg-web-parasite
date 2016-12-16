@@ -1,6 +1,7 @@
 package EnsEMBL::Web::Component::EVA_Table;
 
 use strict;
+use EnsEMBL::LWP_UserAgent;
 use LWP;
 use JSON;
 
@@ -43,20 +44,6 @@ sub content {
   
 }
 
-sub user_agent {
-  my $self = shift;
-
-  unless ($self->{user_agent}) {
-    my $ua = LWP::UserAgent->new();
-    $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
-    $ua->env_proxy;
-    $ua->timeout(10);
-    $self->{user_agent} = $ua;
-  }
-
-  return $self->{user_agent};
-}
-
 sub features {
   my $self         = shift;
   my $features_list = [];
@@ -73,7 +60,7 @@ sub features {
     my $can_accept;
     eval { $can_accept = HTTP::Message::decodable() };
 
-    my $response = $self->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
+    my $response = EnsEMBL::LWP_UserAgent->user_agent->get($uri->as_string, 'Accept-Encoding' => $can_accept);
     my $content  = $can_accept ? $response->decoded_content : $response->content;
 
     if ($response->is_error) {
