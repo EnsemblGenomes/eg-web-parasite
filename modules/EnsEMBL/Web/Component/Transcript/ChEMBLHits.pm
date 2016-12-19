@@ -52,7 +52,7 @@ sub content {
   }
 
   foreach my $hit (@hits) {
-    my $db            = $hit->analysis->db;
+    my $db = $hit->analysis->db;
     
     my ($chembl_target_id, $chembl_uniprot_id) = split(":", $hit->hseqname);
     my $chembl_target_data = $chembl_targets{$chembl_target_id};
