@@ -92,7 +92,7 @@ sub get_external_ChEMBL_data {
   my $content  = $can_accept ? $response->decoded_content : $response->content;
 
   if ($response->is_error) {
-    warn 'Error loading ChEMBL data: ' . $response->status_line;
+    warn sprintf('Error loading ChEMBL data from %s: %s', $uri->as_string, $response->status_line);
     return {};
   }
 
