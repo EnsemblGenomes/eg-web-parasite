@@ -51,8 +51,13 @@ sub content {
     }
   }
 
+  my $e_value = $hub->param('e_value');
+  my $html = sprintf('<h3>%s</h3>', $e_value > 0 ? "E-value cut-off threshold: $e_value" : "No E-value cut-off threshold");
+  
   foreach my $hit (@hits) {
     my $db = $hit->analysis->db;
+    
+    next if $e_value > 0 && $hit->p_value > $e_value;
     
     my ($chembl_target_id, $chembl_uniprot_id) = split(":", $hit->hseqname);
     my $chembl_target_data = $chembl_targets{$chembl_target_id};
@@ -76,7 +81,8 @@ sub content {
     
   }
   
-  return $table->render;
+  $html .= $table->render;
+  return $html;
 }
 
 sub get_external_ChEMBL_data {
