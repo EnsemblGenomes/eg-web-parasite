@@ -93,7 +93,7 @@ sub get_external_ChEMBL_data {
 
   if ($response->is_error) {
     warn 'Error loading ChEMBL data: ' . $response->status_line;
-    return [];
+    return {};
   }
 
   return from_json($content);
