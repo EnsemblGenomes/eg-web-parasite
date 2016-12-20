@@ -1,9 +1,6 @@
 package EnsEMBL::Web::ViewConfig::Transcript::ChEMBLHits;
 
 use strict;
-
-use EnsEMBL::Web::Constants;
-
 use parent qw(EnsEMBL::Web::ViewConfig);
 
 sub init {
