@@ -22,9 +22,9 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '8';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '256';
-    $SiteDefs::SITE_RELEASE_DATE = 'December 2016';
+    $SiteDefs::SITE_RELEASE_VERSION = '9';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '258';
+    $SiteDefs::SITE_RELEASE_DATE = 'April 2017';
     
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
