@@ -78,6 +78,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Ancylostoma_ceylanicum_prjna72583'} = [qw(ancylostoma_ceylanicum_prjna72583 Ancylostoma_ceylanicum_prjna72583)];
     $SiteDefs::__species_aliases{'Ancylostoma_duodenale_prjna72581'} = [qw(ancylostoma_duodenale_prjna72581 Ancylostoma_duodenale_prjna72581)];
     $SiteDefs::__species_aliases{'Angiostrongylus_cantonensis_prjeb493'} = [qw(angiostrongylus_cantonensis_prjeb493 Angiostrongylus_cantonensis_prjeb493)];
+    $SiteDefs::__species_aliases{'Angiostrongylus_cantonensis_prjna260338'} = [qw(angiostrongylus_cantonensis_prjna260338 Angiostrongylus_cantonensis_prjna260338)];
     $SiteDefs::__species_aliases{'Angiostrongylus_costaricensis_prjeb494'} = [qw(angiostrongylus_costaricensis_prjeb494 Angiostrongylus_costaricensis_prjeb494)];
     $SiteDefs::__species_aliases{'Anisakis_simplex_prjeb496'} = [qw(anisakis_simplex_prjeb496 Anisakis_simplex_prjeb496)];
     $SiteDefs::__species_aliases{'Ascaris_lumbricoides_prjeb4950'} = [qw(ascaris_lumbricoides_prjeb4950 Ascaris_lumbricoides_prjeb4950)];
@@ -86,6 +87,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Brugia_malayi_prjna10729'} = [qw(brugia_malayi_prjna10729 Brugia_malayi_prjna10729)];
     $SiteDefs::__species_aliases{'Brugia_pahangi_prjeb497'} = [qw(brugia_pahangi_prjeb497 Brugia_pahangi_prjeb497)];
     $SiteDefs::__species_aliases{'Brugia_timori_prjeb4663'} = [qw(brugia_timori_prjeb4663 Brugia_timori_prjeb4663)];
+    $SiteDefs::__species_aliases{'Brugia_pahangi_prjna263436'} = [qw(brugia_pahangi_prjna263436 Brugia_pahangi_prjna263436)];
     $SiteDefs::__species_aliases{'Bursaphelenchus_xylophilus_prjea64437'} = [qw(bursaphelenchus_xylophilus_prjea64437 Bursaphelenchus_xylophilus_prjea64437)];
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria_prjna51225'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria caenorhabditis_angaria_prjna51225 Caenorhabditis_angaria_prjna51225)];
     $SiteDefs::__species_aliases{'Caenorhabditis_brenneri_prjna20035'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri caenorhabditis_brenneri_prjna20035 Caenorhabditis_brenneri_prjna20035)];
@@ -172,6 +174,8 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Strongylus_vulgaris_prjeb531'} = [qw(strongylus_vulgaris_prjeb531 Strongylus_vulgaris_prjeb531)];
     $SiteDefs::__species_aliases{'Syphacia_muris_prjeb524'} = [qw(syphacia_muris_prjeb524 Syphacia_muris_prjeb524)];
     $SiteDefs::__species_aliases{'Taenia_asiatica_prjeb532'} = [qw(taenia_asiatica_prjeb532 Taenia_asiatica_prjeb532)];
+    $SiteDefs::__species_aliases{'Taenia_asiatica_prjna299871'} = [qw(taenia_asiatica_prjna299871 Taenia_asiatica_prjna299871)];
+    $SiteDefs::__species_aliases{'Taenia_saginata_prjna71493'} = [qw(taenia_saginata_prjna71493 Taenia_saginata_prjna71493)];
     $SiteDefs::__species_aliases{'Taenia_solium_prjna170813'} = [qw(taenia_solium_prjna170813 Taenia_solium_prjna170813)];
     $SiteDefs::__species_aliases{'Teladorsagia_circumcincta_prjna72569'} = [qw(teladorsagia_circumcincta_prjna72569 Teladorsagia_circumcincta_prjna72569)];
     $SiteDefs::__species_aliases{'Thelazia_callipaeda_prjeb1205'} = [qw(thelazia_callipaeda_prjeb1205 Thelazia_callipaeda_prjeb1205)];
