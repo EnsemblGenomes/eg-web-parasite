@@ -50,19 +50,20 @@ sub render {
     my $collection;
     my $ftp_base_path_stub = $species_defs->SITE_FTP . "/releases/WBPS$rel";
        
-    my $bioproject = $species_defs->get_config($spp, 'SPECIES_FTP_GENOME_ID');
+    my $bioproject = $species_defs->get_config($spp, 'SPECIES_BIOPROJECT');
+    my $ftp_id = $species_defs->get_config($spp, 'SPECIES_FTP_GENOME_ID');
     my $species_lower = lc(join('_',(split('_', $spp))[0..1]));
 
     my $data = {
       species            => qq{<em>$scientific</em>},
       bioproject         => qq{$bioproject},
-      genomic            => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz">FASTA</a>},
-      genomic_masked     => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
-      genomic_softmasked => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
-      annotations        => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.annotations.gff3.gz">GFF3</a> / <a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.canonical_geneset.gtf.gz">GTF</a>},
-      proteins           => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.protein.fa.gz">FASTA</a>},
-      mRNA_transcripts   => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
-      CDS_transcripts    => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
+      genomic            => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.genomic.fa.gz">FASTA</a>},
+      genomic_masked     => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.genomic_masked.fa.gz">FASTA</a>},
+      genomic_softmasked => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.genomic_softmasked.fa.gz">FASTA</a>},
+      annotations        => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.annotations.gff3.gz">GFF3</a> / <a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.canonical_geneset.gtf.gz">GTF</a>},
+      proteins           => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.protein.fa.gz">FASTA</a>},
+      mRNA_transcripts   => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
+      CDS_transcripts    => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
     };
     push(@rows, $data);
   }
