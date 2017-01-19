@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [2014-2016] EMBL-European Bioinformatics Institute
+Copyright [2014-2017] EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ sub content {
 ## ParaSite: can't use the species name as it contains the BioProject 
   my $species     = $hub->species_defs->SPECIES_SCIENTIFIC_NAME;
   my $gxa_url     = $SiteDefs::GXA_EBI_URL;
+  my $gxa_gene_url = $SiteDefs::GXA_REST_URL;
 ##
   my $html;
 
@@ -41,7 +42,7 @@ sub content {
     $html = $self->_info_panel("error", "Gene expression atlas site down!", "<p>The widget cannot be displayed as the gene expression atlas site is down. Please check again later.</p>");
   } else {
     #this script tag has been kept here as it was easier to call the perl param within the script tag (the js file wasn't getting the param)
-    $html = sprintf '<input class="panel_type" value="GXA" type="hidden" /><input type="hidden" class="js_param" name="geneId" value="%s" /><input type="hidden" class="js_param" name="species" value="%s" /><input type="hidden" class="js_param" name="gxa_url" value="%s" />', $stable_id, $species, $gxa_url;
+    $html = sprintf '<input class="panel_type" value="GXA" type="hidden" /><input type="hidden" class="js_param" name="geneId" value="%s" /><input type="hidden" class="js_param" name="species" value="%s" /><input type="hidden" class="js_param" name="gxa_url" value="%s" /><input type="hidden" class="js_param" name="gxa_gene_url" value="%s" />', $stable_id, $species, $gxa_url, $gxa_gene_url;
   }
 
   return $html;
