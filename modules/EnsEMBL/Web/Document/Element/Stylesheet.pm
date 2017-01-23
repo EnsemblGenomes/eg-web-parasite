@@ -54,7 +54,7 @@ sub content {
   return $main_css unless $self->hub->action && $self->hub->action eq 'ExpressionAtlas' && $self->hub->gxa_status;; #adding stylesheet only for gene expression atlas view
 
   $main_css .=  qq{
-    <link rel="stylesheet" type="text/css" href="$SiteDefs::GXA_EBI_URL/css/customized-bootstrap-3.3.5.css">
+    <link rel="stylesheet" type="text/css" href="$SiteDefs::GXA_EBI_URL/css/alt-customized-bootstrap-3.3.5.css">
   };
 
   return  $main_css;
