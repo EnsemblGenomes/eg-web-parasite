@@ -16,7 +16,7 @@ limitations under the License.
 
 =cut
 
-package EnsEMBL::Web::Component;
+package EnsEMBL::Web::Utils::FormatText;
 
 use strict;
 
