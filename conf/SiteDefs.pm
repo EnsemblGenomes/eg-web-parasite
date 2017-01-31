@@ -103,6 +103,7 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Dictyocaulus_viviparus_prjna72587'} = [qw(dictyocaulus_viviparus_prjna72587 Dictyocaulus_viviparus_prjna72587)];
     $SiteDefs::__species_aliases{'Diphyllobothrium_latum_prjeb1206'} = [qw(diphyllobothrium_latum_prjeb1206 Diphyllobothrium_latum_prjeb1206)];
     $SiteDefs::__species_aliases{'Dirofilaria_immitis_prjeb1797'} = [qw(dirofilaria_immitis_prjeb1797 Dirofilaria_immitis_prjeb1797)];
+    $SiteDefs::__species_aliases{'Ditylenchus_destructor_prjna312427'} = [qw(ditylenchus_destructor_prjna312427 Ditylenchus_destructor_prjna312427)];
     $SiteDefs::__species_aliases{'Dracunculus_medinensis_prjeb500'} = [qw(dracunculus_medinensis_prjeb500 Dracunculus_medinensis_prjeb500)];
     $SiteDefs::__species_aliases{'Echinococcus_canadensis_prjeb8992'} = [qw(echinococcus_canadensis_prjeb8992 Echinococcus_canadensis_prjeb8992)];
     $SiteDefs::__species_aliases{'Echinococcus_granulosus_prjeb121'} = [qw(echinococcus_granulosus_prjeb121 Echinococcus_granulosus_prjeb121)];

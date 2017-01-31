@@ -23,7 +23,7 @@ Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
     this.elLk.target = this.el.append('<div id="expression_atlas">');
 
     $.ajax({
-      url: this.params.gxa_url + '/json/expressionData?geneId=' + this.params.geneId,
+      url: this.params.gxa_gene_url + this.params.geneId,
       dataType: 'json',
       context: this,
       success: function(json) {
@@ -43,9 +43,11 @@ Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
     var panel = this;
     if ('expressionAtlasHeatmapHighcharts' in window) {
       try {
+        var atlasHost = this.params.gxa_url.replace("/gxa/resources", "");
         expressionAtlasHeatmapHighcharts.render({
           params:'geneQuery=' + this.params.geneId + '&species=' + this.params.species + '&source=DEVELOPMENTAL_STAGE',
           isMultiExperiment: true,
+          atlasHost: atlasHost,
           showAnatomogram: false,
           analyticsSearch: true,
           target : this.elLk.target.attr('id'),
