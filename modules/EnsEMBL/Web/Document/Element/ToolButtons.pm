@@ -47,6 +47,7 @@ sub init {
     $self->add_entry({
       caption => $view_config->type eq 'Location' ? 'Configure tracks' : 'Configure this page',
       class   => $view_config->type eq 'Location' ? 'modal_link config-tracks' : 'modal_link',
+      icon    => 'config',
       rel     => "modal_config_$component",
       url     => $hub->url('Config', {
         type      => $view_config->type,
@@ -59,6 +60,7 @@ sub init {
      $self->add_entry({
        caption => 'Add RNA-Seq tracks',
        class   => 'modal_link config-tracks config',
+       icon    => 'data',
        rel     => "modal_config_$component",
        url     => $hub->url('Config', {
           type     => $view_config->type,
@@ -72,6 +74,7 @@ sub init {
       $self->add_entry({
         caption => 'Add custom tracks',
         class   => 'modal_link',
+        icon    => 'data',
         rel     => 'modal_user_data',
         url     => $hub->url({
           time    => time,
@@ -87,12 +90,14 @@ sub init {
     $self->add_entry({
       caption => 'Export data',
       class   => 'modal_link',
+      icon    => 'export',
       url     => $self->export_url($hub)
     });
   }
 
   $self->add_entry({
     caption => 'Share this page',
+    icon    => 'share',
     url     => $hub->url('Share', {
       __clear => 1,
       create  => 1,
