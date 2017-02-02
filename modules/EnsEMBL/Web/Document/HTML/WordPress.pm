@@ -20,11 +20,10 @@ package EnsEMBL::Web::Document::HTML::WordPress;
 
 use strict;
 use warnings;
-use Data::Dumper;
+
+use EnsEMBL::LWP_UserAgent;
 use JSON;
-use LWP;
 use URI;
-use Net::SSL;
 use DateTime;
 use DateTime::Duration;
 use DateTime::Format::ISO8601;
@@ -39,37 +38,14 @@ sub render {
 
   my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
 
-  $ENV{HTTPS_PROXY} = $species_defs->ENSEMBL_WWW_PROXY;
-  my $ua = LWP::UserAgent->new(
-    ssl_opts => { verify_hostname => 0 },
-  );
-  $ua->agent('ParaSite Web ' . $ua->agent());
-  $ua->env_proxy;
-  $ua->proxy(['http', 'https'], $species_defs->ENSEMBL_WWW_PROXY);
-  $ua->timeout(2);
-  
-  my $URL = 'https://public-api.wordpress.com/rest/v1.1/sites/wbparasite.wordpress.com/posts/?number=5';
-
-  my $req = HTTP::Request->new('GET', $URL);
-  
-  my $response = $ua->request($req);
-  my $content  = $response->content;
-  
-  if ($response->is_error) {
-    warn 'WormBase blog error: ' . $response->status_line;
-    return '';
-  }
-  
-  $debug && warn "Response " . $content;
-  my $output = from_json($content);
-  
   # Render the posts
   my $html;
 
   # Put the 'sticky' posts at the top
+  my $sticky_posts = get_wordpress_posts("sticky=require");
   my $announce_html;
   my $announce_count = 0;
-  foreach my $post (@{$output->{'posts'}}) {
+  foreach my $post (@{$sticky_posts->{'posts'}}) {
     next if $post->{'tags'}->{'Hidden'};
     next unless $post->{'sticky'};
     $announce_html .= print_post($post);
@@ -78,8 +54,9 @@ sub render {
   $html .= sprintf(qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2>%s</div>), $announce_html) if $announce_count > 0;
 
   # Then everything else
+  my $posts = get_wordpress_posts("number=4&sticky=exclude");
   $html .= qq(<div class="blog-story round-box home-box"><h2 data-social-icon="R">Blog</h2>);
-  foreach my $post (@{$output->{'posts'}}) {
+  foreach my $post (@{$posts->{'posts'}}) {
     next if $post->{'tags'}->{'Hidden'};
     next if $post->{'sticky'};
     $html .= print_post($post);
@@ -89,6 +66,23 @@ sub render {
   
   return $html;
 
+}
+
+sub get_wordpress_posts {
+  my ($params) = @_;
+
+  my $url = "https://public-api.wordpress.com/rest/v1.1/sites/wbparasite.wordpress.com/posts/?$params";
+  my $uri = URI->new($url);
+
+  my $response = EnsEMBL::LWP_UserAgent->user_agent->get($uri->as_string);
+  my $content  = $response->content;
+
+  if ($response->is_error) {
+    warn 'WormBase blog error: ' . $response->status_line;
+    return '';
+  }
+
+  return from_json($content);
 }
 
 sub print_post {
@@ -122,7 +116,7 @@ sub print_post {
   }
 
   $html .= qq(<h3><a class="blog-link" rel="notexternal" href="$post->{'URL'}">$post->{'title'}</a></h3>);
-  $html .= qq(<h4 title="$date_formatted">posted $date_pretty</h4>);
+  $html .= qq(<h4><span title="$date_formatted">posted $date_pretty</span> by <a href="https://wbparasite.wordpress.com/author/$post->{'author'}->{'nice_name'}/" rel="notexternal">$post->{'author'}->{'name'}</a></h4>);
   $post->{'excerpt'} =~ s/<[\/]*p>//g;
   $post->{'excerpt'} =~ s/\[\&hellip;\]/<a rel="notexternal" href="$post->{'URL'}">\[read&nbsp;more\]<\/a>/g;
   $html .= qq(<p>$post->{'excerpt'}</p>);
