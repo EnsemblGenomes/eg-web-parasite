@@ -78,7 +78,6 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Ancylostoma_ceylanicum_prjna72583'} = [qw(ancylostoma_ceylanicum_prjna72583 Ancylostoma_ceylanicum_prjna72583)];
     $SiteDefs::__species_aliases{'Ancylostoma_duodenale_prjna72581'} = [qw(ancylostoma_duodenale_prjna72581 Ancylostoma_duodenale_prjna72581)];
     $SiteDefs::__species_aliases{'Angiostrongylus_cantonensis_prjeb493'} = [qw(angiostrongylus_cantonensis_prjeb493 Angiostrongylus_cantonensis_prjeb493)];
-    $SiteDefs::__species_aliases{'Angiostrongylus_cantonensis_prjna260338'} = [qw(angiostrongylus_cantonensis_prjna260338 Angiostrongylus_cantonensis_prjna260338)];
     $SiteDefs::__species_aliases{'Angiostrongylus_costaricensis_prjeb494'} = [qw(angiostrongylus_costaricensis_prjeb494 Angiostrongylus_costaricensis_prjeb494)];
     $SiteDefs::__species_aliases{'Anisakis_simplex_prjeb496'} = [qw(anisakis_simplex_prjeb496 Anisakis_simplex_prjeb496)];
     $SiteDefs::__species_aliases{'Ascaris_lumbricoides_prjeb4950'} = [qw(ascaris_lumbricoides_prjeb4950 Ascaris_lumbricoides_prjeb4950)];
@@ -87,7 +86,6 @@ sub update_conf {
     $SiteDefs::__species_aliases{'Brugia_malayi_prjna10729'} = [qw(brugia_malayi_prjna10729 Brugia_malayi_prjna10729)];
     $SiteDefs::__species_aliases{'Brugia_pahangi_prjeb497'} = [qw(brugia_pahangi_prjeb497 Brugia_pahangi_prjeb497)];
     $SiteDefs::__species_aliases{'Brugia_timori_prjeb4663'} = [qw(brugia_timori_prjeb4663 Brugia_timori_prjeb4663)];
-    $SiteDefs::__species_aliases{'Brugia_pahangi_prjna263436'} = [qw(brugia_pahangi_prjna263436 Brugia_pahangi_prjna263436)];
     $SiteDefs::__species_aliases{'Bursaphelenchus_xylophilus_prjea64437'} = [qw(bursaphelenchus_xylophilus_prjea64437 Bursaphelenchus_xylophilus_prjea64437)];
     $SiteDefs::__species_aliases{'Caenorhabditis_angaria_prjna51225'} = [qw(caenorhabditis_angaria Caenorhabditis_angaria caenorhabditis_angaria_prjna51225 Caenorhabditis_angaria_prjna51225)];
     $SiteDefs::__species_aliases{'Caenorhabditis_brenneri_prjna20035'} = [qw(caenorhabditis_brenneri Caenorhabditis_brenneri caenorhabditis_brenneri_prjna20035 Caenorhabditis_brenneri_prjna20035)];
