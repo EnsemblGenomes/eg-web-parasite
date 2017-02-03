@@ -63,7 +63,7 @@ sub get_form_details {
       },
 
       uniprot => {
-        'label'   => 'Uniprot',
+        'label'   => 'UniProt',
         'helptip' => 'Report identifiers from SWISSPROT, TrEMBL and UniParc',
       },
 
