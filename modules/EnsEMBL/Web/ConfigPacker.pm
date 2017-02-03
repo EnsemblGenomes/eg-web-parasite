@@ -25,6 +25,8 @@ use JSON;
 use Data::Dumper;
 use EnsEMBL::LWP_UserAgent;
 
+use use Bio::EnsEMBL::Utils::MetaData::DBSQL::GenomeInfoAdaptor;
+
 use previous qw(munge_config_tree);
 
 sub _munge_meta {
