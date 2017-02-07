@@ -139,14 +139,14 @@ sub content {
   
   push(@right_sections, $self->_assembly_stats);
 
-  push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
-
   push(@left_sections, $self->_downloads_text);
 
   push(@left_sections, $self->_tools_text);
 
   push(@left_sections, $self->_publications_text) if $self->_other_text('publications', $species);
 
+  push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
+  
   $html .= '<div class="column-wrapper"><div class="column-two"><div class="column-padding">'; 
   for my $section (@left_sections){
     $html .= sprintf(qq{<div class="round-box home-box">%s</div>}, $section);
