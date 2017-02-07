@@ -223,7 +223,7 @@ sub _navlinks_text {
 
   # Karyotype image  
   if (@{$species_defs->ENSEMBL_CHROMOSOMES || []}) {
-    $html .= sprintf('<a class="nodeco _ht" href="/%s/Location/Genome" title="Go to %s karyotype"><img src="%s96/karyotype.png" class="bordered" /><span>View karyotype</span></a>', $species, $name, $img_url);
+    $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="/%s/Location/Genome" title="Go to %s karyotype"><img src="%s96/karyotype.png" class="bordered" /><span>View karyotype</span></a></div>', $species, $name, $img_url);
   }
 
   # JBrowse genome browser link
