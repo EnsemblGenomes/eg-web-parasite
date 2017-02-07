@@ -135,10 +135,6 @@ sub content {
   
   push(@left_sections, $self->_assembly_text);
 
-  if ($self->has_compara or $self->has_pan_compara) {
-    push(@left_sections, $self->_compara_text);
-  }
-
   push(@right_sections, $self->_navlinks_text) if $species_defs->SAMPLE_DATA && $species_defs->SAMPLE_DATA->{GENE_PARAM};
   
   push(@right_sections, $self->_assembly_stats);
@@ -229,76 +225,18 @@ sub _navlinks_text {
   my $gene_url  = $species_defs->species_path . '/Gene/Summary?g=' . $sample_data->{'GENE_PARAM'};
   $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene %s"><img src="%s96/gene.png" class="bordered" /><br /><span>Example gene page</span></a></div>', $gene_url, $gene_text, $img_url);
 
+  # Gene tree
+  if($self->has_compara && $self->has_compara('GeneTree')) {
+    my $tree_text = $sample_data->{'GENE_TEXT'};
+    my $tree_url  = $species_defs->species_path . '/Gene/Compara_Tree?g=' . $sample_data->{'GENE_PARAM'};
+    $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene tree for %s"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></a></div>', $tree_url, $tree_text, $img_url);
+  } else {
+    $html .= sprintf('<div class="species-nav-icon"><span class="nodeco _ht" title="Genome not included in comparative genomics"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></span></div>', $img_url);
+
+  }
+
   $html .= '</div>';
   return $html; 
-}
-
-sub _compara_text {
-  my $self            = shift;
-  my $hub             = $self->hub;
-  my $species_defs    = $hub->species_defs;
-  my $species         = $hub->species;
-  my $img_url         = $self->img_url;
-  my $sample_data     = $species_defs->SAMPLE_DATA;
-  my $ensembl_version = $species_defs->SITE_RELEASE_VERSION;
-
-  my $html = '<div class="homepage-icon">';
-  
-  my $tree_text = $sample_data->{'GENE_TEXT'};
-  my $tree_url  = $species_defs->species_path . '/Gene/Compara_Tree?g=' . $sample_data->{'GENE_PARAM'};
-
-  # EG genetree
-  $html .= qq(
-    <a class="nodeco _ht" href="$tree_url" title="Go to gene tree for $tree_text"><img src="${img_url}96/compara.png" class="bordered" /><span>Example gene tree</span></a>
-  ) if $self->has_compara('GeneTree');
-
-  # EG family
-  if ($self->is_bacteria) {
-
-    $tree_url = $species_defs->species_path . '/Gene/Gene_families?g=' . $sample_data->{'GENE_PARAM'};
-    $html .= qq(
-      <a class="nodeco _ht" href="$tree_url" title="Go to gene families for $tree_text"><img src="${img_url}96/gene_families.png" class="bordered" /><span>Gene families</span></a>
-    ) if $self->has_compara('Family');
-
-  }
-  else {
-
-    $tree_url = $species_defs->species_path . '/Gene/Family?g=' . $sample_data->{'GENE_PARAM'};
-    $html .= qq(
-      <a class="nodeco _ht" href="$tree_url" title="Go to protein families for $tree_text"><span>Protein families</span></a>
-    ) if $self->has_compara('Family');
-
-  }
-
-  # EG pan tree
-  $tree_url = $species_defs->species_path . '/Gene/Compara_Tree/pan_compara?g=' . $sample_data->{'GENE_PARAM'};
-  if ($self->has_pan_compara('GeneTree')) {
-    $html .=
-      $self->is_bacteria
-      ? qq(<a class="nodeco _ht" href="$tree_url" title="Go to pan-taxonomic gene tree for $tree_text"><img src="${img_url}96/compara.png" class="bordered" /><span>Pan-taxonomic tree</span></a>)
-      : qq(<a class="nodeco _ht" href="$tree_url" title="Go to pan-taxonomic gene tree for $tree_text"><span>Pan-taxonomic tree</span></a>);
-  }
-
-  # EG pan family
-  $tree_url = $species_defs->species_path . '/Gene/Family/pan_compara?g=' . $sample_data->{'GENE_PARAM'};
-  $html .= qq(
-    <a class="nodeco _ht" href="$tree_url" title="Go to pan-taxonomic protein families for $tree_text"><span>Pan-taxonomic protein families</span></a>
-  ) if $self->has_pan_compara('Family');
-
-  # /EG
-  $html .= '</div>';
-
-  $html .= '<h2>Comparative genomics</h2>';
-
-  $html .= '<p><strong>What can I find?</strong>  Orthologues, paralogues, and gene trees across multiple species.</p>';
-
-  $html .= qq(<p><a href="/info/Browsing/compara/index.html" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
-
-  my $aligns = EnsEMBL::Web::Component::GenomicAlignments->new($hub)->content;
-  if ($aligns) {
-    $html .= sprintf(qq{<p><div class="js_panel"><img src="%s24/info.png" alt="" class="homepage-link" />Genomic alignments [%s]</div></p>}, $img_url, $aligns);
-  }
-  return $html;
 }
 
 # ParaSite specific Downloads section
