@@ -26,7 +26,6 @@ use EnsEMBL::Web::Document::HTML::HomeSearch;
 use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
 
-use LWP::UserAgent;
 use JSON;
 use List::MoreUtils qw /first_index/;
 
@@ -36,104 +35,6 @@ sub _init {
   my $self = shift;
   $self->cacheable(0);
   $self->ajaxable(0);
-}
-
-sub get_external_sources {
-  my $self = shift;
-
-  my $hub          = $self->hub;
-  my $species_defs = $hub->species_defs;
-
-  my $registry = $species_defs->FILE_REGISTRY_URL || return;
-
-  my $species = $hub->species;
-  my $taxid   = $species_defs->TAXONOMY_ID;
-  return unless $taxid;
-
-  my $url = $registry . '/restapi/resources?taxid=' . $taxid;
-  my $ua  = LWP::UserAgent->new;
-
-  my $response = $ua->get($url);
-  if ($response->is_success) {
-    if (my $sources = decode_json($response->content)) {
-      if ($sources->{'total'}) {
-        return $sources->{'sources'};
-      }
-    }
-  }
-}
-
-sub external_sources {
-  my $self = shift;
-
-  my $sources = $self->get_external_sources;
-  return unless $sources;
-  
-  my $hub          = $self->hub;
-  my $species_defs = $hub->species_defs;
-  my $html;
-
-  my $table = $self->new_table([], [], {
-    data_table        => 1,
-    sorting           => ['id asc'],
-    exportable        => 1,
-    data_table_config => {
-      iDisplayLength => 10
-    },
-#    hidden_columns => [1]
-  });
-
-  my @columns = (
-    {
-      key        => 'id',
-      title      => 'Title',
-      align      => 'left',
-      sort       => 'string',
-      priority   => 2147483647,    # Give transcriptid the highest priority as we want it to be the 1st colum
-      display_id => '',
-      link_text  => ''
-    },
-    {
-      key        => 'desc',
-      title      => 'Description',
-      align      => 'left',
-      sort       => 'string',
-      priority   => 147483647,
-      display_id => '',
-      link_text  => ''
-    },
-    {
-      key        => 'link',
-      title      => 'Attach',
-      display_id => '',
-      link_text  => '',
-      sort       => 'no'
-    },
-  );
-
-  my @rows;
-
-  my $sample_data = $species_defs->SAMPLE_DATA;
-  my $region_url  = $species_defs->species_path . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
-
-  foreach my $src (@$sources) {
-    my $link = sprintf('<a target="extfiles" href="%s;contigviewbottom=url:%s"><img src="/i/96/region.png" style="height:16px" /></a>', $region_url, $src->{'url'});
-    my $row = {
-      id   => $src->{'title'},
-      desc => $src->{'desc'},
-      link => $link
-    };
-    push @rows, $row;
-  }
-
-  @columns = sort { $b->{'priority'} <=> $a->{'priority'} || $a->{'title'} cmp $b->{'title'} || $a->{'link_text'} cmp $b->{'link_text'} } @columns;
-  $table->add_columns(@columns);
-  $table->add_rows(@rows);
-
-  $html .= '<h3>External resources</h3> <p> The following external datasets can be viewed in the browser. Just click on the attach icon to go to the location view.</p>' . $table->render;
-
-  return $html;
-
 }
 
 sub content {
@@ -181,17 +82,6 @@ sub content {
   $html .= '</p>';
   $html .= '</div>'; #species-badge
 
-  $html .= EnsEMBL::Web::Document::HTML::HomeSearch->new($hub)->render;
-
-  $html .= '<div class="box-right">';
-  
-  if ($hub->species_defs->multidb->{'DATABASE_PRODUCTION'}{'NAME'}) {
-    $html .= '<div class="round-box info-box unbordered">' . $self->_whatsnew_text . '</div>';
-  } elsif (my $ack_text = $self->_other_text('acknowledgement', $species)) {
-    $html .= '<div class="plain-box round-box unbordered">' . $ack_text . '</div>';
-  }
-
-  $html .= '</div>'; # box-right
   $html .= '</div>'; # column-wrapper
 
   # Check for other genome projects for this species
@@ -228,7 +118,7 @@ sub content {
   $about_text .= $alt_string if $alt_count > 0;
   if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
-    $html .= "<h2>About <em>$display_name</em> $alias_list</h2>";
+    $html .= sprintf('<h2 data-generic-icon="i">About <em>%s</em> %s</h2>', $display_name, $alias_list);
     $html .= $about_text;
     $html .= '</div></div>';
   }
@@ -244,25 +134,19 @@ sub content {
   my @right_sections;
   
   push(@left_sections, $self->_assembly_text);
-  push(@left_sections, $self->_genebuild_text) if $species_defs->SAMPLE_DATA && $species_defs->SAMPLE_DATA->{GENE_PARAM};
 
-  if ($self->has_compara or $self->has_pan_compara) {
-    push(@left_sections, $self->_compara_text);
-  }
-
-  push(@right_sections, sprintf('<h2>Statistics</h2>%s', $self->species_stats));
-
+  push(@right_sections, $self->_navlinks_text) if $species_defs->SAMPLE_DATA && $species_defs->SAMPLE_DATA->{GENE_PARAM};
+  
   push(@right_sections, $self->_assembly_stats);
-
-  push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
 
   push(@left_sections, $self->_downloads_text);
 
   push(@left_sections, $self->_tools_text);
 
-  my $other_text = $self->_other_text('other', $species);
-  push(@left_sections, $other_text) if $other_text =~ /\w/;
+  push(@left_sections, $self->_publications_text) if $self->_other_text('publications', $species);
 
+  push(@left_sections, $self->_resources_text) if $self->_other_text('resources', $species);
+  
   $html .= '<div class="column-wrapper"><div class="column-two"><div class="column-padding">'; 
   for my $section (@left_sections){
     $html .= sprintf(qq{<div class="round-box home-box">%s</div>}, $section);
@@ -289,183 +173,86 @@ sub _assembly_text {
   my $hub              = $self->hub;
   my $species_defs     = $hub->species_defs;
   my $species          = $hub->species;
-  my $name             = $species_defs->SPECIES_COMMON_NAME;
-  my $img_url          = $self->img_url;
-  my $sample_data      = $species_defs->SAMPLE_DATA;
-  my $ensembl_version  = $self->_site_release;
-  my $current_assembly = $species_defs->ASSEMBLY_NAME;
-  my $accession        = $species_defs->ASSEMBLY_ACCESSION;
-  my $source           = $species_defs->ASSEMBLY_ACCESSION_SOURCE || 'NCBI';
-  my $source_type      = $species_defs->ASSEMBLY_ACCESSION_TYPE;
- #my %archive          = %{$species_defs->get_config($species, 'ENSEMBL_ARCHIVES') || {}};
-  my %assemblies       = %{$species_defs->get_config($species, 'ASSEMBLIES') || {}};
-  my $previous         = $current_assembly;
+  my $html;
+  
   my $assembly_description = $self->_other_text('assembly', $species);
   $assembly_description =~ s/<h2>.*<\/h2>//; # Remove the header
-
-  my $html = '<div class="homepage-icon">';
-
-  if (@{$species_defs->ENSEMBL_CHROMOSOMES || []}) {
-    $html .= qq(<a class="nodeco _ht" href="/$species/Location/Genome" title="Go to $name karyotype"><img src="${img_url}96/karyotype.png" class="bordered" /><span>View karyotype</span></a>);
-  }
-
-  my $region_text = $sample_data->{'LOCATION_TEXT'};
-  my $region_url  = $species_defs->species_path . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
-
-  $html .= qq(<a class="nodeco _ht" href="$region_url" title="Go to $region_text"><img src="${img_url}96/region.png" class="bordered" /><span>Example region</span></a>);
-  $html .= '</div>'; #homepage-icon
-
-  my $assembly = $current_assembly;
-  if ($accession) {
-    $assembly = $hub->get_ExtURL_link($current_assembly, 'ENA', $accession);
-  }
   $assembly_description = 'Imported from <a href="http://www.wormbase.org">WormBase</a>' if($species_defs->PROVIDER_NAME =~ /^WormBase$/i && !$assembly_description);
-  $html .= "<h2>Genome assembly: $assembly</h2>";
-  $html .= "<p>$assembly_description</p>";
 
-#  # Link to assembly mapper
-#  if ($species_defs->ENSEMBL_AC_ENABLED) {
-#    $html .= sprintf('<a href="%s" class="nodeco"><img src="%s24/tool.png" class="homepage-link" />Convert your data to %s coordinates</a></p>', $hub->url({'type' => 'Tools', 'action' => 'AssemblyConverter'}), $img_url, $current_assembly);
-#  }
-#  elsif (ref($species_defs->ASSEMBLY_MAPPINGS) eq 'ARRAY') {
-#    $html .= sprintf('<a href="%s" class="modal_link nodeco" rel="modal_user_data"><img src="%s24/tool.png" class="homepage-link" />Convert your data to %s coordinates</a></p>', $hub->url({'type' => 'UserData', 'action' => 'SelectFeatures', __clear => 1}), $img_url, $current_assembly);
-#  }
-
-#EG no old assemblies
- ## PREVIOUS ASSEMBLIES
- #my @old_archives;
- #
- ## Insert dropdown list of old assemblies
- #foreach my $release (reverse sort keys %archive) {
- #  next if $release == $ensembl_version;
- #  next if $assemblies{$release} eq $previous;
-
- #  push @old_archives, {
- #    url      => sprintf('http://%s.archive.ensembl.org/%s/', lc $archive{$release},           $species),
- #    assembly => "$assemblies{$release}",
- #    release  => (sprintf '(%s release %s)',                  $species_defs->ENSEMBL_SITETYPE, $release),
- #  };
-
- #  $previous = $assemblies{$release};
- #}
-
- ## Combine archives and pre
- #my $other_assemblies;
- #if (@old_archives) {
- #  $other_assemblies .= join '', map qq(<li><a href="$_->{'url'}" class="nodeco">$_->{'assembly'}</a> $_->{'release'}</li>), @old_archives;
- #}
-
- #my $pre_species = $species_defs->get_config('MULTI', 'PRE_SPECIES');
- #if ($pre_species->{$species}) {
- #  $other_assemblies .= sprintf('<li><a href="http://pre.ensembl.org/%s/" class="nodeco">%s</a> (Ensembl pre)</li>', $species, $pre_species->{$species}[1]);
- #}
-
- #if ($other_assemblies) {
- #  $html .= qq(
- #    <h3 style="color:#808080;padding-top:8px">Other assemblies</h3>
- #    <ul>$other_assemblies</ul>
- #  );
- #}
-
-  return $html;
-}
-
-sub _genebuild_text {
-  my $self            = shift;
-  my $hub             = $self->hub;
-  my $species_defs    = $hub->species_defs;
-  my $species         = $hub->species;
-  my $img_url         = $self->img_url;
-  my $sample_data     = $species_defs->SAMPLE_DATA;
-  my $ensembl_version = $self->_site_release;
-  my $vega            = $species_defs->get_config('MULTI', 'ENSEMBL_VEGA');
-  my $has_vega        = $vega->{$species};
   my $annotation_description = $self->_other_text('annotation', $species);
   $annotation_description =~ s/<h2>.*<\/h2>//; # Remove the header
 
-  my $html = '<div class="homepage-icon">';
-
-  my $gene_text = $sample_data->{'GENE_TEXT'};
-  my $gene_url  = $species_defs->species_path . '/Gene/Summary?g=' . $sample_data->{'GENE_PARAM'};
-  $html .= qq(<a class="nodeco _ht" href="$gene_url" title="Go to gene $gene_text"><img src="${img_url}96/gene.png" class="bordered" /><span>Example gene</span></a>);
-
-#  my $trans_text = $sample_data->{'TRANSCRIPT_TEXT'};
-#  my $trans_url  = $species_defs->species_path . '/Transcript/Summary?t=' . $sample_data->{'TRANSCRIPT_PARAM'};
-#  $html .= qq(<a class="nodeco _ht" href="$trans_url" title="Go to transcript $trans_text"><img src="${img_url}96/transcript.png" class="bordered" /><span>Example transcript</span></a>);
-
-  $html .= '</div>'; #homepage-icon
-
-  $html .= "<h2>Gene annotation</h2><p>$annotation_description</p><p><strong>What can I find?</strong> Protein-coding and non-coding genes, splice variants, cDNA and protein sequences, non-coding RNAs.</p>";
-
+  $html .= qq(<h2 data-conceptual-icon="d">Genome Assembly & Annotation</h2>);
+  $html .= "<h3>Assembly</h3><p>$assembly_description</p>" if $assembly_description;
+  $html .= "<h3>Annotation</h3><p>$annotation_description</p>" if $annotation_description;
+  
   return $html;
 }
 
-sub _compara_text {
+sub _publications_text {
+  my $self             = shift;
+  my $hub              = $self->hub;
+  my $species_defs     = $hub->species_defs;
+  my $species          = $hub->species;
+  my $html;
+
+  my $text = $self->_other_text('publications', $species);
+  $text =~ s/<h2>.*<\/h2>//; # Remove the header
+
+  $html .= qq(<h2 data-functional-icon="j">Key Publications</h2>);
+  $html .= "<p>$text</p>" if $text;
+
+  return $html;
+
+}
+
+sub _navlinks_text {
   my $self            = shift;
   my $hub             = $self->hub;
   my $species_defs    = $hub->species_defs;
   my $species         = $hub->species;
-  my $img_url         = $self->img_url;
   my $sample_data     = $species_defs->SAMPLE_DATA;
-  my $ensembl_version = $species_defs->SITE_RELEASE_VERSION;
+  my $name            = $species_defs->SPECIES_COMMON_NAME;
+  my $img_url         = $self->img_url;
 
-  my $html = '<div class="homepage-icon">';
-  
-  my $tree_text = $sample_data->{'GENE_TEXT'};
-  my $tree_url  = $species_defs->species_path . '/Gene/Compara_Tree?g=' . $sample_data->{'GENE_PARAM'};
+  my $html = qq(<h2 data-generic-icon="]">Navigation</h2>);
 
-  # EG genetree
-  $html .= qq(
-    <a class="nodeco _ht" href="$tree_url" title="Go to gene tree for $tree_text"><img src="${img_url}96/compara.png" class="bordered" /><span>Example gene tree</span></a>
-  ) if $self->has_compara('GeneTree');
+  $html .= EnsEMBL::Web::Document::HTML::HomeSearch->new($hub)->render;
 
-  # EG family
-  if ($self->is_bacteria) {
+  $html .= '<div class="species-nav-icons">';
 
-    $tree_url = $species_defs->species_path . '/Gene/Gene_families?g=' . $sample_data->{'GENE_PARAM'};
-    $html .= qq(
-      <a class="nodeco _ht" href="$tree_url" title="Go to gene families for $tree_text"><img src="${img_url}96/gene_families.png" class="bordered" /><span>Gene families</span></a>
-    ) if $self->has_compara('Family');
-
-  }
-  else {
-
-    $tree_url = $species_defs->species_path . '/Gene/Family?g=' . $sample_data->{'GENE_PARAM'};
-    $html .= qq(
-      <a class="nodeco _ht" href="$tree_url" title="Go to protein families for $tree_text"><span>Protein families</span></a>
-    ) if $self->has_compara('Family');
-
+  # Karyotype image  
+  if (@{$species_defs->ENSEMBL_CHROMOSOMES || []}) {
+    $html .= sprintf('<a class="nodeco _ht" href="/%s/Location/Genome" title="Go to %s karyotype"><img src="%s96/karyotype.png" class="bordered" /><span>View karyotype</span></a>', $species, $name, $img_url);
   }
 
-  # EG pan tree
-  $tree_url = $species_defs->species_path . '/Gene/Compara_Tree/pan_compara?g=' . $sample_data->{'GENE_PARAM'};
-  if ($self->has_pan_compara('GeneTree')) {
-    $html .=
-      $self->is_bacteria
-      ? qq(<a class="nodeco _ht" href="$tree_url" title="Go to pan-taxonomic gene tree for $tree_text"><img src="${img_url}96/compara.png" class="bordered" /><span>Pan-taxonomic tree</span></a>)
-      : qq(<a class="nodeco _ht" href="$tree_url" title="Go to pan-taxonomic gene tree for $tree_text"><span>Pan-taxonomic tree</span></a>);
+  # JBrowse genome browser link
+  (my $jbrowse_region = $sample_data->{'LOCATION_PARAM'}) =~ s/-/../;
+  my $jbrowse_url = sprintf("/jbrowse/browser/%s?loc=%s", lc($species), $jbrowse_region);
+  $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to JBrowse"><img src="%s96/region.png" class="bordered" /><br /><span>Genome Browser (JBrowse)</span></a></div>', $jbrowse_url, $img_url);
+
+  # Ensembl powered genome browser link
+  my $region_text = $sample_data->{'LOCATION_TEXT'};
+  my $region_url  = $species_defs->species_path . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
+  $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to %s"><img src="%sgallery/location_view.png" class="bordered" /><br /><span>Genome Browser (Ensembl)</span></a></div>', $region_url, $region_text, $img_url);
+
+  # Gene page
+  my $gene_text = $sample_data->{'GENE_TEXT'};
+  my $gene_url  = $species_defs->species_path . '/Gene/Summary?g=' . $sample_data->{'GENE_PARAM'};
+  $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene %s"><img src="%s96/gene.png" class="bordered" /><br /><span>Example gene page</span></a></div>', $gene_url, $gene_text, $img_url);
+
+  # Gene tree
+  if($self->has_compara && $self->has_compara('GeneTree')) {
+    my $tree_text = $sample_data->{'GENE_TEXT'};
+    my $tree_url  = $species_defs->species_path . '/Gene/Compara_Tree?g=' . $sample_data->{'GENE_PARAM'};
+    $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene tree for %s"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></a></div>', $tree_url, $tree_text, $img_url);
+  } else {
+    $html .= sprintf('<div class="species-nav-icon"><span class="nodeco _ht" title="Genome not included in comparative genomics"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></span></div>', $img_url);
+
   }
 
-  # EG pan family
-  $tree_url = $species_defs->species_path . '/Gene/Family/pan_compara?g=' . $sample_data->{'GENE_PARAM'};
-  $html .= qq(
-    <a class="nodeco _ht" href="$tree_url" title="Go to pan-taxonomic protein families for $tree_text"><span>Pan-taxonomic protein families</span></a>
-  ) if $self->has_pan_compara('Family');
-
-  # /EG
   $html .= '</div>';
-
-  $html .= '<h2>Comparative genomics</h2>';
-
-  $html .= '<p><strong>What can I find?</strong>  Orthologues, paralogues, and gene trees across multiple species.</p>';
-
-  $html .= qq(<p><a href="/info/Browsing/compara/index.html" class="nodeco"><img src="${img_url}24/info.png" alt="" class="homepage-link" />More information and statistics</a></p>);
-
-  my $aligns = EnsEMBL::Web::Component::GenomicAlignments->new($hub)->content;
-  if ($aligns) {
-    $html .= sprintf(qq{<p><div class="js_panel"><img src="%s24/info.png" alt="" class="homepage-link" />Genomic alignments [%s]</div></p>}, $img_url, $aligns);
-  }
-  return $html;
+  return $html; 
 }
 
 # ParaSite specific Downloads section
@@ -487,7 +274,7 @@ sub _downloads_text {
   $bioproject = $species_defs->get_config($species, 'SPECIES_FTP_GENOME_ID');
   my $species_lower = lc(join('_',(split('_', $species))[0..1])); 
 
-  my $html = '<h2>Downloads</h2>';
+  my $html = '<h2 data-functional-icon="=">Downloads</h2>';
   $html .= '<ul>';
   $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz\">Genomic Sequence (FASTA)</a></li>";
   $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz\">Hard-masked Genomic Sequence (FASTA)</a></li>";
@@ -510,7 +297,7 @@ sub _tools_text {
   my $img_url         = $self->img_url;
   my $html;
 
-  $html .= '<h2>Tools</h2>';
+  $html .= '<h2 data-functional-icon="t">Tools</h2>';
 
   $html .= '<ul>';
   my $blast_url = $hub->url({'type' => 'Tools', 'action' => 'Blast', __clear => 1});
@@ -556,9 +343,11 @@ sub _assembly_stats {
   my $hub = $self->hub;
   my $sp = $hub->species;
 
+  my $stats_table = $self->species_stats;
   my $html = qq(
     <div class="js_panel">
-      <h2>Assembly Statistics</h2>
+      <h2 data-functional-icon="z">Assembly Statistics</h2>
+      $stats_table
       <input type="hidden" class="panel_type" value="AssemblyStats" />
       <input type="hidden" id="assembly_file" value="/Multi/Ajax/assembly_stats?species=$sp" />
       <div id="assembly_stats"></div>

@@ -21,6 +21,17 @@
 }
 
 @font-face {
+  font-family: 'EBI-Conceptual';
+  src:url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-Conceptual/fonts/EBI-Conceptual.eot');
+  src:url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-Conceptual/fonts/EBI-Conceptual.eot?#iefix') format('embedded-opentype'),
+    url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-Conceptual/fonts/EBI-Conceptual.woff') format('woff'),
+    url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-Conceptual/fonts/EBI-Conceptual.ttf') format('truetype'),
+    url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-Conceptual/fonts/EBI-Conceptual.svg#EBI-Conceptual') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
         font-family: 'EBI-SocialMedia';
         src:url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-SocialMedia/fonts/EBI-SocialMedia.eot');
         src:url('http://www.ebi.ac.uk/web_guidelines/fonts/EBI-SocialMedia/fonts/EBI-SocialMedia.eot?#iefix') format('embedded-opentype'),
@@ -60,6 +71,15 @@
   -webkit-font-smoothing: antialiased;
   padding-right: 10px;
 }
+[data-conceptual-icon]:before {
+  font-family: 'EBI-Conceptual';
+  content: attr(data-conceptual-icon);
+  speak: none;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  padding-right: 10px;
+}i
 [data-social-icon]:before {
         font-family: 'EBI-SocialMedia';
         content: attr(data-social-icon);

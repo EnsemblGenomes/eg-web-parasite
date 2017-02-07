@@ -34,7 +34,7 @@ my $sql = "SELECT species_name, summary, assembly, annotation, resources, public
 my $sth = $dbh->prepare($sql);
 $sth->execute();
 
-my %keys = (1 => 'summary', 2 => 'assembly', 3 => 'annotation', 4 => 'resources', 5 => 'other');
+my %keys = (1 => 'summary', 2 => 'assembly', 3 => 'annotation', 4 => 'resources', 5 => 'publications');
 my %labels = (1 => 'Summary', 2 => 'Assembly', 3 => 'Annotation', 4 => 'Resources', 5 => 'Key Publications');
 
 while (my $result = $sth->fetchrow_arrayref) {
