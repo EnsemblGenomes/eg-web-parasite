@@ -249,9 +249,10 @@ sub render_hit {
     if ($hit->{location}) {
 ## ParaSite: add WormBase JBrowse link, if available
       my $spp = $hit->{system_name};
-      (my $wb_region = $hit->{location}) =~ s/-/../;
-      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$spp, 'REGION'=>$wb_region, 'HIGHLIGHT'=>''}) : '';
-      $table->add_row("Location", sprintf '<a href="%s/Location/View?r=%s;g=%s;db=">%s</a> %s', $hit->{species_path}, $self->zoom_location($hit->{location}), $hit->{id}, $hit->{location}, $wb_location_url);
+      (my $jbrowse_region = $self->zoom_location($hit->{location})) =~ s/-/../;
+      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('WormBase', uc "$spp\_jbrowse", {'SPECIES'=>$spp, 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''}) : '';
+      my $jbrowse_link = $hub->get_ExtURL('PARASITE_JBROWSE', {'SPECIES'=>lc($spp), 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''});
+      $table->add_row("Location", sprintf '%s<br /><span class="wb-compara-out">[View region in <a href="%s">JBrowse</a> | <a href="%s/Location/View?r=%s;g=%s;db=">Ensembl</a>%s]</span>', $hit->{location}, $jbrowse_link, $hit->{species_path}, $self->zoom_location($hit->{location}), $hit->{id}, $wb_location_url ? " | $wb_location_url" : '');
 ## ParaSite
     } 
     
