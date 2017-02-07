@@ -30,7 +30,7 @@ sub content {
   my $wb_release = $hub->species_defs->WORMBASE_RELEASE_VERSION;
   my $version = sprintf("WBPS%s (WS%s)", $wbps_release, $wb_release);
 
-  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;%s</span>',
+  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;<a href="/info/about/release-log.html">%s</a></span>',
     '/', $self->img_url, 'parasite.png', $alt, $alt, 34, $version
   );
 
