@@ -118,7 +118,7 @@ sub content {
   $about_text .= $alt_string if $alt_count > 0;
   if ($about_text) {
     $html .= '<div class="column-wrapper"><div class="round-box home-box">'; 
-    $html .= "<h2>About <em>$display_name</em> $alias_list</h2>";
+    $html .= sprintf('<h2 data-generic-icon="i">About <em>%s</em> %s</h2>', $display_name, $alias_list);
     $html .= $about_text;
     $html .= '</div></div>';
   }
@@ -145,8 +145,7 @@ sub content {
 
   push(@left_sections, $self->_tools_text);
 
-  my $other_text = $self->_other_text('other', $species);
-  push(@left_sections, $other_text) if $other_text =~ /\w/;
+  push(@left_sections, $self->_publications_text) if $self->_other_text('publications', $species);
 
   $html .= '<div class="column-wrapper"><div class="column-two"><div class="column-padding">'; 
   for my $section (@left_sections){
@@ -183,11 +182,28 @@ sub _assembly_text {
   my $annotation_description = $self->_other_text('annotation', $species);
   $annotation_description =~ s/<h2>.*<\/h2>//; # Remove the header
 
-  $html .= "<h2>Genome Assembly & Annotation</h2>";
+  $html .= qq(<h2 data-conceptual-icon="d">Genome Assembly & Annotation</h2>);
   $html .= "<h3>Assembly</h3><p>$assembly_description</p>" if $assembly_description;
   $html .= "<h3>Annotation</h3><p>$annotation_description</p>" if $annotation_description;
   
   return $html;
+}
+
+sub _publications_text {
+  my $self             = shift;
+  my $hub              = $self->hub;
+  my $species_defs     = $hub->species_defs;
+  my $species          = $hub->species;
+  my $html;
+
+  my $text = $self->_other_text('publications', $species);
+  $text =~ s/<h2>.*<\/h2>//; # Remove the header
+
+  $html .= qq(<h2 data-functional-icon="j">Key Publications</h2>);
+  $html .= "<p>$text</p>" if $text;
+
+  return $html;
+
 }
 
 sub _navlinks_text {
@@ -199,7 +215,7 @@ sub _navlinks_text {
   my $name            = $species_defs->SPECIES_COMMON_NAME;
   my $img_url         = $self->img_url;
 
-  my $html = "<h2>Navigation</h2>";
+  my $html = qq(<h2 data-generic-icon="]">Navigation</h2>);
 
   $html .= EnsEMBL::Web::Document::HTML::HomeSearch->new($hub)->render;
 
@@ -258,7 +274,7 @@ sub _downloads_text {
   $bioproject = $species_defs->get_config($species, 'SPECIES_FTP_GENOME_ID');
   my $species_lower = lc(join('_',(split('_', $species))[0..1])); 
 
-  my $html = '<h2>Downloads</h2>';
+  my $html = '<h2 data-functional-icon="=">Downloads</h2>';
   $html .= '<ul>';
   $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic.fa.gz\">Genomic Sequence (FASTA)</a></li>";
   $html .= "<li><a href=\"$ftp_base_path_stub/species/$species_lower/$bioproject/$species_lower.$bioproject.WBPS$rel.genomic_masked.fa.gz\">Hard-masked Genomic Sequence (FASTA)</a></li>";
@@ -281,7 +297,7 @@ sub _tools_text {
   my $img_url         = $self->img_url;
   my $html;
 
-  $html .= '<h2>Tools</h2>';
+  $html .= '<h2 data-functional-icon="t">Tools</h2>';
 
   $html .= '<ul>';
   my $blast_url = $hub->url({'type' => 'Tools', 'action' => 'Blast', __clear => 1});
@@ -330,7 +346,7 @@ sub _assembly_stats {
   my $stats_table = $self->species_stats;
   my $html = qq(
     <div class="js_panel">
-      <h2>Assembly Statistics</h2>
+      <h2 data-functional-icon="z">Assembly Statistics</h2>
       $stats_table
       <input type="hidden" class="panel_type" value="AssemblyStats" />
       <input type="hidden" id="assembly_file" value="/Multi/Ajax/assembly_stats?species=$sp" />
