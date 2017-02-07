@@ -37,6 +37,9 @@ div.homepage-icon a img { margin-bottom: 4px; }
 
 img.homepage-link { height:24px; width:24px; vertical-align:middle; margin-right:8px; }
 
+div.species-nav-icon { text-align: center; display: inline-block; max-width: 120px; margin-right: 12px; margin-bottom: 12px; vertical-align: top; }
+div.species-nav-icon img { width: 96px; height: 66px; }
+
 img.karyomap   { text-align: center; margin: auto; }
 img.flash      { margin: 20px auto; }
 
