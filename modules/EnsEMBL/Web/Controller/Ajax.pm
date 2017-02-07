@@ -47,6 +47,7 @@ sub ajax_search_autocomplete {
 ## Has the user entered the name of a tool?
   push(@matches, { value=>'FTP Downloads', url=>'/ftp.html', type=>'WormBase ParaSite Tools' }) if $term =~ /ftp|download/i;
   push(@matches, { value=>'BLAST Sequence Search', url=>'/Tools/Blast?db=core', type=>'WormBase ParaSite Tools' }) if $term =~ /blast/i;
+  push(@matches, { valie=>'Variant Effect Predictor', url=>'/Tools/VEP', type=>'WormBase ParaSite Tools' }) if $term =~ /vep|variant|variation/i;
   push(@matches, { value=>'REST API', url=>'/rest', type=>'WormBase ParaSite Tools' }) if $term =~ /rest|api/i;
   push(@matches, { value=>'WormBase ParaSite BioMart', url=>'/biomart/martview', type=>'WormBase ParaSite Tools' }) if $term =~ /biomart|mart|wormmine|wormmart|intermine/;
   push(@matches, { value=>'WormMine', url=>'http://www.wormbase.org/tools/wormmine', type=>'WormBase Tools' }) if $term =~ /wormmine|wormmart|intermine/;
