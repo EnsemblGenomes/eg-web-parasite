@@ -1,6 +1,37 @@
 Ensembl.updateURL = function (params, inputURL) {
 
-//ParaSite: update the JBrowse link, if present
+//ParaSite: update the JBrowse links, if present
+  if($('#jbrowse-wbps-link').length && !inputURL) {
+    var url = $('#jbrowse-wbps-link').attr('href');
+    // Start by splitting the JBrowse URL into it's component parts
+    var tempURL = url.split("?");
+    var baseURL = tempURL[0];
+    var paramURL = tempURL[1].split("&");
+    var jbrowseParams = {};
+    for (var i in paramURL) {
+      var parts = paramURL[i].split("=");
+      jbrowseParams[parts[0]] = parts[1];
+    }
+    // Now replace the relevant parameters
+    for (var i in params) {
+      if(i == 'r') {
+        jbrowseParams['loc'] = params[i].replace('-', '..');
+      } else if(i == 'mr') {
+        if(typeof params[i] !== 'undefined' && params[i] !== false) {
+          jbrowseParams['highlight'] = params[i].replace('-', '..');
+        } else {
+          jbrowseParams['highlight'] = '';
+        }
+      }
+    }
+    //Finally, reconstruct the URL and replace in the DOM
+    var newParams = [];
+    for (var i in jbrowseParams) {
+      newParams.push(i + '=' + jbrowseParams[i]);
+    }
+    var newURL = baseURL + '?' + newParams.join('&');
+    $('#jbrowse-wbps-link').attr('href', newURL);
+  }
   if($('#jbrowse-link').length && !inputURL) {
     var url = $('#jbrowse-link').attr('href');
     // Start by splitting the JBrowse URL into it's component parts
