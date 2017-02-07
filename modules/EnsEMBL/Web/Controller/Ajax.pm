@@ -49,8 +49,8 @@ sub ajax_search_autocomplete {
   push(@matches, { value=>'BLAST Sequence Search', url=>'/Tools/Blast?db=core', type=>'WormBase ParaSite Tools' }) if $term =~ /blast/i;
   push(@matches, { valie=>'Variant Effect Predictor', url=>'/Tools/VEP', type=>'WormBase ParaSite Tools' }) if $term =~ /vep|variant|variation/i;
   push(@matches, { value=>'REST API', url=>'/rest', type=>'WormBase ParaSite Tools' }) if $term =~ /rest|api/i;
-  push(@matches, { value=>'WormBase ParaSite BioMart', url=>'/biomart/martview', type=>'WormBase ParaSite Tools' }) if $term =~ /biomart|mart|wormmine|wormmart|intermine/;
-  push(@matches, { value=>'WormMine', url=>'http://www.wormbase.org/tools/wormmine', type=>'WormBase Tools' }) if $term =~ /wormmine|wormmart|intermine/;
+  push(@matches, { value=>'WormBase ParaSite BioMart', url=>'/biomart/martview', type=>'WormBase ParaSite Tools' }) if $term =~ /biomart|mart|wormmine|wormmart|intermine/i;
+  push(@matches, { value=>'WormMine', url=>'http://www.wormbase.org/tools/wormmine', type=>'WormBase Tools' }) if $term =~ /wormmine|wormmart|intermine/i;
   push(@matches, { value=>'WormBase Central', url=>'http://www.wormbase.org', type=>'WormBase Tools' }) if $term =~ /wormbase|legacy/i;
   push(@matches, { value=>'Full Species List', url=>'/species.html', type=>'Documentation' }) if $term =~ /species/i;
   push(@matches, { value=>'Data Usage Policy', url=>'/info/about/datausage.html', type=>'Documentation' }) if $term =~ /data usage|citation|cite/i;
