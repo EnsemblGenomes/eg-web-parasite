@@ -183,7 +183,7 @@ sub _assembly_text {
   my $annotation_description = $self->_other_text('annotation', $species);
   $annotation_description =~ s/<h2>.*<\/h2>//; # Remove the header
 
-  $html .= "<h2>About this genome</h2>";
+  $html .= "<h2>Genome Assembly & Annotation</h2>";
   $html .= "<h3>Assembly</h3><p>$assembly_description</p>" if $assembly_description;
   $html .= "<h3>Annotation</h3><p>$annotation_description</p>" if $annotation_description;
   
