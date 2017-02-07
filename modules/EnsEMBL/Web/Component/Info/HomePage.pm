@@ -234,7 +234,7 @@ sub _navlinks_text {
   # Ensembl powered genome browser link
   my $region_text = $sample_data->{'LOCATION_TEXT'};
   my $region_url  = $species_defs->species_path . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
-  $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to %s"><img src="%sgallery/location_view.png" class="bordered" /><br /><span>Genome Browser (embedded)</span></a></div>', $region_url, $region_text, $img_url);
+  $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to %s"><img src="%sgallery/location_view.png" class="bordered" /><br /><span>Genome Browser (Ensembl)</span></a></div>', $region_url, $region_text, $img_url);
 
   # Gene page
   my $gene_text = $sample_data->{'GENE_TEXT'};
