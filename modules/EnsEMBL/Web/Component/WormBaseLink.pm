@@ -41,7 +41,14 @@ sub content {
   my $species = $hub->species;
   my $html;
 
-  # Link to JBrowse
+  # Link to ParaSite JBrowse
+  (my $region = $hub->param('r')) =~ s/-/../;
+  (my $highlight = $hub->param('mr')) =~ s/-/../;
+  $html .= '<br />' if $html;
+  $html .= $hub->get_ExtURL_link('[View region in JBrowse]', 'PARASITE_JBROWSE', {'SPECIES'=>lc($species), 'REGION'=>$region, 'HIGHLIGHT'=>$highlight});
+  $html =~ s/<a /<a id="jbrowse-wbps-link" /;
+
+  # Link to WormBase JBrowse
   if($hub->param('r') && defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$species\_JBROWSE")})) {
     (my $region = $hub->param('r')) =~ s/-/../;
     (my $highlight = $hub->param('mr')) =~ s/-/../;
