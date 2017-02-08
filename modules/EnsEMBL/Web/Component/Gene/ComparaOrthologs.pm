@@ -226,9 +226,10 @@ sub content {
         $link_url  = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id});
         $location_link = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$orthologue->{'location'}});
       }
+      (my $jbrowse_region = $orthologue->{'location'}) =~ s/-/../;
+      my $jbrowse_url = $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in JBrowse]</span>', 'PARASITE_JBROWSE', {'SPECIES'=>lc($species), 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''});
       my $wb_gene_url = $domain =~ /^wormbase$/i ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View gene at WormBase Central]</span>', uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id}) : '';
-      (my $wb_region = $orthologue->{'location'}) =~ s/-/../;
-      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$wb_region, 'HIGHLIGHT'=>''}) : '';
+      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''}) : '';
       # PARASITE
 
       my $target_links = ($link_url =~ /^\// 
@@ -302,7 +303,7 @@ sub content {
         'Type'       => ucfirst $orthologue_desc,
         'dN/dS'      => $orthologue_dnds_ratio,
         'identifier' => $self->html_format ? $id_info : $stable_id,
-        'Location'   => qq{<a href="$location_link">$orthologue->{'location'}</a>$wb_location_url},
+        'Location'   => qq{<a href="$location_link">$orthologue->{'location'}</a>$jbrowse_url$wb_location_url},
         $column_name => $self->html_format ? qq{<span class="small">$target_links</span>} : $description,
         'Target %id' => $target,
         'Query %id'  => $query,

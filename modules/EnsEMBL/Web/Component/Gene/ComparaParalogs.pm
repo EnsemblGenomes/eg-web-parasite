@@ -84,9 +84,10 @@ sub content {
 
       ## PARASITE
       my $domain = $hub->species_defs->ENSEMBL_SPECIES_SITE($species);
+      (my $jbrowse_region = $paralogue->{'location'}) =~ s/-/../;
+      my $jbrowse_url = $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in JBrowse]</span>', 'PARASITE_JBROWSE', {'SPECIES'=>lc($species), 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''});
       my $wb_gene_url = $domain =~ /^wormbase$/i ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View gene at WormBase Central]</span>', uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id}) : '';
-      (my $wb_region = $paralogue->{'location'}) =~ s/-/../;
-      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$wb_region, 'HIGHLIGHT'=>''}) : '';
+      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''}) : '';
       ##
       
       my $id_info = qq{<p class="space-below"><a href="$link_url">$stable_id</a>$wb_gene_url</p>} . join '<br />', @external;
@@ -128,7 +129,7 @@ sub content {
         'Ancestral taxonomy'  => $paralogue_subtype,
         'identifier' => $self->html_format ? $id_info : $stable_id,
         'Compare'             => $self->html_format ? qq{<span class="small">$links</span>} : '',
-        'Location'            => qq{<a href="$location_link">$paralogue->{'location'}</a>$wb_location_url},
+        'Location'            => qq{<a href="$location_link">$paralogue->{'location'}</a>$jbrowse_url$wb_location_url},
         'Target %id'          => $target,
         'Query %id'           => $query,
       };
