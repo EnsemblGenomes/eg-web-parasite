@@ -242,13 +242,14 @@ sub _navlinks_text {
   $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene %s"><img src="%s96/gene.png" class="bordered" /><br /><span>Example gene page</span></a></div>', $gene_url, $gene_text, $img_url);
 
   # Gene tree
-  if($self->has_compara && $self->has_compara('GeneTree')) {
-    my $tree_text = $sample_data->{'GENE_TEXT'};
-    my $tree_url  = $species_defs->species_path . '/Gene/Compara_Tree?g=' . $sample_data->{'GENE_PARAM'};
-    $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene tree for %s"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></a></div>', $tree_url, $tree_text, $img_url);
-  } else {
-    $html .= sprintf('<div class="species-nav-icon"><span class="nodeco _ht" title="Genome not included in comparative genomics"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></span></div>', $img_url);
-
+  if($self->has_compara) {
+    if($self->has_compara('GeneTree')) {
+      my $tree_text = $sample_data->{'GENE_TEXT'};
+      my $tree_url  = $species_defs->species_path . '/Gene/Compara_Tree?g=' . $sample_data->{'GENE_PARAM'};
+      $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Go to gene tree for %s"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></a></div>', $tree_url, $tree_text, $img_url);
+    } else {
+      $html .= sprintf('<div class="species-nav-icon"><span class="nodeco _ht" title="Genome not included in comparative genomics"><img src="%s96/compara.png" class="bordered" /><span>Example gene tree</span></span></div>', $img_url);
+    }
   }
 
   $html .= '</div>';
