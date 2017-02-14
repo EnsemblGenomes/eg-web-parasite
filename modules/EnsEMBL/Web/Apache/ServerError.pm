@@ -22,7 +22,7 @@ sub handler {
 
     if ($exception) {
 ## ParaSite: also include the machine name, so we know which server this error relates to
-      my ($hostname = hostname) =~ s/\.ebi\.ac\.uk$//;
+      (my $hostname = hostname) =~ s/\.ebi\.ac\.uk$//;
       my $error_id  = $hostname . "_" . random_string(8);
 ##
       $heading      = sprintf 'Server Exception: %s', $exception->type;
