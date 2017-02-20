@@ -353,7 +353,7 @@ sub highlight {
 # or by 1000 for genes that cross circular orign and we can't calculate the length
 sub zoom_location {
   my ($self, $location) = @_;
-  my ($region, $start, $end) = split /[:-]/, $location;
+  my ($region, $start, $end) = $location =~ /(.*):(.*)-(.*)/;
   my $flank = 1000;  
 
   if ($start < $end) {
