@@ -27,6 +27,8 @@ sub modify_tree {
 
   my $compara_menu = $self->get_node('Compara');
   $compara_menu->set('caption', "Comparative genomics");
+  $compara_menu->set('availability', 0);
+  $compara_menu->set('components', []);
 
   $self->delete_node('Family');
   $self->delete_node('Gene_families');
