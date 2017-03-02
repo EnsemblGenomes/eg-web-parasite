@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [2014-2017] EMBL-European Bioinformatics Institute
+Copyright [2014-2016] EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ package EnsEMBL::Web::Document::HTML::ServerName;
 use Sys::Hostname;
 
 sub render {
-  return hostname;
+  my $hostname = hostname;
+  my $proxy = EnsEMBL::Web::SpeciesDefs->ENSEMBL_WWW_PROXY;
+  return sprintf("Hostname: %s<br />Proxy: %s", $hostname, $proxy);
 }
 
 1;
