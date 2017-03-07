@@ -79,7 +79,7 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   padding-right: 10px;
-}i
+}
 [data-social-icon]:before {
   font-family: 'EBI-SocialMedia';
   content: attr(data-social-icon);
@@ -89,7 +89,6 @@
   -webkit-font-smoothing: antialiased;
   padding-right: 10px;
 }
-
 [data-species-icon]:before {
   font-family: 'EBI-Species';
   content: attr(data-social-icon);
