@@ -27,7 +27,7 @@ sub links {
   my $species = $hub->species ? $hub->species : 'Multi';
   my @links;
   
-  push @links, 'specieslist',   '<a class="constant" href="/species.html">Species List</a>';
+  push @links, 'specieslist',   '<a class="constant" href="/species.html">Genome List</a>';
   push @links, 'blast', sprintf '<a class="constant" href="%s" title="Sequence Similarity Search">BLAST</a>', $self->hub->url({'species' => $species, 'type' => 'Tools', 'action' => 'Blast', __clear => 1}) if $sd->ENSEMBL_BLAST_ENABLED;
   push @links, 'biomart',       '<a class="constant" href="/biomart/martview/" title="Data mining and export with BioMart">BioMart</a>';
   push @links, 'api',           '<a class="constant" href="/rest/" title="Programmatic access with REST API">REST API</a>';
