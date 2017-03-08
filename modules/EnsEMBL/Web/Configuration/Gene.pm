@@ -30,6 +30,9 @@ sub modify_tree {
   $compara_menu->set('availability', 0);
   $compara_menu->set('components', []);
 
+  my $ontology_menu = $self->get_node('Ontologies');
+  $ontology_menu->set('caption', "Gene Ontology");
+
   $self->delete_node('Family');
   $self->delete_node('Gene_families');
   $self->delete_node('PanCompara');
