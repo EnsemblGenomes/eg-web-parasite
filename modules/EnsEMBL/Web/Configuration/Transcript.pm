@@ -38,7 +38,8 @@ sub modify_tree {
   $self->delete_node('ProtVariations');
   $self->delete_node('UserAnnotation');
   $self->delete_node('History');
-  
+  $self->delete_node('ExternalRecords'); 
+ 
   if($self->hub->species_defs->EVA_TRACKS) {
     my $variation = $self->create_node('EVA', 'Variation', [],
       { availability => 0 }
@@ -57,6 +58,11 @@ sub modify_tree {
       wormbase      EnsEMBL::Web::Component::WormBaseLink
       trans_summary EnsEMBL::Web::Component::Transcript::TranscriptSummary
     )]
+  );
+  
+  $self->create_node('Similarity', 'External References',
+    [qw( similarity EnsEMBL::Web::Component::Transcript::SimilarityMatches )],
+    { 'availability' => 'transcript has_similarity_matches', 'concise' => 'External References' }
   );
   
 }
