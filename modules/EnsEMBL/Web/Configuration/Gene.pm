@@ -77,6 +77,7 @@ sub modify_tree {
   }
 
   my $summary = $self->get_node('Summary');
+  $summary->set('concise', 'Genomic Context');
   $summary->set('components',
     [qw(
       gene_summary  EnsEMBL::Web::Component::Gene::GeneSummary
