@@ -53,11 +53,10 @@ sub modify_tree {
   $self->delete_node('ExpressionAtlas');
 
   if($self->hub->species_defs->GXA) {
-    my $transcriptomic_menu = $self->create_submenu('Transcriptomic', 'Transcriptomic data', {'availability' => 0, 'hide_if_unavailable' => 1});
-    $transcriptomic_menu->append($self->create_subnode('ExpressionAtlas', 'Gene expression',
+    my $transcriptomic_menu = $self->create_node('ExpressionAtlas', 'Expression', 
       [qw( atlas EnsEMBL::Web::Component::Gene::ExpressionAtlas )],
       { 'availability'  => 'gene has_gxa', 'hide_if_unavailable' => 1 }
-    ));
+    );
   }
 
   my $comparison = $self->get_node('TranscriptComparison');
