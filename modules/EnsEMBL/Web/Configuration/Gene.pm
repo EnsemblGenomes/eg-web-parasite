@@ -25,13 +25,12 @@ sub modify_tree {
 
   $self->PREV::modify_tree(@_);
 
+  my $species_defs = $self->hub->species_defs;
+
   my $compara_menu = $self->get_node('Compara');
   $compara_menu->set('caption', "Comparative genomics");
   $compara_menu->set('availability', 0);
   $compara_menu->set('components', []);
-
-  my $ontology_menu = $self->get_node('Ontologies');
-  $ontology_menu->set('caption', "Gene Ontology");
 
   $self->delete_node('Family');
   $self->delete_node('Gene_families');
@@ -88,7 +87,24 @@ sub modify_tree {
       transcripts   EnsEMBL::Web::Component::Gene::TranscriptsImage
     )]
   );
-  
+ 
+  my $ontology_menu = $self->get_node('Ontologies');
+  $ontology_menu->set('caption', "Gene Ontology");
+  $ontology_menu->set('components', undef);
+
+## ParaSite: code from ensembl-webcode to create ontology sub-menus; modified to remove prefix
+  my %olist   = map {$_ => 1} @{$species_defs->SPECIES_ONTOLOGIES || []};
+  if (%olist) {
+    my %clusters = $species_defs->multiX('ONTOLOGIES');
+    my @clist = grep {$olist{$clusters{$_}->{db}}} sort {$clusters{$a}->{db} cmp $clusters{$b}->{db}} keys %clusters;    # Find if this ontology has been loaded into ontology db
+    foreach my $oid (@clist) {
+      my $cluster = $clusters{$oid};
+      (my $desc2 = ucfirst($cluster->{description})) =~ s/_/ /g;
+      $ontology_menu->append($self->create_node('Ontologies/'. $cluster->{description}, $desc2, [qw( go EnsEMBL::Web::Component::Gene::Go )], {'availability' => "gene has_go_$oid", 'concise' => $desc2 }));
+    }
+  }
+##
+ 
 }
 
 1;
