@@ -65,6 +65,9 @@ sub modify_tree {
     { 'availability' => 'transcript has_similarity_matches', 'concise' => 'External References' }
   );
   
+  my $cdna = $self->get_node('Sequence_cDNA');
+  $cdna->set('availability', 'translation');
+  
 }
 
 1;
