@@ -168,7 +168,6 @@ sub content {
   my $columns = [
     { key => 'Species',    align => 'left', width => '10%', sort => 'html'                                                },
     { key => 'Type',       align => 'left', width => '5%',  sort => 'string'                                              },
-    { key => 'dN/dS',      align => 'left', width => '5%',  sort => 'numeric'                                             },
     { key => 'identifier', align => 'left', width => '15%', sort => 'html', title => $self->html_format ? 'Stable ID &amp; gene name' : 'Stable ID'},    
     { key => $column_name, align => 'left', width => '10%', sort => 'none'                                                },
     { key => 'Location',   align => 'left', width => '20%', sort => 'position_html'                                       },
@@ -195,9 +194,6 @@ sub content {
      #my $orthologue_desc = $orthologue_map{$orthologue->{'homology_desc'}} || $orthologue->{'homology_desc'};
       my $orthologue_desc =  $orthologue->{'homology_desc'};
       
-      # (Column 3) Add in the dN/dS ratio
-      my $orthologue_dnds_ratio = $orthologue->{'homology_dnds_ratio'} || 'n/a';
-         
       # (Column 4) Sort out 
       # (1) the link to the other species
       # (2) information about %ids
@@ -301,7 +297,6 @@ sub content {
       my $table_details = {
         'Species'   => $splink,
         'Type'       => ucfirst $orthologue_desc,
-        'dN/dS'      => $orthologue_dnds_ratio,
         'identifier' => $self->html_format ? $id_info : $stable_id,
         'Location'   => qq{<a href="$location_link">$orthologue->{'location'}</a>$jbrowse_url$wb_location_url},
         $column_name => $self->html_format ? qq{<span class="small">$target_links</span>} : $description,
