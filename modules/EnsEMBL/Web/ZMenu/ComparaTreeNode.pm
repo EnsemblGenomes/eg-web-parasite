@@ -107,13 +107,6 @@ sub content {
     });
   }
   
-  # Internal node_id
-  $self->add_entry({
-    type  => 'node_id',
-    label => $node->node_id,
-    order => 13
-  }); 
-  
   my $action = 'Web/ComparaTree' . ($cdb =~ /pan/ ? '/pan_compara' : '');
 
   if (not $is_supertree) {
