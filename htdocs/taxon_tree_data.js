@@ -106,6 +106,16 @@ taxonTreeData = [
                                                 "key" : "taenia_asiatica_prjeb532"
                                              },
                                              {
+                                                "biomart" : "asiatprjna299871",
+                                                "title" : "Taenia asiatica (PRJNA299871)",
+                                                "key" : "taenia_asiatica_prjna299871"
+                                             },
+                                             {
+                                                "biomart" : "saginprjna71493",
+                                                "title" : "Taenia saginata (PRJNA71493)",
+                                                "key" : "taenia_saginata_prjna71493"
+                                             },
+                                             {
                                                 "biomart" : "soliuprjna170813",
                                                 "title" : "Taenia solium (PRJNA170813)",
                                                 "key" : "taenia_solium_prjna170813"
@@ -258,44 +268,6 @@ taxonTreeData = [
                                           "isFolder" : true,
                                           "children" : [
                                              {
-                                                "biomart" : "sinenprjda72781",
-                                                "title" : "Clonorchis sinensis (PRJDA72781)",
-                                                "key" : "clonorchis_sinensis_prjda72781"
-                                             }
-                                          ],
-                                          "title" : "Clonorchis",
-                                          "key" : "Clonorchis"
-                                       },
-                                       {
-                                          "isFolder" : true,
-                                          "children" : [
-                                             {
-                                                "biomart" : "viverprjna222628",
-                                                "title" : "Opisthorchis viverrini (PRJNA222628)",
-                                                "key" : "opisthorchis_viverrini_prjna222628"
-                                             }
-                                          ],
-                                          "title" : "Opisthorchis",
-                                          "key" : "Opisthorchis"
-                                       }
-                                    ],
-                                    "title" : "Opisthorchiidae",
-                                    "key" : "Opisthorchiidae"
-                                 }
-                              ],
-                              "title" : "Opisthorchiida",
-                              "key" : "Opisthorchiida"
-                           },
-                           {
-                              "isFolder" : true,
-                              "children" : [
-                                 {
-                                    "isFolder" : true,
-                                    "children" : [
-                                       {
-                                          "isFolder" : true,
-                                          "children" : [
-                                             {
                                                 "biomart" : "caproprjeb1207",
                                                 "title" : "Echinostoma caproni (PRJEB1207)",
                                                 "key" : "echinostoma_caproni_prjeb1207"
@@ -326,8 +298,46 @@ taxonTreeData = [
                                     "key" : "Echinostomatoidea"
                                  }
                               ],
-                              "title" : "Plagiorchiida",
-                              "key" : "Plagiorchiida"
+                              "title" : "Echinostomida",
+                              "key" : "Echinostomida"
+                           },
+                           {
+                              "isFolder" : true,
+                              "children" : [
+                                 {
+                                    "isFolder" : true,
+                                    "children" : [
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "biomart" : "sinenprjda72781",
+                                                "title" : "Clonorchis sinensis (PRJDA72781)",
+                                                "key" : "clonorchis_sinensis_prjda72781"
+                                             }
+                                          ],
+                                          "title" : "Clonorchis",
+                                          "key" : "Clonorchis"
+                                       },
+                                       {
+                                          "isFolder" : true,
+                                          "children" : [
+                                             {
+                                                "biomart" : "viverprjna222628",
+                                                "title" : "Opisthorchis viverrini (PRJNA222628)",
+                                                "key" : "opisthorchis_viverrini_prjna222628"
+                                             }
+                                          ],
+                                          "title" : "Opisthorchis",
+                                          "key" : "Opisthorchis"
+                                       }
+                                    ],
+                                    "title" : "Opisthorchiidae",
+                                    "key" : "Opisthorchiidae"
+                                 }
+                              ],
+                              "title" : "Opisthorchiida",
+                              "key" : "Opisthorchiida"
                            },
                            {
                               "isFolder" : true,
@@ -736,7 +746,7 @@ taxonTreeData = [
                                                    },
                                                    {
                                                       "biomart" : "sinicprjna194557",
-                                                      "title" : "Caenorhabditis sinica (PRJNA194557)",
+                                                      "title" : "Caenorhabditis sp. REH-2014 (PRJNA194557)",
                                                       "key" : "caenorhabditis_sinica_prjna194557"
                                                    },
                                                    {
@@ -855,8 +865,8 @@ taxonTreeData = [
                                                       "key" : "oesophagostomum_dentatum_prjna72579"
                                                    }
                                                 ],
-                                                "title" : "Cloacinidae",
-                                                "key" : "Cloacinidae"
+                                                "title" : "Chabertiidae",
+                                                "key" : "Chabertiidae"
                                              },
                                              {
                                                 "isFolder" : true,
@@ -1204,6 +1214,18 @@ taxonTreeData = [
                                        {
                                           "isFolder" : true,
                                           "children" : [
+                                             {
+                                                "isFolder" : true,
+                                                "children" : [
+                                                   {
+                                                      "biomart" : "destrprjna312427",
+                                                      "title" : "Ditylenchus destructor (PRJNA312427)",
+                                                      "key" : "ditylenchus_destructor_prjna312427"
+                                                   }
+                                                ],
+                                                "title" : "Anguinidae",
+                                                "key" : "Anguinidae"
+                                             },
                                              {
                                                 "isFolder" : true,
                                                 "children" : [
