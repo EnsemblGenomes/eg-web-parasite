@@ -140,7 +140,8 @@ sub render {
     { key => 'provider',      title => 'Provider',       sort => 'string',         align => 'left', width => '15%' },
     { key => 'assembly',      title => 'Assembly',       sort => 'string',         align => 'left', width => '10%' },
     { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',         align => 'left', width => '10%' },
-    { key => 'clade',         title => 'Clade',          sort => 'string',         align => 'left', width => '10%' },
+    { key => 'clade',         title => 'Clade',          sort => 'string',         align => 'left', width => '6%' },
+    { key => 'genome_browser',title => 'Genome Browser',                           align => 'left', width => '10%'  },
     { key => 'CEGMA',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export", help => "CEGMA is a method of measuring assembly quality developed by the Korf Lab at UC Davis. It involves looking for a set of highly conserved genes present in most eukaryotes in the genome assembly. The more of these proteins are completely (or at least partially) retrieved in the assembly, the higher its quality." },
     { key => 'BUSCO',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export", help => "BUSCO is a method of measuring assembly quality developed at the University of Geneva. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of animals. The percentages of complete, duplicated and partial genes recovered are reported." },
     { key => 'N50',           title => 'N50',            sort => 'numeric_hidden', align => 'left', width => '4%', help => "N50 is the length of the smallest contig such as the sum of the sequences larger than this contig covers half of the genome assembly." },
@@ -210,7 +211,15 @@ sub render {
         push(@row, qq{<a href="http://www.ebi.ac.uk/ena/data/view/$bioproj">$bioproj</a>});
        
         push(@row, $species_defs->TAXON_COMMON_NAME->{$info->{'clade'}} || $info->{'clade'});
-        
+       
+        ## Genome Browser Links
+        my $sample_data     = $species_defs->SAMPLE_DATA;
+        (my $jbrowse_region = $sample_data->{'LOCATION_PARAM'}) =~ s/-/../;
+        my $jbrowse_url = sprintf("/jbrowse/browser/%s?loc=%s", lc($dir), $jbrowse_region);
+        my $region_text = $sample_data->{'LOCATION_TEXT'};
+        my $region_url  = $species_defs->species_path . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
+        push(@row, sprintf('<a href="%s">JBrowse</a> | <a href="%s">Ensembl</a>', $jbrowse_url, $region_url));
+ 
         ## ParaSite: assembly stats - loaded in from a JSON file
 
         my $file = "/ssi/species/assembly_${dir}.json";
