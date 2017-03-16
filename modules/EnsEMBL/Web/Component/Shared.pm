@@ -93,7 +93,7 @@ sub transcript_table {
   my $seq_region_end   = $object->seq_region_end;
 
   my $location_html = sprintf(
-    '<a href="%s" class="constant mobile-nolink">%s: %s-%s</a> %s.',
+    '<a href="%s" class="constant mobile-nolink">%s:%s-%s</a> %s.',
     $hub->url({
       type   => 'Location',
       action => 'View',
