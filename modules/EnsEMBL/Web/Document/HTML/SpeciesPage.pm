@@ -213,7 +213,7 @@ sub render {
         push(@row, $species_defs->TAXON_COMMON_NAME->{$info->{'clade'}} || $info->{'clade'});
        
         ## Genome Browser Links
-        my $sample_data     = $species_defs->SAMPLE_DATA;
+        my $sample_data     = $species_defs->get_config($dir, 'SAMPLE_DATA');
         (my $jbrowse_region = $sample_data->{'LOCATION_PARAM'}) =~ s/-/../;
         my $jbrowse_url = sprintf("/jbrowse/browser/%s?loc=%s", lc($dir), $jbrowse_region);
         my $region_text = $sample_data->{'LOCATION_TEXT'};
