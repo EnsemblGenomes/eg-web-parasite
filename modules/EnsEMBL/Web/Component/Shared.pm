@@ -107,11 +107,6 @@ sub transcript_table {
  
   $location_html = "<p>$location_html</p>";
 
-  my $insdc_accession = $self->object->insdc_accession if $self->object->can('insdc_accession');
-  if ($insdc_accession) {
-    $location_html .= "<p>$insdc_accession</p>";
-  }
-
   if ($page_type eq 'gene') {
     # Haplotype/PAR locations
     my $alt_locs = $object->get_alternative_locations;
@@ -354,12 +349,21 @@ sub transcript_table {
 
   $table->add_row('Location', $location_html);
 
-  $table->add_row( $page_type eq 'gene' ? 'About this gene' : 'About this transcript',$about_count) if $about_count;
+## ParaSite: add INSDC accession as separate row
+  my $insdc_html;
+  my $insdc_accession = $self->object->insdc_accession if $self->object->can('insdc_accession');
+  if ($insdc_accession) {
+    $insdc_html = sprintf('<p><a href="http://www.ebi.ac.uk/ena/data/view/%s">%s</a></p>', $insdc_accession, $insdc_accession);
+    $table->add_row('INSDC Sequence ID', $insdc_html);
+  }
+##
+
+  $table->add_row( $page_type eq 'gene' ? 'Gene Overview' : 'Transcript Overview',$about_count) if $about_count;
   
 ## ParaSite: move the gene summary out of its own module (this code is all originally from EnsEMBL::Web::Component::Gene::GeneSummary
   if($page_type eq 'gene') {
     my $type = $object->gene_type;
-    $table->add_row('Gene type', $type) if $type;
+    $table->add_row('Gene Type', $type) if $type;
     eval {
       my $label = 'Annotation Method';
       my $text  = "<p>No $label defined in database</p>";

@@ -55,5 +55,42 @@ sub get_homologue_alignments {
   return $msa;
 }
 
+sub insdc_accession {
+  my $self = shift;
+
+  my $csv = $self->Obj->slice->coord_system->version;
+  my $csa = Bio::EnsEMBL::Registry->get_adaptor($self->species,'core',
+                                                'CoordSystem');
+  # 0 = look on chromosome
+  # 1 = look on supercontig/scaffold
+  # maybe in future 2 = ... ?
+  for(my $method = 0;$method < 2;$method++) {
+    my $slice;
+    if($method == 0) {
+      $slice = $self->Obj->slice->sub_Slice($self->Obj->start,
+                                            $self->Obj->end);
+    } elsif($method == 1) {
+      # Try to project to supercontig (aka scaffold)
+      foreach my $level (qw(supercontig scaffold)) {
+        next unless $csa->fetch_by_name($level,$csv);
+        my $gsa = $self->Obj->project($level,$csv);
+        if(@$gsa==1) {
+          $slice = $gsa->[0]->to_Slice;
+          last;
+        }
+      }
+    }
+    if($slice) {
+## ParaSite: do not append the coord system version
+      my $name = $self->_insdc_synonym($slice,'INSDC');
+##
+      if($name) {
+        return $name;
+      }
+    }
+  }
+  return undef;
+}
+
 1;
 
