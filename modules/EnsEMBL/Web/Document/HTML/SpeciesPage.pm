@@ -217,7 +217,7 @@ sub render {
         (my $jbrowse_region = $sample_data->{'LOCATION_PARAM'}) =~ s/-/../;
         my $jbrowse_url = sprintf("/jbrowse/browser/%s?loc=%s", lc($dir), $jbrowse_region);
         my $region_text = $sample_data->{'LOCATION_TEXT'};
-        my $region_url  = $species_defs->species_path . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
+        my $region_url  = $dir . '/Location/View?r=' . $sample_data->{'LOCATION_PARAM'};
         push(@row, sprintf('<a href="%s">JBrowse</a> | <a href="%s">Ensembl</a>', $jbrowse_url, $region_url));
  
         ## ParaSite: assembly stats - loaded in from a JSON file
