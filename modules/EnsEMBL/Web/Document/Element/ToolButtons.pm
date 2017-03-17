@@ -65,7 +65,7 @@ sub init {
        url     => $hub->url('Config', {
           type     => $view_config->type,
           action   => $component,
-          function => 'parasite_rnaseq',
+          function => undef,
        })
      });
    }
