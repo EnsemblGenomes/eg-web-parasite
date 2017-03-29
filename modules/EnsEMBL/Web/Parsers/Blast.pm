@@ -34,6 +34,10 @@ sub parse_xml {
   foreach my $hit_id (keys %$hits) {
     my $hit = $hits->{$hit_id};
     
+## Release 8 hack only
+    $hit->{description} =~ s/species:(.*?)description:/species:$1 description:/;
+##
+
     my ($description) = $hit->{description} =~ /description:"(.+)"/;
 
 ## ParaSite: determine the species for each hit (rather than each job) as it is possible to have a single job query multiple species
