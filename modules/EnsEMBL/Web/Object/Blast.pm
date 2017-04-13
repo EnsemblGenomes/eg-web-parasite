@@ -194,7 +194,7 @@ sub get_edit_jobs_data {
       foreach my $species (@source_species) {
         my $job_data = $job->job_data->raw;
         delete $job_data->{$job} for qw(source_file output_file);
-        $job_data->{'species'}  = {key => lc($species), title => $hub->species_defs->species_label($species)};
+        $job_data->{'species'}  = $species;
         $job_data->{'sequence'} = $self->get_input_sequence_for_job($job);
         for (keys %{$job_data->{'configs'}}) {
           $job_data->{'configs'}{$job} = { reverse %{$config_fields{$job}{'commandline_values'}} }->{ $job_data->{'configs'}{$job} } if exists $config_fields{$job}{'commandline_values'};
