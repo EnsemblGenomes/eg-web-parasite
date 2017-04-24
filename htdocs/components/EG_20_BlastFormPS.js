@@ -32,7 +32,7 @@ Ensembl.Panel.BlastSpeciesList.prototype.updateTaxonSelection = function(items) 
   var panel = this;
   var key;
 
-  if(items.length > 1 && items[0].key != 'Multi') {
+  if(items.length > 0 && items[0].key != 'Multi') {
     // empty and re-populate the species list
     panel.elLk.list.empty();
     panel.elLk.checkboxes.empty();
