@@ -108,7 +108,9 @@ sub format_gallery {
       ## Count unique pages
       $page_count{$page->{'link_to'}} = 1;
 
-      my $url = $self->hub->url($page->{'link_to'});
+## ParaSite: allow us to use a specific URL instead of a Ensembl derived URL
+      my $url = $page->{'url'} || $self->hub->url($page->{'link_to'});
+##
 
       my $label = $self->hub->param('default') ? 'label_1' : 'label_2';
 

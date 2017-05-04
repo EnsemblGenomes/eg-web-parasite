@@ -38,7 +38,7 @@ sub content {
   my $layout = [
                 {
                     'title' => 'Sequence &amp; Structure',
-                    'pages' => ['Ensembl Genome Browser', 'Immediate Neighbourhood', 'Summary Information', 'Splice Variants', 'Gene Sequence', 'Gene Identifiers'],
+                    'pages' => ['JBrowse Genome Browser', 'Ensembl Genome Browser', 'Immediate Neighbourhood', 'Summary Information', 'Splice Variants', 'Gene Sequence', 'Gene Identifiers'],
                     'icon'  => 'dna.png',
                   },
                 {
@@ -134,6 +134,11 @@ sub _get_pages {
     }
 
     return {
+            'JBrowse Genome Browser' => {
+                                  'url'       => sprintf('/jbrowse/browser/%s?loc=%s', lc($hub->species), $r),
+                                  'img'       => 'location_jbrowse',
+                                   'caption'  => 'View the position of this gene in a interactive genome browser',
+                                },
             'Ensembl Genome Browser' => {
                                   'link_to'   => {'type'    => 'Location',
                                                   'action'  => 'View',
@@ -141,7 +146,7 @@ sub _get_pages {
                                                   'g'      => $g,
                                                  },
                                   'img'       => 'location_genoverse',
-                                  'caption'   => 'View the position of this gene in our fully scrollable genome browser',
+                                  'caption'   => 'View the position of this gene in our scrollable genome browser',
                                 },
             'Immediate Neighbourhood' => {
                                   'link_to'   => {'type'    => 'Gene',
