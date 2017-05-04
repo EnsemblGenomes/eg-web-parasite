@@ -42,7 +42,7 @@ sub content {
                     'icon'  => 'dna.png',
                   },
                 {
-                  'title' => 'Expression',
+                  'title' => 'Function & Expression',
                   'pages' => ['Table of Ontology Terms', 'Gene Expression'],
                   'icon'  => 'regulation.png',
                 },
