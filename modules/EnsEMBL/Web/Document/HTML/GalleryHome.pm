@@ -61,16 +61,11 @@ sub render {
   });
 
   # data type field
-  $form->add_field({
-    'type'        => 'Radiolist',
+  $form->add_hidden({
+    'type'        => 'hidden',
     'name'        => 'data_type',
     'label'       => 'Feature type',
-    'value'       => 'variation',
-    'values'      => [
-                        {'value' => 'gene',       'caption' => 'Genes'            },
-                        {'value' => 'location',   'caption' => 'Genomic locations'},
-                        {'value' => 'variation',  'caption' => 'Variants'         }
-                     ]
+    'value'       => 'gene'
   });
 
   # hidden sample data used by js
@@ -79,7 +74,7 @@ sub render {
   $form->add_field({
     'type'  => 'String',
     'name'  => 'identifier',
-    'label' => 'Identifier',
+    'label' => 'Gene Name or Identifier',
   });
 
   $form->add_button({
@@ -113,7 +108,7 @@ sub _species_data {
 
       my $data = $sd->get_config($species, 'SAMPLE_DATA');
 
-      for (qw(gene location variation)) {
+      for (qw(gene location)) {
         my $value = $data->{uc $_.'_PARAM'};
         $sample_data{$species}{$_} = $value if $value;
       }
