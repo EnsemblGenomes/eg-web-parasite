@@ -95,7 +95,7 @@ sub format_gallery {
     ## Template for each entry
     my $entry_template = '<div class="gallery-preview">
                             <div class="page-preview">%s</div>
-                            <h3 class="%s">%s</h3>
+                            <h2 class="%s">%s</h2>
                               <p class="preview-caption">%s</p>
                               <p%s>%s</p>
                           </div>';
@@ -190,7 +190,7 @@ sub format_gallery {
     $previews .= '</div>';
   }
 
-  my $page_header = sprintf('<h1>%s views for %s data</h1>', scalar keys %page_count, $hub->param('data_type'));
+  my $page_header = '<h1>All views for gene of interest</h1>';
 
   my $toc_string = scalar @toc ? sprintf('<div id="gallery-toc" class="center">%s</div>', join(' ', @toc)) : '';
 
@@ -221,33 +221,8 @@ sub _sub_header {
   my $type  = $hub->param('data_type');
   my $param = $data_type->{$type}{'param'};
   my $value = $hub->param($param);
-  my $label = sprintf '%s displays for', $title, $data_type->{$type}{'term'};
 
-  my $form  = $self->new_form({'class' => 'gallery-header',  'method' => 'get'});
-
-  $form->add_hidden({
-                    'name'  => 'data_type',
-                    'value' => $type,
-                    });
-
-  $form->add_field({
-                    'inline'    => 1,
-                    'label'     => $label,
-                    'class'     => 'header',
-                    'elements'  => [
-                          {
-                            'type'    => 'String',
-                            'name'  => $param,
-                            'value' => $value,
-                            },
-                           {
-                            'type'  => 'Submit',
-                            'value' => 'Update',
-                            },
-                      ],
-                    });
-
-  return $form->render;
+  return sprintf('<h2>%s displays</h2>', $title);
 }
 
 
