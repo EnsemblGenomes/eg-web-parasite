@@ -38,7 +38,7 @@ sub content {
   my $layout = [
                 {
                     'title' => 'Sequence &amp; Structure',
-                    'pages' => ['JBrowse Genome Browser', 'Ensembl Genome Browser', 'Immediate Neighbourhood', 'Summary Information', 'Splice Variants', 'Gene Sequence', 'Gene Identifiers'],
+                    'pages' => ['JBrowse Genome Browser', 'Ensembl Genome Browser', 'Immediate Neighbourhood', 'Summary Information', 'Splice Variants', 'Gene Sequence', 'External References'],
                     'icon'  => 'dna.png',
                   },
                 {
@@ -265,7 +265,7 @@ sub _get_pages {
                                   'disabled'  => !$multi_trans,
                                   'message'   => 'It has only one transcript',
                                 },
-            'Gene Identifiers' => {
+            'External References' => {
                                   'link_to'   => {'type'      => 'Gene',
                                                   'action'    => 'Matches',
                                                   'g'      => $g,
