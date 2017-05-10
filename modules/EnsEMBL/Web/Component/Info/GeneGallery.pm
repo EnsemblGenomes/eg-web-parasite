@@ -324,7 +324,7 @@ sub _get_pages {
                                                   't'         => $sole_trans,
                                                  },
                                   'img'       => 'trans_protein',
-                                  'caption'   => "Image representing the domains found within proteins encoded by the gene’s transcripts, along with any coincident variants",
+                                  'caption'   => "Image representing the domains found within proteins encoded by the gene’s transcripts",
                                   'disabled'  => !$prot_count,
                                   'multi'     => $multi_prot,
                                 },
