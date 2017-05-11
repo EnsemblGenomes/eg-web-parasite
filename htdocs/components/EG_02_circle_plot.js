@@ -638,7 +638,7 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
         var productionName = $('#production_name').val().toLowerCase();
         var seqName = sortable[i][0];
         var length = sortable[i][1];
-        $(content).append("<tr><td>" + seqName + "</td><td>" + Number(length).toLocaleString() + "</td><td><a href=\"/jbrowse/browser/" + productionName + "?loc=" + seqName + "\" target=\"_blank\">View in JBrowse</a></tr>");
+        $(content).append("<tr><td>" + seqName + "</td><td>" + Number(length).toLocaleString() + "</td><td><a href=\"/jbrowse/browser/" + productionName + "?loc=" + seqName + "\" target=\"_blank\">JBrowse</a> | <a href=\"/" + productionName + "/Location/View?r=" + seqName + ":1- " + length + "\">Ensembl</a></tr>");
       }
       
       $('<div class="dialog" title="Top-level sequences in this bin (' + Number(scaffoldLength).toLocaleString() + ' to ' + Number(previousScaffoldLength).toLocaleString() + ')"></div>')
