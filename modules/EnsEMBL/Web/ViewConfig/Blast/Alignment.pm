@@ -24,10 +24,10 @@ use EnsEMBL::Web::Constants;
 
 use parent qw(EnsEMBL::Web::ViewConfig::TextSequence);
 
-sub init {
+sub init_cacheable {
   my $self = shift;
 
-  $self->SUPER::init;
+  $self->SUPER::init_cacheable;
 
   $self->set_default_options({
     display_width  => 60,
