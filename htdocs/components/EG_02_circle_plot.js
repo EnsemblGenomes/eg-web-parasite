@@ -617,9 +617,17 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
       // Determine which sequences fall into this bin
       var largerSequences = {};
       var topLevel = stats.toplevel;
-      for(var i in topLevel) {
-        if(topLevel[i] >= scaffoldLength && topLevel[i] <= previousScaffoldLength) {
-          largerSequences[i] = topLevel[i];
+      if(scaffoldLength == previousScaffoldLength) {
+        for(var i in topLevel) {
+          if(topLevel[i] == scaffoldLength) {
+            largerSequences[i] = topLevel[i];
+          }
+        }
+      } else {
+        for(var i in topLevel) {
+          if(topLevel[i] >= scaffoldLength && topLevel[i] < previousScaffoldLength) {
+            largerSequences[i] = topLevel[i];
+          }
         }
       }
 
