@@ -641,7 +641,13 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
         $(content).append("<tr><td>" + seqName + "</td><td>" + Number(length).toLocaleString() + "</td><td><a href=\"/jbrowse/browser/" + productionName + "?loc=" + seqName + "\" target=\"_blank\">JBrowse</a> | <a href=\"/" + productionName + "/Location/View?r=" + seqName + ":1- " + length + "\">Ensembl</a></tr>");
       }
       
-      $('<div class="dialog" title="Top-level sequences in this bin (' + Number(scaffoldLength).toLocaleString() + ' to ' + Number(previousScaffoldLength).toLocaleString() + ')"></div>')
+      var dialogTitle;
+      if(angle > 1) {
+        dialogTitle = "Top-level sequences in this bin (" + Number(scaffoldLength).toLocaleString() + " to " + Number(previousScaffoldLength).toLocaleString() + ")";
+      } else {
+        dialogTitle = "Top-level sequences in this bin (from " + Number(scaffoldLength).toLocaleString() + ")";
+      }
+      $('<div class="dialog" title="' + dialogTitle + '"></div>')
         .html(content)
         .dialog({
           modal: true,
