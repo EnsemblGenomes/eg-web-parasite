@@ -43,14 +43,17 @@ Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
     var panel = this;
     if ('expressionAtlasHeatmapHighcharts' in window) {
       try {
-        var atlasHost = this.params.gxa_url.replace("/gxa/resources", "");
+        var atlasHost = this.params.gxa_url.replace("/resources", "/");
         expressionAtlasHeatmapHighcharts.render({
-          params:'geneQuery=' + this.params.geneId + '&species=' + this.params.species + '&source=DEVELOPMENTAL_STAGE',
-          isMultiExperiment: true,
+          target: this.elLk.target.attr('id'),
           atlasHost: atlasHost,
+          atlasUrl: atlasHost,
           showAnatomogram: false,
-          analyticsSearch: true,
-          target : this.elLk.target.attr('id'),
+          disableGoogleAnalytics: true,
+          query: {
+            species: this.params.species,
+            gene: this.params.geneId
+          },
           fail: function() {
             panel.showError();
           }
