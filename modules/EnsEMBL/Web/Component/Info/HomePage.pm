@@ -351,6 +351,7 @@ sub _assembly_stats {
       $stats_table
       <input type="hidden" class="panel_type" value="AssemblyStats" />
       <input type="hidden" id="assembly_file" value="/Multi/Ajax/assembly_stats?species=$sp" />
+      <input type="hidden" id="production_name" value="$sp" />
       <div id="assembly_stats"></div>
       <p style="font-size: 10pt"><a href="/info/Browsing/assembly_quality.html">Learn more about this widget in our help section</a></p>
       <p style="font-size: 8pt">This widget has been derived from the <a href="https://github.com/rjchallis/assembly-stats">assembly-stats code</a> developed by the Lepbase project at the University of Edinburgh</p>

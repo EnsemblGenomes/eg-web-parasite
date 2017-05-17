@@ -8,7 +8,7 @@ $(document).ready(function() {
     d3.json(filename, function(error, json) {
       if (error) return console.warn(error);
       asm = new Assembly(json);
-      asm.drawPlot('assembly_stats');
+      asm.drawPlot('assembly_stats', json);
     });
   }
 });
@@ -18,6 +18,7 @@ function Assembly(stats, scaffolds, contigs) {
   this.contigs = contigs ? contigs : stats.contigs;
   this.scaffold_count = stats.scaffold_count ? stats.scaffold_count : stats.scaffolds.length;
   this.genome = stats.genome;
+  this.toplevel = stats.toplevel;
   this.assembly = stats.assembly;
   this.N = stats.N ? stats.N <= 100 ? stats.N < 1 ? stats.N * 100 : stats.N : stats.N / this.assembly * 100 : 0;
   this.ATGC = stats.ATGC ? stats.ATGC <= 100 ? stats.ATGC <= 1 ? stats.ATGC * 100 : stats.ATGC : stats.ATGC / this.assembly * 100 : 100 - this.N;
@@ -110,7 +111,7 @@ Assembly.prototype.setScale = function(element, scaling, domain, range) {
   this.scale[element].range(range);
 }
 
-Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
+Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) {
 
   // setup plot dimensions
   var width = $('#assembly_stats').width();
@@ -596,7 +597,74 @@ Assembly.prototype.drawPlot = function(parent_div, longest, circle_span) {
   var output_rect = output.append('rect').attr('class', 'asm-live_stats asm-hidden').attr('height', 110).attr('width', 150);
   var output_text = output.append('g').attr('transform', 'translate(' + (2) + ',' + (18) + ')').attr('class', 'asm-hidden');
   var gc_circle = overoverlay.append('circle').attr('r', radii.percent[0]).attr('fill', 'white').style('opacity', 0);
-  var stat_circle = overoverlay.append('circle').attr('r', radii.core[1]).attr('fill', 'white').style('opacity', 0);
+  var stat_circle = overoverlay.append('circle').attr('r', radii.core[1]).attr('fill', 'white').style('opacity', 0).style('cursor', 'pointer');
+
+  stat_circle.on('click', function() {
+    var point = d3.mouse(this);
+    var angle = (50.5 + 50 / Math.PI * Math.atan2(-point[0], point[1])).toFixed(0);
+    angle = Math.floor(angle * p100Scale(100) / pScale(100) + 0.1);
+    
+    if(angle <= 100) {
+      // Find the size limits
+      var scaffoldLength = npct_length[(angle * 10)-1];
+      var previousScaffoldLength;
+      if(angle > 1) {
+        previousScaffoldLength = npct_length[((angle - 1) * 10)-1];
+      } else {
+        previousScaffoldLength = 9999999999;
+      }
+
+      // Determine which sequences fall into this bin
+      var largerSequences = {};
+      var topLevel = stats.toplevel;
+      if(scaffoldLength == previousScaffoldLength) {
+        for(var i in topLevel) {
+          if(topLevel[i] == scaffoldLength) {
+            largerSequences[i] = topLevel[i];
+          }
+        }
+      } else {
+        for(var i in topLevel) {
+          if(topLevel[i] >= scaffoldLength && topLevel[i] < previousScaffoldLength) {
+            largerSequences[i] = topLevel[i];
+          }
+        }
+      }
+
+      // Sort into descending order
+      var sortable = [];
+      for(var i in largerSequences) {
+        sortable.push([i, largerSequences[i]]);
+      }
+      sortable.sort(function(a,b) {
+        return b[1] - a[1];
+      });
+
+      // Create a table then present in a modal dialog
+      var content = $('<table><tr><th>Sequence Name</th><th>Length</th><th>Genome Browser</th></table>');
+      for(var i in sortable) {
+        var productionName = $('#production_name').val().toLowerCase();
+        var seqName = sortable[i][0];
+        var length = sortable[i][1];
+        $(content).append("<tr><td>" + seqName + "</td><td>" + Number(length).toLocaleString() + "</td><td><a href=\"/jbrowse/browser/" + productionName + "?loc=" + seqName + "\" target=\"_blank\">JBrowse</a> | <a href=\"/" + productionName + "/Location/View?r=" + seqName + ":1- " + length + "\">Ensembl</a></tr>");
+      }
+      
+      var dialogTitle;
+      if(angle > 1) {
+        dialogTitle = "Top-level sequences in this bin (" + Number(scaffoldLength).toLocaleString() + " to " + Number(previousScaffoldLength).toLocaleString() + ")";
+      } else {
+        dialogTitle = "Top-level sequences in this bin (from " + Number(scaffoldLength).toLocaleString() + ")";
+      }
+      $('<div class="dialog" title="' + dialogTitle + '"></div>')
+        .html(content)
+        .dialog({
+          modal: true,
+          width: 400,
+        });
+
+    }
+  });
+
   stat_circle.on('mousemove', function() {
     output_rect.classed('asm-hidden', false);
     output_text.classed('asm-hidden', false);
@@ -711,9 +779,9 @@ Assembly.prototype.toggleVisible = function(css_class_array) {
   });
 }
 
-Assembly.prototype.reDrawPlot = function(parent, longest, circle_span) {
+Assembly.prototype.reDrawPlot = function(parent, longest, circle_span, stats) {
   parent.html('');
-  this.drawPlot(parent.attr('id'), longest, circle_span);
+  this.drawPlot(parent.attr('id'), stats, longest, circle_span);
 }
 
 function circumference_axis(parent, radii, scale) {
