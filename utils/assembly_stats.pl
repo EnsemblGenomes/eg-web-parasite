@@ -66,11 +66,12 @@ if ($do_assembly) {
   my $break = 10; # number of consecutive Ns to break scaffolds into contigs
   my $bins = 1000; # number of bins to place sequences into
 
-  my (@ctgs, @scafs);
+  my (@ctgs, @scafs, %toplevel);
   
   {
     foreach my $slice (sort { $b->length <=> $a->length } @{$db->get_SliceAdaptor->fetch_all('toplevel')}) {
       push @scafs, uc($slice->seq);
+      $toplevel{$slice->seq_region_name} = $slice->length;
     }
   }
 
@@ -91,6 +92,9 @@ if ($do_assembly) {
   $output->{binned_contig_lengths} = $ctg_output->{binned_scaffold_lengths};
   $output->{contig_N50}            = $ctg_output->{scaffold_N50};
   $output->{contig_L50}            = $ctg_output->{scaffold_L50};
+
+  $output->{toplevel} = \%toplevel;  # List of all scaffolds and their lengths
+
 }
 
 if ($do_cegma) {
