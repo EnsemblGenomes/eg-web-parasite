@@ -301,7 +301,7 @@ sub species_path {
 
   if ($path =~ /^\/$species/i and !$species_defs->valid_species(ucfirst $species) and $genomic_unit) {
     # there was no direct mapping in current unit, use the genomic_unit to add the subdomin
-    $path = sprintf 'http://parasite.wormbase.org/%s', $species;
+    $path = sprintf '/%s', $species;
   } 
     
   # If species is in both Ensembl and EG, then $species_defs->species_path will 
