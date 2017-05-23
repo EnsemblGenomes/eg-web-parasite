@@ -43,7 +43,7 @@ sub parse_ensembl_uri {
 ## ParaSite: redirect non-WormBase species out to wherever they belong, as defined in the configs
   my @uri_parts = split('/', $uri_path);
   my $sp = $uri_parts[1];
-  my $site_type = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)};
+  my $site_type = $species_defs->ENSEMBL_SPECIES_SITE(lc($sp));
   if($site_type && $site_type !~ /^parasite|wormbase$/i) {
     my %param = split ';|=', $uri_query;
     my $redirect_url;
