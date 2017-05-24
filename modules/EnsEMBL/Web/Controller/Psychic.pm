@@ -57,7 +57,7 @@ sub psychic {
   my $species_defs  = $hub->species_defs;
   my $site_type     = lc $species_defs->ENSEMBL_SITETYPE;
   my $script        = $species_defs->ENSEMBL_SEARCH;
-  my %sp_hash       = %{$species_defs->ENSEMBL_SPECIES_ALIASES};
+  my %sp_hash       = %{$species_defs->multi_val('ENSEMBL_SPECIES_URL_MAP')||{}};
   my $dest_site     = $hub->param('site') || 'ensemblunit';
   my $index         = $hub->param('idx')  || undef;
   my $query         = $hub->param('q');
