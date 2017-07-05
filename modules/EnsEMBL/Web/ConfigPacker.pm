@@ -177,7 +177,7 @@ sub _munge_meta {
     
     my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
     #if ($self->tree($production_name)->{'ENSEMBL_SPECIES'}) {
-      push @{$self->tree($production_name)->{'DB_SPECIES'}}, lc $production_name;
+      push @{$self->tree($production_name)->{'DB_SPECIES'}}, $species;
     #} else {
     #  $self->tree($production_name)->{'DB_SPECIES'} = [ $species ];
     #}
