@@ -165,12 +165,10 @@ sub _munge_meta {
     ## Used mainly in <head> links
     ($self->tree->{'SPECIES_BIO_SHORT'} = $bio_name) =~ s/^([A-Z])[a-z]+_([a-z]+)$/$1.$2/;
     
-    if ($self->tree->{'ENSEMBL_SPECIES'}) {
-      push @{$self->tree->{'DB_SPECIES'}}, $species;
-    } else {
-      $self->tree->{'DB_SPECIES'} = [ $species ];
-    }
+    my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
+    push @{$self->tree->{'DB_SPECIES'}}, $production_name;
 
+    push @{$self->tree->{'SPECIES_URL_NAMES'}}, $species;
     
     $self->tree->{'SPECIES_META_ID'} = $species_id;
 
