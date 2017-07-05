@@ -69,17 +69,17 @@ sub _munge_meta {
   my @sp_count  = grep { $_ > 0 } keys %$meta_info;
 
   ## How many species in database?
-  $self->tree->{'SPP_IN_DB'} = scalar @sp_count;
+  $self->tree($production_name)->{'SPP_IN_DB'} = scalar @sp_count;
     
   if (scalar @sp_count > 1) {
     if ($meta_info->{0}{'species.group'}) {
-      $self->tree->{'DISPLAY_NAME'} = $meta_info->{0}{'species.group'};
+      $self->tree($production_name)->{'DISPLAY_NAME'} = $meta_info->{0}{'species.group'};
     } else {
       (my $group_name = $self->{'_species'}) =~ s/_collection//;
-      $self->tree->{'DISPLAY_NAME'} = $group_name;
+      $self->tree($production_name)->{'DISPLAY_NAME'} = $group_name;
     }
   } else {
-    $self->tree->{'DISPLAY_NAME'} = $meta_info->{1}{'species.display_name'}[0];
+    $self->tree($production_name)->{'DISPLAY_NAME'} = $meta_info->{1}{'species.display_name'}[0];
   }
 
 ## EG
@@ -102,22 +102,32 @@ sub _munge_meta {
     
     my $species  = $meta_hash->{'species.url'}[0];
     my $bio_name = $meta_hash->{'species.scientific_name'}[0];
+    my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
 
     ## Put other meta info into variables
     while (my ($meta_key, $key) = each (%keys)) {
       next unless $meta_hash->{$meta_key};
-      
-      my $value = scalar @{$meta_hash->{$meta_key}} > 1 ? $meta_hash->{$meta_key} : $meta_hash->{$meta_key}[0]; 
-      $self->tree->{$key} = $value;
+
+      my $value = scalar @{$meta_hash->{$meta_key}} > 1 ? $meta_hash->{$meta_key} : $meta_hash->{$meta_key}[0];
+
+      ## Set version of assembly name that we can use where space is limited
+      if ($meta_key eq 'assembly.name') {
+        $self->tree->{'ASSEMBLY_SHORT_NAME'} = (length($value) > 16)
+                  ? $self->db_tree->{'ASSEMBLY_VERSION'} : $value;
+      }
+
+      $self->tree($production_name)->{$key} = $value;
     }
 
     ## Do species group
     my $taxonomy = $meta_hash->{'species.classification'};
 
     if ($taxonomy && scalar(@$taxonomy)) {
-      my %valid_taxa = map {$_ => 1} @{ $self->tree->{'TAXON_ORDER'} };
+      my %valid_taxa = map {$_ => 1} @{ $self->tree($production_name)->{'TAXON_ORDER'} };
       my @matched_groups = grep {$valid_taxa{$_}} @$taxonomy;
-      $self->tree->{'SPECIES_GROUP_HIERARCHY'} = \@matched_groups;
+      $self->tree($production_name)->{'TAXONOMY'} = $taxonomy;
+      $self->tree($production_name)->{'SPECIES_GROUP'} = $matched_groups[0] if @matched_groups;
+      $self->tree($production_name)->{'SPECIES_GROUP_HIERARCHY'} = \@matched_groups;
     }
 
     ## ParaSite changes to include nematode clade in the classification
@@ -125,33 +135,33 @@ sub _munge_meta {
     ## End ParaSite changes
 
     ## ParaSite changes to force alternative names into an array
-    $self->tree->{'SPECIES_ALTERNATIVE_NAME'} = $meta_hash->{'species.alternative_name'} if $meta_hash->{'species.alternative_name'};
+    $self->tree($production_name)->{'SPECIES_ALTERNATIVE_NAME'} = $meta_hash->{'species.alternative_name'} if $meta_hash->{'species.alternative_name'};
     ## End ParaSite changes
    
     if ($taxonomy && scalar(@$taxonomy)) {
-      my $order = $self->tree->{'TAXON_ORDER'};
+      my $order = $self->tree($production_name)->{'TAXON_ORDER'};
       
       foreach my $taxon (@$taxonomy) {
         foreach my $group (@$order) {
           ## ParaSite changes to allow sub-grouping of taxonomy on homepage
-          my $sub_order = $self->tree->{'TAXON_SUB_ORDER'}->{$group} || ['parent'];
+          my $sub_order = $self->tree($production_name)->{'TAXON_SUB_ORDER'}->{$group} || ['parent'];
           foreach my $subgroup (@$sub_order) {
-            my $sub_sub_order = $self->tree->{'TAXON_MULTI'}->{$subgroup} || [$subgroup];
+            my $sub_sub_order = $self->tree($production_name)->{'TAXON_MULTI'}->{$subgroup} || [$subgroup];
             foreach my $subsubgroup (@$sub_sub_order) {
               if ($taxon eq $subsubgroup) {
-                $self->tree->{'SPECIES_SUBGROUP'} = $subsubgroup;
+                $self->tree($production_name)->{'SPECIES_SUBGROUP'} = $subsubgroup;
                 last;
               }
             }
           }
           ## End ParaSite changes
           if ($taxon eq $group) {
-            $self->tree->{'SPECIES_GROUP'} = $group;
+            $self->tree($production_name)->{'SPECIES_GROUP'} = $group;
             last;
           }
         }
         
-        last if $self->tree->{'SPECIES_GROUP'};
+        last if $self->tree($production_name)->{'SPECIES_GROUP'};
       }
     }
 
@@ -161,37 +171,41 @@ sub _munge_meta {
     }
 
     ## Backwards compatibility
-    $self->tree->{'SPECIES_BIO_NAME'}  = $bio_name;
+    $self->tree($production_name)->{'SPECIES_BIO_NAME'}  = $bio_name;
     ## Used mainly in <head> links
-    ($self->tree->{'SPECIES_BIO_SHORT'} = $bio_name) =~ s/^([A-Z])[a-z]+_([a-z]+)$/$1.$2/;
+    ($self->tree($production_name)->{'SPECIES_BIO_SHORT'} = $bio_name) =~ s/^([A-Z])[a-z]+_([a-z]+)$/$1.$2/;
     
     my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
-    push @{$self->tree->{'DB_SPECIES'}}, $production_name;
+    #if ($self->tree($production_name)->{'ENSEMBL_SPECIES'}) {
+      push @{$self->tree($production_name)->{'DB_SPECIES'}}, lc $production_name;
+    #} else {
+    #  $self->tree($production_name)->{'DB_SPECIES'} = [ $species ];
+    #}
 
-    push @{$self->tree->{'SPECIES_URL_NAMES'}}, $species;
+    push @{$self->tree($production_name)->{'SPECIES_URL_NAMES'}}, $species;
     
-    $self->tree->{'SPECIES_META_ID'} = $species_id;
+    $self->tree($production_name)->{'SPECIES_META_ID'} = $species_id;
 
     ## Munge genebuild info
     my @A = split '-', $meta_hash->{'genebuild.start_date'}[0];
     
-    $self->tree->{'GENEBUILD_START'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
-    $self->tree->{'GENEBUILD_BY'}    = $A[2];
+    $self->tree($production_name)->{'GENEBUILD_START'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
+    $self->tree($production_name)->{'GENEBUILD_BY'}    = $A[2];
 
     @A = split '-', $meta_hash->{'genebuild.initial_release_date'}[0];
     
-    $self->tree->{'GENEBUILD_RELEASE'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
+    $self->tree($production_name)->{'GENEBUILD_RELEASE'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
     
     @A = split '-', $meta_hash->{'genebuild.last_geneset_update'}[0];
 
-    $self->tree->{'GENEBUILD_LATEST'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
+    $self->tree($production_name)->{'GENEBUILD_LATEST'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
     
     @A = split '-', $meta_hash->{'assembly.date'}[0];
     
-    $self->tree->{'ASSEMBLY_DATE'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
+    $self->tree($production_name)->{'ASSEMBLY_DATE'} = $A[1] ? "$months[$A[1]] $A[0]" : undef;
     
 
-    $self->tree->{'HAVANA_DATAFREEZE_DATE'} = $meta_hash->{'genebuild.havana_datafreeze_date'}[0];
+    $self->tree($production_name)->{'HAVANA_DATAFREEZE_DATE'} = $meta_hash->{'genebuild.havana_datafreeze_date'}[0];
 
     # check if there are sample search entries defined in meta table ( the case with Ensembl Genomes)
     # they can be overwritten at a later stage  via INI files
@@ -211,7 +225,7 @@ sub _munge_meta {
       } 
     }
 
-    $self->tree->{'SAMPLE_DATA'} = $shash if scalar keys %$shash;
+    $self->tree($production_name)->{'SAMPLE_DATA'} = $shash if scalar keys %$shash;
 
     # check if the karyotype/list of toplevel regions ( normally chroosomes) is defined in meta table
     @{$self->tree($species)->{'TOPLEVEL_REGIONS'}} = @{$meta_hash->{'regions.toplevel'}} if $meta_hash->{'regions.toplevel'};
@@ -220,11 +234,11 @@ sub _munge_meta {
     $self->tree($species)->{'SPECIES_DATASET'} = $group_name;
  
     # convenience flag to determine if species is polyploidy
-    $self->tree->{POLYPLOIDY} = ($self->tree->{PLOIDY} > 2);
+    $self->tree($production_name)->{POLYPLOIDY} = ($self->tree($production_name)->{PLOIDY} > 2);
 
 ## EG - munge EG genome info 
     if ($genome_info_adaptor) {
-      my $dbname = $self->tree->{databases}->{DATABASE_CORE}->{NAME};
+      my $dbname = $self->tree($production_name)->{databases}->{DATABASE_CORE}->{NAME};
       foreach my $genome (@{ $genome_info_adaptor->fetch_all_by_dbname($dbname) }) {
         my $species = $genome->species;
         $self->tree($species)->{'SEROTYPE'}     = $genome->serotype;
@@ -253,7 +267,7 @@ sub get_EVA_tracks {
       next;
     }
     foreach my $dataset (@{$result_set->{result}}) {
-      if($dataset->{assemblyAccession} eq $self->tree->{'ASSEMBLY_ACCESSION'}) {
+      if($dataset->{assemblyAccession} eq $self->tree($production_name)->{'ASSEMBLY_ACCESSION'}) {
         $eva_species = ucfirst($dataset->{taxonomyEvaName});
         $eva_assembly = sprintf('%s_%s', $dataset->{taxonomyCode}, $dataset->{assemblyCode});
       }
