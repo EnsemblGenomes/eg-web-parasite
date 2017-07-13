@@ -41,6 +41,7 @@ sub _munge_meta {
   my %keys = qw(
     species.taxonomy_id           TAXONOMY_ID
     species.url                   SPECIES_URL
+    species.stable_id_prefix      SPECIES_PREFIX
     species.display_name          SPECIES_COMMON_NAME
     species.production_name       SPECIES_PRODUCTION_NAME
     species.scientific_name       SPECIES_SCIENTIFIC_NAME
@@ -59,6 +60,8 @@ sub _munge_meta {
     provider.logo                 PROVIDER_LOGO
     species.strain                SPECIES_STRAIN
     species.sql_name              SYSTEM_NAME
+    genome.assembly_type          GENOME_ASSEMBLY_TYPE
+    gencode.version               GENCODE_VERSION
     species.biomart_dataset       BIOMART_DATASET
     species.wikipedia_url         WIKIPEDIA_URL
     ploidy                        PLOIDY
@@ -69,17 +72,19 @@ sub _munge_meta {
   my @sp_count  = grep { $_ > 0 } keys %$meta_info;
 
   ## How many species in database?
-  $self->tree($production_name)->{'SPP_IN_DB'} = scalar @sp_count;
+  $self->tree->{'SPP_IN_DB'} = scalar @sp_count;
     
-  if (scalar @sp_count > 1) {
+## EG   
+  if ($self->is_collection('DATABASE_CORE')) {
+##    
     if ($meta_info->{0}{'species.group'}) {
-      $self->tree($production_name)->{'DISPLAY_NAME'} = $meta_info->{0}{'species.group'};
+      $self->tree->{'DISPLAY_NAME'} = $meta_info->{0}{'species.group'};
     } else {
       (my $group_name = $self->{'_species'}) =~ s/_collection//;
-      $self->tree($production_name)->{'DISPLAY_NAME'} = $group_name;
+      $self->tree->{'DISPLAY_NAME'} = $group_name;
     }
   } else {
-    $self->tree($production_name)->{'DISPLAY_NAME'} = $meta_info->{1}{'species.display_name'}[0];
+    $self->tree->{'DISPLAY_NAME'} = $meta_info->{1}{'species.display_name'}[0];
   }
 
 ## EG
@@ -99,18 +104,18 @@ sub _munge_meta {
 
   while (my ($species_id, $meta_hash) = each (%$meta_info)) {
     next unless $species_id && $meta_hash && ref($meta_hash) eq 'HASH';
-    
-    my $species  = $meta_hash->{'species.url'}[0];
-    my $bio_name = $meta_hash->{'species.scientific_name'}[0];
-    my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
 
+    my $species          = $meta_hash->{'species.url'}[0];
+    my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
+    my $bio_name = $meta_hash->{'species.scientific_name'}[0];
+    
     ## Put other meta info into variables
     while (my ($meta_key, $key) = each (%keys)) {
       next unless $meta_hash->{$meta_key};
+      
+      my $value = scalar @{$meta_hash->{$meta_key}} > 1 ? $meta_hash->{$meta_key} : $meta_hash->{$meta_key}[0]; 
 
-      my $value = scalar @{$meta_hash->{$meta_key}} > 1 ? $meta_hash->{$meta_key} : $meta_hash->{$meta_key}[0];
-
-      ## Set version of assembly name that we can use where space is limited
+      ## Set version of assembly name that we can use where space is limited 
       if ($meta_key eq 'assembly.name') {
         $self->tree->{'ASSEMBLY_SHORT_NAME'} = (length($value) > 16)
                   ? $self->db_tree->{'ASSEMBLY_VERSION'} : $value;
@@ -119,11 +124,13 @@ sub _munge_meta {
       $self->tree($production_name)->{$key} = $value;
     }
 
+    $self->tree($production_name)->{'DISPLAY_NAME'} = $self->tree($production_name)->{'SPECIES_COMMON_NAME'};
+
     ## Do species group
     my $taxonomy = $meta_hash->{'species.classification'};
-
+    
     if ($taxonomy && scalar(@$taxonomy)) {
-      my %valid_taxa = map {$_ => 1} @{ $self->tree($production_name)->{'TAXON_ORDER'} };
+      my %valid_taxa = map {$_ => 1} @{ $self->tree->{'TAXON_ORDER'} };
       my @matched_groups = grep {$valid_taxa{$_}} @$taxonomy;
       $self->tree($production_name)->{'TAXONOMY'} = $taxonomy;
       $self->tree($production_name)->{'SPECIES_GROUP'} = $matched_groups[0] if @matched_groups;
@@ -170,20 +177,25 @@ sub _munge_meta {
       $self->full_tree->{'MULTI'}{'SPECIES_ALIASES'}{$alias} = $species;
     }
 
+    ## Make sure we define the URL as an alias, even if no other aliases exist for this species,
+    ## otherwise the mapping in Apache handlers will fail
+    $self->full_tree->{'MULTI'}{'SPECIES_ALIASES'}{$species} = $species;
+
+
     ## Backwards compatibility
     $self->tree($production_name)->{'SPECIES_BIO_NAME'}  = $bio_name;
     ## Used mainly in <head> links
     ($self->tree($production_name)->{'SPECIES_BIO_SHORT'} = $bio_name) =~ s/^([A-Z])[a-z]+_([a-z]+)$/$1.$2/;
-    
-    my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
-    #if ($self->tree($production_name)->{'ENSEMBL_SPECIES'}) {
-      push @{$self->tree($production_name)->{'DB_SPECIES'}}, $species;
+
+    #if ($self->tree->{'ENSEMBL_SPECIES'}) {
+      push @{$self->tree->{'DB_SPECIES'}}, $production_name;
     #} else {
-    #  $self->tree($production_name)->{'DB_SPECIES'} = [ $species ];
+    #  $self->tree->{'DB_SPECIES'} = [ $species ];
     #}
 
-    push @{$self->tree($production_name)->{'SPECIES_URL_NAMES'}}, $species;
-    
+    push @{$self->tree->{'SPECIES_URL_NAMES'}}, $species;
+
+ 
     $self->tree($production_name)->{'SPECIES_META_ID'} = $species_id;
 
     ## Munge genebuild info
@@ -228,18 +240,61 @@ sub _munge_meta {
     $self->tree($production_name)->{'SAMPLE_DATA'} = $shash if scalar keys %$shash;
 
     # check if the karyotype/list of toplevel regions ( normally chroosomes) is defined in meta table
-    @{$self->tree($species)->{'TOPLEVEL_REGIONS'}} = @{$meta_hash->{'regions.toplevel'}} if $meta_hash->{'regions.toplevel'};
-   
-    (my $group_name = $self->{'_species'}) =~ s/_collection//;
-    $self->tree($species)->{'SPECIES_DATASET'} = $group_name;
- 
+    @{$self->tree($production_name)->{'TOPLEVEL_REGIONS'}} = @{$meta_hash->{'regions.toplevel'}} if $meta_hash->{'regions.toplevel'};
+
+## EG    
+    if ($self->is_collection('DATABASE_CORE')) {
+      @{$self->tree($production_name)->{'ENSEMBL_CHROMOSOMES'}} = ();                                                                      #nickl: need to explicitly define as empty array by default otherwise SpeciesDefs looks for a value at collection level
+      @{$self->tree($production_name)->{'ENSEMBL_CHROMOSOMES'}} = @{$meta_hash->{'region.toplevel'}} if $meta_hash->{'region.toplevel'};
+    }
+##
+
+    #If the top level regions are other than palsmid or chromosome, ENSEMBL_CHROMOSOMES is set to an empty array
+    #in order to disable the 'Karyotype' and 'Chromosome summary' links in the menu tree
+    if ($meta_hash->{'region.toplevel'}) {
+
+      my $db_name = 'DATABASE_CORE';
+      my $dbh     = $self->db_connect($db_name);
+
+      #it's sufficient to check just the first elem, assuming the list doesn't contain a mixture of plasmid/chromosome and other than plasmid/chromosome regions:
+      my $sname  = $meta_hash->{'region.toplevel'}->[0];
+      my $t_aref = $dbh->selectall_arrayref(
+        "select       
+        coord_system.name, 
+        seq_region.name
+        from 
+        meta, 
+        coord_system, 
+        seq_region, 
+        seq_region_attrib
+        where 
+        coord_system.coord_system_id = seq_region.coord_system_id
+        and seq_region_attrib.seq_region_id = seq_region.seq_region_id
+        and seq_region_attrib.attrib_type_id =  (SELECT attrib_type_id FROM attrib_type where name = 'Top Level') 
+        and meta.species_id=coord_system.species_id 
+        and meta.meta_key = 'species.production_name'
+        and meta.meta_value = '" . $production_name . "'
+        and seq_region.name = '" . $sname . "'
+        and coord_system.name not in ('plasmid', 'chromosome')"
+      ) || [];
+
+      if (@$t_aref) {
+        @{$self->tree($production_name)->{'ENSEMBL_CHROMOSOMES'}} = ();
+      }
+    }
+
+
+    (my $group_name = (ucfirst $self->{'_species'})) =~ s/_collection//;
+    $self->tree($production_name)->{'SPECIES_DATASET'} = $group_name;
+    
     # convenience flag to determine if species is polyploidy
     $self->tree($production_name)->{POLYPLOIDY} = ($self->tree($production_name)->{PLOIDY} > 2);
 
 ## EG - munge EG genome info 
     if ($genome_info_adaptor) {
-      my $dbname = $self->tree($production_name)->{databases}->{DATABASE_CORE}->{NAME};
+      my $dbname = $self->tree->{databases}->{DATABASE_CORE}->{NAME};
       foreach my $genome (@{ $genome_info_adaptor->fetch_all_by_dbname($dbname) }) {
+#        warn "GI SP $species";
         my $species = $genome->species;
         $self->tree($species)->{'SEROTYPE'}     = $genome->serotype;
         $self->tree($species)->{'PUBLICATIONS'} = $genome->publications;
