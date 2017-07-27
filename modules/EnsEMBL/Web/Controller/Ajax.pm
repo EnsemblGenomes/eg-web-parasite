@@ -160,7 +160,8 @@ sub ajax_species_tree {
             my $scientific = $species_defs->get_config($_, 'SPECIES_SCIENTIFIC_NAME');
             push(@{$species{$scientific}}, $_);
             push(@{$aliases{$scientific}}, @{$species_defs->get_config($_, 'SPECIES_ALTERNATIVE_NAME')}) if $species_defs->get_config($_, 'SPECIES_ALTERNATIVE_NAME');
-            $providers{$_} = $species_defs->get_config($_, 'PROVIDER_NAME');
+            my $prov = $species_defs->get_config($_, 'PROVIDER_NAME');
+            $providers{$_} = (ref($prov) eq 'ARRAY') ? join(" / ", @$prov) : $prov;
           }
         }
 
