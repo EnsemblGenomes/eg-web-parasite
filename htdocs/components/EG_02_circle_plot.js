@@ -659,7 +659,7 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
         .html(content)
         .dialog({
           modal: true,
-          width: 400,
+          width: 400
         });
 
     }
