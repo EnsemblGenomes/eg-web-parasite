@@ -106,7 +106,7 @@ sub _munge_meta {
     next unless $species_id && $meta_hash && ref($meta_hash) eq 'HASH';
 
     my $species          = $meta_hash->{'species.url'}[0];
-    my $production_name  = ucfirst $meta_hash->{'species.production_name'}[0];
+    my $production_name  = $meta_hash->{'species.production_name'}[0];
     my $bio_name = $meta_hash->{'species.scientific_name'}[0];
     
     ## Put other meta info into variables
@@ -188,7 +188,7 @@ sub _munge_meta {
     ($self->tree($production_name)->{'SPECIES_BIO_SHORT'} = $bio_name) =~ s/^([A-Z])[a-z]+_([a-z]+)$/$1.$2/;
 
     #if ($self->tree->{'ENSEMBL_SPECIES'}) {
-      push @{$self->tree->{'DB_SPECIES'}}, $production_name;
+      push @{$self->tree->{'DB_SPECIES'}}, $species;
     #} else {
     #  $self->tree->{'DB_SPECIES'} = [ $species ];
     #}
