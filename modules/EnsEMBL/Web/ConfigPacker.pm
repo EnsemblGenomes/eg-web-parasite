@@ -147,29 +147,28 @@ sub _munge_meta {
    
     if ($taxonomy && scalar(@$taxonomy)) {
       my $order = $self->tree($production_name)->{'TAXON_ORDER'};
-      
+
+      ## ParaSite changes to allow sub-grouping of taxonomy on homepage      
+      TAXON:
       foreach my $taxon (@$taxonomy) {
         foreach my $group (@$order) {
-          ## ParaSite changes to allow sub-grouping of taxonomy on homepage
           my $sub_order = $self->tree($production_name)->{'TAXON_SUB_ORDER'}->{$group} || ['parent'];
           foreach my $subgroup (@$sub_order) {
             my $sub_sub_order = $self->tree($production_name)->{'TAXON_MULTI'}->{$subgroup} || [$subgroup];
             foreach my $subsubgroup (@$sub_sub_order) {
               if ($taxon eq $subsubgroup) {
                 $self->tree($production_name)->{'SPECIES_SUBGROUP'} = $subsubgroup;
-                last;
+                last TAXON;
               }
             }
           }
-          ## End ParaSite changes
           if ($taxon eq $group) {
             $self->tree($production_name)->{'SPECIES_GROUP'} = $group;
-            last;
+            last TAXON;
           }
         }
-        
-        last if $self->tree($production_name)->{'SPECIES_GROUP'};
       }
+      ## End ParaSite changes
     }
 
     ## create lookup hash for species aliases
