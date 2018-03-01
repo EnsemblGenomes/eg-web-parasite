@@ -19,7 +19,6 @@ limitations under the License.
 package EnsEMBL::LWP_UserAgent;
 
 use LWP;
-use Net::SSL;
 
 sub user_agent {
   my $self = shift;
@@ -28,7 +27,7 @@ sub user_agent {
   $ENV{HTTPS_PROXY} = $species_defs->ENSEMBL_WWW_PROXY;
   unless ($self->{user_agent}) {
     my $ua = LWP::UserAgent->new(
-      ssl_opts => { verify_hostname => 0 },
+      ssl_opts => { verify_hostname => 1 },
     );
     $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
     $ua->env_proxy;
