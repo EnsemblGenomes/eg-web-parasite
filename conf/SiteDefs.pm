@@ -23,8 +23,8 @@ sub update_conf {
 
     ### Release Configuration - to be updated for each release
     $SiteDefs::SITE_RELEASE_VERSION = '10';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '260';
-    $SiteDefs::SITE_RELEASE_DATE = 'August 2017';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '263';
+    $SiteDefs::SITE_RELEASE_DATE = 'March 2018';
     
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
@@ -68,8 +68,8 @@ sub update_conf {
     ### URLs for external services
     $SiteDefs::NCBIBLAST_REST_ENDPOINT = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
     $SiteDefs::EBEYE_REST_ENDPOINT     = 'http://www.ebi.ac.uk/ebisearch/ws/rest';
-    $SiteDefs::GXA_REST_URL            = 'http://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
-    $SiteDefs::GXA_EBI_URL             = 'http://www.ebi.ac.uk/gxa/resources';
+    $SiteDefs::GXA_REST_URL            = 'https://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
+    $SiteDefs::GXA_EBI_URL             = 'https://www.ebi.ac.uk/gxa/resources';
     $SiteDefs::EVA_URL                 = 'http://www.ebi.ac.uk/eva';
 
     ### Species Configuration
@@ -94,6 +94,7 @@ sub update_conf {
       caenorhabditis_briggsae_prjna10731
       caenorhabditis_elegans_prjna13758
       caenorhabditis_japonica_prjna12591
+      caenorhabditis_nigoni_prjna384657
       caenorhabditis_remanei_prjna53967
       caenorhabditis_sinica_prjna194557
       caenorhabditis_tropicalis_prjna53597
@@ -102,6 +103,8 @@ sub update_conf {
       dictyocaulus_viviparus_prjeb5116
       dictyocaulus_viviparus_prjna72587
       diphyllobothrium_latum_prjeb1206
+      diploscapter_coronatus_prjdb3143
+      diploscapter_pachys_prjna280107
       dirofilaria_immitis_prjeb1797
       ditylenchus_destructor_prjna312427
       dracunculus_medinensis_prjeb500
@@ -146,6 +149,7 @@ sub update_conf {
       opisthorchis_viverrini_prjna222628
       panagrellus_redivivus_prjna186477
       parascaris_equorum_prjeb514
+      parascaris_univalens_prjna386823
       parastrongyloides_trichosuri_prjeb515
       pristionchus_exspectatus_prjeb6009
       pristionchus_pacificus_prjna12644
@@ -217,7 +221,23 @@ sub update_conf {
       $SiteDefs::ENSEMBL_SERVERROOT.'/eg-web-parasite/perl',
     );
     
-    
+    fixSSLOnHX();
 }
+
+sub fixSSLOnHX {
+    if(not defined &LWP::Protocol::https::_upgrade_sock) {
+       *LWP::Protocol::https::_upgrade_sock = sub {
+       my ($self,$sock,$url) = @_;
+       $sock = LWP::Protocol::https::Socket->start_SSL( $sock,
+         SSL_verifycn_name => $url->host,
+         SSL_hostname => $url->host,
+         $self->_extra_sock_opts,
+       );
+      $@ = LWP::Protocol::https::Socket->errstr if ! $sock;
+      return $sock;
+      };
+    }
+}
+
 
 1;
