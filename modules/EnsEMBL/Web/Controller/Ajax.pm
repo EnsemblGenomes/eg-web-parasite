@@ -76,7 +76,7 @@ sub ajax_search_autocomplete {
 
 ## Does the search term match a species name?
   my @species = $species_defs->valid_species;  
-  my ($sp_term, $sp_genus) = $term =~ /^([A-Za-z])[\.]?\s?([A-Za-z]+)/ ? ($2, $1) : ($term, undef); # Deal with abbreviation of the genus
+  my ($sp_term, $sp_genus) = $term =~ /^([A-Za-z])[\.]?\s([A-Za-z]+)/ ? ($2, $1) : ($term, undef); # Deal with abbreviation of the genus
   $sp_term =~ s/genome$//; # Some users put the word genome at the end of their search string - remove this so we still get a match
   foreach my $sp (@species) {
     my $name      = sprintf('%s (%s%s)', $species_defs->get_config($sp, "SPECIES_SCIENTIFIC_NAME"), $species_defs->get_config($sp, "SPECIES_BIOPROJECT"), $species_defs->get_config($sp, "SPECIES_STRAIN") ? " - " . $species_defs->get_config($sp, "SPECIES_STRAIN") : '');

@@ -89,7 +89,7 @@ sub get_reference {
   # Form a reference from a PubMed ID
   my ($id) = @_;
   print "--Quering EuropePMC for $id\n";
-  my $response = get("http://www.ebi.ac.uk/europepmc/webservices/rest/search/query=$id");
+  my $response = get("https://www.ebi.ac.uk/europepmc/webservices/rest/search/query=$id");
   my $result = XMLin($response);
   my $pmid = $result->{resultList}->{result}->{pmid};
   my $text = encode_entities("$result->{resultList}->{result}->{authorString} ") . "<a href=\"http://europepmc.org/abstract/MED/$pmid\">" . encode_entities("$result->{resultList}->{result}->{title}") . "</a> <em>" . encode_entities($result->{resultList}->{result}->{journalTitle}) . "</em>" . encode_entities(", $result->{resultList}->{result}->{pubYear};$result->{resultList}->{result}->{journalVolume}($result->{resultList}->{result}->{issue}):$result->{resultList}->{result}->{pageInfo}");  # encode_entities will encode any symbolic characters (such as ligatures in author names) into the correct HTML
