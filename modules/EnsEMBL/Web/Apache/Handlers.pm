@@ -34,11 +34,9 @@ sub parse_ensembl_uri {
   my $parsed_uri  = $r->parsed_uri;
   my $uri_path    = $parsed_uri->path // '';
   my $uri_query   = $parsed_uri->query // '';
-
-## ParaSite: do not redirect to index.html on the homepage - it is pointless
-  $r->subprocess_env('ENSEMBL_PATH', '/');
-  return join '?', $uri_query if $uri_path eq '/';
-## ParaSite
+  
+  # if there's nothing to parse, it's a homepage request - redirect to index.html in that case
+  return join '?', '/index.html', $uri_query || () if $uri_path eq '/';
 
 ## ParaSite: redirect non-WormBase species out to wherever they belong, as defined in the configs
   my @uri_parts = split('/', $uri_path);
