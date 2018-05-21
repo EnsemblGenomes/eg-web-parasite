@@ -43,6 +43,11 @@ sub render {
 
   # Put the 'sticky' posts at the top
   my $sticky_posts = get_wordpress_posts("sticky=require");
+  if (!defined $sticky_posts) {
+  # Deal with Wordpress API problem
+    return qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2><h3>There is an error accessing our Wordpress blog</h3> <br></div>);
+  }
+  
   my $announce_html;
   my $announce_count = 0;
   foreach my $post (@{$sticky_posts->{'posts'}}) {
@@ -79,7 +84,7 @@ sub get_wordpress_posts {
 
   if ($response->is_error) {
     warn 'WormBase blog error: ' . $response->status_line;
-    return '';
+    return;
   }
 
   return from_json($content);
