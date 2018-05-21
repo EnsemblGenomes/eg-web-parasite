@@ -1,2 +1,3 @@
-.nav ul.local_context a:hover        { color: [[MENU_LINK_HOVER]]; text-decoration: none; }
+.nav ul.local_context a:hover		{ color: [[MENU_LINK_HOVER]]; text-decoration: none; }
+.nav ul.local_context a 		{ color: [[MENU_LINK]]; text-decoration: none; }
 
