@@ -73,6 +73,12 @@ sub update_conf {
     $SiteDefs::GXA_EBI_URL             = 'https://www.ebi.ac.uk/gxa/resources';
     $SiteDefs::EVA_URL                 = 'http://www.ebi.ac.uk/eva';
 
+    ## GDPR config
+    $SiteDefs::GDPR_VERSION            = '2.0.0';
+    $SiteDefs::GDPR_COOKIE_NAME        = 'wbps-policy';
+    $SiteDefs::GDPR_POLICY_URL         = 'https://www.ebi.ac.uk/data-protection/privacy-notice/wbparasite-website-browsing';
+    $SiteDefs::GDPR_ACCOUNT_URL        = 'https://www.ebi.ac.uk/data-protection/privacy-notice/wbparasite-website-accounts';
+
     ### Species Configuration
     $SiteDefs::PRODUCTION_NAMES = [sort qw(
       acanthocheilonema_viteae_prjeb4306
