@@ -22,14 +22,15 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '10';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '263';
-    $SiteDefs::SITE_RELEASE_DATE = 'March 2018';
+    $SiteDefs::SITE_RELEASE_VERSION = '11';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '265';
+    $SiteDefs::SITE_RELEASE_DATE = 'July 2018';
     
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
     $SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
     $SiteDefs::EG_DIVISION = 'parasite';
+    $SiteDefs::DIVISION = 'parasite';
     $SiteDefs::GENOMIC_UNIT = 'parasite';
     $SiteDefs::ENSEMBL_PORT = 8032;
     $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
@@ -49,8 +50,8 @@ sub update_conf {
     $SiteDefs::EBEYE_SEARCH_DOMAIN = 'wormbaseParasite';
 
     ### Tools Configuration
-    $SiteDefs::ENSEMBL_BLAST_ENABLED     = 1;
-    $SiteDefs::ENSEMBL_VEP_ENABLED       = 1;
+    $SiteDefs::ENSEMBL_BLAST_ENABLED     = 0;
+    $SiteDefs::ENSEMBL_VEP_ENABLED       = 0;
     $SiteDefs::ENSEMBL_MART_ENABLED      = 0; # This is switched off to prevent automatic BioMart startup
     $SiteDefs::ENSEMBL_AC_ENABLED        = 0;
     $SiteDefs::ENSEMBL_IDM_ENABLED       = 0;
@@ -94,9 +95,13 @@ sub update_conf {
       caenorhabditis_briggsae_prjna10731
       caenorhabditis_elegans_prjna13758
       caenorhabditis_japonica_prjna12591
+      caenorhabditis_latens_prjna248912
       caenorhabditis_nigoni_prjna384657
+      caenorhabditis_remanei_prjna248909
+      caenorhabditis_remanei_prjna248911
       caenorhabditis_remanei_prjna53967
       caenorhabditis_sinica_prjna194557
+      caenorhabditis_sp34_prjdb5687
       caenorhabditis_tropicalis_prjna53597
       clonorchis_sinensis_prjda72781
       cylicostephanus_goldi_prjeb498
@@ -115,7 +120,7 @@ sub update_conf {
       echinostoma_caproni_prjeb1207
       elaeophora_elaphi_prjeb502
       enterobius_vermicularis_prjeb503
-      fasciola_hepatica_prjeb6687
+      fasciola_hepatica_prjeb25283
       fasciola_hepatica_prjna179522
       globodera_pallida_prjeb123
       globodera_rostochiensis_prjeb13504
@@ -135,22 +140,28 @@ sub update_conf {
       loa_loa_prjna246086
       loa_loa_prjna60051
       macrostomum_lignano_prjna284736
+      macrostomum_lignano_prjna371498
+      meloidogyne_arenaria_prjeb8714
       meloidogyne_floridensis_prjeb6016
       meloidogyne_hapla_prjna29083
-      meloidogyne_incognita_prjea28837
+      meloidogyne_incognita_prjeb8714
+      meloidogyne_javanica_prjeb8714
       mesocestoides_corti_prjeb510
       necator_americanus_prjna72135
       nippostrongylus_brasiliensis_prjeb511
       oesophagostomum_dentatum_prjna72579
       onchocerca_flexuosa_prjeb512
+      onchocerca_flexuosa_prjna230512
       onchocerca_ochengi_prjeb1204
       onchocerca_ochengi_prjeb1809
       onchocerca_volvulus_prjeb513
       opisthorchis_viverrini_prjna222628
+      oschieus_tipulae_prjeb15512
       panagrellus_redivivus_prjna186477
       parascaris_equorum_prjeb514
       parascaris_univalens_prjna386823
       parastrongyloides_trichosuri_prjeb515
+      plectus_sambesii_prjna390260
       pristionchus_exspectatus_prjeb6009
       pristionchus_pacificus_prjna12644
       protopolystoma_xenopodis_prjeb1201
