@@ -39,13 +39,21 @@ function fetch_comment() {
   {
     geid: geid
   },
-  function(data, status){
+  function(data, status, xhr){
+    if (xhr.status != 200) return;
     $('#cmt_section1').empty();
     for (var i=0; i<data.length; i++) {
       var item = data[i];            
       $('#cmt_section1').append(comment_box(item.user, item.timestamp, item.comment_data, item.uuid, item.isEditable, item.wasEdited));
     }
+    updateCount(data.length);
   });
+}
+
+function updateCount(count) {
+  var text = 'User Comment (' + count + ')';
+  $("#page_nav [title^='User Comment']").text(text);
+  $(".nav-heading h1.caption").text(text);
 }
 
 function lineBreakFormat(message){
