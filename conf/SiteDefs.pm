@@ -79,6 +79,11 @@ sub update_conf {
     $SiteDefs::GDPR_POLICY_URL         = 'https://www.ebi.ac.uk/data-protection/privacy-notice/wbparasite-website-browsing';
     $SiteDefs::GDPR_ACCOUNT_URL        = 'https://www.ebi.ac.uk/data-protection/privacy-notice/wbparasite-website-accounts';
 
+
+    # Comment config
+    $SiteDefs::COMMENT_ADMIN_GROUP            = '1';
+    $SiteDefs::PARASITE_COMMENT_ENABLED       = 1;
+
     ### Species Configuration
     $SiteDefs::PRODUCTION_NAMES = [sort qw(
       acanthocheilonema_viteae_prjeb4306

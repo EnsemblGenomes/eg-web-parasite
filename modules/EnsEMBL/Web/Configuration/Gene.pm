@@ -19,6 +19,7 @@ limitations under the License.
 package EnsEMBL::Web::Configuration::Gene;
 
 use previous qw(modify_tree);
+use ORM::EnsEMBL::DB::Accounts::Manager::CommentMeta;
 
 sub modify_tree {
   my $self = shift;
@@ -87,6 +88,16 @@ sub modify_tree {
       transcripts   EnsEMBL::Web::Component::Gene::TranscriptsImage
     )]
   );
+
+  if ($SiteDefs::PARASITE_COMMENT_ENABLED) {
+    my $comment_count = ORM::EnsEMBL::DB::Accounts::Manager::CommentMeta->get_comment_count_by_geneid($self->hub->param('g'));
+    my $comment_txt  = sprintf ("User Comment (%s)", $comment_count);
+    my $comment_section = $self->create_node('Comment', $comment_txt, 
+        [qw(gene_comment EnsEMBL::Web::Component::Gene::Comment )],
+        { 'availability'  => 1}
+      );
+    $summary->append($comment_section);
+  }
  
   my $ontology_menu = $self->get_node('Ontologies');
   $ontology_menu->set('caption', "Gene Ontology");

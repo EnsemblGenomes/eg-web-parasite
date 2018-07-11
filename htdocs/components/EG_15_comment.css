@@ -1,0 +1,113 @@
+#commentbox .wrapper {
+  width: 80%;
+  min-width: 500px;
+  max-width: 1400px;
+  padding: 1em 3% 1em 0;
+  margin-bottom: 5%;
+}
+
+#commentbox .contentbox {
+  border: 1px solid rgb(204, 204, 204);
+  padding: 1em 2% 0.6em 2%;
+  /*background-color: #f6f5f3; */
+  background-color: #f9f9f7;
+  /*background-color: #fdfdfc;*/
+  margin-bottom: 10px;
+  position: relative;
+  /*display: block;*/
+}
+
+#commentbox .content_input {
+  width: 70%;
+  min-height: 60px;
+  max-height: 400px;
+  height: 100px;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 1em 2% 1em 2%;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin: 0 15% 0 15%;
+  font-size: 1em;
+  resize: vertical;
+  font-family: inherit;
+} 
+
+#commentbox .highlight {
+  background-color: #e7e3d4;
+}
+
+
+#commentbox .header {
+  padding-bottom: 8px;
+}
+
+#commentbox .author {
+  font-size: 1.2em;
+  font-weight: bold;
+  /* color: #7dce94; */
+  /*color: #e0474c;*/
+  color: #cd5554;
+}
+
+#commentbox .date {
+  font-size: 1em;
+  font-weight: bold;
+  /* color: #7dce94; */
+  color: #525251;
+}
+
+#commentbox .buttons {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+#commentbox .ctr-buttons {
+}
+
+#commentbox .edt-buttons button{
+  background-color: #ff0000;
+}
+
+.hidebuttons {
+  display:none;
+}
+
+#commentbox button {
+  cursor: pointer;
+  background-color: #d8d8d8;
+  border-radius: 6px;
+  border-width: 0;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+#commentbox button:hover {
+  background-color: #7b8baf;
+}
+
+#commentbox button:focus {
+  outline:0;
+}
+
+#commentbox .input_area {
+  margin: 15px 0;
+}
+
+#commentbox .cbutton {
+  float: right;
+  margin: 10px 18%;
+  font-size: 1.3em;
+}
+
+#commentbox p {
+  font-size: 1em;
+  color: rgb(85,85,85);
+}
+
+#commentbox .cmt_hidden {
+  display: none;
+}
+
+
+
