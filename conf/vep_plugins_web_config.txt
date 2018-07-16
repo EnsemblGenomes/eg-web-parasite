@@ -27,15 +27,7 @@
     "available" => 0
   },
 
-  HGVSshift => {
-    "available" => 0
-  },
-
   miRNA => {
-    "available" => 0
-  },
-
-  UpDownDistance => {
     "available" => 0
   }
 }

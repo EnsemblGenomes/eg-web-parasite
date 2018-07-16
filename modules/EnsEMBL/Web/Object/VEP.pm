@@ -130,6 +130,12 @@ sub get_form_details {
         'helptip' => 'For variants that fall in the exon or intron, report the exon or intron number as NUMBER / TOTAL',
       },
 
+      distance => {
+        'label'   => 'Upstream/Downstream distance (bp)',
+        'helptip' => 'Change the distance to transcript for which VEP assigns upstream and downstream consequences',
+        'value'   => Bio::EnsEMBL::Variation::Utils::VariationEffect::MAX_DISTANCE_FROM_TRANSCRIPT,
+      },
+
       tsl => {
         'label'   => 'Transcript support level',
       },
