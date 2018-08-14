@@ -50,8 +50,8 @@ sub update_conf {
     $SiteDefs::EBEYE_SEARCH_DOMAIN = 'wormbaseParasite';
 
     ### Tools Configuration
-    $SiteDefs::ENSEMBL_BLAST_ENABLED     = 0;
-    $SiteDefs::ENSEMBL_VEP_ENABLED       = 0;
+    $SiteDefs::ENSEMBL_BLAST_ENABLED     = 1;
+    $SiteDefs::ENSEMBL_VEP_ENABLED       = 1;
     $SiteDefs::ENSEMBL_MART_ENABLED      = 0; # This is switched off to prevent automatic BioMart startup
     $SiteDefs::ENSEMBL_AC_ENABLED        = 0;
     $SiteDefs::ENSEMBL_IDM_ENABLED       = 0;
