@@ -21,6 +21,8 @@ package EnsEMBL::Web::ImageConfig;
 use strict;
 
 sub menus {
+  my $species_defs    = $_[0]->species_defs;
+ 
   return $_[0]->{'menus'} ||= {
     # Sequence
     seq_assembly        => 'Sequence and assembly',
@@ -107,7 +109,7 @@ sub menus {
 
     # External data
     user_data           => 'Your data',
-    external_data       => 'External data',
+    external_data       => defined $species_defs->EXTDATA ? $species_defs->EXTDATA->{caption} : 'External Data',
   };
 }
 
