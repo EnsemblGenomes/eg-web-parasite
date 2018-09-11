@@ -105,7 +105,7 @@ sub get_cacheable_form_node {
 
   # Render the hidden species groupings
   my %lookup;
-  foreach my $group (keys $species_defs->TAXON_MULTI) {
+  foreach my $group (keys %{$species_defs->TAXON_MULTI}) {
     map($lookup{$_} = $group, @{$species_defs->TAXON_MULTI->{$group}});
   }
   foreach my $sp ($species_defs->valid_species) {
