@@ -24,14 +24,14 @@ sub user_agent {
   my $self = shift;
 
   my $species_defs = EnsEMBL::Web::SpeciesDefs->new;
-  $ENV{HTTPS_PROXY} = $species_defs->ENSEMBL_WWW_PROXY;
+  $ENV{HTTPS_PROXY} = $species_defs->HTTP_PROXY;
   unless ($self->{user_agent}) {
     my $ua = LWP::UserAgent->new(
       ssl_opts => { verify_hostname => 1 },
     );
     $ua->agent('WormBase ParaSite (EMBL-EBI) Web ' . $ua->agent());
     $ua->env_proxy;
-    $ua->proxy(['http', 'https'], $species_defs->ENSEMBL_WWW_PROXY);
+    $ua->proxy(['http', 'https'], $species_defs->HTTP_PROXY);
     $ua->timeout(2);
     $self->{user_agent} = $ua;
   }

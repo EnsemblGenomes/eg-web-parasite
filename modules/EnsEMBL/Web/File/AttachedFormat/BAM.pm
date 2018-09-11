@@ -30,7 +30,7 @@ sub _check_cached_index {
   if (-f $tmp_file) {
     my $local_time  = int stat($tmp_file)->[9];
 ## ParaSite: we need to use the proxy here
-    my $proxy = $self->{'hub'}->species_defs->ENSEMBL_WWW_PROXY;
+    my $proxy = $self->{'hub'}->species_defs->HTTP_PROXY;
     $ENV{HTTPS_PROXY} = $proxy;
     my $ua = LWP::UserAgent->new(
       ssl_opts => { verify_hostname => 0 },

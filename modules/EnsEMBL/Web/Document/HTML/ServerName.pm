@@ -22,7 +22,7 @@ use Sys::Hostname;
 
 sub render {
   my $hostname = hostname;
-  my $proxy = EnsEMBL::Web::SpeciesDefs->ENSEMBL_WWW_PROXY;
+  my $proxy = EnsEMBL::Web::SpeciesDefs->HTTP_PROXY;
   return sprintf("Hostname: %s<br />Proxy: %s", $hostname, $proxy);
 }
 
