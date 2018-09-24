@@ -84,6 +84,10 @@ sub update_conf {
     $SiteDefs::COMMENT_ADMIN_GROUP            = '1';
     $SiteDefs::PARASITE_COMMENT_ENABLED       = 1;
 
+    #Number of seconds that data should be fetched again.
+    $SiteDefs::BLOG_REFRESH_RATE = 10800;
+    $SiteDefs::SPECIESPAGE_REFRESH_RATE = 86400000;
+
     ### Species Configuration
     $SiteDefs::PRODUCTION_NAMES = [sort qw(
       acanthocheilonema_viteae_prjeb4306

@@ -30,10 +30,15 @@ use DateTime::Format::ISO8601;
 use HTML::Entities qw(encode_entities);
 
 use base qw(EnsEMBL::Web::Document::HTML);
+use parent qw(EnsEMBL::Web::Document::FileCache);
 
 sub render {
-  my ($class, $request) = @_;
+  my $self = shift;
+  return $self->read_html($SiteDefs::BLOG_REFRESH_RATE);
+}
 
+sub make_html {
+  my ($self, $request) = @_;
   my $debug = 0;
 
   my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
@@ -72,6 +77,7 @@ sub render {
   return $html;
 
 }
+
 
 sub get_wordpress_posts {
   my ($params) = @_;

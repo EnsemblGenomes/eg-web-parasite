@@ -26,11 +26,16 @@ use HTML::Entities qw(encode_entities);
 use Number::Format qw(format_number);
 
 use base qw(EnsEMBL::Web::Component);
+use parent qw(EnsEMBL::Web::Document::FileCache);
 
 sub render {
+  my $self = shift;
+  return $self->read_html($SiteDefs::SPECIESPAGE_REFRESH_RATE);
+}
 
+sub make_html {
   my ($self, $class, $request) = @_;
-
+  
   my $species_defs = EnsEMBL::Web::SpeciesDefs->new();
   my $html;
 
