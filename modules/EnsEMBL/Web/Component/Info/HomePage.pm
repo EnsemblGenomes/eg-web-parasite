@@ -23,7 +23,6 @@ package EnsEMBL::Web::Component::Info::HomePage;
 use strict;
 
 use EnsEMBL::Web::Document::HTML::HomeSearch;
-use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
 
 use JSON;
