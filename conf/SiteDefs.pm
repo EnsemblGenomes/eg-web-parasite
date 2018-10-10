@@ -22,9 +22,9 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '11';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '265';
-    $SiteDefs::SITE_RELEASE_DATE = 'August 2018';
+    $SiteDefs::SITE_RELEASE_VERSION = '12';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '267';
+    $SiteDefs::SITE_RELEASE_DATE = 'December 2018';
     
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
@@ -91,6 +91,7 @@ sub update_conf {
     ### Species Configuration
     $SiteDefs::PRODUCTION_NAMES = [sort qw(
       acanthocheilonema_viteae_prjeb4306
+      acrobeloides_nanus_prjeb26554
       ancylostoma_caninum_prjna72585
       ancylostoma_ceylanicum_prjna231479
       ancylostoma_ceylanicum_prjna72583
@@ -157,7 +158,9 @@ sub update_conf {
       macrostomum_lignano_prjna284736
       macrostomum_lignano_prjna371498
       meloidogyne_arenaria_prjeb8714
+      meloidogyne_arenaria_prjna438575
       meloidogyne_floridensis_prjeb6016
+      meloidogyne_graminicola_prjna411966
       meloidogyne_hapla_prjna29083
       meloidogyne_incognita_prjeb8714
       meloidogyne_javanica_prjeb8714
@@ -171,7 +174,7 @@ sub update_conf {
       onchocerca_ochengi_prjeb1809
       onchocerca_volvulus_prjeb513
       opisthorchis_viverrini_prjna222628
-      oschieus_tipulae_prjeb15512
+      oscheius_tipulae_prjeb15512
       panagrellus_redivivus_prjna186477
       parascaris_equorum_prjeb514
       parascaris_univalens_prjna386823
@@ -206,6 +209,7 @@ sub update_conf {
       syphacia_muris_prjeb524
       taenia_asiatica_prjeb532
       taenia_asiatica_prjna299871
+      taenia_multiceps_prjna307624
       taenia_saginata_prjna71493
       taenia_solium_prjna170813
       teladorsagia_circumcincta_prjna72569
@@ -236,7 +240,7 @@ sub update_conf {
       trichuris_suis_prjna208415
       trichuris_suis_prjna208416
       trichuris_trichiura_prjeb535
-      wuchereria_bancrofti_prjeb536  
+      wuchereria_bancrofti_prjeb536
       wuchereria_bancrofti_prjna275548
     )];
 
