@@ -48,8 +48,6 @@ sub modify_tree {
   $self->delete_node('StructuralVariation_Gene');
   $self->delete_node('ExternalData');
   $self->delete_node('UserAnnotation');
-  $self->delete_node('History');
-  $self->delete_node('Idhistory');
   $self->delete_node('Phenotype');
   $self->delete_node('ExpressionAtlas');
 
