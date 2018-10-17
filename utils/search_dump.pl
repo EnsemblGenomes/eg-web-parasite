@@ -495,7 +495,7 @@ sub dumpGene {
       my ($species_id)      = @{$dbh->selectrow_arrayref("SELECT DISTINCT(species_id) FROM meta WHERE meta_value = ? LIMIT 0,1", undef, $species)};
       my ($taxon_id)        = @{$dbh->selectrow_arrayref("SELECT meta_value FROM meta WHERE meta_key = 'species.taxonomy_id' AND species_id = ?", undef, $species_id)};
       my ($production_name) = @{$dbh->selectrow_arrayref("SELECT meta_value FROM meta WHERE meta_key = 'species.production_name' AND species_id = ?", undef, $species_id)};
-      
+      my ($species_url_name) = @{$dbh->selectrow_arrayref("SELECT meta_value FROM meta WHERE meta_key = 'species.url' AND species_id = ?", undef, $species_id)};
       my $ortholog_lookup     = get_ortholog_lookup($conf, $production_name, $genomic_unit);
       my $ortholog_lookup_pan = get_ortholog_lookup($conf, $production_name, 'pan_homology');
 
@@ -570,7 +570,6 @@ sub dumpGene {
       foreach my $seq_region_id ( keys %{ $species_to_seq_region->{$species} } ) {
         #print ++$sr_count . " ";
         #$|++;
-              
         my $gene_sql = 
           "SELECT g.gene_id, t.transcript_id, tr.translation_id,
              g.stable_id AS gsid, t.stable_id AS tsid, tr.stable_id AS trsid,
@@ -700,11 +699,135 @@ sub dumpGene {
         }
         $output_gene->(\%old) if $old{'gene_id'}; 
       }
+      (my $prod_name = $dataset) =~ s/ /_/g;
+      &do_archive_stable_ids( [ 'gene', 'transcript' ], $DB, $DBNAME, $species, $species_url_name, $conf, $dbh, $genomic_unit, $dataset, $taxon_id, $counter ) if lc($prod_name) eq lc($production_name);
       footer( $counter->() );
     }
       
     warn "FINISHED dumpGene ($DB)\n";
   } #$DB loop
+}
+
+sub do_archive_stable_ids {
+  my ($types, $db, $dbname, $species, $species_url_name, $conf, $dbh, $genomic_unit, $dataset, $taxon_id, $counter) = @_;
+  
+  my $COREDB    = $conf->{'core'}->{$release};
+  my %current_stable_ids =();
+  
+  foreach my $type (@$types) {
+    $current_stable_ids{$type} = { map {@$_} @{$dbh->selectall_arrayref( "select stable_id,1 from $COREDB.$type" )}};
+  }
+  
+  print "Fetching stable id mappings...\n"; 
+  my $types = join "','",@$types;
+  my $sth = $dbh->prepare( qq(
+    SELECT sie.type, sie.old_stable_id, if(isnull(sie.new_stable_id),'NULL',sie.new_stable_id)
+    FROM $dbname.stable_id_event as sie
+     WHERE sie.type in ('$types')
+       AND ( old_stable_id != new_stable_id or isnull(new_stable_id) )
+  ));
+
+  $sth->execute();
+  my %mapping = ();
+  while( my($type,$osi,$nsi,$old_release,$new_release) = $sth->fetchrow_array() ) {
+    next if $current_stable_ids{$type}{$osi}; ## Don't want to show current stable IDs.
+    next if $osi eq $nsi; ##
+    #if the mapped ID is current set it as an example, as long as it's post release 62
+    if ( ! $mapping{$type}{$osi}{'example'}) {
+      if ($current_stable_ids{$type}{$nsi}) {
+        $mapping{$type}{$osi}{'example'} = $nsi;
+      }
+    }
+    $mapping{$type}{$osi}{'matches'}{$nsi}++;
+  }
+  
+  foreach my $type ( keys %mapping ) {
+    foreach my $osi ( keys %{$mapping{$type}} ) {
+      my @current_sis = ();
+      my @deprecated_sis = ();
+      my $xml_data;
+      my $desc;
+      foreach my $nsi ( keys %{$mapping{$type}{$osi}{'matches'}} ) {
+        if( $current_stable_ids{$type}{$nsi} ) {
+          push @current_sis,$nsi;
+        } elsif( $_ ne 'NULL' ) {
+          push @deprecated_sis,$nsi;
+        }
+      }
+      if( @current_sis ) {
+        my $example_id   = $mapping{$type}{$osi}{'example'};
+        my $current_id_c = scalar(@current_sis );
+        my $cur_txt = $current_id_c > 1 ? "$current_id_c current identifiers" : "$current_id_c current identifier";
+        $cur_txt .= $example_id ? " (eg $example_id)" : '';
+        $desc = qq(Ensembl Genomes $type $osi is no longer in the database.);
+        my $deprecated_id_c = scalar(@deprecated_sis);
+        if ($deprecated_id_c) {
+          my $dep_txt = $deprecated_id_c > 1 ? "$deprecated_id_c deprecated identifiers" : "$deprecated_id_c deprecated identifier";
+          $desc .= " It has been mapped to $dep_txt";
+          $desc .= $current_id_c ? " and $cur_txt." : '.'
+        }
+        elsif ($current_id_c) {
+          $desc .= " It has been mapped to $cur_txt.";
+        }
+        $xml_data = &GenerateIDHistoryURL($species_url_name, $osi, $type);
+      }
+      elsif( @deprecated_sis ) {
+        my $deprecated_id_c = scalar(@deprecated_sis);
+        my $id = $deprecated_id_c > 1 ? 'identifiers' : 'identifier';
+        $desc = qq(Ensembl $type $osi is no longer in the database but it has been mapped to $deprecated_id_c deprecated $id.);
+        $xml_data =  &GenerateIDHistoryURL($species_url_name, $osi, $type);
+      }
+      else {
+        $desc = qq(Ensembl $type $osi is no longer in the database and has not been mapped to any newer identifiers.);
+        $xml_data =  &GenerateIDHistoryURL($species_url_name, $osi, $type);
+      }
+   
+      $xml_data->{'description'} = $desc;
+      $xml_data->{'genomic_unit'} = $genomic_unit;
+      $xml_data->{'display_name'} = $species;
+      $xml_data->{'system_name'} = $species_url_name;
+      $xml_data->{'database'} = $db;
+      $xml_data->{'feature_type'} = ucfirst($type);
+      $xml_data->{'taxon_id'} = $taxon_id;
+
+      p geneLineXML( $species, $dataset, \%$xml_data, $counter );
+      
+   }
+  }
+}
+
+sub GenerateIDHistoryURL {
+  my ($species_url_name, $osi, $type) = @_; 
+  
+  my $url = sprintf(qq(%s/%s/Idhistory%s),
+                    $species_url_name,
+                    $type eq 'gene' ? ucfirst($type) : 'Transcript',
+                    $type eq 'gene' ? "?g=$osi" : $type eq 'transcript' ? "?t=$osi" : "/Protein?t=$osi");
+
+  my %xml_data = (
+    'gene_stable_id' => $osi,
+    'history_url' => $url,
+    'gene_name' => $osi,
+    'transcript_stable_ids' => {},
+    'translation_stable_ids' => {},
+    'exons' => {},
+    'domains' => {},
+    'external_identifiers' => {},
+    'seq_region_synonyms' => [],
+    'orthologs' => [],
+    'genetrees' => [],
+    'probes' => [],
+    'probesets' => [],
+    'location' => '',
+    'domain_descriptions' => '',
+    'seq_region_name' => '',
+    'source'  => '',
+    'haplotype' => '',
+    'domain_count' => ''
+  );
+
+  return \%xml_data;
+  
 }
 
 sub geneLineXML {
@@ -741,6 +864,7 @@ sub geneLineXML {
   my $probesets            = $xml_data->{'probesets'};
   my $system_name          = $xml_data->{'system_name'};
   my $database             = $xml_data->{'database'};
+  my $history_url          = $xml_data->{'history_url'};
 
   $display_name =~ s/</&lt;/g;
   $display_name =~ s/>/&gt;/g;
@@ -870,7 +994,10 @@ sub geneLineXML {
 <field name="gene_synonym">$_</field>}
       } map {encode_entities($_)} keys %$unique_synonyms ) )  
     . qq{
-<field name="database">$database</field>      
+<field name="database">$database</field>}      
+    . ($history_url ? qq{
+<field name="history_url">$history_url</field>} : '')
+    . qq{
 </additional_fields>};
 
   $counter->();
