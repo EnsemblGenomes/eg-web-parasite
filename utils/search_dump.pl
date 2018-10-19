@@ -717,7 +717,7 @@ sub do_archive_stable_ids {
   foreach my $type (@$types) {
     $current_stable_ids{$type} = { map {@$_} @{$dbh->selectall_arrayref( "select stable_id,1 from $COREDB.$type" )}};
   }
-  
+
   print "Fetching stable id mappings...\n"; 
   my $types = join "','",@$types;
   my $sth = $dbh->prepare( qq(
@@ -750,7 +750,8 @@ sub do_archive_stable_ids {
       foreach my $nsi ( keys %{$mapping{$type}{$osi}{'matches'}} ) {
         if( $current_stable_ids{$type}{$nsi} ) {
           push @current_sis,$nsi;
-        } elsif( $_ ne 'NULL' ) {
+        } elsif( $nsi ne 'NULL' ) {
+          print " >>>Deprecated stable Id: $nsi\n";
           push @deprecated_sis,$nsi;
         }
       }
