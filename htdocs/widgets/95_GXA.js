@@ -16,6 +16,7 @@
  */
 
 Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
+  
   init: function() {
 
     this.base.apply(this, arguments);
@@ -28,6 +29,7 @@ Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
       context: this,
       success: function(json) {
         if (json[this.params.geneId]) {
+          console.log("Widget is inserted");
           this.insertWidget();
         } else {
           this.showError('Expression Atlas does not contain baseline expression data for ' + this.params.geneId);
@@ -48,6 +50,7 @@ Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
           target: this.elLk.target.attr('id'),
           atlasHost: atlasHost,
           atlasUrl: atlasHost,
+          showControlMenu: false,
           showAnatomogram: false,
           disableGoogleAnalytics: true,
           query: {
@@ -69,3 +72,5 @@ Ensembl.Panel.GXA = Ensembl.Panel.Content.extend({
     this.elLk.target.html(message ? message : 'Error loading GXA widget');
   }
 });
+
+
