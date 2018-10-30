@@ -23,3 +23,5 @@ sub populate_tree {
 		$self->create_node( 'Comment/Get',  '', [], { 'no_menu_entry' => 1, 'command' => 'EnsEMBL::Users::Command::Account::Comment::Retrieve' });
 	}
 }
+
+1;

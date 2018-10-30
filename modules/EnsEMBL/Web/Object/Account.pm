@@ -53,3 +53,5 @@ sub get_all_comments {
 sub fetch_comment_meta_by_uuid {
   return ORM::EnsEMBL::DB::Accounts::Manager::CommentMeta->get_by_uuid($_[1]);
 }
+
+1;
