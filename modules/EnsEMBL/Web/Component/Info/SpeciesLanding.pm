@@ -21,7 +21,6 @@ package EnsEMBL::Web::Component::Info::SpeciesLanding;
 use strict;
 
 use EnsEMBL::Web::Document::HTML::HomeSearch;
-use EnsEMBL::Web::DBSQL::ProductionAdaptor;
 use EnsEMBL::Web::Component::GenomicAlignments;
 use Data::Dumper;
 
