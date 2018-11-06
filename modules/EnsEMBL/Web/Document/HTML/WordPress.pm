@@ -27,6 +27,7 @@ use URI;
 use DateTime;
 use DateTime::Duration;
 use DateTime::Format::ISO8601;
+use POSIX qw(strftime);
 use HTML::Entities qw(encode_entities);
 
 use base qw(EnsEMBL::Web::Document::HTML);
@@ -46,29 +47,67 @@ sub make_html {
   # Render the posts
   my $html;
 
-  # Put the 'sticky' posts at the top
-  my $sticky_posts = get_wordpress_posts("sticky=require");
-  if (!defined $sticky_posts) {
+  # Put announcement posts at the top. Max 2 posts.
+  my $announce_posts = get_wordpress_posts("number=2&category=web-announcements");
+  if (!defined $announce_posts) {
   # Deal with Wordpress API problem
     return qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2><h3>There is an error accessing our Wordpress blog</h3> <br></div>);
   }
   
   my $announce_html;
   my $announce_count = 0;
-  foreach my $post (@{$sticky_posts->{'posts'}}) {
+  foreach my $post (@{$announce_posts->{'posts'}}) {
     next if $post->{'tags'}->{'Hidden'};
     next unless $post->{'sticky'};
     $announce_html .= print_post($post);
     $announce_count++;
   }
   $html .= sprintf(qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2>%s</div>), $announce_html) if $announce_count > 0;
+  
+  # Put meeting posts at the second panel. Sorted by tag in the format date-yyyymmdd. Max 3 posts.
+  my $meeting_posts = get_wordpress_posts("category=meeting-announcements");
+  my $current_date_tag = strftime 'date-%Y%m%d', gmtime();
+  my @upcoming_meetings;
+  my @upcoming_meetings_sorted;
 
-  # Then everything else
-  my $posts = get_wordpress_posts("number=4&sticky=exclude");
-  $html .= qq(<div class="blog-story round-box home-box"><h2 data-social-icon="R">Blog</h2>);
-  foreach my $post (@{$posts->{'posts'}}) {
+  foreach my $post (@{$meeting_posts->{'posts'}}) {
     next if $post->{'tags'}->{'Hidden'};
-    next if $post->{'sticky'};
+    for my $meeting_date_tag (keys %{$post->{'tags'}}) {
+      if ($meeting_date_tag =~ /date-\d{8}/ && $meeting_date_tag ge $current_date_tag) {
+        $post->{'meeting_date_tag'} = $meeting_date_tag;
+        push @upcoming_meetings, $post;
+      }
+    }
+
+    @upcoming_meetings_sorted = sort { $a->{meeting_date_tag} cmp $b->{meeting_date_tag} } @upcoming_meetings;
+  }
+
+
+  if (scalar @upcoming_meetings_sorted > 0) {
+    $html .= qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="4">Meetings</h2>);
+    my $meeting_count = 0;
+    foreach my $post (@upcoming_meetings_sorted) {
+      #warn "Tag date is: " . $post->{'meeting_date_tag'};
+      $meeting_count++;
+      last if $meeting_count > 3;
+      $html .= print_post($post);
+            
+    }
+    $html .= qq(</div>);
+  }
+
+
+  # Put normal uncategorized blog posts (including sticky posts) at the bottom. Max 4 posts.
+  my @blog_posts;
+  my $sticky_posts = get_wordpress_posts("number=2&category=uncategorized&sticky=require");
+  my $normal_posts = get_wordpress_posts("number=2&category=uncategorized&sticky=exclude");
+
+  unshift @blog_posts, @{$normal_posts->{'posts'}};
+  unshift @blog_posts, @{$sticky_posts->{'posts'}};
+
+  $html .= qq(<div class="blog-story round-box home-box"><h2 data-social-icon="R">Blog</h2>);
+  foreach my $post (@blog_posts) {
+    next if $post->{'tags'}->{'Hidden'};
     $html .= print_post($post);
   }
   $html .= qq(<p><a class="blog-link" href="http://wbparasite.wordpress.com" rel="notexternal">[Older]</a></p>);
