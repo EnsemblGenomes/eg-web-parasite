@@ -64,30 +64,41 @@ sub make_html {
   }
   $html .= sprintf(qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="U">Announcements</h2>%s</div>), $announce_html) if $announce_count > 0;
   
-  # Put meeting posts at the second panel. Sorted by tag in the format date-yyyymmdd. Max 3 posts.
+  # Put meeting posts at the second panel. Sorted by priority tag, then in date tag (priority tag: pr-\d+ . date tag: date-yyyymmdd). Max 3 posts.
   my $meeting_posts = get_wordpress_posts("category=meeting-announcements");
   my $current_date_tag = strftime 'date-%Y%m%d', gmtime();
   my @upcoming_meetings;
   my @upcoming_meetings_sorted;
+  
 
   foreach my $post (@{$meeting_posts->{'posts'}}) {
+    my $priotity_tag = 0;
     next if $post->{'tags'}->{'Hidden'};
-    for my $meeting_date_tag (keys %{$post->{'tags'}}) {
-      if ($meeting_date_tag =~ /date-\d{8}/ && $meeting_date_tag ge $current_date_tag) {
-        $post->{'meeting_date_tag'} = $meeting_date_tag;
-        push @upcoming_meetings, $post;
-      }
+
+    for my $post_tag (keys %{$post->{'tags'}}) {
+      if ($post_tag =~ /pr-(\d+)/) {
+        $priotity_tag = $1;
+      }      
     }
 
-    @upcoming_meetings_sorted = sort { $a->{meeting_date_tag} cmp $b->{meeting_date_tag} } @upcoming_meetings;
+    for my $post_tag (keys %{$post->{'tags'}}) {
+      if ($post_tag =~ /date-\d{8}/ && $post_tag ge $current_date_tag) {
+        $post->{'meeting_date_tag'} = $post_tag;
+        $post->{'priority_tag'} = $priotity_tag;
+        push @upcoming_meetings, $post; 
+      }
+    }         
   }
 
+  @upcoming_meetings_sorted = sort {
+    $b->{'priority_tag'} <=> $a->{'priority_tag'} ||
+    $a->{'meeting_date_tag'} cmp $b->{'meeting_date_tag'} } @upcoming_meetings;
 
   if (scalar @upcoming_meetings_sorted > 0) {
     $html .= qq(<div class="blog-story round-box home-box"><h2 data-generic-icon="4">Meetings</h2>);
     my $meeting_count = 0;
     foreach my $post (@upcoming_meetings_sorted) {
-      #warn "Tag date is: " . $post->{'meeting_date_tag'};
+      #warn "Tag date is: " . $post->{'meeting_date_tag'} . " Priority tag is: " . $post->{'priority_tag'};
       $meeting_count++;
       last if $meeting_count > 3;
       $html .= print_post($post);
