@@ -29,23 +29,20 @@ sub INPUT_FORMATS {
 
 sub CONFIG_SECTIONS {
   return [{
-    'id'        => 'identifiers',
-    'title'     => 'Identifiers and frequency data',
-    'caption'   => 'Additional identifiers for genes, transcripts and variants; frequency data'
+    'id'            => 'identifiers',
+    'title'         => 'Identifiers',
+    'caption'       => 'Additional identifiers for genes, transcripts and variants'
   }, {
-    'id'        => 'extra',
-    'title'     => 'Extra options',
-    'caption'   => 'e.g. transcript biotype and protein domains'
+    'id'            => 'additional_annotations',
+    'title'         => 'Additional annotations',
+    'caption'       => 'Addtional transcript, protein and regulatory annotations'
   }, {
-    'id'        => 'filters',
-    'title'     => 'Filtering options',
-    'caption'   => 'Pre-filter results by frequency or consequence type'
-  # }, {
-  #  'id'        => 'plugins',
-  #  'title'     => 'Plugins',
-  #  'caption'   => 'Extra functionality from VEP plugins'
+    'id'            => 'filters',
+    'title'         => 'Filtering options',
+    'caption'       => 'Pre-filter results by frequency or consequence type'
   }];
 }
+  
 
 1;
 
