@@ -92,7 +92,7 @@ print "getting db adaptors...\n";
 Bio::EnsEMBL::Registry->load_registry_from_db(@db_args);
 Bio::EnsEMBL::Registry->set_disconnect_when_inactive;
 
-my %valid = map {lc($_) => 1} split /\n/, `$LibDirs::WEBROOT/utils/dump_ensembl_valid_species.pl`; 
+my %valid = map {lc($_) => 1} split /\n/, `perl $LibDirs::WEBROOT/utils/dump_ensembl_valid_species.pl`; 
 my @dbas  = grep { $valid{$_->species} } @{ Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => 'core') };
 
 #------------------------------------------------------------------------------
