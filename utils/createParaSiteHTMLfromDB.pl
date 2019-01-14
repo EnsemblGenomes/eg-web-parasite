@@ -20,7 +20,7 @@ use LWP::Simple;
 use XML::Simple;
 use HTML::Entities;
 
-my $outdir = "/nfs/public/rw/ensembl/staging/websites/parasite/current/browser/eg-web-parasite/htdocs/ssi/species";
+my $outdir = "/nfs/public/release/ensweb/staging/parasite/server/browser/eg-web-parasite/htdocs/ssi/species";
 
 my @files_to_delete = <$outdir/about_*_*.html>;
 unlink(@files_to_delete);
