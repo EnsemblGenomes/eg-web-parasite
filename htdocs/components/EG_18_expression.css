@@ -297,3 +297,20 @@
   max-height: 380px;
   overflow: auto;
 }
+
+#wbps_expression_id .other_descs {
+  color: #d22b2b;
+  font-size: 1.1em;
+  font-style: italic;
+}
+
+#wbps_expression_id li > a {
+  font-size: 1.1em;
+  color: #15369ae0;
+}
+
+#wbps_expression_id li > a:hover {
+  font-size: 1.15em;
+  font-style: italic;
+  color: #000000;
+}
