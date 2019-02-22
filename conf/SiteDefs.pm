@@ -25,7 +25,8 @@ sub update_conf {
     $SiteDefs::SITE_RELEASE_VERSION = '12';
     $SiteDefs::WORMBASE_RELEASE_VERSION = '267';
     $SiteDefs::SITE_RELEASE_DATE = 'December 2018';
-    
+    $SiteDefs::EG_RELEASE_VERSION = 42;
+ 
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
     $SiteDefs::ENSEMBL_SITETYPE = 'WormBase ParaSite';
