@@ -5,8 +5,16 @@ use Data::Dumper;
 use Text::CSV qw/csv/;
 use List::MoreUtils qw/uniq/;
 
-#PATH to expression files from ftp
+## Read the htdocs/expression path and write categories to species' ini file.
+#  It should be fine to run this script multiple times
+##
+  
+## Path to expression files fetched from ftp
 my $path = "/homes/ens_adm14/parasite/prev/browser/eg-web-parasite/htdocs/expression";
+
+## To mirror ftp, can do:
+#  wget -P $path -nH --cut-dirs=8 -m ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/web_data/rnaseq_studies/releases/next/
+
 my @dirs = `ls $path`;
 
 foreach my $species (@dirs) {
@@ -14,7 +22,11 @@ foreach my $species (@dirs) {
    my ($spe, $cies, $bp) = split "_", $species;
    my $tsv_path = "$path/$species/$spe\_$cies.studies.tsv"; 
    
-   my @lines= @{csv(in=>$tsv_path, sep_char => "\t")} if -e $tsv_path;
+   if (not -e $tsv_path) {
+     print "IGNORED. No tsv file for $species\n";
+     next;  
+   }
+   my @lines= @{csv(in=>$tsv_path, sep_char => "\t")};
    
    ## Finding categories and sort them.
    my @categories;
@@ -29,6 +41,11 @@ foreach my $species (@dirs) {
    
    ## Grep the matching line
    my $ini_file = "$path/../../conf/ini-files/$species.ini"; 
+   if (not -e $ini_file) {
+     print "MISSING. tsv file exists BUT no ini file found for $species\n";
+     next;
+   }  
+
    my $found = `grep -n  '\\[GENE_EXPRESSION\\]' $ini_file | cut -f1 -d:`;
    
    printf "%8s %30s: ", "SPECIES:", $species;  
