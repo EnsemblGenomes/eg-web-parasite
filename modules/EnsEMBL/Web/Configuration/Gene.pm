@@ -25,7 +25,6 @@ use Data::Dumper;
 
 sub modify_tree {
   my $self = shift;
-  warn "PARASITE >>>>>>>>>Modify tree is called in PARASITE";
   $self->PREV::modify_tree(@_);
 
   my $species_defs = $self->hub->species_defs;
@@ -111,20 +110,18 @@ sub modify_tree {
 
     #If there is data only in one category and category is "Other" (common special case for species with not so good data)
     if (scalar(@exp_catgories) == 1 and $exp_catgories[0] eq 'Other') {
-        warn ">>>>>>>>>>GEXP goes here first if";
         $self->delete_node('WBPSExpression');
         $self->create_node('WBPSExpressionOther', 'Expression', 
           [qw(exp_menu EnsEMBL::Web::Component::Gene::WBPSExpression )],
-          { 'availability' => 1 }
+          { 'availability' => 1, 'concise' => 'Gene Expression: Other' }
         );
     } elsif (scalar(@exp_catgories) >= 1) {
-        warn ">>>>>>>>>>GEXP goes here 2nd if";
         foreach my $cat (@exp_catgories) {
           my $cat_name = $cat =~ s/_/ /gr;
           $expression_menu->append(
           $self->create_node('WBPSExpression'.$cat, $cat_name, 
             [qw(exp_menu EnsEMBL::Web::Component::Gene::WBPSExpression )],
-            { 'availability' => 1 }
+            { 'availability' => 1, 'concise' => "Gene Expression: $cat_name" }
           )
         );
       }

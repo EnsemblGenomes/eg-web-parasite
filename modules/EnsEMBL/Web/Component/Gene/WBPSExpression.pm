@@ -37,7 +37,6 @@ sub content {
   $gene_category =~ s/_/ /g;
 
   my $html;
-  $html = sprintf '<h3> Gene Expression %s of %s</h3>', $gene_category, $species;
   my $studies_path = "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/expression/$species/";
   my $wbps_exp = EnsEMBL::Web::Component::Gene::WBPSExpressionHelper->from_folder($species, $studies_path);
   $html .= $wbps_exp->render_page($stable_id, $gene_category);
