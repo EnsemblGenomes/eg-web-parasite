@@ -36,10 +36,12 @@ sub content {
   my ($gene_category) = $url =~ m/WBPSExpression(.*)\?/g;
   $gene_category =~ s/_/ /g;
 
-  my $html;
+  my $html = '<div id="wbps-gene-expression-id">';
   my $studies_path = "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/expression/$species/";
   my $wbps_exp = EnsEMBL::Web::Component::Gene::WBPSExpressionHelper->from_folder($species, $studies_path);
   $html .= $wbps_exp->render_page($stable_id, $gene_category);
+  $html .= '</div>';
+  
   return $html;
 }
 

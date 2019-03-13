@@ -1,5 +1,17 @@
+use strict;
+use warnings;
+
+# Copied as a single file from https://github.com/wormbase/wbps-expression into WBPS web code
+# Please no dependencies apart from those listed in ensembl-webcode cpanfile:
+# https://github.com/Ensembl/ensembl-webcode/blob/master/cpanfile
+
+# create with: from_folder($species, $studies_path)
+# main method: render_page($gene_id, $category)
+
+# methods that draw html start their names with html_
 package EnsEMBL::Web::Component::Gene::WBPSExpressionHelper;
 use File::Basename;
+# use Smart::Comments '###';
 
 sub new {
   my ($class, $args) = @_;
@@ -7,7 +19,7 @@ sub new {
 }
 
 sub from_folder {
-  my ($self, $species, $studies_path) = @_;
+  my ($class, $species, $studies_path) = @_;
   my ($spe, $cies, $bp) = split "_", $species;
   
   my $studies_file = "$studies_path/$spe"."_"."$cies.studies.tsv";
@@ -64,14 +76,14 @@ sub render_page {
 sub response_as_html_panes {
   my ($species, $gene_id, $category, $studies) = @_;
   return unless @$studies;
-### response_as_html_panes: join("\t", $species , $gene_id , $category,  map {$_->{study_id}} @{$studies})
+#### response_as_html_panes: join("\t", $species , $gene_id , $category,  map {$_->{study_id}} @{$studies})
   if ($category eq  "Response to treatment"){
     my ($differential_expression_values, $studies_with_no_results) = list_of_differential_expression_values_in_studies_and_studies_with_no_results($species, $gene_id, $studies);
     return (@{$differential_expression_values} ? (html_differential_expression_values_table($differential_expression_values), @{$studies_with_no_results} ? html_studies_with_no_results($studies_with_no_results) : ()): ());
   } elsif ($category eq "Other") {
-    return map {html_flat_horizontal_table($_->{column_headers}, $_->{values})} summary_stats_in_tables($species, $gene_id, $studies);
+    return map {html_stats_table ($_, $_->{column_headers}, $_->{values})} summary_stats_in_tables($species, $gene_id, $studies);
   } else {
-    return map {html_flat_horizontal_table($_->{column_headers}, $_->{values})} tpms_in_tables($species, $gene_id, $studies);
+    return map {html_study_results_table ($_, $_->{column_headers}, $_->{values})} tpms_in_tables($species, $gene_id, $studies);
   }
 
 }
@@ -79,20 +91,19 @@ sub html_no_results {
   my ($species, $gene_id, $category) = @_;
   return "<p> $species: no results for gene $gene_id in category $category </p>";
 }
-sub html_header {
-  my ($species, $gene_id, $category) = @_;
-  return "<h2> Gene expression - $category </h2>"; 
-}
+
 sub html_differential_expression_values_table {
   my ($differential_expression_values) = @_;
+  my $tb_class = "result-table-sortable";
   return (
-       "<table>"
+       "<table class=\"$tb_class\">"
+     . "<caption>Contrasts where gene is significantly differentially expressed</caption>"
      . "<thead>"
      . "<tr>"
-        . "<th>Study</th>"
-        . "<th>Contrast</th>"
-        . "<th>Log<sub>2</sub>-fold change</th>"
-        . "<th>Adjusted p-value</th>"
+        . "<th scope=\"col\">Study</th>"
+        . "<th scope=\"col\">Contrast</th>"
+        . "<th scope=\"col\" data-dynatable-sorts=\"computedFoldChange\">Log<sub>2</sub>-fold change</th>"
+        . "<th scope=\"col\" data-dynatable-sorts=\"computedPValue\">Adjusted p-value</th>"
      . "</tr>"
      . "</thead>"
      . "<tbody>"
@@ -108,19 +119,49 @@ sub html_differential_expression_values_table {
      . "</table>"
   );
 }
-sub html_flat_horizontal_table {
-  my ($column_headers, $values) = @_;
+sub html_study_results_table {
+  my ($study, $column_headers, $header_and_values_rows) = @_;
+  my $tb_class = "result-table-sortable";
   return (
-       "<table>"
+       "<table class=\"$tb_class\">"
+     . "<caption>" . html_study_link($study) . "<br> Expression across conditions, TPM </caption>"
      . "<thead>"
      . "<tr>"
-        . join("\n", map {
-        "<th>$_</th>"
+          . join("\n", "<td></td>", map {
+          "<th scope=\"col\">$_</th>"
+          } @{$column_headers})
+     . "</tr>"
+     . "</thead>"
+     . "<tbody>"
+     . join("\n", map {
+         my ($header, @values) = @{$_};
+         "<tr>"
+       . "<th scope=\"row\">$header</th>"
+       . join("\t", map {
+         "<td>$_</td>"
+       } @values)
+       . "</tr>"
+     } @$header_and_values_rows)
+     . "</tbody>"
+     . "</table>"
+  );
+}
+sub html_stats_table {
+  my ($study, $column_headers, $values) = @_;
+  my $tb_class = "result-table";
+  return (
+       "<table class=\"$tb_class\">"
+     . "<caption>" . html_study_link($study) . "<br> Summary statistics </caption>"
+     . "<thead>"
+     . "<tr>"
+        . join("\n", "<td></td>", map {
+        "<th scope=\"col\">$_</th>"
         } @{$column_headers})
      . "</tr>"
      . "</thead>"
      . "<tbody>"
      . "<tr>"
+        . "<th scope=\"row\">Value</th>"
         . join("\n", map {
         "<td>$_</td>"
         } @{$values})
@@ -131,11 +172,16 @@ sub html_flat_horizontal_table {
 }
 sub html_studies_with_no_results {
   my ($studies) = @_;
-  return "<ul>" . join ("<br>",
-    map { "<li>$_</li>" }
-    map { html_study_link($_) }
-    @{$studies}
-   ) . "</ul>";
+  return (
+       "<table>"
+     . "<caption>Studies with no results</caption>"
+     . "<tbody>"
+     . join ("\n", map {
+        sprintf("<tr><td>%s</td></tr>", html_study_link($_))
+     } @{$studies})
+     . "</tbody>"
+     . "</table>"
+  );
 }
 sub html_study_link {
   my ($study) = @_;
@@ -160,6 +206,7 @@ sub list_of_differential_expression_values_in_studies_and_studies_with_no_result
            my $contrast = $contrasts->[$i];
            next C if $contrast =~ /^\!/; # Low replicates or failed QC
            my ($log2_fold_change, $adjusted_p_value) = split(" ", $differential_expression_values->[$i]);
+           ($log2_fold_change, $adjusted_p_value) = ("-", " ") unless $log2_fold_change and $adjusted_p_value;
            push @differential_expression_values_for_study, {
               study_url => $study->{study_url},
               study_title => $study->{study_title},
@@ -197,12 +244,12 @@ sub quantile {
 }
 sub summary_stats_in_tables {
   my ($species, $gene_id, $studies) = @_;
-### summary_stats_in_tables: $studies
+#### summary_stats_in_tables: $studies
   my @result;
   for my $study (@{$studies}){
      my ($runs, $expression_tpm) = search_in_file($study->{tpms_per_run}, $gene_id);
-### $expression_tpm
-     my @expression_tpm_sorted = sort @{$expression_tpm //[]};
+#### $expression_tpm
+     my @expression_tpm_sorted = sort {$a <=> $b } @{$expression_tpm //[]};
      push @result, {
        study_url => study_url($species,$study->{study_id}),
        study_title => $study->{study_title},
@@ -221,36 +268,79 @@ sub summary_stats_in_tables {
 }
 sub tpms_in_tables {
   my ($species, $gene_id, $studies) = @_;
-### tpms_in_tables: join("\t", $species , $gene_id , map {$_->{study_id}} @{$studies})
+#### tpms_in_tables: join("\t", $species , $gene_id , map {$_->{study_id}} @{$studies})
   my @result;  
   for my $study (@{$studies}){
      my ($conditions, $expressions_tpm) = search_in_file($study->{tpms_per_condition}, $gene_id);
+#### $conditions
+#### $expressions_tpm
+     next unless $conditions and $expressions_tpm;
      my @conditions_warnings_as_text = map {s{^!\s*(.*)}{$1 <i>(has quality warnings)</i>}; $_} @{$conditions};
+     my ($column_headers, $headers_and_values_rows) = as_2d (\@conditions_warnings_as_text, $expressions_tpm);
+#### $column_headers
+#### $headers_and_values_rows
+     unless ($column_headers and $headers_and_values_rows){
+        $column_headers = \@conditions_warnings_as_text;
+        $headers_and_values_rows = [["Value" , @$expressions_tpm]];
+     }
+     
      push @result, {
        study_url => study_url($species,$study->{study_id}),
        study_title => $study->{study_title},
-       column_headers => \@conditions_warnings_as_text,
-       values => $expressions_tpm,
-     } if @conditions_warnings_as_text and @{$expressions_tpm};
+       column_headers => $column_headers,
+       values => $headers_and_values_rows,
+     };
   }
   return @result;
 }
 
-
+sub as_2d {
+  my ($conditions, $expressions_tpm) = @_;
+  my @rows;
+  my @cols;
+  my %m;
+  for my $i (0..$#$conditions) {
+    my $condition = $conditions->[$i];
+    my $expression_tpm = $expressions_tpm->[$i];
+    my ($col, $row) = $condition =~ m{^(.*?), (.*)$};
+    return unless $row and $col;
+    push @rows, $row unless grep {$_ eq $row} @rows;    
+    push @cols, $col unless grep {$_ eq $col} @cols;    
+    $m{$row}{$col} = $expression_tpm;
+  }
+  return if @rows < 2;
+  return if @cols < 2;
+  my $num_gaps = 0;
+  my @header_and_values_rows;
+  for my $row (@rows){
+    my @header_and_values = ($row);
+    for my $col (@cols){
+       push @header_and_values, $m{$row}{$col} // do {
+          $num_gaps++;
+          "-"
+       };
+    }
+    push @header_and_values_rows, \@header_and_values;
+  }
+  return if $num_gaps > 0.2 * @rows * @cols;
+  return (\@cols, \@header_and_values_rows);
+}
 sub search_in_file {
   my ($path, $gene_id) = @_;
-### search_in_file: $path . " " . $gene_id
+#### search_in_file: $path . " " . $gene_id
   my $l = `grep --max-count=1 "^$gene_id" $path`;
-### $l
+#### $l
   chomp $l;
   return unless $l;
   my ($id, @xs) = split "\t", $l;
   return unless $id eq $gene_id and @xs;
   my $h = `grep --max-count=1 "^\t" $path`;
-### $h
+#### $h
   chomp $h;
   return unless $h;
   my ($blank, @hs) = split "\t", $h;
+#### hs: scalar @hs
+#### xs:  scalar @xs
   return unless not($blank) and @hs;
   return unless @hs == @xs;
   return \@hs, \@xs;
