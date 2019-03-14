@@ -322,7 +322,7 @@ sub as_2d {
     }
     push @header_and_values_rows, \@header_and_values;
   }
-  return if $num_gaps > 0.2 * @rows * @cols;
+  return if $num_gaps > 0.4 * @rows * @cols;
   return (\@cols, \@header_and_values_rows);
 }
 sub search_in_file {
@@ -334,14 +334,14 @@ sub search_in_file {
   return unless $l;
   my ($id, @xs) = split "\t", $l;
   return unless $id eq $gene_id and @xs;
-  my $h = `grep --max-count=1 "^\t" $path`;
+  my $h = `grep --max-count=1 "^gene_id\t" $path`;
 #### $h
   chomp $h;
   return unless $h;
-  my ($blank, @hs) = split "\t", $h;
+  my ($header, @hs) = split "\t", $h;
 #### hs: scalar @hs
 #### xs:  scalar @xs
-  return unless not($blank) and @hs;
+  return unless $header eq "gene_id" and @hs;
   return unless @hs == @xs;
   return \@hs, \@xs;
 }
