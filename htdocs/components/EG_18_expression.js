@@ -16,7 +16,7 @@ $(document).ready(function() {
           		return el.innerHTML;
       		},
       		'Adjusted-p-value' : function(el, record){
-        		record.computedPValue = Number(el.innerHTML);
+        		record.computedPValue = Number(el.innerHTML) || -9999999;
         		return el.innerHTML;
       		}
     	}
