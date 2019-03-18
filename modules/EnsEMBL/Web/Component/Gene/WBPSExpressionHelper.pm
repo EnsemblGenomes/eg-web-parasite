@@ -40,12 +40,9 @@ sub from_folder {
       study_category => $metadata{$study_id}{category},
     };
     if ($metadata{$study_id}{category} eq "Response to treatment"){
-      my @files = glob("$study_path/$study_id.de.*.tsv");
+      my @files = glob("$study_path/$study_id.de.*treatment*.tsv");
       next unless @files;
-      for my $file_path (@files){
-        my ($type) = $file_path =~ m{$study_path/$study_id\.de\.(.*)\.tsv};
-        $study->{de}{$type} = $file_path;
-      }
+      $study->{differential_expression_paths} = \@files;
     } elsif ($metadata{$study_id}{category} eq "Other" ) {
       my $tpms_per_run = "$study_path/$study_id.tpm_per_run.tsv";
       next unless -s $tpms_per_run;
@@ -97,7 +94,7 @@ sub html_differential_expression_values_table {
   my $tb_class = "result-table-sortable";
   return (
        "<table class=\"$tb_class\">"
-     . "<caption>Contrasts where gene is significantly differentially expressed</caption>"
+     . "<caption>Contrasts where gene is significantly differentially expressed: <code>adj. p-value < 0.05 and abs(log<sub>2</sub>fold change) > 0.5</code></caption>"
      . "<thead>"
      . "<tr>"
         . "<th scope=\"col\">Study</th>"
@@ -124,7 +121,7 @@ sub html_study_results_table {
   my $tb_class = "result-table-sortable";
   return (
        "<table class=\"$tb_class\">"
-     . "<caption>" . html_study_link($study) . "<br> Expression across conditions, TPM </caption>"
+     . "<caption>" . html_study_link($study) . "<br> Median expression across replicates (TPM) </caption>"
      . "<thead>"
      . "<tr>"
           . join("\n", "<td></td>", map {
@@ -199,14 +196,14 @@ sub list_of_differential_expression_values_in_studies_and_studies_with_no_result
   for my $study (@{$studies}){
      $study->{study_url} = study_url($species,$study->{study_id}),
      my @differential_expression_values_for_study;
-     while (my ($type, $path) = each %{$study->{de}}) {
+     for my $path (@{$study->{differential_expression_paths}}) {
         my ($contrasts, $differential_expression_values) = search_in_file($path, $gene_id);
         C:
         for my $i (0..$#$contrasts){
            my $contrast = $contrasts->[$i];
            next C if $contrast =~ /^\!/; # Low replicates or failed QC
            my ($log2_fold_change, $adjusted_p_value) = split(" ", $differential_expression_values->[$i]);
-           ($log2_fold_change, $adjusted_p_value) = ("-", " ") unless $log2_fold_change and $adjusted_p_value;
+           ($log2_fold_change, $adjusted_p_value) = ("-", "-") unless $log2_fold_change and $adjusted_p_value;
            push @differential_expression_values_for_study, {
               study_url => $study->{study_url},
               study_title => $study->{study_title},
@@ -256,11 +253,13 @@ sub summary_stats_in_tables {
        column_headers => ["N", "min", "Q1", "Q2", "Q3", "max"],
        values => [ 
           scalar @expression_tpm_sorted,
-          quantile(\@expression_tpm_sorted, 0),
-          sprintf("%.1f",quantile(\@expression_tpm_sorted, 1)),
-          sprintf("%.1f",quantile(\@expression_tpm_sorted, 2)),
-          sprintf("%.1f",quantile(\@expression_tpm_sorted, 3)),
-          quantile(\@expression_tpm_sorted, 4),
+          (map {"$_ TPM"}
+            quantile(\@expression_tpm_sorted, 0),
+            sprintf("%.1f",quantile(\@expression_tpm_sorted, 1)),
+            sprintf("%.1f",quantile(\@expression_tpm_sorted, 2)),
+            sprintf("%.1f",quantile(\@expression_tpm_sorted, 3)),
+            quantile(\@expression_tpm_sorted, 4),
+          ),
        ],
      } if $runs and $expression_tpm;
   }
@@ -272,15 +271,16 @@ sub tpms_in_tables {
   my @result;  
   for my $study (@{$studies}){
      my ($conditions, $expressions_tpm) = search_in_file($study->{tpms_per_condition}, $gene_id);
-#### $conditions
-#### $expressions_tpm
      next unless $conditions and $expressions_tpm;
-     my @conditions_warnings_as_text = map {s{^!\s*(.*)}{$1 <i>(has quality warnings)</i>}; $_} @{$conditions};
-     my ($column_headers, $headers_and_values_rows) = as_2d (\@conditions_warnings_as_text, $expressions_tpm);
-#### $column_headers
-#### $headers_and_values_rows
+     for my $ix (0 .. $#$conditions){
+        if ( $conditions->[$ix] =~ m{^!} ) {
+          $conditions->[$ix] =~ s{^!}{};
+          $expressions_tpm->[$ix] .= '<sup title="Low (2) replicates">&#9888;</sup>';
+        }
+     }
+     my ($column_headers, $headers_and_values_rows) = as_2d($conditions, $expressions_tpm);
      unless ($column_headers and $headers_and_values_rows){
-        $column_headers = \@conditions_warnings_as_text;
+        $column_headers = $conditions;
         $headers_and_values_rows = [["Value" , @$expressions_tpm]];
      }
      
