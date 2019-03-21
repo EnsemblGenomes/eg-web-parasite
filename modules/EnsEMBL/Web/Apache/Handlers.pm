@@ -41,6 +41,7 @@ sub parse_ensembl_uri {
 ## ParaSite: redirect non-WormBase species out to wherever they belong, as defined in the configs
   my @uri_parts = split('/', $uri_path);
   my $sp = $uri_parts[1];
+
   my $site_type = $species_defs->ENSEMBL_SPECIES_SITE->{lc($sp)};
   if($site_type && $site_type !~ /^parasite|wormbase$/i) {
     my %param = split ';|=', $uri_query;
@@ -70,8 +71,14 @@ sub parse_ensembl_uri {
   $valid_species_map{$species_alias_map->{$_}} or delete $species_alias_map->{$_} for keys %$species_alias_map;
 
   # extract the species name from the raw path segments, and leave the remainders as our final path segments
-  my ($species, $species_alias);
-  my @path_segments = grep { $_ ne '' && ($species || !($species = $species_alias_map->{lc $_} and $species_alias = $_)) } split '/', $uri_path;
+  my ($species, $species_alias, @path_segments);
+
+  # Do not parse species under /expression
+  if ($sp ne 'expression') {
+    @path_segments = grep { $_ ne '' && ($species || !($species = $species_alias_map->{lc $_} and $species_alias = $_)) } split '/', $uri_path;  
+  } else {
+    @path_segments = grep { $_ ne '' } split '/', $uri_path;
+  }
 
   # if species name provided in the url is not the formal species url name, it's time to redirect the request to the correct species url
   return '/'.join('?', join('/', $species, @path_segments), $uri_query eq '' ? () : $uri_query) if $species && $species ne $species_alias;

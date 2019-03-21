@@ -21,10 +21,10 @@ package EnsEMBL::Web::Configuration::Gene;
 use previous qw(modify_tree);
 use ORM::EnsEMBL::DB::Accounts::Manager::CommentMeta;
 use utf8;
+use Data::Dumper;
 
 sub modify_tree {
   my $self = shift;
-
   $self->PREV::modify_tree(@_);
 
   my $species_defs = $self->hub->species_defs;
@@ -50,13 +50,14 @@ sub modify_tree {
   $self->delete_node('UserAnnotation');
   $self->delete_node('Phenotype');
   $self->delete_node('ExpressionAtlas');
+  $self->delete_node('Pathway');
 
-  if($self->hub->species_defs->GXA) {
-    my $transcriptomic_menu = $self->create_node('ExpressionAtlas', 'Expression', 
-      [qw( atlas EnsEMBL::Web::Component::Gene::ExpressionAtlas )],
-      { 'availability'  => 'gene has_gxa', 'hide_if_unavailable' => 1 }
-    );
-  }
+  # if($self->hub->species_defs->GXA) {
+  #   my $transcriptomic_menu = $self->create_node('ExpressionAtlas', 'Expression', 
+  #     [qw( atlas EnsEMBL::Web::Component::Gene::ExpressionAtlas )],
+  #     { 'availability'  => 'gene has_gxa', 'hide_if_unavailable' => 1 }
+  #   );
+  # }
 
   my $comparison = $self->get_node('TranscriptComparison');
   $comparison->set('hide_if_unavailable', 1);
@@ -97,6 +98,36 @@ sub modify_tree {
       );
     $summary->append($comment_section);
   }
+
+  ## Parasite: Adding WBPS Gene Expression Menu. Default means Other
+  my $expression_menu =  $self->create_node('WBPSExpression', 'Expression', 
+        [qw(exp_menu EnsEMBL::Web::Component::Gene::WBPSExpression )],
+        { 'availability' => 0 }
+      );
+
+  if ($species_defs->GENE_EXPRESSION) {
+    my @exp_catgories  = @{$species_defs->GENE_EXPRESSION->{'EXP_CATEGORIES'} || []};
+
+    #If there is data only in one category and category is "Other" (common special case for species with not so good data)
+    if (scalar(@exp_catgories) == 1 and $exp_catgories[0] eq 'Other') {
+        $self->delete_node('WBPSExpression');
+        $self->create_node('WBPSExpressionOther', 'Expression', 
+          [qw(exp_menu EnsEMBL::Web::Component::Gene::WBPSExpression )],
+          { 'availability' => 1, 'concise' => 'Gene Expression: Other' }
+        );
+    } elsif (scalar(@exp_catgories) >= 1) {
+        foreach my $cat (@exp_catgories) {
+          my $cat_name = $cat =~ s/_/ /gr;
+          $expression_menu->append(
+          $self->create_node('WBPSExpression'.$cat, $cat_name, 
+            [qw(exp_menu EnsEMBL::Web::Component::Gene::WBPSExpression )],
+            { 'availability' => 1, 'concise' => "Gene Expression: $cat_name" }
+          )
+        );
+      }
+    }
+  }
+  ##
  
   my $ontology_menu = $self->get_node('Ontologies');
   $ontology_menu->set('caption', "Gene Ontology");

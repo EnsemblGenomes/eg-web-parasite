@@ -1,3 +1,4 @@
 /htdocs/ssi/species/about_*
+/htdocs/expression
 ._*
 .DS_Store

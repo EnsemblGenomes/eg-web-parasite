@@ -251,6 +251,11 @@ sub _navlinks_text {
     }
   }
 
+  if (-e "$SiteDefs::ENSEMBL_SERVERROOT/eg-web-parasite/htdocs/expression/${\(lc $species)}/index.html") {
+    my $studies_page_url = (split '/', $species_defs->species_path)[0] . '/expression/' . lc $species . '/index.html';
+    $html .= sprintf('<div class="species-nav-icon"><a class="nodeco _ht" href="%s" title="Gene Expression Studies Page"><img src="%sgallery/gene_exp.png" class="bordered" /><br /><span>Gene Expression</span></a></div>', $studies_page_url, $img_url);
+  }
+
   $html .= '</div>';
   return $html; 
 }

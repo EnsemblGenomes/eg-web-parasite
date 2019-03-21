@@ -1,0 +1,359 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v14/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v14/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+#wbps_expression_id {
+  /*font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px; */
+}
+#wbps_expression_id  .adm_active_btn {
+  background-color: red;
+  color: #ffffff;
+}
+
+#wbps_expression_id button, select {
+  font-size: 13px;
+}
+#wbps_expression_id table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#wbps_expression_id .table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+#wbps_expression_id .table th,
+#wbps_expression_id .table td {
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+#wbps_expression_id .table th {
+  font-weight: bold;
+}
+#wbps_expression_id .table thead th {
+  vertical-align: bottom;
+}
+#wbps_expression_id .table caption + thead tr:first-child th,
+#wbps_expression_id .table caption + thead tr:first-child td,
+#wbps_expression_id .table colgroup + thead tr:first-child th,
+#wbps_expression_id .table colgroup + thead tr:first-child td,
+#wbps_expression_id .table thead:first-child tr:first-child th,
+#wbps_expression_id .table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+#wbps_expression_id .table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+#wbps_expression_id .table .table {
+  background-color: #ffffff;
+}
+#wbps_expression_id .table-condensed th,
+#wbps_expression_id .table-condensed td {
+  padding: 4px 5px;
+}
+#wbps_expression_id .table-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  border-left: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+#wbps_expression_id .table-bordered th,
+#wbps_expression_id .table-bordered td {
+  border-left: 1px solid #dddddd;
+}
+#wbps_expression_id .table-bordered caption + thead tr:first-child th,
+#wbps_expression_id .table-bordered caption + tbody tr:first-child th,
+#wbps_expression_id .table-bordered caption + tbody tr:first-child td,
+#wbps_expression_id .table-bordered colgroup + thead tr:first-child th,
+#wbps_expression_id .table-bordered colgroup + tbody tr:first-child th,
+#wbps_expression_id .table-bordered colgroup + tbody tr:first-child td,
+#wbps_expression_id .table-bordered thead:first-child tr:first-child th,
+#wbps_expression_id .table-bordered tbody:first-child tr:first-child th,
+#wbps_expression_id .table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+#wbps_expression_id .table-bordered thead:first-child tr:first-child > th:first-child,
+#wbps_expression_id .table-bordered tbody:first-child tr:first-child > td:first-child,
+#wbps_expression_id .table-bordered tbody:first-child tr:first-child > th:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+#wbps_expression_id .table-bordered thead:first-child tr:first-child > th:last-child,
+#wbps_expression_id .table-bordered tbody:first-child tr:first-child > td:last-child,
+#wbps_expression_id .table-bordered tbody:first-child tr:first-child > th:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+#wbps_expression_id .table-bordered thead:last-child tr:last-child > th:first-child,
+#wbps_expression_id .table-bordered tbody:last-child tr:last-child > td:first-child,
+#wbps_expression_id .table-bordered tbody:last-child tr:last-child > th:first-child,
+#wbps_expression_id .table-bordered tfoot:last-child tr:last-child > td:first-child,
+#wbps_expression_id .table-bordered tfoot:last-child tr:last-child > th:first-child {
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+}
+#wbps_expression_id .table-bordered thead:last-child tr:last-child > th:last-child,
+#wbps_expression_id .table-bordered tbody:last-child tr:last-child > td:last-child,
+#wbps_expression_id .table-bordered tbody:last-child tr:last-child > th:last-child,
+#wbps_expression_id .table-bordered tfoot:last-child tr:last-child > td:last-child,
+#wbps_expression_id .table-bordered tfoot:last-child tr:last-child > th:last-child {
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+}
+#wbps_expression_id .table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+}
+#wbps_expression_id .table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+}
+#wbps_expression_id .table-bordered caption + thead tr:first-child th:first-child,
+#wbps_expression_id .table-bordered caption + tbody tr:first-child td:first-child,
+#wbps_expression_id .table-bordered colgroup + thead tr:first-child th:first-child,
+#wbps_expression_id .table-bordered colgroup + tbody tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+#wbps_expression_id .table-bordered caption + thead tr:first-child th:last-child,
+#wbps_expression_id .table-bordered caption + tbody tr:first-child td:last-child,
+#wbps_expression_id .table-bordered colgroup + thead tr:first-child th:last-child,
+#wbps_expression_id .table-bordered colgroup + tbody tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+#wbps_expression_id .table-striped tbody > tr:nth-child(odd) > td,
+#wbps_expression_id .table-striped tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+#wbps_expression_id .table-hover tbody tr:hover > td,
+#wbps_expression_id .table-hover tbody tr:hover > th {
+  background-color: #f5f5f5;
+}
+#wbps_expression_id table td[class*=span],
+#wbps_expression_id table th[class*=span],
+#wbps_expression_id .row-fluid table td[class*=span],
+#wbps_expression_id .row-fluid table th[class*=span] {
+  display: table-cell;
+  float: none;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span1,
+#wbps_expression_id .table th.span1 {
+  float: none;
+  width: 44px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span2,
+#wbps_expression_id .table th.span2 {
+  float: none;
+  width: 124px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span3,
+#wbps_expression_id .table th.span3 {
+  float: none;
+  width: 204px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span4,
+#wbps_expression_id .table th.span4 {
+  float: none;
+  width: 284px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span5,
+#wbps_expression_id .table th.span5 {
+  float: none;
+  width: 364px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span6,
+#wbps_expression_id .table th.span6 {
+  float: none;
+  width: 444px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span7,
+#wbps_expression_id .table th.span7 {
+  float: none;
+  width: 524px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span8,
+#wbps_expression_id .table th.span8 {
+  float: none;
+  width: 604px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span9,
+#wbps_expression_id .table th.span9 {
+  float: none;
+  width: 684px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span10,
+#wbps_expression_id .table th.span10 {
+  float: none;
+  width: 764px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span11,
+#wbps_expression_id .table th.span11 {
+  float: none;
+  width: 844px;
+  margin-left: 0;
+}
+#wbps_expression_id .table td.span12,
+#wbps_expression_id .table th.span12 {
+  float: none;
+  width: 924px;
+  margin-left: 0;
+}
+#wbps_expression_id .table tbody tr.success > td {
+  background-color: #dff0d8;
+}
+#wbps_expression_id .table tbody tr.error > td {
+  background-color: #f2dede;
+}
+#wbps_expression_id .table tbody tr.warning > td {
+  background-color: #fcf8e3;
+}
+#wbps_expression_id .table tbody tr.info > td {
+  background-color: #d9edf7;
+}
+#wbps_expression_id .table-hover tbody tr.success:hover > td {
+  background-color: #d0e9c6;
+}
+#wbps_expression_id .table-hover tbody tr.error:hover > td {
+  background-color: #ebcccc;
+}
+#wbps_expression_id .table-hover tbody tr.warning:hover > td {
+  background-color: #faf2cc;
+}
+#wbps_expression_id .table-hover tbody tr.info:hover > td {
+  background-color: #c4e3f3;
+}
+
+#wbps_expression_id .expandable:hover {
+  cursor: pointer;
+}
+#wbps_expression_id h2.exp-group {
+  color: green;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+#wbps_expression_id .failed-box h2 {
+  background-color: #d4d4d3;
+}
+
+
+#wbps_expression_id .design-box {
+  max-height: 380px;
+  overflow: auto;
+}
+
+#wbps_expression_id .other_descs {
+  color: #d22b2b;
+  font-size: 1.1em;
+  font-style: italic;
+}
+
+#wbps_expression_id li > a {
+  font-size: 1.02em;
+  color: #15369a;
+}
+
+#wbps_expression_id li > a:hover {
+  font-size: 1.05em;
+  font-style: italic;
+  color: #000000;
+}
+
+#wbps-gene-expression-id caption > a, caption {
+  color: #f9fffc;
+}
+
+#wbps-gene-expression-id a:hover {
+  color: #394f7f;
+}
+
+#wbps-gene-expression-id tbody a {
+  color: #5f729d;
+}
+
+#wbps-gene-expression-id tbody a:hover {
+  color: #394f7f;
+}
+
+#wbps-gene-expression-id caption {
+  font-size: 14px;
+  background: #8a99bb;
+  padding: 5px 0px 5px 5px;
+}
+#wbps-gene-expression-id table {
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #cccccc;
+  overflow: hidden;
+  width: 70%;
+  min-width: 800px;
+  max-width: 1400px;
+  position: relative;
+  margin-left: 0px;
+  margin-bottom: 20px;
+}
+
+#wbps-gene-expression-id th, td {
+  padding: 5px 0px 5px 10px;
+  min-width: 160px;
+}
+
+#wbps-gene-expression-id tbody tr:hover {
+  background-color: #fdfd96;
+}
