@@ -33,6 +33,7 @@ sub links {
   push @links, 'api',           '<a class="constant" href="/rest/" title="Programmatic access with REST API">REST API</a>';
   push @links, 'vep',   sprintf '<a class="constant" href="%s" title="Variant Effect Predictor">VEP</a>', $self->hub->url({'species' => $species, 'type' => 'Tools', 'action' => 'VEP', __clear => 1});
   push @links, 'downloads',     '<a class="constant" href="/ftp.html">Downloads</a>';
+  push @links, 'tools',         '<a class="constant" href="/tools.html">Tools</a>';
   push @links, 'wormbase',      '<a class="constant" href="http://www.wormbase.org">WormBase</a>';
 
   return \@links;
