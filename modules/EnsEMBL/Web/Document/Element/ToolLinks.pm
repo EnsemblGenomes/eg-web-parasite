@@ -29,10 +29,11 @@ sub links {
   
   push @links, 'specieslist',   '<a class="constant" href="/species.html">Genome List</a>';
   push @links, 'blast', sprintf '<a class="constant" href="%s" title="Sequence Similarity Search">BLAST</a>', $self->hub->url({'species' => $species, 'type' => 'Tools', 'action' => 'Blast', __clear => 1}) if $sd->ENSEMBL_BLAST_ENABLED;
-  push @links, 'biomart',       '<a class="constant" href="/biomart/martview/" title="Data mining and export with BioMart">BioMart</a>';
+  push @links, 'biomart',       '<a class="constant" href="/biomart/martview/" title="Data mining and export with BioMart">BioMart</a>' if $sd->ENSEMBL_MART_ENABLED;
   push @links, 'api',           '<a class="constant" href="/rest/" title="Programmatic access with REST API">REST API</a>';
   push @links, 'vep',   sprintf '<a class="constant" href="%s" title="Variant Effect Predictor">VEP</a>', $self->hub->url({'species' => $species, 'type' => 'Tools', 'action' => 'VEP', __clear => 1});
   push @links, 'downloads',     '<a class="constant" href="/ftp.html">Downloads</a>';
+  push @links, 'tools',         '<a class="constant" href="/tools.html">Tools</a>';
   push @links, 'wormbase',      '<a class="constant" href="http://www.wormbase.org">WormBase</a>';
 
   return \@links;
