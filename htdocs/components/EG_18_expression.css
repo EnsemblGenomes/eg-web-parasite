@@ -341,17 +341,25 @@
   background: white;
   border: 1px solid #cccccc;
   overflow: hidden;
-  width: 70%;
-  min-width: 800px;
+  width: 60%;
+  min-width: 1000px;
   max-width: 1400px;
   position: relative;
   margin-left: 0px;
   margin-bottom: 20px;
 }
 
-#wbps-gene-expression-id th, td {
+/*Override the transcript table width */
+#transcripts_table_wrapper, #transcripts_table {
+  min-width: 1000px !important;
+  max-width: 1400px !important;
+}
+
+
+#wbps-gene-expression-id th, 
+#wbps-gene-expression-id td {
   padding: 5px 0px 5px 10px;
-  min-width: 160px;
+  min-width: auto;
 }
 
 #wbps-gene-expression-id tbody tr:hover {
