@@ -136,7 +136,6 @@ if (%$custom_nodes) {
 print "dumping JavaScript...\n"; 
 
 my ($dynatree) = node_to_dynatree($root);
-warn Dumper $dynatree;
 my $json       = to_json($dynatree->{children}, {pretty => 1, allow_nonref => 1});
 my $filename   = "$plugin_dir/htdocs/taxon_tree_data.js";
 
