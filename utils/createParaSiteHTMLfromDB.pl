@@ -29,6 +29,7 @@ unlink(@files_to_delete);
 
 my $dbh = DBI->connect("DBI:mysql:ensembl_production_parasite;host=mysql-eg-pan-prod.ebi.ac.uk:4276", 'ensro')
     || die "Could not connect to database: $DBI::errstr";
+$dbh->{'mysql_enable_utf8'} = 1;
 
 my $sql = "SELECT species_name, summary, assembly, annotation, resources, publication FROM static_genome";
 my $sth = $dbh->prepare($sql);
