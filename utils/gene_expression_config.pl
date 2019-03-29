@@ -26,6 +26,12 @@ foreach my $species (@dirs) {
      print "IGNORED. No tsv file for $species\n";
      next;  
    }
+   
+   if (-z $tsv_path) {
+     print "IGNORED. EMPTY tsv file for $species\n";
+     next;
+   }
+   
    my @lines= @{csv(in=>$tsv_path, sep_char => "\t")};
    
    ## Finding categories and sort them.
