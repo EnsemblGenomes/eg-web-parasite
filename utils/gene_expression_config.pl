@@ -10,7 +10,7 @@ use List::MoreUtils qw/uniq/;
 ##
   
 ## Path to expression files fetched from ftp
-my $path = "/homes/ens_adm14/parasite/prev/browser/eg-web-parasite/htdocs/expression";
+my $path = "/homes/ens_adm14/parasite/current/browser/eg-web-parasite/htdocs/expression";
 
 ## To mirror ftp, can do:
 #  wget -P $path -nH --cut-dirs=8 -m ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/web_data/rnaseq_studies/releases/next/
