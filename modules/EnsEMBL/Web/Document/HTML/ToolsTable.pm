@@ -41,10 +41,8 @@ sub render {
   my $table = EnsEMBL::Web::Document::Table->new([
       { key => 'name',  title => 'Name',            width => '20%', align => 'left' },
       { key => 'desc',  title => 'Description',     width => '40%', align => 'left' },
-      { key => 'tool',  title => 'Online tool',     width => '10%', align => 'center' },
+      { key => 'docs',  title => 'Documentation',   width => '20%', align => 'center' },
       { key => 'limit', title => 'Upload limit',    width => '10%', align => 'center' },
-      { key => 'code',  title => 'Download script', width => '10%', align => 'center' },
-      { key => 'docs',  title => 'Documentation',   width => '10%', align => 'center' },
     ], [], { cellpadding => 4 }
   );
 
@@ -56,10 +54,8 @@ sub render {
     $table->add_row({
       'name'  => sprintf('<a href="%s" class="nodeco"><b>Variant Effect Predictor</b></a>', $vep_link),
       'desc'  => 'Analyse your own variants and predict the functional consequences of known and unknown variants via our Variant Effect Predictor (VEP) tool.',
-      'limit' => $tools_limit.'*',
-      'tool'  => sprintf('<a href="%s" class="nodeco"><img src="%s16/tool.png" alt="Tool" title="Go to online tool" /></a>', $vep_link, $img_url),
-      'code'  => sprintf('<a href="https://github.com/Ensembl/ensembl-tools/archive/release/%s.zip" rel="external" class="nodeco"><img src="%s16/download.png" alt="Download" title="Download Perl script" /></a>', $sd->ENSEMBL_VERSION, $img_url),
-      'docs'  => sprintf('<a href="/info/Tools/vep.html"><img src="%s16/info.png" alt="Documentation" /></a>', $img_url)
+      'limit' => $tools_limit,
+      'docs'  => sprintf('<a href="/info/Tools/vep.html" class="popup"><img src="%s16/info.png" alt="Documentation" /></a>', $img_url)
     });
   }
 
@@ -69,9 +65,7 @@ sub render {
     $table->add_row({
       'name' => sprintf('<b><a class="nodeco" href="%s">BLAST/BLAT</a></b>', $link),
       'desc' => 'Search our genomes for your DNA or protein sequence.',
-      'tool' => sprintf('<a href="%s" class="nodeco"><img src="%s16/tool.png" alt="Tool" title="Go to online tool" /></a>', $link, $img_url),
       'limit' => $tools_limit,
-      'code' => '',
       'docs' => sprintf('<a href="/info/Tools/blast.html" class="popup"><img src="%s16/info.png" alt="Documentation" /></a>', $img_url)
     });
   }
@@ -81,16 +75,11 @@ sub render {
   $table->add_row({
     'name' => sprintf('<b><a class="nodeco" href="%s">g:Profiler</a></b>', $gprofile_link),
     'desc' => 'Gene set enrichment. WormBase ParaSite genomes and the results of our functional analysis annotation are processed by g:Profiler to offer gene set enrichment analysis as a service. ',
-    'tool' => sprintf('<a href="%s" class="nodeco"><img src="%s16/tool.png" alt="Tool" title="Go to online tool" /></a>', $gprofile_link, $img_url),
-    'limit' => '',
-    'code' => '',
     'docs' => sprintf('<a href="/info/Tools/gprofiler.html" class="popup"><img src="%s16/info.png" alt="Documentation" /></a>', $img_url)
   });
 
 
   $html .= $table->render;
-
-  $html .= '* For larger datasets we provide an API script that can be downloaded (you will also need to install our Perl API, below, to run the script).';
 
   ## Table of other tools
 
@@ -99,7 +88,6 @@ sub render {
   $table = EnsEMBL::Web::Document::Table->new([
       { key => 'name', title => 'Name', width => '20%', align => 'left' },
       { key => 'desc', title => 'Description', width => '30%', align => 'left' },
-      { key => 'from', title => 'Get it from:', width => '30%', align => 'center' },
       { key => 'docs', title => 'Documentation', width => '10%', align => 'center' },
     ], [], { cellpadding => 4 }
   );
@@ -109,7 +97,6 @@ sub render {
     $table->add_row({
       'name' => '<b><a href="/biomart/martview">BioMart</a></b>',
       'desc' => "Use this data-mining tool to export custom datasets from $sitename.",
-      'from' => '',
       'docs' => sprintf('<a href="/info/Tools/biomart.html" class="popup"><img src="%s16/info.png" alt="Documentation" /></a>', $img_url)
     });
   }
@@ -117,10 +104,9 @@ sub render {
   ## REST
   if (my $rest_url = $sd->ENSEMBL_REST_URL) {
     $table->add_row({
-      "name" => sprintf("<b><a href=%s>Wormbase Parasite REST server</a></b>", $rest_url),
-      'desc' => 'Access Wormbase Parasite using your favourite programming language',
-      "tool" => sprintf("<a href='%s' class='nodeco'><img src='%s16/tool.png' alt='Tool' title='Go to online tool' /></a>", $rest_url, $img_url),
-      'docs' => sprintf('<a href="%s"><img src="%s16/info.png" alt="Documentation" /></a>', '/info/Tools/rest_api.html' || $rest_url, $img_url)
+      "name" => sprintf("<b><a href=%s>REST server</a></b>", $rest_url),
+      'desc' => 'Access WormBase ParaSite using your favourite programming language',
+      'docs' => sprintf('<a href="%s" class="popup"><img src="%s16/info.png" alt="Documentation" /></a>', '/info/Tools/rest_api.html' || $rest_url, $img_url)
     });
   }
   $html .= $table->render;
