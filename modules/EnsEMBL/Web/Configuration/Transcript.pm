@@ -39,6 +39,7 @@ sub modify_tree {
   $self->delete_node('UserAnnotation');
   $self->delete_node('History');
   $self->delete_node('ExternalRecords'); 
+  $self->delete_node('PDB'); 
  
   if($self->hub->species_defs->EVA_TRACKS) {
     my $variation = $self->create_node('EVA', 'Variation', [],
