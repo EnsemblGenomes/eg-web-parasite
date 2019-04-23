@@ -140,12 +140,13 @@ sub content {
 
     foreach my $set (@$set_order) {
       my $set_info = $species_sets->{$set};
-      
+      my $species_selected = $set eq 'all' ? 'checked="checked"' : ''; # select all species by default
+ 
       my $row_data = {};
       my $title = $species_defs->COMPARA_DISPLAY_NAME->{lc($set_info->{'title'})} || $set_info->{'title'};
       $row_data->{'set'} = "<strong>$title</strong><br />$set_info->{'desc'}";
-      if(@{$set_info->{'species'}} && $set_info->{'title'} ne 'All'){
-        $row_data->{'show'} =  qq{<input type="checkbox" class="table_filter" title="Check to show these species in table below" name="orthologues" value="$set" />};
+      if(@{$set_info->{'species'}}){
+        $row_data->{'show'} =  qq{<input type="checkbox" class="table_filter" title="Check to show these species in table below" name="orthologues" value="$set" $species_selected />};
       }
       my $skip = 1;
       foreach my $orth_desc (%$categories){
