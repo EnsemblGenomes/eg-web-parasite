@@ -29,9 +29,11 @@ unlink(@files_to_delete);
 
 my $dbh = DBI->connect("DBI:mysql:ensembl_production_parasite;host=mysql-eg-pan-prod.ebi.ac.uk:4276", 'ensro')
     || die "Could not connect to database: $DBI::errstr";
-$dbh->{'mysql_enable_utf8'} = 1;
 
-my $sql = "SELECT species_name, summary, assembly, annotation, resources, publication FROM static_genome";
+#When using the admin site, text is sent as utf-8 but stored as latin1. Need to convert it from latin1 to utf-8 when reading.
+#The admin site uses outdated DBD::mysql version that does not handle connection charset correctly. 
+my $sql = "SELECT species_name, CONVERT(CAST(CONVERT(summary USING latin1) AS BINARY) USING utf8), CONVERT(CAST(CONVERT(assembly USING latin1) AS BINARY) USING utf8), CONVERT(CAST(CONVERT(annotation USING latin1) AS BINARY) USING utf8), resources, publication FROM static_genome";
+
 my $sth = $dbh->prepare($sql);
 $sth->execute();
 
