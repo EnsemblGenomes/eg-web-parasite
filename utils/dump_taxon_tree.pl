@@ -158,6 +158,30 @@ if ($dump_binary) {
 
 exit;
 
+
+# Copy-pasted from ProductionMysql.pm
+# Needs to map each core db to something unique and within a character limit
+# Not sure exactly what the true limit is - it's a limitation in mysql schema - ceiling is 17 chars
+# capturing groups across alternatives, that are separated by |
+# Stuff in alternative groups should be empty
+# Special case for t. pseudospiralis so that the names don't get too long
+# Joint treatment of cores and comparators
+#  "Up to n letters" with .{1,n}
+# It needs to be executed from Java, and the two implementations are slightly different: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#jcc
+my $GOLDEN_SPECIES_REGEX_MATCH_NO_CORE_DB_SUFFIX = join ("|",
+  "^trichinella_pseudospiralis_(iss[0-9]+prjna257433)\$", # $1
+  "^(.{1,2}).*?_(.{1,4}).*?_(.*?)\$", # $2, $3, $4
+  "^([a-z])[^_]+_([^_]+)\$" # $5, $6
+);
+my $GOLDEN_SPECIES_REGEX_REPLACEMENT = '$1$2$3$4$5$6';
+
+sub species_to_biomart_name {
+  my ($species) = @_;
+  eval "\$core_db =~ s/$GOLDEN_SPECIES_REGEX_MATCH_NO_CORE_DB_SUFFIX/$GOLDEN_SPECIES_REGEX_REPLACEMENT/"; 
+  die $@ if $@;
+  return $core_db;
+}
+
 #------------------------------------------------------------------------------
 # Dump JavaScript for the taxon tree interface
 
@@ -200,7 +224,7 @@ sub node_to_dynatree {
       my @parts = split("_", $dba->species);
       my $bioproj = uc($parts[2]);  # Extract the BioProject ID from the species key
       my $display = $bioproj eq '' ? $name : "$name ($bioproj)";
-      my $biomart = $bioproj eq '' ? lc(substr($parts[0], 0, 1)) . lc($parts[1]) : lc(substr($parts[1], 0, 5)) . lc($bioproj); # The BioMart name is either BioProject (if present) or a combination of the genus initial and species
+      my $biomart = species_to_biomart_name($dba->species);
       push @output, {  
         key   => $dba->species,
         title => $display,
