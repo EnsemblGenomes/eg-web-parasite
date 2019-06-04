@@ -1,294 +1,117 @@
-# Copyright [2014-2017] EMBL-European Bioinformatics Institute
-# 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-#      http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-#------------------------------------------------------------------------------
-#
-# Dump species taxonomy tree static files for EG taxon selector interface
-#
-# E.g.
-# dump_taxon_tree.pl --host <host> --port <port> --user <user> --pass <pass>
-#                    --plugin-dir <dir> [--dump_binary] [--root <node-name>]
-#
-
 use strict;
-use Data::Dumper;
-use FindBin qw($Bin);
-use JSON;
-use Storable qw(lock_nstore);
+use warnings;
+
+# 
+# Data for the taxonomy tree widget in WormBase ParaSite martview
+# Connects to the EnsEMBL taxonomy database to obtain tree structure
+# Connects to our (unmerged) mart to get biomart keys from dataset_names
+# writes to STDOUT
+
+use JSON qw/to_json/;
 use Getopt::Long;
-use lib $Bin;
-use LibDirs;
-use lib "$LibDirs::SERVERROOT/ensemblgenomes-api/modules";
-use lib "$LibDirs::SERVERROOT/eg-web-bacteria/modules";
+use DBI;
 
 my $NO_CACHE = 1; # don't cache the registry
-
 use Bio::EnsEMBL::Registry;
 use Bio::EnsEMBL::DBSQL::DBAdaptor;
 use Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor;
 
-my ($plugin_dir, $dump_binary);
-my ($host, $port, $user, $pass) = qw(localhost 3306 ensro);
-my $root_name = 'cellular organisms';
-
-GetOptions(
-  "host=s"       => \$host,
-  "port=s"       => \$port,
-  "user=s"       => \$user,
-  "pass=s"       => \$pass,
-  "plugin-dir=s" => \$plugin_dir,
-  "dump-binary" => \$dump_binary,
-  "root=s"       => \$root_name,
+my ($host, $port, $user, $pass, $biomart_db_name);
+GetOptions (
+    "host=s"=>\$host,
+    "port=i"=>\$port,
+    "user=s"=>\$user,
+    "pass=s"=>\$pass,
+    "biomart_db=s"=> \$biomart_db_name,
 );
-
-die "Please specifiy -plugin-dir" unless $plugin_dir;
-
-my @db_args = ( -host => $host, -port => $port, -user => $user, -pass => $pass );
-
-if ($dump_binary) {
-  # Dump EnsEMBL::Web::TaxonTree storable file (needed for Bacteria gene families)
-  # Check we have EnsEMBL::Web::TaxonTree available before we start
-  eval('use EnsEMBL::Web::TaxonTree'); 
-  die "Could not load EnsEMBL::Web::TaxonTree, it is required for storable dump ($@)" if $@;
+for ($host, $port, $user, $biomart_db_name){
+  unless ($_){
+    die "Usage: $0 \$(\$PARASITE_STAGING_MYSQL details script) -biomart_db parasite_mart_\${PARASITE_VERSION} > tree.js";
+  }
 }
 
-#------------------------------------------------------------------------------
-
-# Per-division internal nodes 
-# The tree will be collapsed to include only the internal nodes in the 
-# custom_nodes hash. If empty, we'll get the default collapsed tree.
-
-my $custom_node_config = {
-  'Ensembl Plants' => { 
-    4447   => 'Monocots',
-    4479   => 'Grasses',
-    147370 => 'Warm season grasses (C4)',
-    147389 => 'Triticeae',
-    4527   => 'Rices',
-    71240  => 'Dicots',
-    3700   => 'Brassicaceae',
-    3803   => 'Fabaceae',
-    4070   => 'Solanaceae',
-  }
-};
-
-my $custom_nodes = $custom_node_config->{$SiteDefs::ENSEMBL_SITETYPE} || {};
-
-#------------------------------------------------------------------------------
-
-print "getting db adaptors...\n";
-
-Bio::EnsEMBL::Registry->load_registry_from_db(@db_args);
+Bio::EnsEMBL::Registry->load_registry_from_db(-host => $host, -port => $port, -user => $user, -pass => $pass); 
 Bio::EnsEMBL::Registry->set_disconnect_when_inactive;
 
-my %valid = map {lc($_) => 1} split /\n/, `perl $LibDirs::WEBROOT/utils/dump_ensembl_valid_species.pl`; 
-my @dbas  = grep { $valid{$_->species} } @{ Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => 'core') };
+my $biomart_db = DBI->connect("DBI:mysql:$biomart_db_name:$host:$port", $user, $pass);
+
+my @dbas  = @{ Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => 'core') };
 
 #------------------------------------------------------------------------------
 
-print "fetching leaf nodes...\n";
+my $node_adaptor = Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor->new(Bio::EnsEMBL::Registry->get_all_DBAdaptors (-group => 'taxonomy')->[0]);
 
-my $dba = Bio::EnsEMBL::DBSQL::DBAdaptor->new(
-  @db_args,
-  -dbname => 'ncbi_taxonomy',
-  -driver => 'mysql',
-  -group  => 'taxonomy',
+my $root_Nematoda = $node_adaptor->fetch_by_taxon_name("Nematoda");
+my $root_Platyhelminthes = $node_adaptor->fetch_by_taxon_name("Platyhelminthes");
+my $root_Other = $node_adaptor->fetch_by_taxon_name("Eukaryota");
+
+my %leaf_nodes;
+for my $dba (@dbas) {
+  next if $biomart_db_name eq "parasite_mart_13" and ( $dba->species eq "micoletzkya_japonica_prjeb27334" or $dba->species eq "pristionchus_japonicus_prjeb27334"); # We had a boo-boo in WBPS13. delete this line in WBPS14!
+  my $node = $node_adaptor->fetch_by_coredbadaptor($dba);
+  my $category = $node->has_ancestor($root_Nematoda) ? "Nematoda" : $node->has_ancestor($root_Platyhelminthes) ? "Platyhelminthes" : "Other";
+  push @{$leaf_nodes{$category}}, $node;
+}
+
+build_pruned_tree($node_adaptor, $root_Nematoda, $leaf_nodes{"Nematoda"});
+$node_adaptor->collapse_tree($root_Nematoda);
+
+build_pruned_tree($node_adaptor, $root_Platyhelminthes, $leaf_nodes{"Platyhelminthes"});
+$node_adaptor->collapse_tree($root_Platyhelminthes);
+
+$root_Other->{names}{"scientific name"} = [ sprintf("Other (%s)", scalar @{$leaf_nodes{"Other"}}) ];
+$_->children([]) for @{$leaf_nodes{"Other"}};
+$root_Other->children($leaf_nodes{"Other"});
+
+my $sth = $biomart_db->prepare("select name, species_name from dataset_names where sql_name=?");
+my $json = to_json(
+  [ map {
+      node_to_dynatree($_, $sth)
+    } $root_Nematoda, $root_Platyhelminthes, $root_Other
+  ],
+  {pretty => 1, allow_nonref => 1}
 );
 
-my $node_adaptor = Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor->new($dba);
-my $root         = shift(@{$node_adaptor->fetch_all_by_name_and_class($root_name, 'scientific name')});
-my $leaf_nodes   = $node_adaptor->fetch_by_coredbadaptors(\@dbas);
-
-#------------------------------------------------------------------------------
-
-print "building pruned tree...\n";
-
-$node_adaptor->build_pruned_tree($root, $leaf_nodes);
-
-print "collapsing tree...\n";
-
-if (%$custom_nodes) {
-  $node_adaptor->collapse_tree($root, sub {
-    my ($node) = @_;
-    return (
-      $node->taxon_id eq $root->taxon_id ||
-      (defined $node->dba && scalar(@{$node->dba}) > 0) ||
-      grep {$_ eq $node->taxon_id} keys %$custom_nodes
-    );
-  });
-} else {
-  $node_adaptor->collapse_tree($root); 
-}
-
-#------------------------------------------------------------------------------
-
-print "dumping JavaScript...\n"; 
-
-my ($dynatree) = node_to_dynatree($root);
-my $json       = to_json($dynatree->{children}, {pretty => 1, allow_nonref => 1});
-my $filename   = "$plugin_dir/htdocs/taxon_tree_data.js";
-
-open my $file, '>', $filename;
-print $file "taxonTreeData = $json;";
-close $file;
-print "  wrote $filename\n";
 
 
-if ($dump_binary) {
-  print "dumping Perl storable file...\n";
-  
-  my $etree = EnsEMBL::Web::TaxonTree->new;
-  $etree->append_child(node_to_ensembl($etree, $root));
-  
-  my $filename = "$plugin_dir/data/taxon_tree.packed";
-  lock_nstore($etree, $filename) or die("failed to write $filename ($@)");
-  print "  wrote $filename\n";
-}
+print "taxonTreeData = $json;";
 
 exit;
 
+#------------------------------------------------------------------------------
 
-# Copy-pasted from ProductionMysql.pm
-# Needs to map each core db to something unique and within a character limit
-# Not sure exactly what the true limit is - it's a limitation in mysql schema - ceiling is 17 chars
-# capturing groups across alternatives, that are separated by |
-# Stuff in alternative groups should be empty
-# Special case for t. pseudospiralis so that the names don't get too long
-# Joint treatment of cores and comparators
-#  "Up to n letters" with .{1,n}
-# It needs to be executed from Java, and the two implementations are slightly different: https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#jcc
-my $GOLDEN_SPECIES_REGEX_MATCH_NO_CORE_DB_SUFFIX = join ("|",
-  "^trichinella_pseudospiralis_(iss[0-9]+prjna257433)\$", # $1
-  "^(.{1,2}).*?_(.{1,4}).*?_(.*?)\$", # $2, $3, $4
-  "^([a-z])[^_]+_([^_]+)\$" # $5, $6
-);
-my $GOLDEN_SPECIES_REGEX_REPLACEMENT = '$1$2$3$4$5$6';
-
-sub species_to_biomart_name {
-  my ($species) = @_;
-  eval "\$core_db =~ s/$GOLDEN_SPECIES_REGEX_MATCH_NO_CORE_DB_SUFFIX/$GOLDEN_SPECIES_REGEX_REPLACEMENT/"; 
-  die $@ if $@;
-  return $core_db;
+# Faster version of Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor::build_pruned_tree
+sub build_pruned_tree {
+  my ($node_adaptor, $root_requested, $leaf_nodes) = @_;
+  my %leaf_ancestors;
+  for my $leaf_node (@{$leaf_nodes}){
+    for my $ancestor_node (@{$node_adaptor->fetch_ancestors($leaf_node)}){
+      $leaf_ancestors{$ancestor_node->taxon_id} = $ancestor_node;
+    }
+  }
+  return $node_adaptor->associate_nodes( [ $root_requested, grep {$_->has_ancestor($root_requested)} values %leaf_ancestors, @{$leaf_nodes}]);
 }
 
-#------------------------------------------------------------------------------
-# Dump JavaScript for the taxon tree interface
-
 sub node_to_dynatree {
-  my ($node) = @_;
+  my ($node, $biomart_sth) = @_;
   my $name        = $node->names->{'scientific name'}->[0];
   my @child_nodes = @{$node->children};
   my @output;
-  
-  if (@child_nodes) {
-    
-    my $other;
-    if ($node->is_root) {
-      if (my @leaves = grep {$_->is_leaf} @child_nodes) {
-        # move root leaf nodes into 'Other' 
-        $other = {
-          key      => 'Other',
-          title    => 'Other' . ' (' . scalar(@leaves) . ')',
-          children => [ map { node_to_dynatree($_) } @leaves ],
-          isFolder => \"1" 
-        };
-        @child_nodes = grep {!$_->is_leaf} @child_nodes; # remove the leaves from root
-      }
-    }
-    
-    my @children = map { node_to_dynatree($_) } @child_nodes;
-    push @children, $other if $other;
-    
-    push @output, {
-      key      => $name,
-      title    => $name,
-#      title    => $name . ' (' . $node->count_leaves . ')',
-      children => [ sort {$a->{title} cmp $b->{title}} @children ],
-      isFolder => \"1" 
-    };
-  }
-  
-  if (@{$node->dba}) {
-    foreach my $dba (@{$node->dba}) {
-      my @parts = split("_", $dba->species);
-      my $bioproj = uc($parts[2]);  # Extract the BioProject ID from the species key
-      my $display = $bioproj eq '' ? $name : "$name ($bioproj)";
-      my $biomart = species_to_biomart_name($dba->species);
-      push @output, {  
-        key   => $dba->species,
-        title => $display,
-        biomart => $biomart,
-      };
-    }
-  }  
-  
-  return @output;
+  return {
+    key      => $name,
+    title    => $name,
+    children => [ sort {$a->{title} cmp $b->{title}} map { node_to_dynatree($_, $biomart_sth) } @{$node->children} ],
+    isFolder => \"1"
+  } if @{$node->children};
+
+  my ($dba, @others) = @{$node->dba};
+  die unless $dba and not @others;
+  $biomart_sth->execute($dba->species) || die "Could not retrieve name and display from biomart for ".$dba->species;
+  my ($biomart, $display) = $biomart_sth->fetchrow_array;
+  die "Could not retrieve name and display from biomart for ".$dba->species unless $biomart and $display;
+  return {
+    key   => $dba->species,
+    title => $display,
+    biomart => $biomart,
+  };
 }
-
-#------------------------------------------------------------------------------
-# Dump Ensembl tree object for Bacteria gene families
-
-sub node_to_ensembl {
-  my ($etree, $node) = @_;
-  my $name        = $custom_nodes->{$node->taxon_id} || $node->names->{'scientific name'}->[0];
-  my @child_nodes = @{$node->children};
-  my @output;
-  
-  if (@child_nodes) {
-    
-    my $other;
-    if ($node->is_root) {
-      if (my @leaves = grep {$_->is_leaf} @child_nodes) {
-        # move root leaf nodes into 'Other' 
-        my $other = $etree->create_node({
-          id              => 'other_9000000',
-          taxon_id        => 9000000,
-          production_name => 'other',
-          display_name    => 'Other',
-          is_species      => 0
-        });
-        @child_nodes = grep {!$_->is_leaf} @child_nodes; # remove the leaves from root
-      }
-    }
-    
-    my @children = map { node_to_ensembl($etree, $_) } @child_nodes;
-    push @children, $other if $other;
-    
-    my $enode = $etree->create_node({
-      id              => $name . '_' . $node->taxon_id,
-      taxon_id        => $node->taxon_id,
-      production_name => $name,
-      display_name    => $name,
-      is_species      => 0
-    });
-    $enode->append_child($_) for ( sort {$a->display_name cmp $b->display_name} @children);
-    push @output, $enode;
-  }
-  
-  if (@{$node->dba}) {
-    foreach my $dba (@{$node->dba}) {
-      push @output, $etree->create_node({  
-        id              => $dba->species . '_' . $node->taxon_id,
-        taxon_id        => $node->taxon_id,
-        production_name => $dba->species,
-        display_name    => $name,
-        is_species      => 1
-      });
-    }
-  }
-  
-  return @output;
-}
-
-
