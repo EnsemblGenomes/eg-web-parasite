@@ -6,7 +6,8 @@ use warnings;
 # Connects to the EnsEMBL taxonomy database to obtain tree structure
 # Connects to our (unmerged) mart to get biomart keys from dataset_names
 # writes to STDOUT
-
+# Run from dev machine: perl -I ensembl-taxonomy/modules/ -I ensembl/modules/ eg-web-parasite/utils/dump_taxon_tree.pl --host xxxx --port xxxx --user xxxx --biomart_db parasite_mart_13 > eg-web-parasite/htdocs/taxon_tree_data.js  
+#
 use JSON qw/to_json/;
 use Getopt::Long;
 use DBI;
@@ -14,7 +15,7 @@ use DBI;
 my $NO_CACHE = 1; # don't cache the registry
 use Bio::EnsEMBL::Registry;
 use Bio::EnsEMBL::DBSQL::DBAdaptor;
-use Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor;
+use Bio::EnsEMBL::Taxonomy::DBSQL::TaxonomyNodeAdaptor;
 
 my ($host, $port, $user, $pass, $biomart_db_name);
 GetOptions (
@@ -39,7 +40,7 @@ my @dbas  = @{ Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => 'core') };
 
 #------------------------------------------------------------------------------
 
-my $node_adaptor = Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor->new(Bio::EnsEMBL::Registry->get_all_DBAdaptors (-group => 'taxonomy')->[0]);
+my $node_adaptor = Bio::EnsEMBL::Taxonomy::DBSQL::TaxonomyNodeAdaptor->new(Bio::EnsEMBL::Registry->get_all_DBAdaptors (-group => 'taxonomy')->[0]);
 
 my $root_Nematoda = $node_adaptor->fetch_by_taxon_name("Nematoda");
 my $root_Platyhelminthes = $node_adaptor->fetch_by_taxon_name("Platyhelminthes");
