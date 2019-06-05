@@ -1,39 +1,34 @@
 taxonTreeData = [
    {
-      "isFolder" : true,
       "children" : [
          {
-            "isFolder" : true,
             "children" : [
                {
-                  "isFolder" : true,
                   "children" : [
                      {
-                        "biomart" : "sambeprjna390260",
                         "title" : "Plectus sambesii (PRJNA390260)",
-                        "key" : "plectus_sambesii_prjna390260"
+                        "key" : "plectus_sambesii_prjna390260",
+                        "biomart" : "sambeprjna390260"
                      }
                   ],
-                  "title" : "Plectida",
-                  "key" : "Plectida"
+                  "key" : "Plectida",
+                  "isFolder" : true,
+                  "title" : "Plectida"
                },
                {
-                  "isFolder" : true,
                   "children" : [
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "isFolder" : true,
+                                          "key" : "Diplogasteridae",
+                                          "title" : "Diplogasteridae",
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "biomart" : "gibliprjeb27334",
@@ -42,16 +37,16 @@ taxonTreeData = [
                                                    }
                                                 ],
                                                 "title" : "Parapristionchus",
-                                                "key" : "Parapristionchus"
+                                                "key" : "Parapristionchus",
+                                                "isFolder" : true
                                              }
-                                          ],
-                                          "title" : "Diplogasteridae",
-                                          "key" : "Diplogasteridae"
+                                          ]
                                        },
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
+                                                "title" : "Pristionchus",
+                                                "key" : "Pristionchus",
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
@@ -65,14 +60,14 @@ taxonTreeData = [
                                                       "key" : "pristionchus_entomophagus_prjeb27334"
                                                    },
                                                    {
-                                                      "biomart" : "exspeprjeb24288",
                                                       "title" : "Pristionchus exspectatus (PRJEB24288)",
-                                                      "key" : "pristionchus_exspectatus_prjeb24288"
+                                                      "key" : "pristionchus_exspectatus_prjeb24288",
+                                                      "biomart" : "exspeprjeb24288"
                                                    },
                                                    {
-                                                      "biomart" : "fissiprjeb27334",
                                                       "title" : "Pristionchus fissidentatus (PRJEB27334)",
-                                                      "key" : "pristionchus_fissidentatus_prjeb27334"
+                                                      "key" : "pristionchus_fissidentatus_prjeb27334",
+                                                      "biomart" : "fissiprjeb27334"
                                                    },
                                                    {
                                                       "biomart" : "maxplprjeb27334",
@@ -80,60 +75,56 @@ taxonTreeData = [
                                                       "key" : "pristionchus_maxplancki_prjeb27334"
                                                    },
                                                    {
-                                                      "biomart" : "mayerprjeb27334",
                                                       "title" : "Pristionchus mayeri (PRJEB27334)",
-                                                      "key" : "pristionchus_mayeri_prjeb27334"
+                                                      "key" : "pristionchus_mayeri_prjeb27334",
+                                                      "biomart" : "mayerprjeb27334"
                                                    },
                                                    {
-                                                      "biomart" : "pacifprjna12644",
                                                       "title" : "Pristionchus pacificus (PRJNA12644) [WS269]",
-                                                      "key" : "pristionchus_pacificus_prjna12644"
+                                                      "key" : "pristionchus_pacificus_prjna12644",
+                                                      "biomart" : "pacifprjna12644"
                                                    }
-                                                ],
-                                                "title" : "Pristionchus",
-                                                "key" : "Pristionchus"
+                                                ]
                                              }
                                           ],
                                           "title" : "Neodiplogasteridae",
+                                          "isFolder" : true,
                                           "key" : "Neodiplogasteridae"
                                        }
                                     ],
                                     "title" : "Diplogasteroidea",
+                                    "isFolder" : true,
                                     "key" : "Diplogasteroidea"
                                  }
                               ],
                               "title" : "Diplogasteromorpha",
-                              "key" : "Diplogasteromorpha"
+                              "key" : "Diplogasteromorpha",
+                              "isFolder" : true
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "isFolder" : true,
                                                       "children" : [
                                                          {
-                                                            "biomart" : "angarprjna51225",
                                                             "title" : "Caenorhabditis angaria (PRJNA51225)",
-                                                            "key" : "caenorhabditis_angaria_prjna51225"
+                                                            "key" : "caenorhabditis_angaria_prjna51225",
+                                                            "biomart" : "angarprjna51225"
                                                          },
                                                          {
-                                                            "biomart" : "brennprjna20035",
+                                                            "key" : "caenorhabditis_brenneri_prjna20035",
                                                             "title" : "Caenorhabditis brenneri (PRJNA20035) [WS269]",
-                                                            "key" : "caenorhabditis_brenneri_prjna20035"
+                                                            "biomart" : "brennprjna20035"
                                                          },
                                                          {
-                                                            "biomart" : "briggprjna10731",
+                                                            "key" : "caenorhabditis_briggsae_prjna10731",
                                                             "title" : "Caenorhabditis briggsae (PRJNA10731) [WS269]",
-                                                            "key" : "caenorhabditis_briggsae_prjna10731"
+                                                            "biomart" : "briggprjna10731"
                                                          },
                                                          {
                                                             "biomart" : "elegaprjna13758",
@@ -142,28 +133,28 @@ taxonTreeData = [
                                                          },
                                                          {
                                                             "biomart" : "japonprjna12591",
-                                                            "title" : "Caenorhabditis japonica (PRJNA12591) [WS269]",
-                                                            "key" : "caenorhabditis_japonica_prjna12591"
+                                                            "key" : "caenorhabditis_japonica_prjna12591",
+                                                            "title" : "Caenorhabditis japonica (PRJNA12591) [WS269]"
                                                          },
                                                          {
-                                                            "biomart" : "latenprjna248912",
+                                                            "key" : "caenorhabditis_latens_prjna248912",
                                                             "title" : "Caenorhabditis latens (PRJNA248912)",
-                                                            "key" : "caenorhabditis_latens_prjna248912"
+                                                            "biomart" : "latenprjna248912"
                                                          },
                                                          {
                                                             "biomart" : "nigonprjna384657",
-                                                            "title" : "Caenorhabditis nigoni (PRJNA384657)",
-                                                            "key" : "caenorhabditis_nigoni_prjna384657"
+                                                            "key" : "caenorhabditis_nigoni_prjna384657",
+                                                            "title" : "Caenorhabditis nigoni (PRJNA384657)"
                                                          },
                                                          {
-                                                            "biomart" : "remanprjna248909",
+                                                            "key" : "caenorhabditis_remanei_prjna248909",
                                                             "title" : "Caenorhabditis remanei (PRJNA248909)",
-                                                            "key" : "caenorhabditis_remanei_prjna248909"
+                                                            "biomart" : "remanprjna248909"
                                                          },
                                                          {
-                                                            "biomart" : "remanprjna248911",
                                                             "title" : "Caenorhabditis remanei (PRJNA248911)",
-                                                            "key" : "caenorhabditis_remanei_prjna248911"
+                                                            "key" : "caenorhabditis_remanei_prjna248911",
+                                                            "biomart" : "remanprjna248911"
                                                          },
                                                          {
                                                             "biomart" : "remanprjna53967",
@@ -172,87 +163,93 @@ taxonTreeData = [
                                                          },
                                                          {
                                                             "biomart" : "sinicprjna194557",
-                                                            "title" : "Caenorhabditis sinica (PRJNA194557)",
-                                                            "key" : "caenorhabditis_sinica_prjna194557"
+                                                            "key" : "caenorhabditis_sinica_prjna194557",
+                                                            "title" : "Caenorhabditis sinica (PRJNA194557)"
                                                          },
                                                          {
-                                                            "biomart" : "sp34prjdb5687",
                                                             "title" : "Caenorhabditis sp34 (PRJDB5687)",
-                                                            "key" : "caenorhabditis_sp34_prjdb5687"
+                                                            "key" : "caenorhabditis_sp34_prjdb5687",
+                                                            "biomart" : "sp34prjdb5687"
                                                          },
                                                          {
-                                                            "biomart" : "tropiprjna53597",
                                                             "title" : "Caenorhabditis tropicalis (PRJNA53597)",
-                                                            "key" : "caenorhabditis_tropicalis_prjna53597"
+                                                            "key" : "caenorhabditis_tropicalis_prjna53597",
+                                                            "biomart" : "tropiprjna53597"
                                                          }
                                                       ],
-                                                      "title" : "Caenorhabditis",
-                                                      "key" : "Caenorhabditis"
+                                                      "key" : "Caenorhabditis",
+                                                      "isFolder" : true,
+                                                      "title" : "Caenorhabditis"
                                                    }
                                                 ],
                                                 "title" : "Peloderinae",
+                                                "isFolder" : true,
                                                 "key" : "Peloderinae"
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "isFolder" : true,
                                                       "children" : [
                                                          {
                                                             "biomart" : "coronprjdb3143",
-                                                            "title" : "Diploscapter coronatus (PRJDB3143)",
-                                                            "key" : "diploscapter_coronatus_prjdb3143"
+                                                            "key" : "diploscapter_coronatus_prjdb3143",
+                                                            "title" : "Diploscapter coronatus (PRJDB3143)"
                                                          },
                                                          {
                                                             "biomart" : "pachyprjna280107",
-                                                            "title" : "Diploscapter pachys (PRJNA280107)",
-                                                            "key" : "diploscapter_pachys_prjna280107"
+                                                            "key" : "diploscapter_pachys_prjna280107",
+                                                            "title" : "Diploscapter pachys (PRJNA280107)"
                                                          }
                                                       ],
-                                                      "title" : "Diploscapter",
-                                                      "key" : "Diploscapter"
+                                                      "isFolder" : true,
+                                                      "key" : "Diploscapter",
+                                                      "title" : "Diploscapter"
                                                    }
                                                 ],
                                                 "title" : "Rhabditidae incertae sedis",
-                                                "key" : "Rhabditidae incertae sedis"
+                                                "key" : "Rhabditidae incertae sedis",
+                                                "isFolder" : true
                                              },
                                              {
+                                                "key" : "Rhabditinae",
                                                 "isFolder" : true,
+                                                "title" : "Rhabditinae",
                                                 "children" : [
                                                    {
-                                                      "biomart" : "tipulprjeb15512",
+                                                      "key" : "oscheius_tipulae_prjeb15512",
                                                       "title" : "Oscheius tipulae (PRJEB15512)",
-                                                      "key" : "oscheius_tipulae_prjeb15512"
+                                                      "biomart" : "tipulprjeb15512"
                                                    }
-                                                ],
-                                                "title" : "Rhabditinae",
-                                                "key" : "Rhabditinae"
+                                                ]
                                              }
                                           ],
                                           "title" : "Rhabditidae",
+                                          "isFolder" : true,
                                           "key" : "Rhabditidae"
                                        }
                                     ],
                                     "title" : "Rhabditoidea",
+                                    "isFolder" : true,
                                     "key" : "Rhabditoidea"
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
+                                          "title" : "Ancylostomatidae",
                                           "isFolder" : true,
+                                          "key" : "Ancylostomatidae",
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
+                                                      "title" : "Ancylostoma",
                                                       "isFolder" : true,
+                                                      "key" : "Ancylostoma",
                                                       "children" : [
                                                          {
                                                             "biomart" : "caninprjna72585",
-                                                            "title" : "Ancylostoma caninum (PRJNA72585)",
-                                                            "key" : "ancylostoma_caninum_prjna72585"
+                                                            "key" : "ancylostoma_caninum_prjna72585",
+                                                            "title" : "Ancylostoma caninum (PRJNA72585)"
                                                          },
                                                          {
                                                             "biomart" : "ceylaprjna231479",
@@ -260,80 +257,75 @@ taxonTreeData = [
                                                             "key" : "ancylostoma_ceylanicum_prjna231479"
                                                          },
                                                          {
-                                                            "biomart" : "ceylaprjna72583",
+                                                            "key" : "ancylostoma_ceylanicum_prjna72583",
                                                             "title" : "Ancylostoma ceylanicum (PRJNA72583)",
-                                                            "key" : "ancylostoma_ceylanicum_prjna72583"
+                                                            "biomart" : "ceylaprjna72583"
                                                          },
                                                          {
                                                             "biomart" : "duodeprjna72581",
                                                             "title" : "Ancylostoma duodenale (PRJNA72581)",
                                                             "key" : "ancylostoma_duodenale_prjna72581"
                                                          }
-                                                      ],
-                                                      "title" : "Ancylostoma",
-                                                      "key" : "Ancylostoma"
+                                                      ]
                                                    }
                                                 ],
                                                 "title" : "Ancylostomatinae",
-                                                "key" : "Ancylostomatinae"
+                                                "key" : "Ancylostomatinae",
+                                                "isFolder" : true
                                              },
                                              {
+                                                "title" : "Bunostominae",
+                                                "key" : "Bunostominae",
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "ameriprjna72135",
+                                                      "key" : "necator_americanus_prjna72135",
                                                       "title" : "Necator americanus (PRJNA72135)",
-                                                      "key" : "necator_americanus_prjna72135"
+                                                      "biomart" : "ameriprjna72135"
                                                    }
-                                                ],
-                                                "title" : "Bunostominae",
-                                                "key" : "Bunostominae"
+                                                ]
                                              }
-                                          ],
-                                          "title" : "Ancylostomatidae",
-                                          "key" : "Ancylostomatidae"
+                                          ]
                                        },
                                        {
                                           "isFolder" : true,
-                                          "children" : [
-                                             {
-                                                "biomart" : "dentaprjna72579",
-                                                "title" : "Oesophagostomum dentatum (PRJNA72579)",
-                                                "key" : "oesophagostomum_dentatum_prjna72579"
-                                             }
-                                          ],
+                                          "key" : "Cloacinidae",
                                           "title" : "Cloacinidae",
-                                          "key" : "Cloacinidae"
-                                       },
-                                       {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "biomart" : "bacteprjna13977",
-                                                "title" : "Heterorhabditis bacteriophora (PRJNA13977)",
-                                                "key" : "heterorhabditis_bacteriophora_prjna13977"
+                                                "title" : "Oesophagostomum dentatum (PRJNA72579)",
+                                                "key" : "oesophagostomum_dentatum_prjna72579",
+                                                "biomart" : "dentaprjna72579"
                                              }
-                                          ],
-                                          "title" : "Heterorhabditidae",
-                                          "key" : "Heterorhabditidae"
+                                          ]
                                        },
                                        {
                                           "isFolder" : true,
+                                          "key" : "Heterorhabditidae",
+                                          "title" : "Heterorhabditidae",
                                           "children" : [
                                              {
-                                                "isFolder" : true,
+                                                "key" : "heterorhabditis_bacteriophora_prjna13977",
+                                                "title" : "Heterorhabditis bacteriophora (PRJNA13977)",
+                                                "biomart" : "bacteprjna13977"
+                                             }
+                                          ]
+                                       },
+                                       {
+                                          "children" : [
+                                             {
                                                 "children" : [
                                                    {
                                                       "biomart" : "goldiprjeb498",
-                                                      "title" : "Cylicostephanus goldi (PRJEB498)",
-                                                      "key" : "cylicostephanus_goldi_prjeb498"
+                                                      "key" : "cylicostephanus_goldi_prjeb498",
+                                                      "title" : "Cylicostephanus goldi (PRJEB498)"
                                                    }
                                                 ],
                                                 "title" : "Cyathostominae",
-                                                "key" : "Cyathostominae"
+                                                "key" : "Cyathostominae",
+                                                "isFolder" : true
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "biomart" : "vulgaprjeb531",
@@ -341,36 +333,43 @@ taxonTreeData = [
                                                       "key" : "strongylus_vulgaris_prjeb531"
                                                    }
                                                 ],
-                                                "title" : "Strongylinae",
-                                                "key" : "Strongylinae"
+                                                "key" : "Strongylinae",
+                                                "isFolder" : true,
+                                                "title" : "Strongylinae"
                                              }
                                           ],
                                           "title" : "Strongylidae",
-                                          "key" : "Strongylidae"
+                                          "key" : "Strongylidae",
+                                          "isFolder" : true
                                        }
                                     ],
                                     "title" : "Strongyloidea",
-                                    "key" : "Strongyloidea"
+                                    "key" : "Strongyloidea",
+                                    "isFolder" : true
                                  }
                               ],
                               "title" : "Rhabditomorpha",
-                              "key" : "Rhabditomorpha"
+                              "key" : "Rhabditomorpha",
+                              "isFolder" : true
                            }
                         ],
-                        "title" : "Rhabditina",
-                        "key" : "Rhabditina"
+                        "isFolder" : true,
+                        "key" : "Rhabditina",
+                        "title" : "Rhabditina"
                      },
                      {
+                        "key" : "Spirurina",
                         "isFolder" : true,
+                        "title" : "Spirurina",
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Ascaridoidea",
                                     "isFolder" : true,
+                                    "key" : "Ascaridoidea",
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "biomart" : "simplprjeb496",
@@ -378,13 +377,18 @@ taxonTreeData = [
                                                 "key" : "anisakis_simplex_prjeb496"
                                              }
                                           ],
-                                          "title" : "Anisakidae",
-                                          "key" : "Anisakidae"
+                                          "key" : "Anisakidae",
+                                          "isFolder" : true,
+                                          "title" : "Anisakidae"
                                        },
                                        {
+                                          "title" : "Ascarididae",
                                           "isFolder" : true,
+                                          "key" : "Ascarididae",
                                           "children" : [
                                              {
+                                                "title" : "Ascaris",
+                                                "key" : "Ascaris",
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
@@ -393,21 +397,18 @@ taxonTreeData = [
                                                       "key" : "ascaris_lumbricoides_prjeb4950"
                                                    },
                                                    {
-                                                      "biomart" : "suumprjna62057",
+                                                      "key" : "ascaris_suum_prjna62057",
                                                       "title" : "Ascaris suum (PRJNA62057)",
-                                                      "key" : "ascaris_suum_prjna62057"
+                                                      "biomart" : "suumprjna62057"
                                                    },
                                                    {
                                                       "biomart" : "suumprjna80881",
                                                       "title" : "Ascaris suum (PRJNA80881)",
                                                       "key" : "ascaris_suum_prjna80881"
                                                    }
-                                                ],
-                                                "title" : "Ascaris",
-                                                "key" : "Ascaris"
+                                                ]
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "biomart" : "equorprjeb514",
@@ -415,111 +416,111 @@ taxonTreeData = [
                                                       "key" : "parascaris_equorum_prjeb514"
                                                    },
                                                    {
-                                                      "biomart" : "univaprjna386823",
+                                                      "key" : "parascaris_univalens_prjna386823",
                                                       "title" : "Parascaris univalens (PRJNA386823)",
-                                                      "key" : "parascaris_univalens_prjna386823"
+                                                      "biomart" : "univaprjna386823"
                                                    }
                                                 ],
-                                                "title" : "Parascaris",
-                                                "key" : "Parascaris"
+                                                "key" : "Parascaris",
+                                                "isFolder" : true,
+                                                "title" : "Parascaris"
                                              }
-                                          ],
-                                          "title" : "Ascarididae",
-                                          "key" : "Ascarididae"
+                                          ]
                                        },
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "canisprjeb533",
+                                                      "key" : "toxocara_canis_prjeb533",
                                                       "title" : "Toxocara canis (PRJEB533)",
-                                                      "key" : "toxocara_canis_prjeb533"
+                                                      "biomart" : "canisprjeb533"
                                                    },
                                                    {
-                                                      "biomart" : "canisprjna248777",
                                                       "title" : "Toxocara canis (PRJNA248777)",
-                                                      "key" : "toxocara_canis_prjna248777"
+                                                      "key" : "toxocara_canis_prjna248777",
+                                                      "biomart" : "canisprjna248777"
                                                    }
                                                 ],
                                                 "title" : "Toxocara",
+                                                "isFolder" : true,
                                                 "key" : "Toxocara"
                                              }
                                           ],
-                                          "title" : "Toxocaridae",
-                                          "key" : "Toxocaridae"
+                                          "key" : "Toxocaridae",
+                                          "isFolder" : true,
+                                          "title" : "Toxocaridae"
                                        }
-                                    ],
-                                    "title" : "Ascaridoidea",
-                                    "key" : "Ascaridoidea"
+                                    ]
                                  }
                               ],
-                              "title" : "Ascaridomorpha",
-                              "key" : "Ascaridomorpha"
+                              "isFolder" : true,
+                              "key" : "Ascaridomorpha",
+                              "title" : "Ascaridomorpha"
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "biomart" : "medinprjeb500",
+                                    "key" : "dracunculus_medinensis_prjeb500",
                                     "title" : "Dracunculus medinensis (PRJEB500)",
-                                    "key" : "dracunculus_medinensis_prjeb500"
+                                    "biomart" : "medinprjeb500"
                                  }
                               ],
                               "title" : "Dracunculoidea",
-                              "key" : "Dracunculoidea"
+                              "key" : "Dracunculoidea",
+                              "isFolder" : true
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Oxyuridae",
                                     "isFolder" : true,
+                                    "key" : "Oxyuridae",
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "biomart" : "vermiprjeb503",
-                                                "title" : "Enterobius vermicularis (PRJEB503)",
-                                                "key" : "enterobius_vermicularis_prjeb503"
+                                                "key" : "enterobius_vermicularis_prjeb503",
+                                                "title" : "Enterobius vermicularis (PRJEB503)"
                                              }
                                           ],
                                           "title" : "Enterobius",
+                                          "isFolder" : true,
                                           "key" : "Enterobius"
                                        },
                                        {
+                                          "key" : "Syphacia",
                                           "isFolder" : true,
+                                          "title" : "Syphacia",
                                           "children" : [
                                              {
-                                                "biomart" : "murisprjeb524",
                                                 "title" : "Syphacia muris (PRJEB524)",
-                                                "key" : "syphacia_muris_prjeb524"
+                                                "key" : "syphacia_muris_prjeb524",
+                                                "biomart" : "murisprjeb524"
                                              }
-                                          ],
-                                          "title" : "Syphacia",
-                                          "key" : "Syphacia"
+                                          ]
                                        }
-                                    ],
-                                    "title" : "Oxyuridae",
-                                    "key" : "Oxyuridae"
+                                    ]
                                  }
                               ],
-                              "title" : "Oxyuridomorpha",
-                              "key" : "Oxyuridomorpha"
+                              "isFolder" : true,
+                              "key" : "Oxyuridomorpha",
+                              "title" : "Oxyuridomorpha"
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
                                     "isFolder" : true,
+                                    "key" : "Filarioidea",
+                                    "title" : "Filarioidea",
                                     "children" : [
                                        {
                                           "isFolder" : true,
+                                          "key" : "Onchocercidae",
+                                          "title" : "Onchocercidae",
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "biomart" : "viteaprjeb1697",
@@ -528,85 +529,85 @@ taxonTreeData = [
                                                    }
                                                 ],
                                                 "title" : "Acanthocheilonema",
+                                                "isFolder" : true,
                                                 "key" : "Acanthocheilonema"
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "malayprjna10729",
+                                                      "key" : "brugia_malayi_prjna10729",
                                                       "title" : "Brugia malayi (PRJNA10729) [WS269]",
-                                                      "key" : "brugia_malayi_prjna10729"
+                                                      "biomart" : "malayprjna10729"
                                                    },
                                                    {
-                                                      "biomart" : "pahanprjeb497",
+                                                      "key" : "brugia_pahangi_prjeb497",
                                                       "title" : "Brugia pahangi (PRJEB497)",
-                                                      "key" : "brugia_pahangi_prjeb497"
+                                                      "biomart" : "pahanprjeb497"
                                                    },
                                                    {
                                                       "biomart" : "timorprjeb4663",
-                                                      "title" : "Brugia timori (PRJEB4663)",
-                                                      "key" : "brugia_timori_prjeb4663"
+                                                      "key" : "brugia_timori_prjeb4663",
+                                                      "title" : "Brugia timori (PRJEB4663)"
                                                    }
                                                 ],
-                                                "title" : "Brugia",
-                                                "key" : "Brugia"
+                                                "isFolder" : true,
+                                                "key" : "Brugia",
+                                                "title" : "Brugia"
                                              },
                                              {
-                                                "isFolder" : true,
-                                                "children" : [
-                                                   {
-                                                      "biomart" : "immitprjeb1797",
-                                                      "title" : "Dirofilaria immitis (PRJEB1797)",
-                                                      "key" : "dirofilaria_immitis_prjeb1797"
-                                                   }
-                                                ],
                                                 "title" : "Dirofilaria",
-                                                "key" : "Dirofilaria"
-                                             },
-                                             {
                                                 "isFolder" : true,
+                                                "key" : "Dirofilaria",
                                                 "children" : [
                                                    {
-                                                      "biomart" : "elaphprjeb502",
-                                                      "title" : "Elaeophora elaphi (PRJEB502)",
-                                                      "key" : "elaeophora_elaphi_prjeb502"
+                                                      "key" : "dirofilaria_immitis_prjeb1797",
+                                                      "title" : "Dirofilaria immitis (PRJEB1797)",
+                                                      "biomart" : "immitprjeb1797"
                                                    }
-                                                ],
-                                                "title" : "Elaeophora",
-                                                "key" : "Elaeophora"
+                                                ]
                                              },
                                              {
+                                                "title" : "Elaeophora",
+                                                "key" : "Elaeophora",
                                                 "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "sigmoprjeb3075",
+                                                      "title" : "Elaeophora elaphi (PRJEB502)",
+                                                      "key" : "elaeophora_elaphi_prjeb502",
+                                                      "biomart" : "elaphprjeb502"
+                                                   }
+                                                ]
+                                             },
+                                             {
+                                                "children" : [
+                                                   {
+                                                      "key" : "litomosoides_sigmodontis_prjeb3075",
                                                       "title" : "Litomosoides sigmodontis (PRJEB3075)",
-                                                      "key" : "litomosoides_sigmodontis_prjeb3075"
+                                                      "biomart" : "sigmoprjeb3075"
                                                    }
                                                 ],
                                                 "title" : "Litomosoides",
+                                                "isFolder" : true,
                                                 "key" : "Litomosoides"
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "loaprjna246086",
                                                       "title" : "Loa loa (PRJNA24608)",
-                                                      "key" : "loa_loa_prjna246086"
+                                                      "key" : "loa_loa_prjna246086",
+                                                      "biomart" : "loaprjna246086"
                                                    },
                                                    {
                                                       "biomart" : "loaprjna37757",
-                                                      "title" : "Loa loa (PRJNA37757)",
-                                                      "key" : "loa_loa_prjna37757"
+                                                      "key" : "loa_loa_prjna37757",
+                                                      "title" : "Loa loa (PRJNA37757)"
                                                    }
                                                 ],
                                                 "title" : "Loa",
+                                                "isFolder" : true,
                                                 "key" : "Loa"
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "biomart" : "flexuprjeb512",
@@ -620,311 +621,311 @@ taxonTreeData = [
                                                    },
                                                    {
                                                       "biomart" : "ochenprjeb1204",
-                                                      "title" : "Onchocerca ochengi (PRJEB1204)",
-                                                      "key" : "onchocerca_ochengi_prjeb1204"
+                                                      "key" : "onchocerca_ochengi_prjeb1204",
+                                                      "title" : "Onchocerca ochengi (PRJEB1204)"
                                                    },
                                                    {
-                                                      "biomart" : "ochenprjeb1465",
                                                       "title" : "Onchocerca ochengi (PRJEB1465)",
-                                                      "key" : "onchocerca_ochengi_prjeb1465"
+                                                      "key" : "onchocerca_ochengi_prjeb1465",
+                                                      "biomart" : "ochenprjeb1465"
                                                    },
                                                    {
                                                       "biomart" : "volvuprjeb513",
-                                                      "title" : "Onchocerca volvulus (PRJEB513) [WS269]",
-                                                      "key" : "onchocerca_volvulus_prjeb513"
+                                                      "key" : "onchocerca_volvulus_prjeb513",
+                                                      "title" : "Onchocerca volvulus (PRJEB513) [WS269]"
                                                    }
                                                 ],
                                                 "title" : "Onchocerca",
+                                                "isFolder" : true,
                                                 "key" : "Onchocerca"
                                              },
                                              {
+                                                "title" : "Wuchereria",
                                                 "isFolder" : true,
+                                                "key" : "Wuchereria",
                                                 "children" : [
                                                    {
-                                                      "biomart" : "bancrprjeb536",
                                                       "title" : "Wuchereria bancrofti (PRJEB536)",
-                                                      "key" : "wuchereria_bancrofti_prjeb536"
+                                                      "key" : "wuchereria_bancrofti_prjeb536",
+                                                      "biomart" : "bancrprjeb536"
                                                    },
                                                    {
                                                       "biomart" : "bancrprjna275548",
                                                       "title" : "Wuchereria bancrofti (PRJNA275548)",
                                                       "key" : "wuchereria_bancrofti_prjna275548"
                                                    }
-                                                ],
-                                                "title" : "Wuchereria",
-                                                "key" : "Wuchereria"
+                                                ]
                                              }
-                                          ],
-                                          "title" : "Onchocercidae",
-                                          "key" : "Onchocercidae"
+                                          ]
                                        }
-                                    ],
-                                    "title" : "Filarioidea",
-                                    "key" : "Filarioidea"
+                                    ]
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "pulchprjeb505",
-                                          "title" : "Gongylonema pulchrum (PRJEB505)",
-                                          "key" : "gongylonema_pulchrum_prjeb505"
+                                          "key" : "gongylonema_pulchrum_prjeb505",
+                                          "title" : "Gongylonema pulchrum (PRJEB505)"
                                        }
                                     ],
                                     "title" : "Spiruroidea",
-                                    "key" : "Spiruroidea"
+                                    "key" : "Spiruroidea",
+                                    "isFolder" : true
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "calliprjeb1205",
-                                          "title" : "Thelazia callipaeda (PRJEB1205)",
-                                          "key" : "thelazia_callipaeda_prjeb1205"
+                                          "key" : "thelazia_callipaeda_prjeb1205",
+                                          "title" : "Thelazia callipaeda (PRJEB1205)"
                                        }
                                     ],
-                                    "title" : "Thelazioidea",
-                                    "key" : "Thelazioidea"
+                                    "key" : "Thelazioidea",
+                                    "isFolder" : true,
+                                    "title" : "Thelazioidea"
                                  }
                               ],
-                              "title" : "Spiruromorpha",
-                              "key" : "Spiruromorpha"
+                              "key" : "Spiruromorpha",
+                              "isFolder" : true,
+                              "title" : "Spiruromorpha"
                            }
-                        ],
-                        "title" : "Spirurina",
-                        "key" : "Spirurina"
+                        ]
                      },
                      {
+                        "key" : "Tylenchina",
                         "isFolder" : true,
+                        "title" : "Tylenchina",
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "biomart" : "nanusprjeb26554",
                                     "title" : "Acrobeloides nanus (PRJEB26554)",
-                                    "key" : "acrobeloides_nanus_prjeb26554"
+                                    "key" : "acrobeloides_nanus_prjeb26554",
+                                    "biomart" : "nanusprjeb26554"
                                  }
                               ],
                               "title" : "Cephalobomorpha",
-                              "key" : "Cephalobomorpha"
+                              "key" : "Cephalobomorpha",
+                              "isFolder" : true
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "redivprjna186477",
-                                          "title" : "Panagrellus redivivus (PRJNA186477)",
-                                          "key" : "panagrellus_redivivus_prjna186477"
+                                          "key" : "panagrellus_redivivus_prjna186477",
+                                          "title" : "Panagrellus redivivus (PRJNA186477)"
                                        }
                                     ],
                                     "title" : "Panagrolaimoidea",
+                                    "isFolder" : true,
                                     "key" : "Panagrolaimoidea"
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "biomart" : "kr302prjeb1297",
                                                 "title" : "Rhabditophanes sp. KR3021 (PRJEB1297)",
-                                                "key" : "rhabditophanes_kr3021_prjeb1297"
+                                                "key" : "rhabditophanes_kr3021_prjeb1297",
+                                                "biomart" : "kr302prjeb1297"
                                              }
                                           ],
-                                          "title" : "Alloionematidae",
-                                          "key" : "Alloionematidae"
+                                          "key" : "Alloionematidae",
+                                          "isFolder" : true,
+                                          "title" : "Alloionematidae"
                                        },
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "isFolder" : true,
+                                                "key" : "Steinernema",
+                                                "title" : "Steinernema",
                                                 "children" : [
                                                    {
-                                                      "biomart" : "carpoprjna202318",
+                                                      "key" : "steinernema_carpocapsae_prjna202318",
                                                       "title" : "Steinernema carpocapsae (PRJNA202318)",
-                                                      "key" : "steinernema_carpocapsae_prjna202318"
+                                                      "biomart" : "carpoprjna202318"
                                                    },
                                                    {
                                                       "biomart" : "feltiprjna204661",
-                                                      "title" : "Steinernema feltiae (PRJNA204661)",
-                                                      "key" : "steinernema_feltiae_prjna204661"
+                                                      "key" : "steinernema_feltiae_prjna204661",
+                                                      "title" : "Steinernema feltiae (PRJNA204661)"
                                                    },
                                                    {
-                                                      "biomart" : "glaseprjna204943",
+                                                      "key" : "steinernema_glaseri_prjna204943",
                                                       "title" : "Steinernema glaseri (PRJNA204943)",
-                                                      "key" : "steinernema_glaseri_prjna204943"
+                                                      "biomart" : "glaseprjna204943"
                                                    },
                                                    {
                                                       "biomart" : "montiprjna205067",
-                                                      "title" : "Steinernema monticolum (PRJNA205067)",
-                                                      "key" : "steinernema_monticolum_prjna205067"
+                                                      "key" : "steinernema_monticolum_prjna205067",
+                                                      "title" : "Steinernema monticolum (PRJNA205067)"
                                                    },
                                                    {
-                                                      "biomart" : "scaptprjna204942",
                                                       "title" : "Steinernema scapterisci (PRJNA204942)",
-                                                      "key" : "steinernema_scapterisci_prjna204942"
+                                                      "key" : "steinernema_scapterisci_prjna204942",
+                                                      "biomart" : "scaptprjna204942"
                                                    }
-                                                ],
-                                                "title" : "Steinernema",
-                                                "key" : "Steinernema"
+                                                ]
                                              }
                                           ],
                                           "title" : "Steinernematidae",
-                                          "key" : "Steinernematidae"
+                                          "key" : "Steinernematidae",
+                                          "isFolder" : true
                                        },
                                        {
+                                          "key" : "Strongyloididae",
                                           "isFolder" : true,
+                                          "title" : "Strongyloididae",
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "trichprjeb515",
                                                       "title" : "Parastrongyloides trichosuri (PRJEB515)",
-                                                      "key" : "parastrongyloides_trichosuri_prjeb515"
+                                                      "key" : "parastrongyloides_trichosuri_prjeb515",
+                                                      "biomart" : "trichprjeb515"
                                                    }
                                                 ],
-                                                "title" : "Parastrongyloides",
-                                                "key" : "Parastrongyloides"
+                                                "isFolder" : true,
+                                                "key" : "Parastrongyloides",
+                                                "title" : "Parastrongyloides"
                                              },
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "biomart" : "papilprjeb525",
-                                                      "title" : "Strongyloides papillosus (PRJEB525)",
-                                                      "key" : "strongyloides_papillosus_prjeb525"
+                                                      "key" : "strongyloides_papillosus_prjeb525",
+                                                      "title" : "Strongyloides papillosus (PRJEB525)"
                                                    },
                                                    {
                                                       "biomart" : "rattiprjeb125",
-                                                      "title" : "Strongyloides ratti (PRJEB125) [WS269]",
-                                                      "key" : "strongyloides_ratti_prjeb125"
+                                                      "key" : "strongyloides_ratti_prjeb125",
+                                                      "title" : "Strongyloides ratti (PRJEB125) [WS269]"
                                                    },
                                                    {
                                                       "biomart" : "stercprjeb528",
-                                                      "title" : "Strongyloides stercoralis (PRJEB528)",
-                                                      "key" : "strongyloides_stercoralis_prjeb528"
+                                                      "key" : "strongyloides_stercoralis_prjeb528",
+                                                      "title" : "Strongyloides stercoralis (PRJEB528)"
                                                    },
                                                    {
-                                                      "biomart" : "venezprjeb530",
+                                                      "key" : "strongyloides_venezuelensis_prjeb530",
                                                       "title" : "Strongyloides venezuelensis (PRJEB530)",
-                                                      "key" : "strongyloides_venezuelensis_prjeb530"
+                                                      "biomart" : "venezprjeb530"
                                                    }
                                                 ],
                                                 "title" : "Strongyloides",
+                                                "isFolder" : true,
                                                 "key" : "Strongyloides"
                                              }
-                                          ],
-                                          "title" : "Strongyloididae",
-                                          "key" : "Strongyloididae"
+                                          ]
                                        }
                                     ],
                                     "title" : "Strongyloidoidea",
-                                    "key" : "Strongyloidoidea"
+                                    "key" : "Strongyloidoidea",
+                                    "isFolder" : true
                                  }
                               ],
-                              "title" : "Panagrolaimomorpha",
-                              "key" : "Panagrolaimomorpha"
+                              "isFolder" : true,
+                              "key" : "Panagrolaimomorpha",
+                              "title" : "Panagrolaimomorpha"
                            },
                            {
+                              "title" : "Tylenchomorpha",
                               "isFolder" : true,
+                              "key" : "Tylenchomorpha",
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "xylopprjea64437",
-                                          "title" : "Bursaphelenchus xylophilus (PRJEA64437)",
-                                          "key" : "bursaphelenchus_xylophilus_prjea64437"
+                                          "key" : "bursaphelenchus_xylophilus_prjea64437",
+                                          "title" : "Bursaphelenchus xylophilus (PRJEA64437)"
                                        }
                                     ],
-                                    "title" : "Aphelenchoidea",
-                                    "key" : "Aphelenchoidea"
+                                    "key" : "Aphelenchoidea",
+                                    "isFolder" : true,
+                                    "title" : "Aphelenchoidea"
                                  },
                                  {
                                     "isFolder" : true,
-                                    "children" : [
-                                       {
-                                          "biomart" : "destrprjna312427",
-                                          "title" : "Ditylenchus destructor (PRJNA312427)",
-                                          "key" : "ditylenchus_destructor_prjna312427"
-                                       }
-                                    ],
+                                    "key" : "Sphaerularioidea",
                                     "title" : "Sphaerularioidea",
-                                    "key" : "Sphaerularioidea"
+                                    "children" : [
+                                       {
+                                          "title" : "Ditylenchus destructor (PRJNA312427)",
+                                          "key" : "ditylenchus_destructor_prjna312427",
+                                          "biomart" : "destrprjna312427"
+                                       }
+                                    ]
                                  },
                                  {
+                                    "title" : "Tylenchoidea",
+                                    "key" : "Tylenchoidea",
                                     "isFolder" : true,
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "isFolder" : true,
                                                       "children" : [
                                                          {
-                                                            "biomart" : "palliprjeb123",
                                                             "title" : "Globodera pallida (PRJEB123)",
-                                                            "key" : "globodera_pallida_prjeb123"
+                                                            "key" : "globodera_pallida_prjeb123",
+                                                            "biomart" : "palliprjeb123"
                                                          },
                                                          {
-                                                            "biomart" : "rostoprjeb13504",
+                                                            "key" : "globodera_rostochiensis_prjeb13504",
                                                             "title" : "Globodera rostochiensis (PRJEB13504)",
-                                                            "key" : "globodera_rostochiensis_prjeb13504"
+                                                            "biomart" : "rostoprjeb13504"
                                                          }
                                                       ],
                                                       "title" : "Globodera",
-                                                      "key" : "Globodera"
+                                                      "key" : "Globodera",
+                                                      "isFolder" : true
                                                    },
                                                    {
-                                                      "isFolder" : true,
                                                       "children" : [
                                                          {
-                                                            "biomart" : "glyciprjna381081",
+                                                            "key" : "heterodera_glycines_prjna381081",
                                                             "title" : "Heterodera glycines (PRJNA381081)",
-                                                            "key" : "heterodera_glycines_prjna381081"
+                                                            "biomart" : "glyciprjna381081"
                                                          }
                                                       ],
                                                       "title" : "Heterodera",
+                                                      "isFolder" : true,
                                                       "key" : "Heterodera"
                                                    }
                                                 ],
-                                                "title" : "Heteroderinae",
-                                                "key" : "Heteroderinae"
+                                                "isFolder" : true,
+                                                "key" : "Heteroderinae",
+                                                "title" : "Heteroderinae"
                                              }
                                           ],
-                                          "title" : "Heteroderidae",
-                                          "key" : "Heteroderidae"
+                                          "isFolder" : true,
+                                          "key" : "Heteroderidae",
+                                          "title" : "Heteroderidae"
                                        },
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "biomart" : "enterprjna340324",
                                                       "title" : "Meloidogyne enterolobii (PRJNA340324)",
-                                                      "key" : "meloidogyne_enterolobii_prjna340324"
+                                                      "key" : "meloidogyne_enterolobii_prjna340324",
+                                                      "biomart" : "enterprjna340324"
                                                    },
                                                    {
-                                                      "biomart" : "floriprjeb6016",
+                                                      "key" : "meloidogyne_floridensis_prjeb6016",
                                                       "title" : "Meloidogyne floridensis (PRJEB6016)",
-                                                      "key" : "meloidogyne_floridensis_prjeb6016"
+                                                      "biomart" : "floriprjeb6016"
                                                    },
                                                    {
-                                                      "biomart" : "floriprjna340324",
+                                                      "key" : "meloidogyne_floridensis_prjna340324",
                                                       "title" : "Meloidogyne floridensis (PRJNA340324)",
-                                                      "key" : "meloidogyne_floridensis_prjna340324"
+                                                      "biomart" : "floriprjna340324"
                                                    },
                                                    {
                                                       "biomart" : "gramiprjna411966",
@@ -937,22 +938,21 @@ taxonTreeData = [
                                                       "key" : "meloidogyne_hapla_prjna29083"
                                                    },
                                                    {
-                                                      "isFolder" : true,
                                                       "children" : [
                                                          {
-                                                            "biomart" : "arenaprjeb8714",
                                                             "title" : "Meloidogyne arenaria (PRJEB8714)",
-                                                            "key" : "meloidogyne_arenaria_prjeb8714"
+                                                            "key" : "meloidogyne_arenaria_prjeb8714",
+                                                            "biomart" : "arenaprjeb8714"
                                                          },
                                                          {
                                                             "biomart" : "arenaprjna340324",
-                                                            "title" : "Meloidogyne arenaria (PRJNA340324)",
-                                                            "key" : "meloidogyne_arenaria_prjna340324"
+                                                            "key" : "meloidogyne_arenaria_prjna340324",
+                                                            "title" : "Meloidogyne arenaria (PRJNA340324)"
                                                          },
                                                          {
-                                                            "biomart" : "arenaprjna438575",
                                                             "title" : "Meloidogyne arenaria (PRJNA438575)",
-                                                            "key" : "meloidogyne_arenaria_prjna438575"
+                                                            "key" : "meloidogyne_arenaria_prjna438575",
+                                                            "biomart" : "arenaprjna438575"
                                                          },
                                                          {
                                                             "biomart" : "incogprjeb8714",
@@ -960,9 +960,9 @@ taxonTreeData = [
                                                             "key" : "meloidogyne_incognita_prjeb8714"
                                                          },
                                                          {
-                                                            "biomart" : "incogprjna340324",
                                                             "title" : "Meloidogyne incognita (PRJNA340324)",
-                                                            "key" : "meloidogyne_incognita_prjna340324"
+                                                            "key" : "meloidogyne_incognita_prjna340324",
+                                                            "biomart" : "incogprjna340324"
                                                          },
                                                          {
                                                             "biomart" : "javanprjeb8714",
@@ -970,46 +970,44 @@ taxonTreeData = [
                                                             "key" : "meloidogyne_javanica_prjeb8714"
                                                          },
                                                          {
-                                                            "biomart" : "javanprjna340324",
+                                                            "key" : "meloidogyne_javanica_prjna340324",
                                                             "title" : "Meloidogyne javanica (PRJNA340324)",
-                                                            "key" : "meloidogyne_javanica_prjna340324"
+                                                            "biomart" : "javanprjna340324"
                                                          }
                                                       ],
                                                       "title" : "Meloidogyne incognita group",
+                                                      "isFolder" : true,
                                                       "key" : "Meloidogyne incognita group"
                                                    }
                                                 ],
-                                                "title" : "Meloidogyne",
-                                                "key" : "Meloidogyne"
+                                                "key" : "Meloidogyne",
+                                                "isFolder" : true,
+                                                "title" : "Meloidogyne"
                                              }
                                           ],
-                                          "title" : "Meloidogynidae",
-                                          "key" : "Meloidogynidae"
+                                          "isFolder" : true,
+                                          "key" : "Meloidogynidae",
+                                          "title" : "Meloidogynidae"
                                        }
-                                    ],
-                                    "title" : "Tylenchoidea",
-                                    "key" : "Tylenchoidea"
+                                    ]
                                  }
-                              ],
-                              "title" : "Tylenchomorpha",
-                              "key" : "Tylenchomorpha"
+                              ]
                            }
-                        ],
-                        "title" : "Tylenchina",
-                        "key" : "Tylenchina"
+                        ]
                      }
                   ],
                   "title" : "Rhabditida",
-                  "key" : "Rhabditida"
+                  "key" : "Rhabditida",
+                  "isFolder" : true
                },
                {
-                  "isFolder" : true,
                   "children" : [
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
                               "isFolder" : true,
+                              "key" : "Angiostrongylus",
+                              "title" : "Angiostrongylus",
                               "children" : [
                                  {
                                     "biomart" : "cantoprjeb493",
@@ -1018,141 +1016,142 @@ taxonTreeData = [
                                  },
                                  {
                                     "biomart" : "costaprjeb494",
-                                    "title" : "Angiostrongylus costaricensis (PRJEB494)",
-                                    "key" : "angiostrongylus_costaricensis_prjeb494"
+                                    "key" : "angiostrongylus_costaricensis_prjeb494",
+                                    "title" : "Angiostrongylus costaricensis (PRJEB494)"
                                  }
-                              ],
-                              "title" : "Angiostrongylus",
-                              "key" : "Angiostrongylus"
+                              ]
                            }
                         ],
                         "title" : "Metastrongyloidea",
+                        "isFolder" : true,
                         "key" : "Metastrongyloidea"
                      },
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
                               "isFolder" : true,
+                              "key" : "Dictyocaulidae",
+                              "title" : "Dictyocaulidae",
                               "children" : [
                                  {
+                                    "title" : "Dictyocaulus",
                                     "isFolder" : true,
+                                    "key" : "Dictyocaulus",
                                     "children" : [
                                        {
-                                          "biomart" : "vivipprjeb5116",
                                           "title" : "Dictyocaulus viviparus (PRJEB5116)",
-                                          "key" : "dictyocaulus_viviparus_prjeb5116"
+                                          "key" : "dictyocaulus_viviparus_prjeb5116",
+                                          "biomart" : "vivipprjeb5116"
                                        },
                                        {
-                                          "biomart" : "vivipprjna72587",
+                                          "key" : "dictyocaulus_viviparus_prjna72587",
                                           "title" : "Dictyocaulus viviparus (PRJNA72587)",
-                                          "key" : "dictyocaulus_viviparus_prjna72587"
+                                          "biomart" : "vivipprjna72587"
                                        }
-                                    ],
-                                    "title" : "Dictyocaulus",
-                                    "key" : "Dictyocaulus"
+                                    ]
                                  }
-                              ],
-                              "title" : "Dictyocaulidae",
-                              "key" : "Dictyocaulidae"
+                              ]
                            },
                            {
+                              "title" : "Haemonchidae",
+                              "key" : "Haemonchidae",
                               "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Haemonchus",
                                     "isFolder" : true,
+                                    "key" : "Haemonchus",
                                     "children" : [
                                        {
                                           "biomart" : "contoprjeb506",
-                                          "title" : "Haemonchus contortus (PRJEB506)",
-                                          "key" : "haemonchus_contortus_prjeb506"
+                                          "key" : "haemonchus_contortus_prjeb506",
+                                          "title" : "Haemonchus contortus (PRJEB506)"
                                        },
                                        {
-                                          "biomart" : "contoprjna205202",
+                                          "key" : "haemonchus_contortus_prjna205202",
                                           "title" : "Haemonchus contortus (PRJNA205202)",
-                                          "key" : "haemonchus_contortus_prjna205202"
+                                          "biomart" : "contoprjna205202"
                                        },
                                        {
-                                          "biomart" : "placeprjeb509",
                                           "title" : "Haemonchus placei (PRJEB509)",
-                                          "key" : "haemonchus_placei_prjeb509"
+                                          "key" : "haemonchus_placei_prjeb509",
+                                          "biomart" : "placeprjeb509"
                                        }
-                                    ],
-                                    "title" : "Haemonchus",
-                                    "key" : "Haemonchus"
+                                    ]
                                  },
                                  {
+                                    "title" : "Teladorsagia",
                                     "isFolder" : true,
+                                    "key" : "Teladorsagia",
                                     "children" : [
                                        {
                                           "biomart" : "circuprjna72569",
                                           "title" : "Teladorsagia circumcincta (PRJNA72569)",
                                           "key" : "teladorsagia_circumcincta_prjna72569"
                                        }
-                                    ],
-                                    "title" : "Teladorsagia",
-                                    "key" : "Teladorsagia"
+                                    ]
                                  }
-                              ],
-                              "title" : "Haemonchidae",
-                              "key" : "Haemonchidae"
+                              ]
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "biomart" : "brasiprjeb511",
                                     "title" : "Nippostrongylus brasiliensis (PRJEB511)",
-                                    "key" : "nippostrongylus_brasiliensis_prjeb511"
+                                    "key" : "nippostrongylus_brasiliensis_prjeb511",
+                                    "biomart" : "brasiprjeb511"
                                  }
                               ],
-                              "title" : "Heligmonellidae",
-                              "key" : "Heligmonellidae"
+                              "isFolder" : true,
+                              "key" : "Heligmonellidae",
+                              "title" : "Heligmonellidae"
                            },
                            {
+                              "title" : "Heligmosomatidae",
                               "isFolder" : true,
+                              "key" : "Heligmosomatidae",
                               "children" : [
                                  {
+                                    "title" : "Heligmosomoides",
                                     "isFolder" : true,
+                                    "key" : "Heligmosomoides",
                                     "children" : [
                                        {
-                                          "biomart" : "polygprjeb1203",
                                           "title" : "Heligmosomoides polygyrus (PRJEB1203)",
-                                          "key" : "heligmosomoides_polygyrus_prjeb1203"
+                                          "key" : "heligmosomoides_polygyrus_prjeb1203",
+                                          "biomart" : "polygprjeb1203"
                                        },
                                        {
-                                          "biomart" : "polygprjeb15396",
                                           "title" : "Heligmosomoides polygyrus (PRJEB15396)",
-                                          "key" : "heligmosomoides_polygyrus_prjeb15396"
+                                          "key" : "heligmosomoides_polygyrus_prjeb15396",
+                                          "biomart" : "polygprjeb15396"
                                        }
-                                    ],
-                                    "title" : "Heligmosomoides",
-                                    "key" : "Heligmosomoides"
+                                    ]
                                  }
-                              ],
-                              "title" : "Heligmosomatidae",
-                              "key" : "Heligmosomatidae"
+                              ]
                            }
                         ],
                         "title" : "Trichostrongyloidea",
+                        "isFolder" : true,
                         "key" : "Trichostrongyloidea"
                      }
                   ],
-                  "title" : "Strongylida",
-                  "key" : "Strongylida"
+                  "isFolder" : true,
+                  "key" : "Strongylida",
+                  "title" : "Strongylida"
                }
             ],
             "title" : "Chromadorea",
-            "key" : "Chromadorea"
+            "key" : "Chromadorea",
+            "isFolder" : true
          },
          {
             "isFolder" : true,
+            "key" : "Enoplea",
+            "title" : "Enoplea",
             "children" : [
                {
-                  "isFolder" : true,
                   "children" : [
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
                               "biomart" : "baturprjeb516",
@@ -1160,11 +1159,11 @@ taxonTreeData = [
                               "key" : "soboliphyme_baturini_prjeb516"
                            }
                         ],
-                        "title" : "Dioctophymatida",
-                        "key" : "Dioctophymatida"
+                        "isFolder" : true,
+                        "key" : "Dioctophymatida",
+                        "title" : "Dioctophymatida"
                      },
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
                               "biomart" : "culicprjeb1358",
@@ -1173,16 +1172,14 @@ taxonTreeData = [
                            }
                         ],
                         "title" : "Mermithida",
-                        "key" : "Mermithida"
+                        "key" : "Mermithida",
+                        "isFolder" : true
                      },
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "britoprjna257433",
@@ -1191,38 +1188,38 @@ taxonTreeData = [
                                        },
                                        {
                                           "biomart" : "murreprjna257433",
-                                          "title" : "Trichinella murrelli (PRJNA257433)",
-                                          "key" : "trichinella_murrelli_prjna257433"
+                                          "key" : "trichinella_murrelli_prjna257433",
+                                          "title" : "Trichinella murrelli (PRJNA257433)"
                                        },
                                        {
-                                          "biomart" : "nativprjna179527",
+                                          "key" : "trichinella_nativa_prjna179527",
                                           "title" : "Trichinella nativa (PRJNA179527)",
-                                          "key" : "trichinella_nativa_prjna179527"
+                                          "biomart" : "nativprjna179527"
                                        },
                                        {
-                                          "biomart" : "nativprjna257433",
+                                          "key" : "trichinella_nativa_prjna257433",
                                           "title" : "Trichinella nativa (PRJNA257433)",
-                                          "key" : "trichinella_nativa_prjna257433"
+                                          "biomart" : "nativprjna257433"
                                        },
                                        {
-                                          "biomart" : "nelsoprjna257433",
                                           "title" : "Trichinella nelsoni (PRJNA257433)",
-                                          "key" : "trichinella_nelsoni_prjna257433"
+                                          "key" : "trichinella_nelsoni_prjna257433",
+                                          "biomart" : "nelsoprjna257433"
                                        },
                                        {
-                                          "biomart" : "papuaprjna257433",
                                           "title" : "Trichinella papuae (PRJNA257433)",
-                                          "key" : "trichinella_papuae_prjna257433"
+                                          "key" : "trichinella_papuae_prjna257433",
+                                          "biomart" : "papuaprjna257433"
                                        },
                                        {
-                                          "biomart" : "patagprjna257433",
                                           "title" : "Trichinella patagoniensis (PRJNA257433)",
-                                          "key" : "trichinella_patagoniensis_prjna257433"
+                                          "key" : "trichinella_patagoniensis_prjna257433",
+                                          "biomart" : "patagprjna257433"
                                        },
                                        {
-                                          "biomart" : "iss13prjna257433",
+                                          "key" : "trichinella_pseudospiralis_iss13prjna257433",
                                           "title" : "Trichinella pseudospiralis (ISS13 PRJNA257433)",
-                                          "key" : "trichinella_pseudospiralis_iss13prjna257433"
+                                          "biomart" : "iss13prjna257433"
                                        },
                                        {
                                           "biomart" : "iss141prjna257433",
@@ -1230,9 +1227,9 @@ taxonTreeData = [
                                           "key" : "trichinella_pseudospiralis_iss141prjna257433"
                                        },
                                        {
-                                          "biomart" : "iss176prjna257433",
+                                          "key" : "trichinella_pseudospiralis_iss176prjna257433",
                                           "title" : "Trichinella pseudospiralis (ISS176 PRJNA257433)",
-                                          "key" : "trichinella_pseudospiralis_iss176prjna257433"
+                                          "biomart" : "iss176prjna257433"
                                        },
                                        {
                                           "biomart" : "iss470prjna257433",
@@ -1240,125 +1237,128 @@ taxonTreeData = [
                                           "key" : "trichinella_pseudospiralis_iss470prjna257433"
                                        },
                                        {
-                                          "biomart" : "iss588prjna257433",
                                           "title" : "Trichinella pseudospiralis (ISS588 PRJNA257433)",
-                                          "key" : "trichinella_pseudospiralis_iss588prjna257433"
+                                          "key" : "trichinella_pseudospiralis_iss588prjna257433",
+                                          "biomart" : "iss588prjna257433"
                                        },
                                        {
-                                          "biomart" : "t6prjna257433",
                                           "title" : "Trichinella sp. T6 (PRJNA257433)",
-                                          "key" : "trichinella_t6_prjna257433"
+                                          "key" : "trichinella_t6_prjna257433",
+                                          "biomart" : "t6prjna257433"
                                        },
                                        {
-                                          "biomart" : "t8prjna257433",
                                           "title" : "Trichinella sp. T8 (PRJNA257433)",
-                                          "key" : "trichinella_t8_prjna257433"
+                                          "key" : "trichinella_t8_prjna257433",
+                                          "biomart" : "t8prjna257433"
                                        },
                                        {
-                                          "biomart" : "t9prjna257433",
                                           "title" : "Trichinella sp. T9 (PRJNA257433)",
-                                          "key" : "trichinella_t9_prjna257433"
+                                          "key" : "trichinella_t9_prjna257433",
+                                          "biomart" : "t9prjna257433"
                                        },
                                        {
-                                          "biomart" : "spiraprjna12603",
                                           "title" : "Trichinella spiralis (PRJNA12603)",
-                                          "key" : "trichinella_spiralis_prjna12603"
+                                          "key" : "trichinella_spiralis_prjna12603",
+                                          "biomart" : "spiraprjna12603"
                                        },
                                        {
-                                          "biomart" : "spiraprjna257433",
                                           "title" : "Trichinella spiralis (PRJNA257433)",
-                                          "key" : "trichinella_spiralis_prjna257433"
+                                          "key" : "trichinella_spiralis_prjna257433",
+                                          "biomart" : "spiraprjna257433"
                                        },
                                        {
-                                          "biomart" : "zimbaprjna257433",
                                           "title" : "Trichinella zimbabwensis (PRJNA257433)",
-                                          "key" : "trichinella_zimbabwensis_prjna257433"
+                                          "key" : "trichinella_zimbabwensis_prjna257433",
+                                          "biomart" : "zimbaprjna257433"
                                        }
                                     ],
                                     "title" : "Trichinella",
-                                    "key" : "Trichinella"
+                                    "key" : "Trichinella",
+                                    "isFolder" : true
                                  }
                               ],
-                              "title" : "Trichinellidae",
-                              "key" : "Trichinellidae"
+                              "key" : "Trichinellidae",
+                              "isFolder" : true,
+                              "title" : "Trichinellidae"
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Trichuris",
+                                    "key" : "Trichuris",
                                     "isFolder" : true,
                                     "children" : [
                                        {
-                                          "biomart" : "murisprjeb126",
+                                          "key" : "trichuris_muris_prjeb126",
                                           "title" : "Trichuris muris (PRJEB126) [WS269]",
-                                          "key" : "trichuris_muris_prjeb126"
+                                          "biomart" : "murisprjeb126"
                                        },
                                        {
-                                          "biomart" : "suisprjna179528",
+                                          "key" : "trichuris_suis_prjna179528",
                                           "title" : "Trichuris suis (PRJNA179528)",
-                                          "key" : "trichuris_suis_prjna179528"
+                                          "biomart" : "suisprjna179528"
                                        },
                                        {
-                                          "biomart" : "suisprjna208415",
                                           "title" : "Trichuris suis (PRJNA208415 - male)",
-                                          "key" : "trichuris_suis_prjna208415"
+                                          "key" : "trichuris_suis_prjna208415",
+                                          "biomart" : "suisprjna208415"
                                        },
                                        {
-                                          "biomart" : "suisprjna208416",
                                           "title" : "Trichuris suis (PRJNA208416 - female)",
-                                          "key" : "trichuris_suis_prjna208416"
+                                          "key" : "trichuris_suis_prjna208416",
+                                          "biomart" : "suisprjna208416"
                                        },
                                        {
                                           "biomart" : "trichprjeb535",
-                                          "title" : "Trichuris trichiura (PRJEB535)",
-                                          "key" : "trichuris_trichiura_prjeb535"
+                                          "key" : "trichuris_trichiura_prjeb535",
+                                          "title" : "Trichuris trichiura (PRJEB535)"
                                        }
-                                    ],
-                                    "title" : "Trichuris",
-                                    "key" : "Trichuris"
+                                    ]
                                  }
                               ],
-                              "title" : "Trichuridae",
-                              "key" : "Trichuridae"
+                              "isFolder" : true,
+                              "key" : "Trichuridae",
+                              "title" : "Trichuridae"
                            }
                         ],
-                        "title" : "Trichinellida",
-                        "key" : "Trichinellida"
+                        "key" : "Trichinellida",
+                        "isFolder" : true,
+                        "title" : "Trichinellida"
                      }
                   ],
                   "title" : "Dorylaimia",
+                  "isFolder" : true,
                   "key" : "Dorylaimia"
                }
-            ],
-            "title" : "Enoplea",
-            "key" : "Enoplea"
+            ]
          }
       ],
-      "title" : "Nematoda",
-      "key" : "Nematoda"
+      "key" : "Nematoda",
+      "isFolder" : true,
+      "title" : "Nematoda"
    },
    {
+      "title" : "Platyhelminthes",
+      "key" : "Platyhelminthes",
       "isFolder" : true,
       "children" : [
          {
+            "title" : "Cestoda",
+            "key" : "Cestoda",
             "isFolder" : true,
             "children" : [
                {
-                  "isFolder" : true,
                   "children" : [
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "biomart" : "diminprjeb507",
                                           "title" : "Hymenolepis diminuta (PRJEB507)",
-                                          "key" : "hymenolepis_diminuta_prjeb507"
+                                          "key" : "hymenolepis_diminuta_prjeb507",
+                                          "biomart" : "diminprjeb507"
                                        },
                                        {
                                           "biomart" : "microprjeb124",
@@ -1367,54 +1367,53 @@ taxonTreeData = [
                                        },
                                        {
                                           "biomart" : "nanaprjeb508",
-                                          "title" : "Hymenolepis nana (PRJEB508)",
-                                          "key" : "hymenolepis_nana_prjeb508"
+                                          "key" : "hymenolepis_nana_prjeb508",
+                                          "title" : "Hymenolepis nana (PRJEB508)"
                                        }
                                     ],
-                                    "title" : "Hymenolepis",
-                                    "key" : "Hymenolepis"
+                                    "isFolder" : true,
+                                    "key" : "Hymenolepis",
+                                    "title" : "Hymenolepis"
                                  }
                               ],
-                              "title" : "Hymenolepididae",
-                              "key" : "Hymenolepididae"
+                              "key" : "Hymenolepididae",
+                              "isFolder" : true,
+                              "title" : "Hymenolepididae"
                            },
                            {
+                              "key" : "Mesocestoididae",
                               "isFolder" : true,
+                              "title" : "Mesocestoididae",
                               "children" : [
                                  {
                                     "biomart" : "cortiprjeb510",
-                                    "title" : "Mesocestoides corti (PRJEB510)",
-                                    "key" : "mesocestoides_corti_prjeb510"
+                                    "key" : "mesocestoides_corti_prjeb510",
+                                    "title" : "Mesocestoides corti (PRJEB510)"
                                  }
-                              ],
-                              "title" : "Mesocestoididae",
-                              "key" : "Mesocestoididae"
+                              ]
                            },
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
+                                          "title" : "Echinococcus canadensis group",
                                           "isFolder" : true,
+                                          "key" : "Echinococcus canadensis group",
                                           "children" : [
                                              {
-                                                "biomart" : "canadprjeb8992",
                                                 "title" : "Echinococcus canadensis (PRJEB8992)",
-                                                "key" : "echinococcus_canadensis_prjeb8992"
+                                                "key" : "echinococcus_canadensis_prjeb8992",
+                                                "biomart" : "canadprjeb8992"
                                              }
-                                          ],
-                                          "title" : "Echinococcus canadensis group",
-                                          "key" : "Echinococcus canadensis group"
+                                          ]
                                        },
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "biomart" : "granuprjeb121",
+                                                "key" : "echinococcus_granulosus_prjeb121",
                                                 "title" : "Echinococcus granulosus (PRJEB121)",
-                                                "key" : "echinococcus_granulosus_prjeb121"
+                                                "biomart" : "granuprjeb121"
                                              },
                                              {
                                                 "biomart" : "granuprjna182977",
@@ -1423,19 +1422,20 @@ taxonTreeData = [
                                              }
                                           ],
                                           "title" : "Echinococcus granulosus group",
-                                          "key" : "Echinococcus granulosus group"
+                                          "key" : "Echinococcus granulosus group",
+                                          "isFolder" : true
                                        },
                                        {
-                                          "biomart" : "multiprjeb122",
                                           "title" : "Echinococcus multilocularis (PRJEB122)",
-                                          "key" : "echinococcus_multilocularis_prjeb122"
+                                          "key" : "echinococcus_multilocularis_prjeb122",
+                                          "biomart" : "multiprjeb122"
                                        }
                                     ],
                                     "title" : "Echinococcus",
-                                    "key" : "Echinococcus"
+                                    "key" : "Echinococcus",
+                                    "isFolder" : true
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "taeniprjeb534",
@@ -1443,11 +1443,11 @@ taxonTreeData = [
                                           "key" : "hydatigera_taeniaeformis_prjeb534"
                                        }
                                     ],
-                                    "title" : "Hydatigera",
-                                    "key" : "Hydatigera"
+                                    "key" : "Hydatigera",
+                                    "isFolder" : true,
+                                    "title" : "Hydatigera"
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "asiatprjeb532",
@@ -1455,241 +1455,246 @@ taxonTreeData = [
                                           "key" : "taenia_asiatica_prjeb532"
                                        },
                                        {
-                                          "biomart" : "asiatprjna299871",
+                                          "key" : "taenia_asiatica_prjna299871",
                                           "title" : "Taenia asiatica (PRJNA299871)",
-                                          "key" : "taenia_asiatica_prjna299871"
+                                          "biomart" : "asiatprjna299871"
                                        },
                                        {
-                                          "biomart" : "multiprjna307624",
+                                          "key" : "taenia_multiceps_prjna307624",
                                           "title" : "Taenia multiceps (PRJNA307624)",
-                                          "key" : "taenia_multiceps_prjna307624"
+                                          "biomart" : "multiprjna307624"
                                        },
                                        {
                                           "biomart" : "saginprjna71493",
-                                          "title" : "Taenia saginata (PRJNA71493)",
-                                          "key" : "taenia_saginata_prjna71493"
+                                          "key" : "taenia_saginata_prjna71493",
+                                          "title" : "Taenia saginata (PRJNA71493)"
                                        },
                                        {
-                                          "biomart" : "soliuprjna170813",
+                                          "key" : "taenia_solium_prjna170813",
                                           "title" : "Taenia solium (PRJNA170813)",
-                                          "key" : "taenia_solium_prjna170813"
+                                          "biomart" : "soliuprjna170813"
                                        }
                                     ],
-                                    "title" : "Taenia",
-                                    "key" : "Taenia"
+                                    "isFolder" : true,
+                                    "key" : "Taenia",
+                                    "title" : "Taenia"
                                  }
                               ],
                               "title" : "Taeniidae",
-                              "key" : "Taeniidae"
+                              "key" : "Taeniidae",
+                              "isFolder" : true
                            }
                         ],
-                        "title" : "Cyclophyllidea",
-                        "key" : "Cyclophyllidea"
+                        "isFolder" : true,
+                        "key" : "Cyclophyllidea",
+                        "title" : "Cyclophyllidea"
                      },
                      {
+                        "key" : "Diphyllobothriidea",
                         "isFolder" : true,
+                        "title" : "Diphyllobothriidea",
                         "children" : [
                            {
+                              "key" : "Diphyllobothriidae",
                               "isFolder" : true,
+                              "title" : "Diphyllobothriidae",
                               "children" : [
                                  {
+                                    "title" : "Dibothriocephalus",
                                     "isFolder" : true,
+                                    "key" : "Dibothriocephalus",
                                     "children" : [
                                        {
-                                          "biomart" : "latusprjeb1206",
                                           "title" : "Dibothriocephalus latus (PRJEB1206)",
-                                          "key" : "dibothriocephalus_latus_prjeb1206"
+                                          "key" : "dibothriocephalus_latus_prjeb1206",
+                                          "biomart" : "latusprjeb1206"
                                        }
-                                    ],
-                                    "title" : "Dibothriocephalus",
-                                    "key" : "Dibothriocephalus"
+                                    ]
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "biomart" : "solidprjeb527",
+                                          "key" : "schistocephalus_solidus_prjeb527",
                                           "title" : "Schistocephalus solidus (PRJEB527)",
-                                          "key" : "schistocephalus_solidus_prjeb527"
+                                          "biomart" : "solidprjeb527"
                                        }
                                     ],
                                     "title" : "Schistocephalus",
+                                    "isFolder" : true,
                                     "key" : "Schistocephalus"
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "biomart" : "erinaprjeb1202",
+                                          "key" : "spirometra_erinaceieuropaei_prjeb1202",
                                           "title" : "Spirometra erinaceieuropaei (PRJEB1202)",
-                                          "key" : "spirometra_erinaceieuropaei_prjeb1202"
+                                          "biomart" : "erinaprjeb1202"
                                        }
                                     ],
                                     "title" : "Spirometra",
-                                    "key" : "Spirometra"
+                                    "key" : "Spirometra",
+                                    "isFolder" : true
                                  }
-                              ],
-                              "title" : "Diphyllobothriidae",
-                              "key" : "Diphyllobothriidae"
+                              ]
                            }
-                        ],
-                        "title" : "Diphyllobothriidea",
-                        "key" : "Diphyllobothriidea"
+                        ]
                      }
                   ],
-                  "title" : "Eucestoda",
-                  "key" : "Eucestoda"
+                  "key" : "Eucestoda",
+                  "isFolder" : true,
+                  "title" : "Eucestoda"
                }
-            ],
-            "title" : "Cestoda",
-            "key" : "Cestoda"
+            ]
          },
          {
+            "title" : "Monogenea",
+            "key" : "Monogenea",
             "isFolder" : true,
             "children" : [
                {
+                  "title" : "Monopisthocotylea",
                   "isFolder" : true,
+                  "key" : "Monopisthocotylea",
                   "children" : [
                      {
-                        "biomart" : "salarprjna244375",
+                        "key" : "gyrodactylus_salaris_prjna244375",
                         "title" : "Gyrodactylus salaris (PRJNA244375)",
-                        "key" : "gyrodactylus_salaris_prjna244375"
+                        "biomart" : "salarprjna244375"
                      }
-                  ],
-                  "title" : "Monopisthocotylea",
-                  "key" : "Monopisthocotylea"
+                  ]
                },
                {
+                  "key" : "Polyopisthocotylea",
                   "isFolder" : true,
+                  "title" : "Polyopisthocotylea",
                   "children" : [
                      {
                         "biomart" : "xenopprjeb1201",
-                        "title" : "Protopolystoma xenopodis (PRJEB1201)",
-                        "key" : "protopolystoma_xenopodis_prjeb1201"
+                        "key" : "protopolystoma_xenopodis_prjeb1201",
+                        "title" : "Protopolystoma xenopodis (PRJEB1201)"
                      }
-                  ],
-                  "title" : "Polyopisthocotylea",
-                  "key" : "Polyopisthocotylea"
+                  ]
                }
-            ],
-            "title" : "Monogenea",
-            "key" : "Monogenea"
+            ]
          },
          {
+            "key" : "Rhabditophora",
             "isFolder" : true,
+            "title" : "Rhabditophora",
             "children" : [
                {
+                  "title" : "Macrostomorpha",
                   "isFolder" : true,
+                  "key" : "Macrostomorpha",
                   "children" : [
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
-                              "biomart" : "lignaprjna284736",
+                              "key" : "macrostomum_lignano_prjna284736",
                               "title" : "Macrostomum lignano (PRJNA284736)",
-                              "key" : "macrostomum_lignano_prjna284736"
+                              "biomart" : "lignaprjna284736"
                            },
                            {
-                              "biomart" : "lignaprjna371498",
+                              "key" : "macrostomum_lignano_prjna371498",
                               "title" : "Macrostomum lignano (PRJNA371498)",
-                              "key" : "macrostomum_lignano_prjna371498"
+                              "biomart" : "lignaprjna371498"
                            }
                         ],
-                        "title" : "Macrostomum",
-                        "key" : "Macrostomum"
+                        "isFolder" : true,
+                        "key" : "Macrostomum",
+                        "title" : "Macrostomum"
                      }
-                  ],
-                  "title" : "Macrostomorpha",
-                  "key" : "Macrostomorpha"
+                  ]
                },
                {
+                  "title" : "Seriata",
                   "isFolder" : true,
+                  "key" : "Seriata",
                   "children" : [
                      {
-                        "biomart" : "meditprjna12585",
+                        "key" : "schmidtea_mediterranea_prjna12585",
                         "title" : "Schmidtea mediterranea (PRJNA12585)",
-                        "key" : "schmidtea_mediterranea_prjna12585"
+                        "biomart" : "meditprjna12585"
                      }
-                  ],
-                  "title" : "Seriata",
-                  "key" : "Seriata"
+                  ]
                }
-            ],
-            "title" : "Rhabditophora",
-            "key" : "Rhabditophora"
+            ]
          },
          {
             "isFolder" : true,
+            "key" : "Trematoda",
+            "title" : "Trematoda",
             "children" : [
                {
+                  "title" : "Digenea",
                   "isFolder" : true,
+                  "key" : "Digenea",
                   "children" : [
                      {
                         "isFolder" : true,
+                        "key" : "Opisthorchiida",
+                        "title" : "Opisthorchiida",
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "sinenprjda72781",
-                                          "title" : "Clonorchis sinensis (PRJDA72781)",
-                                          "key" : "clonorchis_sinensis_prjda72781"
+                                          "key" : "clonorchis_sinensis_prjda72781",
+                                          "title" : "Clonorchis sinensis (PRJDA72781)"
                                        },
                                        {
-                                          "biomart" : "sinenprjna386618",
                                           "title" : "Clonorchis sinensis (PRJNA386618)",
-                                          "key" : "clonorchis_sinensis_prjna386618"
+                                          "key" : "clonorchis_sinensis_prjna386618",
+                                          "biomart" : "sinenprjna386618"
                                        }
                                     ],
-                                    "title" : "Clonorchis",
-                                    "key" : "Clonorchis"
+                                    "isFolder" : true,
+                                    "key" : "Clonorchis",
+                                    "title" : "Clonorchis"
                                  },
                                  {
+                                    "title" : "Opisthorchis",
                                     "isFolder" : true,
+                                    "key" : "Opisthorchis",
                                     "children" : [
                                        {
-                                          "biomart" : "viverprjna222628",
                                           "title" : "Opisthorchis viverrini (PRJNA222628)",
-                                          "key" : "opisthorchis_viverrini_prjna222628"
+                                          "key" : "opisthorchis_viverrini_prjna222628",
+                                          "biomart" : "viverprjna222628"
                                        }
-                                    ],
-                                    "title" : "Opisthorchis",
-                                    "key" : "Opisthorchis"
+                                    ]
                                  }
                               ],
                               "title" : "Opisthorchiidae",
-                              "key" : "Opisthorchiidae"
+                              "key" : "Opisthorchiidae",
+                              "isFolder" : true
                            }
-                        ],
-                        "title" : "Opisthorchiida",
-                        "key" : "Opisthorchiida"
+                        ]
                      },
                      {
+                        "key" : "Plagiorchiida",
                         "isFolder" : true,
+                        "title" : "Plagiorchiida",
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Echinostomatidae",
                                     "isFolder" : true,
+                                    "key" : "Echinostomatidae",
                                     "children" : [
                                        {
-                                          "biomart" : "caproprjeb1207",
                                           "title" : "Echinostoma caproni (PRJEB1207)",
-                                          "key" : "echinostoma_caproni_prjeb1207"
+                                          "key" : "echinostoma_caproni_prjeb1207",
+                                          "biomart" : "caproprjeb1207"
                                        }
-                                    ],
-                                    "title" : "Echinostomatidae",
-                                    "key" : "Echinostomatidae"
+                                    ]
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "biomart" : "hepatprjeb25283",
@@ -1698,32 +1703,33 @@ taxonTreeData = [
                                              },
                                              {
                                                 "biomart" : "hepatprjna179522",
-                                                "title" : "Fasciola hepatica (PRJNA179522)",
-                                                "key" : "fasciola_hepatica_prjna179522"
+                                                "key" : "fasciola_hepatica_prjna179522",
+                                                "title" : "Fasciola hepatica (PRJNA179522)"
                                              }
                                           ],
                                           "title" : "Fasciola",
-                                          "key" : "Fasciola"
+                                          "key" : "Fasciola",
+                                          "isFolder" : true
                                        }
                                     ],
-                                    "title" : "Fasciolidae",
-                                    "key" : "Fasciolidae"
+                                    "key" : "Fasciolidae",
+                                    "isFolder" : true,
+                                    "title" : "Fasciolidae"
                                  }
                               ],
                               "title" : "Echinostomatoidea",
+                              "isFolder" : true,
                               "key" : "Echinostomatoidea"
                            }
-                        ],
-                        "title" : "Plagiorchiida",
-                        "key" : "Plagiorchiida"
+                        ]
                      },
                      {
-                        "isFolder" : true,
                         "children" : [
                            {
-                              "isFolder" : true,
                               "children" : [
                                  {
+                                    "title" : "Schistosoma",
+                                    "key" : "Schistosoma",
                                     "isFolder" : true,
                                     "children" : [
                                        {
@@ -1732,19 +1738,19 @@ taxonTreeData = [
                                           "key" : "schistosoma_curassoni_prjeb519"
                                        },
                                        {
-                                          "biomart" : "haemaprjna78265",
+                                          "key" : "schistosoma_haematobium_prjna78265",
                                           "title" : "Schistosoma haematobium (PRJNA78265)",
-                                          "key" : "schistosoma_haematobium_prjna78265"
+                                          "biomart" : "haemaprjna78265"
                                        },
                                        {
-                                          "biomart" : "japonprjea34885",
                                           "title" : "Schistosoma japonicum (PRJEA34885)",
-                                          "key" : "schistosoma_japonicum_prjea34885"
+                                          "key" : "schistosoma_japonicum_prjea34885",
+                                          "biomart" : "japonprjea34885"
                                        },
                                        {
-                                          "biomart" : "mansoprjea36577",
+                                          "key" : "schistosoma_mansoni_prjea36577",
                                           "title" : "Schistosoma mansoni (PRJEA36577)",
-                                          "key" : "schistosoma_mansoni_prjea36577"
+                                          "biomart" : "mansoprjea36577"
                                        },
                                        {
                                           "biomart" : "margrprjeb522",
@@ -1752,93 +1758,86 @@ taxonTreeData = [
                                           "key" : "schistosoma_margrebowiei_prjeb522"
                                        },
                                        {
-                                          "biomart" : "matthprjeb523",
+                                          "key" : "schistosoma_mattheei_prjeb523",
                                           "title" : "Schistosoma mattheei (PRJEB523)",
-                                          "key" : "schistosoma_mattheei_prjeb523"
+                                          "biomart" : "matthprjeb523"
                                        },
                                        {
                                           "biomart" : "rodhaprjeb526",
                                           "title" : "Schistosoma rodhaini (PRJEB526)",
                                           "key" : "schistosoma_rodhaini_prjeb526"
                                        }
-                                    ],
-                                    "title" : "Schistosoma",
-                                    "key" : "Schistosoma"
+                                    ]
                                  },
                                  {
-                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "biomart" : "regenprjeb4662",
-                                          "title" : "Trichobilharzia regenti (PRJEB4662)",
-                                          "key" : "trichobilharzia_regenti_prjeb4662"
+                                          "key" : "trichobilharzia_regenti_prjeb4662",
+                                          "title" : "Trichobilharzia regenti (PRJEB4662)"
                                        }
                                     ],
-                                    "title" : "Trichobilharzia",
-                                    "key" : "Trichobilharzia"
+                                    "key" : "Trichobilharzia",
+                                    "isFolder" : true,
+                                    "title" : "Trichobilharzia"
                                  }
                               ],
-                              "title" : "Schistosomatidae",
-                              "key" : "Schistosomatidae"
+                              "isFolder" : true,
+                              "key" : "Schistosomatidae",
+                              "title" : "Schistosomatidae"
                            }
                         ],
-                        "title" : "Strigeidida",
-                        "key" : "Strigeidida"
+                        "isFolder" : true,
+                        "key" : "Strigeidida",
+                        "title" : "Strigeidida"
                      }
-                  ],
-                  "title" : "Digenea",
-                  "key" : "Digenea"
+                  ]
                }
-            ],
-            "title" : "Trematoda",
-            "key" : "Trematoda"
+            ]
          }
-      ],
-      "title" : "Platyhelminthes",
-      "key" : "Platyhelminthes"
+      ]
    },
    {
-      "isFolder" : true,
       "children" : [
          {
-            "biomart" : "aqueenslandica",
+            "key" : "amphimedon_queenslandica",
             "title" : "Amphimedon queenslandica",
-            "key" : "amphimedon_queenslandica"
+            "biomart" : "aqueenslandica"
          },
          {
-            "biomart" : "cteleta",
             "title" : "Capitella teleta",
-            "key" : "capitella_teleta"
+            "key" : "capitella_teleta",
+            "biomart" : "cteleta"
          },
          {
-            "biomart" : "cintestinalis",
+            "key" : "ciona_intestinalis",
             "title" : "Ciona intestinalis",
-            "key" : "ciona_intestinalis"
+            "biomart" : "cintestinalis"
          },
          {
-            "biomart" : "cgigas",
             "title" : "Crassostrea gigas",
-            "key" : "crassostrea_gigas"
+            "key" : "crassostrea_gigas",
+            "biomart" : "cgigas"
          },
          {
-            "biomart" : "dmelanogaster",
             "title" : "Drosophila melanogaster",
-            "key" : "drosophila_melanogaster"
+            "key" : "drosophila_melanogaster",
+            "biomart" : "dmelanogaster"
          },
          {
             "biomart" : "hsapiens",
-            "title" : "Human",
-            "key" : "homo_sapiens"
+            "key" : "homo_sapiens",
+            "title" : "Human"
          },
          {
             "biomart" : "iscapularis",
-            "title" : "Ixodes scapularis",
-            "key" : "ixodes_scapularis"
+            "key" : "ixodes_scapularis",
+            "title" : "Ixodes scapularis"
          },
          {
-            "biomart" : "mmusculus",
             "title" : "Mouse",
-            "key" : "mus_musculus"
+            "key" : "mus_musculus",
+            "biomart" : "mmusculus"
          },
          {
             "biomart" : "nvectensis",
@@ -1846,14 +1845,14 @@ taxonTreeData = [
             "key" : "nematostella_vectensis"
          },
          {
-            "biomart" : "rnorvegicus",
             "title" : "Rat",
-            "key" : "rattus_norvegicus"
+            "key" : "rattus_norvegicus",
+            "biomart" : "rnorvegicus"
          },
          {
-            "biomart" : "scerevisiae",
             "title" : "Saccharomyces cerevisiae",
-            "key" : "saccharomyces_cerevisiae"
+            "key" : "saccharomyces_cerevisiae",
+            "biomart" : "scerevisiae"
          },
          {
             "biomart" : "spombe",
@@ -1861,17 +1860,18 @@ taxonTreeData = [
             "key" : "schizosaccharomyces_pombe"
          },
          {
-            "biomart" : "tadhaerens",
+            "key" : "trichoplax_adhaerens",
             "title" : "Trichoplax adhaerens",
-            "key" : "trichoplax_adhaerens"
+            "biomart" : "tadhaerens"
          },
          {
             "biomart" : "drerio",
-            "title" : "Zebrafish",
-            "key" : "danio_rerio"
+            "key" : "danio_rerio",
+            "title" : "Zebrafish"
          }
       ],
       "title" : "Other (14)",
+      "isFolder" : true,
       "key" : "Other (14)"
    }
 ]

@@ -32,6 +32,8 @@ GetOptions (
     "biomart_db=s"=> \$biomart_db_name,
 );
 $plugin_dir //= "$FindBin::Bin/../htdocs";
+print "Plugin Dir is $plugin_dir \n";
+
 my $usage = "Usage: $0 \$(\$PARASITE_STAGING_MYSQL details script) -biomart_db parasite_mart_\${PARASITE_VERSION} [--plugin_dir . ]";
 die $usage unless -d $plugin_dir;
 for ($host, $port, $user, $biomart_db_name){
@@ -88,7 +90,9 @@ my $json_blast = to_json(
   {pretty => 1, allow_nonref => 1}
 );
 
+print "Writing $BIOMART_TAXON_TREE_FILE_NAME \n";
 write_file (join("/", $plugin_dir, $BIOMART_TAXON_TREE_FILE_NAME), "taxonTreeData = $json_biomart;");
+print "Writing $BLAST_TAXON_TREE_FILE_NAME \n";
 write_file (join("/", $plugin_dir, $BLAST_TAXON_TREE_FILE_NAME), "taxonTreeData = $json_blast;");
 
 exit;
