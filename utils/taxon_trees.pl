@@ -99,16 +99,23 @@ exit;
 
 #------------------------------------------------------------------------------
 
+
 # Faster version of Bio::EnsEMBL::DBSQL::TaxonomyNodeAdaptor::build_pruned_tree
+# It's theoretically worse - one query per leaf, instead of one big query - but much faster for us
 sub build_pruned_tree {
-  my ($node_adaptor, $root_requested, $leaf_nodes) = @_;
-  my %leaf_ancestors;
-  for my $leaf_node (@{$leaf_nodes}){
-    for my $ancestor_node (@{$node_adaptor->fetch_ancestors($leaf_node)}){
-      $leaf_ancestors{$ancestor_node->taxon_id} = $ancestor_node;
+  my ($self, $root, $leaf_nodes) = @_;
+
+  my @leaf_nodes_under_root = grep {$_->has_ancestor($root)} @{$leaf_nodes};
+  my %leaf_node_taxons = map {$_->taxon_id => $_} @leaf_nodes_under_root;
+  my %ancestor_nodes;
+  for my $leaf_node (@leaf_nodes_under_root){
+    for my $ancestor_node (@{$self->fetch_ancestors($leaf_node)}){
+      if ($ancestor_node->has_ancestor($root) and not $leaf_node_taxons{$ancestor_node->taxon_id}){
+        $ancestor_nodes{$ancestor_node->taxon_id} = $ancestor_node;
+      }
     }
   }
-  return $node_adaptor->associate_nodes( [ $root_requested, grep {$_->has_ancestor($root_requested)} values %leaf_ancestors, @{$leaf_nodes}]);
+  return $self->associate_nodes( [ $root, values %ancestor_nodes, @leaf_nodes_under_root]);
 }
 
 sub node_to_dynatree {
@@ -124,24 +131,24 @@ sub node_to_dynatree {
     isFolder => \"1"
   } if @{$node->children};
 
-  my ($dba, @others) = @{$node->dba};
-  die unless $dba and not @others;
-  if ($biomart_sth){
-    $biomart_sth->execute($dba->species) || die "Could not retrieve name and display from biomart for ".$dba->species;
-    my ($biomart, $display) = $biomart_sth->fetchrow_array;
-    die "Could not retrieve name and display from biomart for ".$dba->species unless $biomart and $display;
-    return {
-      key   => $dba->species,
-      title => $display,
-      biomart => $biomart,
-    };
-  } else {
-    my @parts = split "_", $dba->species;
-    my $bioproject = uc($parts[2]//"");
-    my $display = $bioproject ? "$name ($bioproject)" : $name;
-    return {
-       key =>$dba->species,
-       title => $display,
-    };
+  for my $dba (@{$node->dba}) {
+    if ($biomart_sth){
+      $biomart_sth->execute($dba->species) || die "Could not retrieve name and display from biomart for ".$dba->species;
+      my ($biomart, $display) = $biomart_sth->fetchrow_array;
+      die "Could not retrieve name and display from biomart for ".$dba->species unless $biomart and $display;
+      return {
+        key   => $dba->species,
+        title => $display,
+        biomart => $biomart,
+      };
+    } else {
+      my @parts = split "_", $dba->species;
+      my $bioproject = uc($parts[2]//"");
+      my $display = $bioproject ? "$name ($bioproject)" : $name;
+      return {
+         key =>$dba->species,
+         title => $display,
+      };
+    }
   }
 }
