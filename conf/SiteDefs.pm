@@ -72,7 +72,7 @@ sub update_conf {
     $SiteDefs::EBEYE_REST_ENDPOINT     = 'http://www.ebi.ac.uk/ebisearch/ws/rest';
     $SiteDefs::GXA_REST_URL            = 'https://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
     $SiteDefs::GXA_EBI_URL             = 'https://www.ebi.ac.uk/gxa/resources';
-    $SiteDefs::EVA_URL                 = 'http://www.ebi.ac.uk/eva';
+    $SiteDefs::EVA_URL                 = 'https://www.ebi.ac.uk/eva';
 
     ## GDPR config
     $SiteDefs::GDPR_VERSION            = '2.0.0';

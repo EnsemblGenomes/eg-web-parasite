@@ -298,7 +298,7 @@ sub _munge_meta {
 ##  
 
 ## ParaSite: get the tracks from EVA
-    $self->tree($species)->{'EVA_TRACKS'} = $self->get_EVA_tracks($species);
+    $self->tree($production_name)->{'EVA_TRACKS'} = $self->get_EVA_tracks($species);
 ##
 
   }
@@ -333,7 +333,7 @@ sub get_EVA_tracks {
       next;
     }
     foreach my $dataset (@{$result_set->{result}}) {
-      my $ena_url = sprintf("http://www.ebi.ac.uk/ena/data/view/%s&display=xml", $dataset->{id});
+      my $ena_url = sprintf("https://www.ebi.ac.uk/ena/data/view/%s&display=xml", $dataset->{id});
       my $ua = LWP::UserAgent->new();
       my $response = $ua->get($ena_url);
       my $description;
