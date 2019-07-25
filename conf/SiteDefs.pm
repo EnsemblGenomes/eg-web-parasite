@@ -22,10 +22,10 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '13';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '269';
-    $SiteDefs::SITE_RELEASE_DATE = 'April 2019';
-    $SiteDefs::EG_RELEASE_VERSION = 42;
+    $SiteDefs::SITE_RELEASE_VERSION = '14';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '271';
+    $SiteDefs::SITE_RELEASE_DATE = 'August 2019';
+    $SiteDefs::EG_RELEASE_VERSION = 44;
  
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
@@ -130,6 +130,7 @@ sub update_conf {
         diploscapter_pachys_prjna280107
         dirofilaria_immitis_prjeb1797
         ditylenchus_destructor_prjna312427
+        ditylenchus_dipsaci_prjna498219
         dracunculus_medinensis_prjeb500
         echinococcus_canadensis_prjeb8992
         echinococcus_granulosus_prjeb121
@@ -147,6 +148,7 @@ sub update_conf {
         haemonchus_contortus_prjeb506
         haemonchus_contortus_prjna205202
         haemonchus_placei_prjeb509
+        halicephalobus_mephisto_prjna528747
         heligmosomoides_polygyrus_prjeb1203
         heligmosomoides_polygyrus_prjeb15396
         heterodera_glycines_prjna381081
@@ -173,6 +175,7 @@ sub update_conf {
         meloidogyne_javanica_prjeb8714
         meloidogyne_javanica_prjna340324
         mesocestoides_corti_prjeb510
+        mesorhabditis_belari_prjeb30104
         micoletzkya_japonica_prjeb27334
         necator_americanus_prjna72135
         nippostrongylus_brasiliensis_prjeb511
@@ -182,6 +185,7 @@ sub update_conf {
         onchocerca_ochengi_prjeb1204
         onchocerca_ochengi_prjeb1465
         onchocerca_volvulus_prjeb513
+        opisthorchis_felineus_prjna413383
         opisthorchis_viverrini_prjna222628
         oscheius_tipulae_prjeb15512
         panagrellus_redivivus_prjna186477
@@ -202,6 +206,7 @@ sub update_conf {
         rhabditophanes_kr3021_prjeb1297
         romanomermis_culicivorax_prjeb1358
         schistocephalus_solidus_prjeb527
+        schistosoma_bovis_prjna451066
         schistosoma_curassoni_prjeb519
         schistosoma_haematobium_prjna78265
         schistosoma_japonicum_prjea34885
@@ -210,6 +215,7 @@ sub update_conf {
         schistosoma_mattheei_prjeb523
         schistosoma_rodhaini_prjeb526
         schmidtea_mediterranea_prjna12585
+        schmidtea_mediterranea_prjna379262
         soboliphyme_baturini_prjeb516
         spirometra_erinaceieuropaei_prjeb1202
         steinernema_carpocapsae_prjna202318
