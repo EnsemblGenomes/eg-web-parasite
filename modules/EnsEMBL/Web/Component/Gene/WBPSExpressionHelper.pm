@@ -64,7 +64,7 @@ sub from_folder {
 
 sub render_page {
   my ($self, $gene_id, $category) = @_;
-  my @studies = grep {$_->{study_category} eq $category} @{$self->{studies}};
+  my @studies = grep {$_->{study_category} eq $category } @{$self->{studies}};
   my @html_panes = response_as_html_panes($self->{species_url_name}, $gene_id, $category, \@studies);
   return (
    join("<br>", @html_panes) || html_no_results($self->{species_display_name}, $gene_id, $category)
@@ -94,7 +94,7 @@ sub html_differential_expression_values_table {
   my $tb_class = "result-table-sortable";
   return (
        "<table class=\"$tb_class\">"
-     . "<caption>Contrasts where gene is significantly differentially expressed: <code>adj. p-value < 0.05 and abs(log<sub>2</sub>fold change) > 0.5</code></caption>"
+     . "<caption>Contrasts where gene is significantly differentially expressed: adj. p-value < 0.05 and abs(log<sub>2</sub>fold change) > 0.5</caption>"
      . "<thead>"
      . "<tr>"
         . "<th scope=\"col\">Study</th>"
@@ -197,12 +197,13 @@ sub list_of_differential_expression_values_in_studies_and_studies_with_no_result
      $study->{study_url} = study_url($species,$study->{study_id}),
      my @differential_expression_values_for_study;
      for my $path (@{$study->{differential_expression_paths}}) {
-        my ($contrasts, $differential_expression_values) = search_in_file($path, $gene_id);
+        my ($contrasts, $differential_expression_values) = search_in_file($path, $gene_id, 2);
         C:
         for my $i (0..$#$contrasts){
            my $contrast = $contrasts->[$i];
            next C if $contrast =~ /^\!/; # Low replicates or failed QC
-           my ($log2_fold_change, $adjusted_p_value) = split(" ", $differential_expression_values->[$i]);
+           my $log2_fold_change = $differential_expression_values->[2*$i];
+           my $adjusted_p_value = $differential_expression_values->[2*$i+1];
            ($log2_fold_change, $adjusted_p_value) = ("-", "-") unless $log2_fold_change and $adjusted_p_value;
            push @differential_expression_values_for_study, {
               study_url => $study->{study_url},
@@ -250,16 +251,14 @@ sub summary_stats_in_tables {
      push @result, {
        study_url => study_url($species,$study->{study_id}),
        study_title => $study->{study_title},
-       column_headers => ["N", "min", "Q1", "Q2", "Q3", "max"],
+       column_headers => ["N", "min (TPM)", "Q1 (TPM)", "Q2 (TPM)", "Q3 (TPM)", "max (TPM)"],
        values => [ 
           scalar @expression_tpm_sorted,
-          (map {"$_ TPM"}
-            quantile(\@expression_tpm_sorted, 0),
-            sprintf("%.1f",quantile(\@expression_tpm_sorted, 1)),
-            sprintf("%.1f",quantile(\@expression_tpm_sorted, 2)),
-            sprintf("%.1f",quantile(\@expression_tpm_sorted, 3)),
-            quantile(\@expression_tpm_sorted, 4),
-          ),
+          quantile(\@expression_tpm_sorted, 0),
+          sprintf("%.1f",quantile(\@expression_tpm_sorted, 1)),
+          sprintf("%.1f",quantile(\@expression_tpm_sorted, 2)),
+          sprintf("%.1f",quantile(\@expression_tpm_sorted, 3)),
+          quantile(\@expression_tpm_sorted, 4),
        ],
      } if $runs and $expression_tpm;
   }
@@ -326,7 +325,8 @@ sub as_2d {
   return (\@cols, \@header_and_values_rows);
 }
 sub search_in_file {
-  my ($path, $gene_id) = @_;
+  my ($path, $gene_id, $data_points_per_row) = @_;
+  $data_points_per_row //= 1;
 #### search_in_file: $path . " " . $gene_id
   my $l = `grep --max-count=1 "^$gene_id" $path`;
 #### $l
@@ -338,11 +338,11 @@ sub search_in_file {
 #### $h
   chomp $h;
   return unless $h;
-  my ($header, @hs) = split "\t", $h;
+  my ($header, @hs) = split "\t", $h; # Ignores empty headers
 #### hs: scalar @hs
 #### xs:  scalar @xs
   return unless $header eq "gene_id" and @hs;
-  return unless @hs == @xs;
+  return unless $data_points_per_row * @hs == @xs;
   return \@hs, \@xs;
 }
 
