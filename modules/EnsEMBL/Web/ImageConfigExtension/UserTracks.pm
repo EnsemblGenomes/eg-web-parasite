@@ -35,8 +35,8 @@ sub _add_trackhub {
 
   ## Note: no need to validate assembly at this point, as this will have been done
   ## by the attachment interface - otherwise we run into issues with synonyms
-  my $trackhub  = EnsEMBL::Web::File::Utils::TrackHub->new('hub' => $self->hub, 'url' => $url);
-  my $hub_info = $trackhub->get_hub({'parse_tracks' => 1}); ## Do we have data for this species?
+  my $trackhub  = EnsEMBL::Web::Utils::TrackHub->new('hub' => $self->hub, 'url' => $url);
+  my $hub_info = $trackhub->get_hub({'parse_tracks' => 1, 'make_tree' => 1});
   $self->{'th_default_count'} = 0;
 
   if ($hub_info->{'error'}) {
@@ -44,9 +44,16 @@ sub _add_trackhub {
     push @{$hub_info->{'error'}||[]}, '<br /><br />Please check the source URL in a web browser.';
   } else {
     my $description = $hub_info->{'details'}{'longLabel'};
-    if ($hub_info->{'details'}{'descriptionUrl'}) {
-      $description .= sprintf ' <a href="%s">More information</a>', $hub_info->{'details'}{'descriptionUrl'};
+    my $desc_url = $hub_info->{'details'}{'descriptionUrl'};
+    if ($desc_url) {
+      ## fix relative URLs
+      if ($desc_url !~ /^http/) {
+        (my $base_url = $url) =~ s/\w+\.txt$//;
+        $desc_url = $base_url.$desc_url;
+      }
+      $description .= sprintf ' <a href="%s">More information</a>', $desc_url;
     }
+
 
     my $menu     = $existing_menu || $self->tree->root->append_child($self->create_menu_node($menu_name, $menu_name, { external => 1, trackhub_menu => 1, description =>  $description}));
 
