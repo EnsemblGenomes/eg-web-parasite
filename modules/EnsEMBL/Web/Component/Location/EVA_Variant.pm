@@ -180,7 +180,7 @@ sub get_variant_info {
       foreach my $source (keys %{$result->{sourceEntries}}) {
         $html .= "<h2>Study $source</h2>";
         
-        my $ena_url = sprintf("http://www.ebi.ac.uk/ena/data/view/%s&display=xml", $result->{sourceEntries}->{$source}->{studyId});
+        my $ena_url = sprintf("%s/data/view/%s&display=xml", $self->hub->species_defs->ENA_URL, $result->{sourceEntries}->{$source}->{studyId});
         my $ua = LWP::UserAgent->new();
         my $response = $ua->get($ena_url);
         if ($response->is_success) {
@@ -212,7 +212,7 @@ sub get_variant_info {
         $html .= "<h3>Genotypes</h3>";
         $html .= sprintf("<p>This study included %s samples.  The genotype for each is shown in the table below.</p>", scalar(keys %{$result->{sourceEntries}->{$source}->{samplesData}}));
         my @alleles = ( $ref, $alt );
-        push(@alleles, @{$result->{sourceEntries}->{$source}->{secondaryAlternates}});
+        push(@alleles, @{$result->{sourceEntries}->{$source}->{secondaryAlternates}}) if ($result->{sourceEntries}->{$source}->{secondaryAlternates});
         my $table = $self->new_table($gt_columns, [], { data_table => 1 });
         foreach my $sample (keys %{$result->{sourceEntries}->{$source}->{samplesData}}) {
           my $gt = $result->{sourceEntries}->{$source}->{samplesData}->{$sample}->{GT};

@@ -73,7 +73,8 @@ sub update_conf {
     $SiteDefs::GXA_REST_URL            = 'https://www.ebi.ac.uk/gxa/json/expressionData?geneId=';
     $SiteDefs::GXA_EBI_URL             = 'https://www.ebi.ac.uk/gxa/resources';
     $SiteDefs::EVA_URL                 = 'https://www.ebi.ac.uk/eva';
-
+    $SiteDefs::ENA_URL                 = 'https://www.ebi.ac.uk/ena';
+      
     ## GDPR config
     $SiteDefs::GDPR_VERSION            = '2.0.0';
     $SiteDefs::GDPR_COOKIE_NAME        = 'wbps-policy';
