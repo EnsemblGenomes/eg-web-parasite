@@ -27,7 +27,7 @@ sub content {
   my $img_url         = $self->img_url;
   my $species         = $self->species || 'Multi';
   my $species_common  = $self->species_defs->SPECIES_COMMON_NAME;
-  my $search_url      = sprintf '%s%s/psychic', $self->home_url, $species || 'Multi';
+  my $search_url      = sprintf '%s%s/Psychic', $self->home_url, $species || 'Multi';
   my $search_options  = qq(<input type="hidden" name="site" value="ensemblunit" />);
   my $species_dropdown = qq(<select name="site"><option value="ensemblunit">All species</option><option value="ensemblthis" selected="selected">%s</option></select>);
 
