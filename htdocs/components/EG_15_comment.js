@@ -51,7 +51,7 @@ function fetch_comment() {
 }
 
 function updateCount(count) {
-  var text = '\uD83C\uDD95 User Comments (' + count + ')';
+  var text = 'User Comments (' + count + ')';
   $("#page_nav [title*='User Comment']").text(text);
   $(".nav-heading h1.caption").text(text);
 }
