@@ -234,7 +234,7 @@ sub get_facet_species {
     $genomes = $meta->genome_info_adaptor->fetch_all_by_division($division);
   }
 
-  return [ map {ucfirst $_->species} @$genomes ];  
+  return [ map {ucfirst $_->name} @$genomes ];  
 }
 
 sub get_gene_hits {
