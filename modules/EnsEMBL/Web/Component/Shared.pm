@@ -203,7 +203,7 @@ sub transcript_table {
     }   
 
     my @columns = (
-       { key => 'name',       sort => 'string',  title => 'Name'          },
+      # { key => 'name',       sort => 'string',  title => 'Name'          },
        { key => 'transcript', sort => 'html',    title => 'Transcript ID' },
        { key => 'bp_length',  sort => 'numeric', label => 'bp', title => 'Length in base pairs'},
        { key => 'protein',sort => 'html_numeric',label => 'Protein', title => 'Protein length in amino acids' },
@@ -291,7 +291,7 @@ sub transcript_table {
 
       $extras{$_} ||= '-' for(keys %extra_links);
       my $row = {
-        name        => { value => $_->display_xref ? $_->display_xref->display_id : 'Novel', class => 'bold' },
+       # name        => { value => $_->display_xref ? $_->display_xref->display_id : 'Novel', class => 'bold' },
         transcript  => sprintf('<a href="%s">%s</a>', $url, $tsi),
         bp_length   => $transcript_length,
         protein     => $protein_url ? sprintf '<a href="%s" title="View protein">%saa</a>', $protein_url, $protein_length : 'No protein',
