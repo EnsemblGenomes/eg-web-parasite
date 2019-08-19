@@ -11,7 +11,7 @@ sub render {
 		return qq(
 			<div class="round-box home-box">
 				<h2>Comment</h2>
-				<li><a href="/commentcp.html?sorts[changed_on]=-1" target="_blank">Admin Panel</li>
+				<li><a href="/commentcp.html?sorts[changed_on]=-1" target="_blank">Admin Panel</a></li>
 			</div>)
 	}
 }
