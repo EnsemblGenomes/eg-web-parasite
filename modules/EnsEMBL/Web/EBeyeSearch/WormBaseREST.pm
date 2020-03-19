@@ -6,7 +6,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ my $debug = 0;
 sub new {
   my ($class, %args) = @_;
   my  $self = {
-    base_url => 'http://www.wormbase.org/search/gene',
+    base_url => 'https://wormbase.org/search/gene',
   };
   bless $self, $class;
   return $self;
@@ -82,7 +82,7 @@ sub get_results {
 
 sub get_results_count {
   my ($self, $domain, $query) = @_;
-  my $results = $self->get($domain, {plain => 1, url => "http://www.wormbase.org/search/count//gene/$query"});
+  my $results = $self->get($domain, {plain => 1, url => "https://wormbase.org/search/count/all/gene/$query"});
   $results =~ s/K$/000/; # Hack to deal with WormBase API returning values suffixed with K instead of an integer
   $results =~ s/\+$//g;
   if($results =~ /^[+-]?\d+$/) {
@@ -107,7 +107,7 @@ sub get_results_as_hashes {
     $hash{'label'}       = $entry->{name}->{label};
     $hash{'id'}          = $entry->{name}->{id};
     $hash{'name'}        = $hash{'label'} eq $hash{'id'} ? $hash{'label'} : ($hash{'label'} . ' [' . $hash{'id'} . ']');
-    $hash{'species_path'}= "http://www.wormbase.org/species/" . $entry->{name}->{taxonomy};
+    $hash{'species_path'}= "https://wormbase.org/species/" . $entry->{name}->{taxonomy};
     $hash{'url'}         = $hash{'species_path'} . "/gene/" . $hash{'id'};
 
     push @$hashes, \%hash;
