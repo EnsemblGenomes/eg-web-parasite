@@ -125,7 +125,7 @@ sub update_conf {
          caenorhabditis_remanei_prjna248911
          caenorhabditis_remanei_prjna53967
          caenorhabditis_sinica_prjna194557
-         caenorhabditis_sp34_prjdb5687
+         caenorhabditis_inopinata_prjdb5687
          caenorhabditis_sulstoni_prjeb12601
          caenorhabditis_tribulationis_prjeb12608
          caenorhabditis_tropicalis_prjna53597
@@ -206,7 +206,7 @@ sub update_conf {
          panagrellus_redivivus_prjna186477
          panagrolaimus_davidi_prjeb32708
          panagrolaimus_es5_prjeb32708
-         panagrolaimus_ju765_prjeb32708
+         propanagrolaimus_ju765_prjeb32708
          panagrolaimus_ps1159_prjeb32708
          panagrolaimus_superbus_prjeb32708
          paragonimus_westermani_prjna454344
