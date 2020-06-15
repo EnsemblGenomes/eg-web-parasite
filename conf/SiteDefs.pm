@@ -240,7 +240,6 @@ sub update_conf {
          schmidtea_mediterranea_prjna379262
          setaria_digitata_prjna479729
          soboliphyme_baturini_prjeb516
-         sparganum_proliferum_prjeb35374
          spirometra_erinaceieuropaei_prjeb1202
          steinernema_carpocapsae_prjna202318
          steinernema_carpocapsae_v1prjna202318
