@@ -102,12 +102,9 @@ sub content {
   my %skipped;
   
   foreach my $homology_type (@orthologues) {
-    foreach (keys %$homology_type) {
-      (my $species = $_) =~ tr/ /_/;
-      foreach my $foo (keys %{$homology_type->{$_}}){
-      }
-      $orthologue_list{$species} = {%{$orthologue_list{$species}||{}}, %{$homology_type->{$_}}};
-      $skipped{$species}        += keys %{$homology_type->{$_}} if $hub->param('species_' . lc $species) eq 'off';
+    foreach my $species (keys %$homology_type) {
+      $orthologue_list{$species} = {%{$orthologue_list{$species}||{}}, %{$homology_type->{$species}}};
+      $skipped{$species}        += keys %{$homology_type->{$species}} if $hub->param('species_' . lc $species) eq 'off';
     }
   }
   
@@ -199,7 +196,7 @@ sub content {
       # (1) the link to the other species
       # (2) information about %ids
       # (3) links to multi-contigview and align view
-      (my $spp = $orthologue->{'spp'}) =~ tr/ /_/;
+      my $spp = $orthologue->{'spp'};
       
       # PARASITE
       # Check if we need to form an external link
