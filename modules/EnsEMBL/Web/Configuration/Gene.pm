@@ -26,7 +26,6 @@ use Data::Dumper;
 sub modify_tree {
   my $self = shift;
   $self->PREV::modify_tree(@_);
-
   my $species_defs = $self->hub->species_defs;
 
   my $compara_menu = $self->get_node('Compara');
@@ -48,7 +47,6 @@ sub modify_tree {
   $self->delete_node('StructuralVariation_Gene');
   $self->delete_node('ExternalData');
   $self->delete_node('UserAnnotation');
-  $self->delete_node('Phenotype');
   $self->delete_node('ExpressionAtlas');
   $self->delete_node('Pathway');
 
@@ -58,6 +56,12 @@ sub modify_tree {
   #     { 'availability'  => 'gene has_gxa', 'hide_if_unavailable' => 1 }
   #   );
   # }
+
+  ## ParaSite: update the Phenotype node with a customized concise
+  my $gene_id = $self->hub->param('g');
+  my $phenotype = $self->get_node('Phenotype');
+  $phenotype->set('concise',  'Phenotypes associated with this gene ' . $gene_id);
+  ##
 
   my $comparison = $self->get_node('TranscriptComparison');
   $comparison->set('hide_if_unavailable', 1);
