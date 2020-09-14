@@ -36,7 +36,7 @@ sub content {
       <li><a href="http://www.ensembl.org"><img src="/img/empowered.png" title="Powered by Ensembl" /></a></li>
       <li><a href="http://www.bbsrc.ac.uk"><img src="/img/bbsrc_logo.gif" title="Funded by BBSRC" /></a></li>
     </ul>
-    WormBase ParaSite is funded by the <a href="http://www.bbsrc.ac.uk">UK Biotechnology and Biological Sciences Research Council</a> under grant numbers BB/K020080/1 and BB/K020048/1.
+    WormBase ParaSite is funded by the <a href="http://www.bbsrc.ac.uk">UK Biotechnology and Biological Sciences Research Council</a> under grant numbers BB/P024610/1 and BB/P024602/1.
   </div>
   ), $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE);
 }

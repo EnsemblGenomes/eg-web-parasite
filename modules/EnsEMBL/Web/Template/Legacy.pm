@@ -31,6 +31,11 @@ sub render_masthead {
   return qq(
   <div id="min_width_container">
     <div id="min_width_holder">
+
+     <!-- Announcement Banner -->    
+        $elements->{'tmp_message'}->{'announcement_banner_message'}
+    <!-- /Announcement Banner -->
+
       <div class="js_panel">
         <input type="hidden" class="panel_type" value="Masthead" />
         <div id="masthead">
