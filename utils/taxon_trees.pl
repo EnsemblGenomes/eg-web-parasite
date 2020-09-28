@@ -121,7 +121,6 @@ sub build_pruned_tree {
 sub node_to_dynatree {
   my ($node, $biomart_sth) = @_;
   my $name        = $node->names->{'scientific name'}->[0];
-  return if $biomart_sth and $biomart_db_name eq "parasite_mart_13" and grep { $name eq $_ } ("Micoletzkya", "Micoletzkya japonica", "Pristionchus japonicus"); # We had a boo-boo in WBPS13. delete this line in WBPS14!
   my @child_nodes = @{$node->children};
   my @output;
   return {
