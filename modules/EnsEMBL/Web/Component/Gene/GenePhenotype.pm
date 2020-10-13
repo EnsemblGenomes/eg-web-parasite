@@ -150,7 +150,7 @@ sub gene_phenotypes {
 
         my $pmids   = '-';
         if ($pf->study) {
-          $pmids = $self->add_study_links($pf->study->external_reference);
+          $pmids = $self->add_study_links($pf->study->external_reference, $pf->study->name);
           foreach my $pmid (@$pmids) {
             $phenotypes{$phe}{'pmids'}{$pmid} = 1;
           }
@@ -205,5 +205,21 @@ sub gene_phenotypes {
 }
 
 
+sub add_study_links {
+  my $self  = shift;
+  my $pmids = shift;
+  my $title = shift;
+     $pmids =~ s/ //g;
+
+  my @pmids_list;
+  my $epmc_link = $self->hub->species_defs->ENSEMBL_EXTERNAL_URLS->{'EPMC_MED'};
+  foreach my $pmid (split(',',$pmids)) {
+    my $link = $epmc_link;
+       $link =~ s/###ID###/$pmid/;
+    push @pmids_list, qq{<a rel="external" href="$link">$title</a>};
+  }
+
+  return \@pmids_list;
+}
 
 1;

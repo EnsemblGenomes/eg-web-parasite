@@ -17,7 +17,39 @@ package EnsEMBL::Web::Component::Phenotype::Locations;
 
 
 use strict;
+use File::Slurp;
+use Text::MultiMarkdown qw(markdown);
 
+sub content {
+  my $self = shift;
+  my $hub  = $self->hub;
+  my $ph_id              = $hub->param('ph');
+  my $ontology_accession = $hub->param('oa');
+  my $error;
+
+  if (!$ph_id && !$ontology_accession) {
+    return $self->_warning("Parameter missing!", "The URL should contain the parameter 'oa' or 'ph'");
+  }
+
+  my $html;
+  my $table = $self->make_table();
+  my $pa =  $hub->database('variation')->get_PhenotypeAdaptor;
+  my $ph_stable_id = $pa->fetch_by_dbID($ph_id)->name; #No stable_id API for the object, waiting until E! 103
+  
+  #ParaSite: reading PS description from parasite-static
+  my $file = $SiteDefs::ENSEMBL_SERVERROOT."/parasite-static/phenotype/$ph_stable_id.md"; 
+  if (-e $file) {
+    my $text = read_file($file);
+    $text =~ s/#.*\R//;
+    my $phenotypeDesc = markdown($text);
+    $html .= '<p>'.$phenotypeDesc.'</p>';
+  } else {
+    warn "The file $file does not exist"; 
+  }
+
+  $html .= $table->render($hub,$self);
+  return $html;
+}
 
 ## ParaSite: remove some unpopulated columns 
 sub make_table {
@@ -109,6 +141,18 @@ sub make_table {
 
   return $table;
 }
+
+sub study_urls {
+  my ($self, $pmid, $title) = @_;
+  my $link;
+  my @links;
+  $link = $self->hub->species_defs->ENSEMBL_EXTERNAL_URLS->{'EPMC_MED'};
+  $link =~ s/###ID###/$pmid/;
+  push @links,[$link, $title];
+  
+  return \@links;
+}
+
 
 1;
 
