@@ -32,7 +32,6 @@ sub modify_tree {
   $self->delete_node('Variation');
   $self->delete_node('Marker');
   $self->delete_node('Compara');
-  $self->delete_node('Chromosome');
 
   ## ParaSite: add an additional component for WormBase JBrowse
   my $view = $self->get_node('View');
