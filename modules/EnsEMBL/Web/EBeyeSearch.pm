@@ -281,7 +281,8 @@ sub get_gene_hits {
   
     my $transcript = ref $hit->{transcript} eq 'ARRAY' ? $hit->{transcript}->[0] : (split /\n/, $hit->{transcript})[0];
     unless($hit->{url}) {
-      my $url = "$hit->{species_path}/Gene/Summary?g=$hit->{id}";
+      my $query_path = $hit->{description} =~ 'no longer' && (!@{$hit->{genetree}}) ? 'Idhistory' : 'Summary';
+      my $url = "$hit->{species_path}/Gene/$query_path?g=$hit->{id}";
       $url .= ";r=$hit->{location}" if $hit->{location};
       #$url .= ";t=$transcript" if $transcript;  ## ParaSite: do not append a transcript by default
       $url .= ";db=$hit->{database}" if $hit->{database}; 
