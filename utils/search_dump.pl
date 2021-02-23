@@ -732,11 +732,10 @@ sub do_archive_stable_ids {
   while( my($type,$osi,$nsi,$old_release,$new_release) = $sth->fetchrow_array() ) {
     next if $current_stable_ids{$type}{$osi}; ## Don't want to show current stable IDs.
     next if $osi eq $nsi; ##
-    #if the mapped ID is current set it as an example, as long as it's post release 62
-    if ( ! $mapping{$type}{$osi}{'example'}) {
-      if ($current_stable_ids{$type}{$nsi}) {
-        $mapping{$type}{$osi}{'example'} = $nsi;
-      }
+    #if the mapped ID is current set it as an example, as long as it's post release 62  
+    #ParaSite: get all new ids
+    if ($current_stable_ids{$type}{$nsi}) {
+        $mapping{$type}{$osi}{'example'} .= $nsi . "; ";
     }
     $mapping{$type}{$osi}{'matches'}{$nsi}++;
   }
@@ -756,11 +755,11 @@ sub do_archive_stable_ids {
         }
       }
       if( @current_sis ) {
-        my $example_id   = $mapping{$type}{$osi}{'example'};
+        my $example_ids  = substr($mapping{$type}{$osi}{'example'}, 0, -2);
         my $current_id_c = scalar(@current_sis );
         my $cur_txt = $current_id_c > 1 ? "$current_id_c current identifiers" : "$current_id_c current identifier";
-        $cur_txt .= $example_id ? " (eg $example_id)" : '';
-        $desc = qq(Ensembl Genomes $type $osi is no longer in the database.);
+        $cur_txt .= $example_ids ? " ($example_ids)" : '';
+        $desc = qq(The $type $osi is no longer in the database.);
         my $deprecated_id_c = scalar(@deprecated_sis);
         if ($deprecated_id_c) {
           my $dep_txt = $deprecated_id_c > 1 ? "$deprecated_id_c deprecated identifiers" : "$deprecated_id_c deprecated identifier";
