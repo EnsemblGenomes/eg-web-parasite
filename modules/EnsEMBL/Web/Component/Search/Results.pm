@@ -241,9 +241,9 @@ sub render_hit {
     $name = "<strong>$name</strong>";
   
   } else {
-
-    $table->add_row("Description", ($self->highlight($hit->{description}) || 'n/a'));
-    $table->add_row("Gene ID", sprintf('<a href="%s">%s</a>', $hit->{url}, $self->highlight($hit->{id})));
+    my $parsed_description = $self->parse_description($hit->{description}, $hit->{species_path});
+    $table->add_row("Description", ($parsed_description || 'n/a'));
+    $table->add_row("Gene ID", sprintf('<a href="%s">%s</a>', $hit->{url}, $self->highlight($hit->{url} =~ m/Idhistory/ ? $hit->{id}.' (ID History)' : $hit->{id})));
     $table->add_row("Species", sprintf '<em><a href="%s">%s</a></em>', $hit->{species_path}, $self->highlight($species));
     
     if ($hit->{location}) {
@@ -314,6 +314,16 @@ sub render_hit {
       $info
     </div>
   );
+}
+
+sub parse_description {
+  my ($self, $description, $species_path) = @_;
+  if ($description =~ m/current identifiers? \((.*)\)/) {
+    my @cids = split /; /, $1;
+    my $cids_href = join ("; ", map {sprintf '<a href="%s/Gene/Summary?g=%s">%s</a>', $species_path, $_, $self->highlight($_) } @cids);
+    $description =~ s/$1/$cids_href/g;
+  }
+  return $description;
 }
 
 sub process_orthologs {
