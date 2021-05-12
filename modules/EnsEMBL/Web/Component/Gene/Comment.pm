@@ -63,7 +63,7 @@ sub content {
     <div id="cmt_section1"></div>
     <div id="cmt_section2" class="$submit_area_css_class">
       <div class="input_area">
-        <textarea placeholder="Write your comment here!" class="content_input"></textarea>
+        <textarea placeholder="Add your comment here..." class="content_input"></textarea>
         <input value="Submit" name="submit" class="fbutton cbutton" id="cm9012" type="submit" data-role="none">
       </div>
     </div>
