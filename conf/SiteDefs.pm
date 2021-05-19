@@ -22,10 +22,10 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '15';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '276';
-    $SiteDefs::SITE_RELEASE_DATE = 'October 2020';
-    $SiteDefs::EG_RELEASE_VERSION = 45;
+    $SiteDefs::SITE_RELEASE_VERSION = '16';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '279';
+    $SiteDefs::SITE_RELEASE_DATE = 'October 2021';
+    $SiteDefs::EG_RELEASE_VERSION = 48;
  
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
@@ -105,16 +105,20 @@ sub update_conf {
          ascaris_lumbricoides_prjeb4950
          ascaris_suum_prjna62057
          ascaris_suum_prjna80881
+         atriophallophorus_winterbourni_prjna636673
          brugia_malayi_prjna10729
          brugia_pahangi_prjeb497
          brugia_timori_prjeb4663
+         bursaphelenchus_okinawaensis_prjeb40023
          bursaphelenchus_xylophilus_prjea64437
+         bursaphelenchus_xylophilus_prjeb40022
          caenorhabditis_angaria_prjna51225
          caenorhabditis_becei_prjeb28243
          caenorhabditis_bovis_prjeb34497
          caenorhabditis_brenneri_prjna20035
          caenorhabditis_briggsae_prjna10731
          caenorhabditis_elegans_prjna13758
+         caenorhabditis_inopinata_prjdb5687
          caenorhabditis_japonica_prjna12591
          caenorhabditis_latens_prjna248912
          caenorhabditis_nigoni_prjna384657
@@ -124,8 +128,8 @@ sub update_conf {
          caenorhabditis_remanei_prjna248909
          caenorhabditis_remanei_prjna248911
          caenorhabditis_remanei_prjna53967
+         caenorhabditis_remanei_prjna577507
          caenorhabditis_sinica_prjna194557
-         caenorhabditis_inopinata_prjdb5687
          caenorhabditis_sulstoni_prjeb12601
          caenorhabditis_tribulationis_prjeb12608
          caenorhabditis_tropicalis_prjna53597
@@ -203,10 +207,10 @@ sub update_conf {
          opisthorchis_felineus_prjna413383
          opisthorchis_viverrini_prjna222628
          oscheius_tipulae_prjeb15512
+         oscheius_tipulae_prjna644888
          panagrellus_redivivus_prjna186477
          panagrolaimus_davidi_prjeb32708
          panagrolaimus_es5_prjeb32708
-         propanagrolaimus_ju765_prjeb32708
          panagrolaimus_ps1159_prjeb32708
          panagrolaimus_superbus_prjeb32708
          paragonimus_westermani_prjna454344
@@ -223,6 +227,7 @@ sub update_conf {
          pristionchus_maxplancki_prjeb27334
          pristionchus_mayeri_prjeb27334
          pristionchus_pacificus_prjna12644
+         propanagrolaimus_ju765_prjeb32708
          protopolystoma_xenopodis_prjeb1201
          rhabditophanes_kr3021_prjeb1297
          romanomermis_culicivorax_prjeb1358
