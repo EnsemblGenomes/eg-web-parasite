@@ -64,7 +64,8 @@ sub species_label {
   my $scientific = $self->get_config($key, 'SPECIES_BIO_NAME');
   my $display    = $self->get_config($key, 'SPECIES_COMMON_NAME');
   my $bioproject = $self->get_config($key, 'SPECIES_BIOPROJECT');
-  return $display ? $display : sprintf('<em>%s</em> (%s)', $scientific, $bioproject);
+  $key =~ s/_/ /g;
+  return $display ? $display : ($scientific ? sprintf('<em>%s</em> (%s)', $scientific, $bioproject) : $key);
 
 ##
 
