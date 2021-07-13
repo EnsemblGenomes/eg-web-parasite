@@ -20,6 +20,7 @@ limitations under the License.
 package EnsEMBL::Web::Component::Gene::GenePhenotype;
 
 use strict;
+use Sort::Naturally;
 
 sub gene_phenotypes {
   my $self             = shift;
@@ -40,170 +41,108 @@ sub gene_phenotypes {
   if ($hub->database('variation')) {
     my $pfa = $hub->database('variation')->get_PhenotypeFeatureAdaptor;
     
-    # OMIA needs tax ID
-    my $tax = $hub->species_defs->TAXONOMY_ID;
-    if ($species eq 'Mouse') {
-      my $features;
-      foreach my $pf (@{$pfa->fetch_all_by_Gene($obj)}) {
-        my $phe    = $pf->phenotype->description;
-        my $ext_id = $pf->external_id;
-        my $source = $pf->source_name;
-        my $strain = $pf->strain;
-        my $strain_name = encode_entities($strain->name);
-        my $strain_gender = $strain->gender;
-        my $allele_symbol = encode_entities($pf->allele_symbol);
+    foreach my $pf(@{$pfa->fetch_all_by_Gene($obj)}) {
+      my $phe     = $pf->phenotype->description;
+      my $source  = $pf->source_name;
+      my $accession_id  = $pf->get_all_ontology_accessions->[0];
 
-        my $pmids   = '-';
-        if ($pf->study) {
-          $pmids = $self->add_study_links($pf->study->external_reference);
-          $has_study = 1;
-        }
+      my $attribs = $pf->get_all_attributes;
 
-        if ($ext_id) {
-          my $source_uc = uc($source);
-          if ($source_uc =~ /GOA/) {
-            my $attribs = $pf->get_all_attributes;
-            $source = $hub->get_ExtURL_link($source, 'QUICK_GO_IMP', { ID => $ext_id, PR_ID => $attribs->{'xref_id'}});
-          } elsif($source_uc =~ /MGI/) {
-            my $marker_accession_id = $pf->marker_accession_id;
-            $source = $hub->get_ExtURL_link($source, $source_uc, { ID => $marker_accession_id, TAX => $tax});
-          }
-          else {
-            $source = $hub->get_ExtURL_link($source, $source_uc, { ID => $ext_id, TAX => $tax});
-          }
-        }
-
-        my $phe_url = sprintf(
-            '<a href="%s" title="%s">%s</a>',
-            $hub->url({
-              type    => 'Phenotype',
-              action  => 'Locations',
-              ph      => $pf->phenotype->dbID
-             }),
-             'View associate loci',
-             $phe
-        );
-
-        # display one row for phenotype associated with male and female strain
-        my $key = join("\t", ($phe, $strain_name, $allele_symbol));
-        $features->{$key}->{source} = $source;
-        push @{$features->{$key}->{gender}}, $strain_gender;
-        $features->{$key}->{url} = $phe_url;
-        $features->{$key}->{pmid} = $pmids;
+      my $source_uc = uc $source;
+         $source_uc =~ s/\s/_/g;
+      if ($source_uc =~ /^WORMBASE_PHENOTYPE$/) {
+         $source_uc = 'WORMBASE_PHENOTYPE_FULL';
       }
-      foreach my $key (sort keys %$features) {
-        my ($phenotype, $strain_name, $allele_symbol) = split("\t", $key);
-        push @rows, {
-          source => $features->{$key}->{source},
-          phenotype => $features->{$key}->{url},
-          allele => $allele_symbol,
-          strain => $strain_name .  " (" . join(', ', sort @{$features->{$key}->{gender}}) . ")",
-          study => $features->{$key}->{pmid}
-        };
+
+      my $ext_phe_url = "";
+      if ($accession_id) {
+	$ext_phe_url = $hub->get_ExtURL_link($phe, $source_uc, { ID => $accession_id });
+      } else {
+        $ext_phe_url = $phe;
       }
-    } else {    
-      foreach my $pf(@{$pfa->fetch_all_by_Gene($obj)}) {
-        my $phe     = $pf->phenotype->description;
-        my $source  = $pf->source_name;
-        my $ext_id  = $pf->external_id;
 
-        my $attribs = $pf->get_all_attributes;
+      my $ext_source  = $pf->external_id;
+      my $ext_id  = (split '/', $pf->external_id)[-1];
+      my $ext_source_url = sprintf(
+        '<a href="%s">%s</a>',
+        'https://www.wormbase.org'.$ext_source,
+        $ext_id
+      );
 
-        my $source_uc = uc $source;
-           $source_uc =~ s/\s/_/g;
-           $source_uc .= "_SEARCH" if ($source_uc =~ /^RGD$/);
-           $source_uc .= "_ID"     if ($source_uc =~ /^ZFIN$/);
+      my $loci_url = sprintf(
+        '<a href="%s" title="%s">%s</a>',
+        $hub->url({
+          type    => 'Phenotype',
+          action  => 'Locations',
+          ph      => $pf->phenotype->dbID
+        }),
+        'View associate loci',
+        'Other Loci'
+      );
 
-        my $source_url = "";
-        if ($ext_id) {
-          if ($source_uc =~ /GOA/) {
-            $source_url = $hub->get_ExtURL_link($source, 'QUICK_GO_IMP', { ID => $ext_id, PR_ID => $attribs->{'xref_id'}});
-          }
-          else {  
-            $source_url = $hub->get_ExtURL_link($source, $source_uc, { ID => $ext_id, TAX => $tax});
-          }
-        } else {
-          $source_url = $hub->get_ExtURL_link($source, $source_uc);
-        }
-        $source_url = $source if ($source_url eq "" || !$source_url || $source_url =~ /\(ID\)/);
-              
-        $phenotypes{$phe} ||= { id => $pf->{'_phenotype_id'} };
-        $phenotypes{$phe}{'source'}{$source_url} = 1;
+      $phenotypes{$phe} ||= { id => $pf->{'_phenotype_id'} };
+      $phenotypes{$phe}{'source'}{$ext_source_url} = 1;
+      $phenotypes{$phe}{'ext_url'} = $ext_phe_url;
+      $phenotypes{$phe}{'loci_url'} = $loci_url;
 
-        my $phe_url = sprintf(
-          '<a href="%s" title="%s">%s</a>',
-          $hub->url({
-            type    => 'Phenotype',
-            action  => 'Locations',
-            ph      => $pf->phenotype->dbID
-          }),
-          'View associate loci',
-          $phe
-        );
-        $phenotypes{$phe}{'url'} = $phe_url;
-
-        my $allelic_requirement = '-';
-        if ($self->_inheritance($attribs)) {
-          $phenotypes{$phe}{'allelic_requirement'}{$attribs->{'inheritance_type'}} = 1;
-          $has_allelic = 1;
-        }
-
-        my $pmids   = '-';
-        if ($pf->study) {
-          $pmids = $self->add_study_links($pf->study->external_reference, $pf->study->name);
-          foreach my $pmid (@$pmids) {
-            $phenotypes{$phe}{'pmids'}{$pmid} = 1;
-          }
-          $has_study = 1;
-        }
+      my $allelic_requirement = '-';
+      if ($self->_inheritance($attribs)) {
+        $phenotypes{$phe}{'allelic_requirement'}{$attribs->{'inheritance_type'}} = 1;
+        $has_allelic = 1;
       }
-      # Loop after each phenotype entry
-      foreach my $phe (sort(keys(%phenotypes))) {
-        my @pmids = keys(%{$phenotypes{$phe}{'pmids'}});
-        my $study = (scalar(@pmids) != 0) ? $self->display_items_list($phenotypes{$phe}{'id'}.'pmids', 'Study links', 'Study links', \@pmids, \@pmids, 1) : '-';
 
-        push @rows, {
-          source    => join(', ', keys(%{$phenotypes{$phe}{'source'}})),
-          phenotype => $phenotypes{$phe}{'url'},
-          allelic   => ($phenotypes{$phe}{'allelic_requirement'}) ? join(', ', keys(%{$phenotypes{$phe}{'allelic_requirement'}})) : '-',
-          study     => $study
-        };
+      my $pmids   = '-';
+      if ($pf->study) {
+        $pmids = $self->add_study_links($pf->study->external_reference, $pf->study->name);
+        foreach my $pmid (@$pmids) {
+          $phenotypes{$phe}{'pmids'}{$pmid} = 1;
+        }
+        $has_study = 1;
       }
+    }
+
+    my @sorted_phes = sort { 
+      my $find = 'no phenotype observed';
+      my $idx1 = index($a, $find);
+      my $idx2 = index($b, $find);
+      ($idx1*$idx2 > 0) ? ncmp($a, $b) : $idx1 <=> $idx2;
+    } keys %phenotypes;
+ 
+    # Loop after each phenotype entry
+    foreach my $phe (@sorted_phes) {
+      my @pmids = keys(%{$phenotypes{$phe}{'pmids'}});
+      my $study = (scalar(@pmids) != 0) ? $self->display_items_list($phenotypes{$phe}{'id'}.'pmids', 'Study links', 'Study links', \@pmids, \@pmids, 1) : '-';
+
+      push @rows, {
+        phenotype => $phenotypes{$phe}{'ext_url'},
+        loci      => $phenotypes{$phe}{'loci_url'},
+        source    => join(', ', keys(%{$phenotypes{$phe}{'source'}})),
+        study     => $study
+      };
     }
   }
 
-  my $add_s = scalar @rows == 1 ? '' : 's';
-
-  ## ParaSite - remove the heading
-  ## $html = qq{<a id="gene_phenotype"></a><h2>Phenotype$add_s, disease$add_s and trait$add_s associated with this gene TUAN $g_name</h2>};
   if (scalar @rows) {
     my @columns = (
       { key => 'phenotype', align => 'left', title => 'Phenotype, disease and trait' },
+      { key => 'loci',    align => 'left', title => 'Associated Loci'    },
       { key => 'source',    align => 'left', title => 'Source'    }
     );
 
     if ($has_study == 1) {
       push @columns, { key => 'study', align => 'left', title => 'Study' , align => 'left', sort => 'html' };
     }
-    if ($species eq 'Mouse') {
-      push @columns, (
-        { key => 'strain',    align => 'left', title => 'Strain'    },
-        { key => 'allele',    align => 'left', title => 'Allele'    }
-      );     
-      $html .= $self->new_table(\@columns, \@rows, { data_table => 'no_sort no_col_toggle', exportable => 1 })->render;
-    } else { 
-      if ($has_allelic == 1) {
-        push @columns, { key => 'allelic', align => 'left', title => 'Allelic requirement' , help => 'Allelic status associated with the disease (monoallelic, biallelic, etc)' };      
-      }
-      $html .= $self->new_table(\@columns, \@rows, { data_table => 'no_sort no_col_toggle', sorting => [ 'phenotype asc' ], exportable => 1 })->render;
+
+    if ($has_allelic == 1) {
+      push @columns, { key => 'allelic', align => 'left', title => 'Allelic requirement' , help => 'Allelic status associated with the disease (monoallelic, biallelic, etc)' };
     }
-  }
-  else {
+
+    $html .= $self->new_table(\@columns, \@rows, { data_table => 'no_sort no_col_toggle', exportable => 1 })->render;
+  } else {
     $html .= "<p>None found.</p>";
   }
   return $html;
 }
-
 
 sub add_study_links {
   my $self  = shift;
