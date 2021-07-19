@@ -139,7 +139,7 @@ body.ie67 .plain-box      { zoom: 100%; }
 .alert-box    { background-color:[[ALERT_BG]]; border-color:[[ALERT_BORDER]]; }
 .embedded-box { margin:16px 0; padding:8px; }
 .round-box    { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-.round-box h2   { font-size: 1.2em; background-color: #C2D1DF; padding: 12px 12px 12px 12px; margin-left: -16px; margin-right: -16px; margin-top: -16px }
+.round-box h2   { font-size: 1.2em; background-color: [[PAGE_H2]]; padding: 12px 12px 12px 12px; margin-left: -16px; margin-right: -16px; margin-top: -16px }
 .scroll-box   { overflow: auto; overflow-y: hidden; -ms-overflow-y: hidden; }
 .species-box td { padding: 2px; min-width:100px; }
 .search-box   { height: 125px; min-height: 125px; }

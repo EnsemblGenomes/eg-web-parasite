@@ -67,7 +67,7 @@
 }
 
 .expanding-header {
-  background-color: #CCCCCC;
+  background-color: [[PS_SPECIES_NAV]];
   font-size: 12pt;
   font-weight: bold;
   padding: 5px 5px 5px 5px;
