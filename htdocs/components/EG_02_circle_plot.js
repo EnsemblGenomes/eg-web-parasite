@@ -1,6 +1,10 @@
 /*
   Code adapted from https://github.com/rjchallis/assembly-stats
 */
+Ensembl.Panel.AssemblyStats = Ensembl.Panel.extend({
+ init: function () { //placeholder
+   }
+});
 
 $(document).ready(function() {
   var filename = $('#assembly_file').val();
@@ -25,7 +29,8 @@ function Assembly(stats, scaffolds, contigs) {
   this.GC = stats.GC ? stats.GC <= 100 ? stats.GC <= 1 ? stats.GC * 100 : stats.GC : stats.GC / this.assembly * 100 : 0;
   this.cegma_complete = stats.cegma_complete;
   this.cegma_partial = stats.cegma_partial - stats.cegma_complete;
-  this.busco = stats.busco;
+  this.busco_annotation = stats.busco_annotation;
+  this.busco_assembly = stats.busco_assembly;
   this.scaffolds = stats.scaffolds.sort(function(a, b) {
     return b - a
   });
@@ -262,21 +267,38 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
   percent_axis(bcag, radii, pScale);
 
   // plot BUSCO/CEGMA completeness if available
-  if (this.busco) {
+  if (this.busco_annotation) {
     var ccg = g.append('g')
       .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 24) + ')')
-      .attr("id", "asm-busco_completeness");
+      .attr("id", "asm-busco_annotation_completeness");
     var ccdg = ccg.append('g')
-      .attr("id", "asm-busco_completeness_data");
-    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(this.busco.C), p100Scale(this.busco.C+this.busco.F), 'asm-busco_F');
-    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(this.busco.C), 'asm-busco_C');
-    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(this.busco.D), 'asm-busco_D');
+      .attr("id", "asm-busco_annotation_completeness_data");
+    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(this.busco_annotation.C), p100Scale(this.busco_annotation.C+this.busco_annotation.F), 'asm-busco_F');
+    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(this.busco_annotation.C), 'asm-busco_C');
+    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(this.busco_annotation.D), 'asm-busco_D');
     var ccag = ccg.append('g')
-      .attr("id", "asm-busco_completeness_axis");
+      .attr("id", "asm-busco_annotation_completeness_axis");
     ccag.append('circle').attr('r', radii.ceg[1]/1.5).attr('class', 'asm-axis');
     ccag.append('line').attr('y1', -radii.ceg[1]/1.5).attr('y2', -radii.ceg[2]).attr('class', 'asm-axis');
     cegma_axis(ccag, radii, p100Scale);
   }
+
+  if (this.busco_assembly) {
+    var ccg = g.append('g')
+      .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 4) + ')')
+      .attr("id", "asm-busco_assembly_completeness");
+    var ccdg = ccg.append('g')
+      .attr("id", "asm-busco_assembly_completeness_data");
+    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(this.busco_assembly.C), p100Scale(this.busco_assembly.C+this.busco_assembly.F), 'asm-busco_F');
+    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(this.busco_assembly.C), 'asm-busco_C');
+    plot_arc(ccdg, radii.ceg[1]/1.5, radii.ceg[2], p100Scale(0), p100Scale(this.busco_assembly.D), 'asm-busco_D');
+    var ccag = ccg.append('g')
+      .attr("id", "asm-busco_assembly_completeness_axis");
+    ccag.append('circle').attr('r', radii.ceg[1]/1.5).attr('class', 'asm-axis');
+    ccag.append('line').attr('y1', -radii.ceg[1]/1.5).attr('y2', -radii.ceg[2]).attr('class', 'asm-axis');
+    cegma_axis(ccag, radii, p100Scale);
+  }
+ 
   if (this.cegma_complete) {
     var ccg = g.append('g')
       .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 4) + ')')
@@ -461,36 +483,44 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
     .attr("id", "asm-g-legend");
 
   // draw BUSCO/CEGMA legend
-  if (this.busco) {
+  if (this.busco_annotation) {
     var lccg = lg.append('g')
-      .attr("id", "asm-g-busco_completeness_legend");
+      .attr("id", "asm-g-busco_annotation_completeness_legend");
     var txt = lccg.append('text')
-      .attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 330) + ')')
+      .attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 105) + ')')
       .attr('class', 'asm-tr_title');
-    txt.append('tspan').text('BUSCO (n = ' + this.busco.n.toLocaleString() + ')');
+    txt.append('tspan').text('BUSCO ANNOTATION');
+    txt.append('tspan').text('(n = ' + this.busco_annotation.n.toLocaleString() + ')').attr('x', 0).attr('dy', 18);
+    var key = lccg.append('g').attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 140) + ')');
+
+    key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-busco_C asm-toggle');
+    key.append('text').attr('x', w + 3).attr('y', w - 1).text('Single (' + (this.busco_annotation.C - this.busco_annotation.D).toFixed(1) + '%)').attr('class', 'asm-key');
+
+    key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-busco_D asm-toggle');
+    key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Duplicated (' + this.busco_annotation.D.toFixed(1) + '%)').attr('class', 'asm-key');
+
+    key.append('rect').attr('y', w * 3).attr('height', w).attr('width', w).attr('class', 'asm-busco_F asm-toggle');
+    key.append('text').attr('x', w + 3).attr('y', w * 4 - 1).text('Fragmented (' + this.busco_annotation.F.toFixed(1) + '%)').attr('class', 'asm-key');
+  }
+
+  if (this.busco_assembly) {
+    var lccg = lg.append('g')
+      .attr("id", "asm-g-busco_assembly_completeness_legend");
+    var txt = lccg.append('text')
+      .attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 310) + ')')
+      .attr('class', 'asm-tr_title');
+    txt.append('tspan').text('BUSCO ASSEMBLY');
+    txt.append('tspan').text('(n = ' + this.busco_assembly.n.toLocaleString() + ')').attr('x', 0).attr('dy', 18);
     var key = lccg.append('g').attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 345) + ')');
 
     key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-busco_C asm-toggle');
-    key.append('text').attr('x', w + 3).attr('y', w - 1).text('Single (' + (this.busco.C - this.busco.D).toFixed(1) + '%)').attr('class', 'asm-key');
+    key.append('text').attr('x', w + 3).attr('y', w - 1).text('Single (' + (this.busco_assembly.C - this.busco_assembly.D).toFixed(1) + '%)').attr('class', 'asm-key');
 
     key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-busco_D asm-toggle');
-    key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Duplicated (' + this.busco.D.toFixed(1) + '%)').attr('class', 'asm-key');
+    key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Duplicated (' + this.busco_assembly.D.toFixed(1) + '%)').attr('class', 'asm-key');
 
     key.append('rect').attr('y', w * 3).attr('height', w).attr('width', w).attr('class', 'asm-busco_F asm-toggle');
-    key.append('text').attr('x', w + 3).attr('y', w * 4 - 1).text('Fragmented (' + this.busco.F.toFixed(1) + '%)').attr('class', 'asm-key');
-  }
-  if (this.cegma_complete) {
-    var lccg = lg.append('g')
-      .attr("id", "asm-g-cegma_completeness_legend");
-    var txt = lccg.append('text')
-      .attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 125) + ')')
-      .attr('class', 'asm-tr_title');
-    txt.append('tspan').text('CEGMA');
-    var key = lccg.append('g').attr('transform', 'translate(' + (size / 2 + 60) + ',' + (-size / 2 + 140) + ')');
-    key.append('rect').attr('height', w).attr('width', w).attr('class', 'asm-ceg_comp asm-toggle');
-    key.append('text').attr('x', w + 3).attr('y', w - 1).text('Complete (' + this.cegma_complete.toFixed(1) + '%)').attr('class', 'asm-key');
-    key.append('rect').attr('y', w * 1.5).attr('height', w).attr('width', w).attr('class', 'asm-ceg_part asm-toggle');
-    key.append('text').attr('x', w + 3).attr('y', w * 2.5 - 1).text('Partial (' + this.cegma_partial.toFixed(1) + '%)').attr('class', 'asm-key');
+    key.append('text').attr('x', w + 3).attr('y', w * 4 - 1).text('Fragmented (' + this.busco_assembly.F.toFixed(1) + '%)').attr('class', 'asm-key');
   }
 
   //draw base composition legend
