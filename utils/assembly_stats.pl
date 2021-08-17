@@ -28,7 +28,7 @@ my (
   $dbport,
   $dbpass,
   $outfile, $outfh,
-  $do_assembly, $do_cegma, $do_busco,
+  $do_assembly, $do_cegma, $do_busco_assembly, $do_busco_annotation,
 );
 
 
@@ -40,7 +40,8 @@ my (
   'pass=s'   => \$dbpass,
   'assembly' => \$do_assembly,
   'cegma'    => \$do_cegma,
-  'busco'    => \$do_busco,
+  'busco-as' => \$do_busco_assembly,
+  'busco-an' => \$do_busco_annotation,
   'outfile=s' => \$outfile,
 );
 
@@ -110,19 +111,34 @@ if ($do_cegma) {
 }
 
 
-if ($do_busco) {
+if ($do_busco_assembly) {
 
   my $mc = $db->get_MetaContainerAdaptor;
   
   my $h = {
-    C => $mc->single_value_by_key('assembly.busco_complete') * 1,
-    D => $mc->single_value_by_key('assembly.busco_duplicated') * 1,
-    F => $mc->single_value_by_key('assembly.busco_fragmented') * 1,
-    M => $mc->single_value_by_key('assembly.busco_missing') * 1,
-    n => $mc->single_value_by_key('assembly.busco_number') * 1,
+    C => $mc->single_value_by_key('assembly.busco3_complete') * 1,
+    D => $mc->single_value_by_key('assembly.busco3_duplicated') * 1,
+    F => $mc->single_value_by_key('assembly.busco3_fragmented') * 1,
+    M => $mc->single_value_by_key('assembly.busco3_missing') * 1,
+    n => $mc->single_value_by_key('assembly.busco3_number') * 1,
   };
 
-  $output->{busco} = $h;
+  $output->{busco_assembly} = $h;
+}  
+
+if ($do_busco_annotation) {
+
+  my $mc = $db->get_MetaContainerAdaptor;
+  
+  my $h = {
+    C => $mc->single_value_by_key('annotation.busco3_complete') * 1,
+    D => $mc->single_value_by_key('annotation.busco3_duplicated') * 1,
+    F => $mc->single_value_by_key('annotation.busco3_fragmented') * 1,
+    M => $mc->single_value_by_key('annotation.busco3_missing') * 1,
+    n => $mc->single_value_by_key('annotation.busco3_number') * 1,
+  };
+
+  $output->{busco_annotation} = $h;
 }  
 
 my $json = JSON->new;
