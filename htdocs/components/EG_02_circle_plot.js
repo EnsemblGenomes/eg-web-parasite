@@ -269,7 +269,7 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
   // plot BUSCO/CEGMA completeness if available
   if (this.busco_annotation) {
     var ccg = g.append('g')
-      .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 24) + ')')
+      .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 4) + ')')
       .attr("id", "asm-busco_annotation_completeness");
     var ccdg = ccg.append('g')
       .attr("id", "asm-busco_annotation_completeness_data");
@@ -285,7 +285,7 @@ Assembly.prototype.drawPlot = function(parent_div, stats, longest, circle_span) 
 
   if (this.busco_assembly) {
     var ccg = g.append('g')
-      .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 4) + ')')
+      .attr('transform', 'translate(' + (radii.percent[1] + tick * 12) + ',' + (-radii.percent[1] + tick * 24) + ')')
       .attr("id", "asm-busco_assembly_completeness");
     var ccdg = ccg.append('g')
       .attr("id", "asm-busco_assembly_completeness_data");
