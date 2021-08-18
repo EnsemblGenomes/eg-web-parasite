@@ -141,15 +141,15 @@ sub make_html {
   ); 
   
   my $columns = [
-    { key => 'species_name',  title => 'Species Name',   sort => 'string',         align => 'left', width => '15%' },
-    { key => 'provider',      title => 'Provider',       sort => 'string',         align => 'left', width => '15%' },
-    { key => 'assembly',      title => 'Assembly',       sort => 'string',         align => 'left', width => '10%' },
-    { key => 'bioproject',    title => 'BioProject ID',  sort => 'string',         align => 'left', width => '10%' },
-    { key => 'clade',         title => 'Clade',          sort => 'string',         align => 'left', width => '6%' },
-    { key => 'genome_browser',title => 'Genome Browser',                           align => 'left', width => '10%'  },
-    { key => 'CEGMA',         title => 'CEGMA',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export", help => "CEGMA is a method of measuring assembly quality developed by the Korf Lab at UC Davis. It involves looking for a set of highly conserved genes present in most eukaryotes in the genome assembly. The more of these proteins are completely (or at least partially) retrieved in the assembly, the higher its quality." },
-    { key => 'BUSCO',         title => 'BUSCO',          sort => 'numeric_hidden', align => 'left', width => '4%', class => "_no_export", help => "BUSCO is a method of measuring assembly quality developed at the University of Geneva. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of animals. The percentages of complete, duplicated and partial genes recovered are reported." },
-    { key => 'N50',           title => 'N50',            sort => 'numeric_hidden', align => 'left', width => '4%', help => "N50 is the length of the smallest contig such as the sum of the sequences larger than this contig covers half of the genome assembly." },
+    { key => 'species_name',     title => 'Species Name',     sort => 'string',         align => 'left', width => '15%' },
+    { key => 'provider',         title => 'Provider',         sort => 'string',         align => 'left', width => '15%' },
+    { key => 'assembly',         title => 'Assembly',         sort => 'string',         align => 'left', width => '10%' },
+    { key => 'bioproject',       title => 'BioProject ID',    sort => 'string',         align => 'left', width => '10%' },
+    { key => 'clade',            title => 'Clade',            sort => 'string',         align => 'left', width => '6%'  },
+    { key => 'genome_browser',   title => 'Genome Browser',                             align => 'left', width => '8%'  },
+    { key => 'BUSCO ANNOTATION', title => 'BUSCO ANNOTATION', sort => 'numeric_hidden', align => 'left', width => '4%', style => 'white-space: normal', class => "_no_export", help => "BUSCO is a method of measuring assembly and annotation quality, developed at the University of Geneva. BUSCO ANNOTATION is running at the protein level, assessing not only the assembly but also the annotation quality of a genome. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of the animals. The percentages of complete, duplicated and partial genes recovered are reported." },
+    { key => 'BUSCO ASSEMBLY',   title => 'BUSCO ASSEMBLY',   sort => 'numeric_hidden', align => 'left', width => '4%', style => 'white-space: normal', class => "_no_export", help => "BUSCO is a method of measuring assembly quality developed at the University of Geneva. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of animals. The percentages of complete, duplicated and partial genes recovered are reported." },
+    { key => 'N50',              title => 'N50',              sort => 'numeric_hidden', align => 'left', width => '4%', help => "N50 is the length of the smallest contig such as the sum of the sequences larger than this contig covers half of the genome assembly." },
   ];
 
   my $j = 0;
@@ -232,39 +232,26 @@ sub make_html {
 
         if($content) {
           my $assembly = from_json($content);
-         
-          my $cegma_comp = $assembly->{cegma_complete};
-          my $cegma_part = $assembly->{cegma_partial} - $assembly->{cegma_complete};
-          if($cegma_comp >= 0 && $cegma_part >= 0) {
-          push(@row, sprintf(qq(
-            <span class="hidden">%s</span>
-            <div style="display: none;">
-              <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
-            </div>
-            <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="CEGMA Score: Complete %s; Partial %s"></div>
-          ), $cegma_comp, $j, 0, $cegma_comp / 100, $cegma_part  / 100, (100 - $cegma_comp - $cegma_part) / 100, $j, $cegma_comp, ($cegma_comp + $cegma_part)));
-          $j++;
-          } else {
-            push(@row, '-');
-          }
-
-          my $busco = $assembly->{busco};
-          if($busco) {
-            my $busco_d = $busco->{D};
-            my $busco_c = $busco->{C};
-            my $busco_f = $busco->{F};
-            push(@row, sprintf(q(
-              <span class="hidden">%s</span>
-              <div style="display: none;">
-                <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
-              </div>
-              <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: Complete: %s [Duplicated %s, Single %s], Fragmented %s"></div>
-            ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_c, $busco_d, ($busco_c - $busco_d), $busco_f));
-            $j++;
-          } else {
-            push(@row, '-');
-          }
-          
+          my @busco_list = qw(busco_annotation busco_assembly);
+          for my $busco_type (@busco_list) {
+            my $busco = $assembly->{$busco_type};
+            if($busco) {
+              my $busco_d = $busco->{D};
+              my $busco_c = $busco->{C};
+              my $busco_f = $busco->{F};
+              push(@row, sprintf(q(
+                <span class="hidden">%s</span>
+                <div style="display: none;">
+                  <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%s]" />
+                </div>
+                <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="BUSCO Score: Complete: %s [Duplicated %s, Single %s], Fragmented %s"></div>
+              ), $busco_c, $j, $busco_d / 100, ($busco_c - $busco_d) / 100, $busco_f / 100, (100 - $busco_c - $busco_f) / 100, $j, $busco_c, $busco_d, ($busco_c - $busco_d), $busco_f));
+              $j++;
+            } else {
+              push(@row, '-');
+            }
+         }
+ 
           my $n50 = $assembly->{binned_scaffold_lengths}[500];
           push(@row, $n50 ? sprintf(qq(<span class="hidden">%s</span>%s), $n50, format_number($n50)) : '-');
         } else {
