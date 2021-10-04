@@ -64,6 +64,8 @@ sub render {
       proteins           => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.protein.fa.gz">FASTA</a>},
       mRNA_transcripts   => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.mRNA_transcripts.fa.gz">FASTA</a>},
       CDS_transcripts    => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.CDS_transcripts.fa.gz">FASTA</a>},
+      orthologues        => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.orthologs.tsv.gz">TSV</a>},
+      paralogues         => qq{<a rel="notexternal" href="$ftp_base_path_stub/species/$species_lower/$ftp_id/$species_lower.$ftp_id.WBPS$rel.paralogs.tsv.gz">TSV</a>},
     };
     push(@rows, $data);
   }
@@ -79,8 +81,10 @@ sub render {
       {key => 'genomic_softmasked',     sort=>'none', title => 'Soft-masked Genomic'},   
       {key => 'annotations',     sort=>'none', title => 'Annotations'},    
       {key => 'proteins',      sort=>'none', title => 'Proteins'},    
-      {key => 'mRNA_transcripts',     sort=>'none', title => 'Full-length Transcripts'},   
-      {key => 'CDS_transcripts',     sort=>'none', title => 'CDS Transcripts'},   
+      {key => 'mRNA_transcripts',     sort=>'none', title => 'Full-length Transcripts'},
+      {key => 'CDS_transcripts',     sort=>'none', title => 'CDS Transcripts'},
+      {key => 'orthologues',     sort=>'none', title => 'Orthologues'},
+      {key => 'paralogues',     sort=>'none', title => 'Paralogues'},
     ],
     \@rows,
     { data_table=>1, exportable=>0 }
