@@ -110,6 +110,7 @@ sub get_cacheable_form_node {
     'elements'      => [{
       'type'          => 'text',
       'name'          => 'text',
+      'class'         => 'vep-input',
     }, {
       'type'          => 'noedit',
       'noinput'       => 1,
