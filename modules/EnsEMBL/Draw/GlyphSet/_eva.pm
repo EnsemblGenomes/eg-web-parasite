@@ -58,6 +58,9 @@ sub features {
   my $start        = $slice->start;
   my $end          = $slice->end;
   my $slice_length = $slice->length;
+
+  #Temporary hack to use INSDC contig names for PRJEB32744
+  $feature_name = @{$slice->get_all_synonyms('INSDC')}[0]->{name} if $study eq 'PRJEB32744';
   
   if ($slice_length > $max_length * 1010) {
     $self->errorTrack("Variation features are not displayed for regions larger than ${max_length}Kb");
