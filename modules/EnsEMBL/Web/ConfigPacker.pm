@@ -325,7 +325,7 @@ sub get_EVA_tracks {
   }  
   return unless $eva_species && $eva_assembly;
 
-  my $data_structure = $self->eva_api(sprintf("%s/webservices/rest/v1/meta/studies/all?browserType=sgv&species=%s", $SiteDefs::EVA_URL, $eva_species));
+  my $data_structure = $self->eva_api(sprintf("%s/webservices/rest/v1/meta/studies/list?species=%s", $SiteDefs::EVA_URL, $eva_assembly));
   
   my $track_list = [];
   foreach my $result_set (@{$data_structure->{response}}) {
@@ -333,7 +333,7 @@ sub get_EVA_tracks {
       next;
     }
     foreach my $dataset (@{$result_set->{result}}) {
-      my $ena_url = sprintf("https://www.ebi.ac.uk/ena/data/view/%s&display=xml", $dataset->{id});
+      my $ena_url = sprintf("https://www.ebi.ac.uk/ena/browser/api/xml/%s", $dataset->{studyId});
       my $ua = LWP::UserAgent->new();
       my $response = $ua->get($ena_url);
       my $description;
@@ -350,8 +350,8 @@ sub get_EVA_tracks {
         $description = qq(<h3>Study Overview</h3><p><span style="font-weight: bold">Study Name:</span> $name<br /><span style="font-weight: bold">Submitter:</span> $submitter<br /><span style="font-weight: bold">Project Description:</span> $formatted<br /><em>Description provided by <a href="http://www.ebi.ac.uk/ena">ENA</a></em></p>);
       }
       my $track = {
-        'name'        => $dataset->{name},
-        'study_id'    => $dataset->{id},
+        'name'        => $dataset->{studyName},
+        'study_id'    => $dataset->{studyId},
         'description' => $description,
         'eva_species' => $eva_assembly
       };
@@ -365,7 +365,6 @@ sub get_EVA_tracks {
 
 sub eva_api {
   my ($self, $url) = @_;
-  
   my $uri = URI->new($url);
   my $can_accept;
   eval { $can_accept = HTTP::Message::decodable() };
