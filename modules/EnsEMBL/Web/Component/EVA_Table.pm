@@ -144,9 +144,9 @@ sub features {
         }
       }
     }
-    
-    return $features_list;
   }
+
+  return $features_list;
 }
 
 1;
