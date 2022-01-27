@@ -26,6 +26,7 @@ use Data::Dumper;
 use EnsEMBL::LWP_UserAgent;
 
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
+use Bio::EnsEMBL::DBSQL::DBAdaptor;
 
 use previous qw(munge_config_tree);
 
@@ -66,7 +67,7 @@ sub _munge_meta {
     species.wikipedia_url         WIKIPEDIA_URL
     ploidy                        PLOIDY
   );
-  
+
   my @months    = qw(blank Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
   my $meta_info = $self->_meta_info('DATABASE_CORE') || {};
   my @sp_count  = grep { $_ > 0 } keys %$meta_info;
@@ -299,6 +300,7 @@ sub _munge_meta {
 
 ## ParaSite: get the tracks from EVA
     $self->tree($production_name)->{'EVA_TRACKS'} = $self->get_EVA_tracks($species);
+    $self->extra_stats($species, $production_name);
 ##
 
   }
@@ -361,6 +363,37 @@ sub get_EVA_tracks {
   
   return $track_list;
     
+}
+
+
+sub extra_stats {
+ my ($self, $species, $production_name) = @_;
+ my $db_name = 'DATABASE_CORE';
+ my $dbh     = $self->db_connect( $db_name );
+ my $s_aref = $dbh->selectall_arrayref(
+    "select statistic, value from genome_statistics where statistic IN ('ref_length', 'coding_cnt')"
+ );
+
+ foreach my $row (@$s_aref) {
+     $self->tree($production_name)->{uc $row->[0]} = $row->[1];
+ }
+
+ my $db = Bio::EnsEMBL::DBSQL::DBAdaptor->new(
+  -user   => $self->tree->{'databases'}{$db_name}{'USER'},
+  -host   => $self->tree->{'databases'}{$db_name}{'HOST'},
+  -port   => $self->tree->{'databases'}{$db_name}{'PORT'},
+  -dbname => $self->tree->{'databases'}{$db_name}{'NAME'},
+  -species => $species,
+  );
+
+ my $scaffolds;
+ foreach my $seq (@{$db->get_SliceAdaptor->fetch_all('toplevel')}) {
+   my $seq_name = $seq->seq_region_name;
+   push @scaffolds, $seq_name;
+ }
+
+ $self->tree($production_name)->{'SCAFFOLDS_CNT'} = scalar @scaffolds;
+
 }
 
 sub eva_api {
