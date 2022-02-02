@@ -153,9 +153,9 @@ sub make_html {
     { key => 'BUSCO ANNOTATION', title => 'BUSCO ANNOTATION', sort => 'numeric_hidden', align => 'left', width => '4%', style => 'white-space: normal', class => "_no_export", help => "BUSCO is a method of measuring assembly and annotation quality, developed at the University of Geneva. BUSCO ANNOTATION is running at the protein level, assessing not only the assembly but also the annotation quality of a genome. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of the animals. The percentages of complete, duplicated and partial genes recovered are reported." },
     { key => 'BUSCO ASSEMBLY',   title => 'BUSCO ASSEMBLY',   sort => 'numeric_hidden', align => 'left', width => '4%', style => 'white-space: normal', class => "_no_export", help => "BUSCO is a method of measuring assembly quality developed at the University of Geneva. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of animals. The percentages of complete, duplicated and partial genes recovered are reported." },
     { key => 'N50',              title => 'N50',              sort => 'numeric_hidden', align => 'left', width => '4%', help => "N50 is the length of the smallest contig such as the sum of the sequences larger than this contig covers half of the genome assembly." },
-    { key => 'genome_size',     title => 'Genome Size'           , sort => 'numeric',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
-    { key => 'scaffold_size',   title => 'Number of scaffolds'   , sort => 'numeric',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
-    { key => 'gene_size',       title => 'Number of Coding Genes', sort => 'numeric',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
+    { key => 'genome_size',     title => 'Genome Size'           , sort => 'numeric_hidden',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
+    { key => 'scaffold_size',   title => 'Number of Scaffolds'   , sort => 'numeric_hidden',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
+    { key => 'gene_size',       title => 'Number of Coding Genes', sort => 'numeric_hidden',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
   ];
 
   my $j = 0;
@@ -264,9 +264,9 @@ sub make_html {
           push(@row, ('-', '-', '-'));
         }
 
-        push (@row, $info->{'ref_length'});
-        push (@row, $info->{'scaffolds_cnt'});
-        push (@row, $info->{'coding_cnt'});
+        push (@row, sprintf(qq(<span class="hidden">%s</span>%s), $info->{'ref_length'}, format_number($info->{'ref_length'})));
+        push (@row, sprintf(qq(<span class="hidden">%s</span>%s), $info->{'scaffolds_cnt'}, format_number($info->{'scaffolds_cnt'})));
+        push (@row, sprintf(qq(<span class="hidden">%s</span>%s), $info->{'coding_cnt'}, format_number($info->{'coding_cnt'})));
         
         $table->add_row(\@row);
                
