@@ -386,7 +386,7 @@ sub extra_stats {
   -species => $species,
   );
 
- my $scaffolds;
+ my @scaffolds;
  foreach my $seq (@{$db->get_SliceAdaptor->fetch_all('toplevel')}) {
    my $seq_name = $seq->seq_region_name;
    push @scaffolds, $seq_name;
