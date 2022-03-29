@@ -22,10 +22,10 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '16';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '279';
-    $SiteDefs::SITE_RELEASE_DATE = 'September 2021';
-    $SiteDefs::EG_RELEASE_VERSION = 48;
+    $SiteDefs::SITE_RELEASE_VERSION = '17';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '282';
+    $SiteDefs::SITE_RELEASE_DATE = 'July 2022';
+    $SiteDefs::EG_RELEASE_VERSION = 52;
  
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
@@ -101,6 +101,7 @@ sub update_conf {
          angiostrongylus_cantonensis_prjeb493
          angiostrongylus_cantonensis_prjna350391
          angiostrongylus_costaricensis_prjeb494
+         angiostrongylus_vasorum_prjna663250
          anisakis_simplex_prjeb496
          ascaris_lumbricoides_prjeb4950
          ascaris_suum_prjna62057
@@ -136,6 +137,7 @@ sub update_conf {
          caenorhabditis_uteleia_prjeb12600
          caenorhabditis_waitukubuli_prjeb12602
          caenorhabditis_zanzibari_prjeb12596
+         cercopithifilaria_johnstoni_prjeb47283
          clonorchis_sinensis_prjda72781
          clonorchis_sinensis_prjna386618
          cylicostephanus_goldi_prjeb498
@@ -159,17 +161,23 @@ sub update_conf {
          fasciola_gigantica_prjna230515
          fasciola_hepatica_prjeb25283
          fasciola_hepatica_prjna179522
+         fasciolopsis_buski_prjna284521
          globodera_pallida_prjeb123
+         globodera_rostochiensis_l19prjna695196
+         globodera_rostochiensis_l22prjna695196
          globodera_rostochiensis_prjeb13504
          gongylonema_pulchrum_prjeb505
+         gyrodactylus_bullatarudis_prjna532341
          gyrodactylus_salaris_prjna244375
          haemonchus_contortus_prjeb506
          haemonchus_contortus_prjna205202
          haemonchus_placei_prjeb509
          halicephalobus_mephisto_prjna528747
+         halicephalobus_nkz332_prjna555616
          heligmosomoides_polygyrus_prjeb1203
          heligmosomoides_polygyrus_prjeb15396
          heterodera_glycines_prjna381081
+         heterodera_schachtii_prjna722882
          heterorhabditis_bacteriophora_prjna13977
          hydatigera_taeniaeformis_prjeb534
          hymenolepis_diminuta_prjeb30942
