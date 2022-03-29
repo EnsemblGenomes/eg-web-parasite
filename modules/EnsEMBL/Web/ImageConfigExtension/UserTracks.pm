@@ -320,7 +320,7 @@ sub _add_trackhub_tracks {
       if (exists $track->{'viewLimits'}) {
         $source->{'viewLimits'} = $track->{'viewLimits'};
       } 
-      elsif ($track->{'autoScale'} eq 'off') {
+      elsif (!$track->{'autoScale'} || $track->{'autoScale'} eq 'off') {
         $source->{'viewLimits'} = '0:127';
       }
       else {
