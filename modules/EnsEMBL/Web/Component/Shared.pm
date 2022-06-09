@@ -60,8 +60,6 @@ sub transcript_table {
 
   my $gene = $page_type eq 'gene' ? $object->Obj : $object->gene;
   
-  $self->add_phenotype_link($gene, $table); #function in mobile plugin
-  
   foreach (@{$object->get_similarity_hash(0, $gene)}) {
     next unless $_->{'type'} eq 'PRIMARY_DB_SYNONYM';
     my $id           = $_->display_id;
@@ -327,9 +325,7 @@ sub transcript_table {
 
     # Add rows to transcript table
     push @rows, @{$biotype_rows{$_}} for sort keys %biotype_rows; 
-    
-    @columns = $self->table_removecolumn(@columns); # implemented in mobile plugin
-    
+        
     $transc_table = $self->new_table(\@columns, \@rows, {
       data_table        => 1,
       data_table_config => { asStripClasses => [ '', '' ], oSearch => { sSearch => '', bRegex => 'false', bSmart => 'false' } },

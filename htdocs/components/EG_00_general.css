@@ -97,8 +97,6 @@ body.mac h1,
 body.mac h2     { padding-top: 12px; }
 
 .invisible          { font-size: 1px; color: #fff; height: 0; clear: both; overflow: hidden; margin: 0!important; line-height: 0!important; }
-.mobile-only    { display:none; }
-
 
 /*----------------------------------------------------------------------
  Links 
