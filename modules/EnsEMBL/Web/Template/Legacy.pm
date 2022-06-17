@@ -109,7 +109,6 @@ sub render_content {
           $elements->{'breadcrumbs'}
           $elements->{'message'}
           $elements->{'content'}
-          $elements->{'mobile_nav'}
       </div>
   );
 ##

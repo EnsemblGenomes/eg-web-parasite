@@ -91,7 +91,7 @@ sub transcript_table {
   my $seq_region_end   = $object->seq_region_end;
 
   my $location_html = sprintf(
-    '<a href="%s" class="constant mobile-nolink">%s:%s-%s</a> %s.',
+    '<a href="%s" class="constant">%s:%s-%s</a> %s.',
     $hub->url({
       type   => 'Location',
       action => 'View',
@@ -118,7 +118,7 @@ sub transcript_table {
         my ($altchr, $altstart, $altend, $altseqregion) = @$loc;
         
         $location_html .= sprintf('
-          <li><a href="/%s/Location/View?l=%s:%s-%s" class="constant mobile-nolink">%s : %s-%s</a></li>', 
+          <li><a href="/%s/Location/View?l=%s:%s-%s" class="constant">%s : %s-%s</a></li>', 
           $species, $altchr, $altstart, $altend, $altchr,
           $self->thousandify($altstart),
           $self->thousandify($altend)
