@@ -285,5 +285,21 @@ sub study_urls {
 }
 
 
+# ParaSite - generate url based on attributes
+sub source_url {
+  my ($self, $obj_name, $source, $ext_id, $attribs, $pf) = @_;
+  my $hub = $self->hub;
+
+  my $external_db = $attribs->{'external_db'};
+  my $external_id = $attribs->{'external_id'};
+
+  if ($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{$external_db}) {
+    return $hub->get_ExtURL_link($external_id, $external_db, { ID => $external_id });
+  }
+
+  return ($external_id, undef);
+
+}
+
 1;
 

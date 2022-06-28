@@ -129,9 +129,14 @@ sub content {
           } elsif($source_uc =~ /MGI/) {
             my $marker_accession_id = $pf->marker_accession_id;
             $source = $hub->get_ExtURL_link($source, $source_uc, { ID => $marker_accession_id, TAX => $tax});
-          }
-          else {
-            $source = $hub->get_ExtURL_link($source, $source_uc, { ID => $ext_id, TAX => $tax});
+          } else {
+            my $attribs = $pf->get_all_attributes;
+            my $external_db = $attribs->{'external_db'};
+            my $external_id = $attribs->{'external_id'};
+            $source = $external_id;
+            if ($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{$external_db}) {
+              $source = $hub->get_ExtURL_link($external_id, $external_db, { ID => $external_id });
+            }
           }
         }
 

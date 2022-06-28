@@ -56,18 +56,17 @@ sub gene_phenotypes {
 
       my $ext_phe_url = "";
       if ($accession_id) {
-	$ext_phe_url = $hub->get_ExtURL_link($phe, $source_uc, { ID => $accession_id });
+        $ext_phe_url = $hub->get_ExtURL_link($phe, $source_uc, { ID => $accession_id });
       } else {
         $ext_phe_url = $phe;
       }
-
-      my $ext_source  = $pf->external_id;
-      my $ext_id  = (split '/', $pf->external_id)[-1];
-      my $ext_source_url = sprintf(
-        '<a href="%s">%s</a>',
-        'https://www.wormbase.org'.$ext_source,
-        $ext_id
-      );
+      
+      my $external_db = $attribs->{'external_db'};
+      my $external_id = $attribs->{'external_id'};
+      my $ext_source_url = $external_id;
+      if ($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{$external_db}) {
+        $ext_source_url = $hub->get_ExtURL_link($external_id, $external_db, { ID => $external_id });
+      }
 
       my $loci_url = sprintf(
         '<a href="%s" title="%s">%s</a>',
