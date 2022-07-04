@@ -1,152 +1,153 @@
 taxonTreeData = [
    {
+      "title" : "Nematoda",
       "isFolder" : true,
       "key" : "Nematoda",
       "children" : [
          {
             "title" : "Chromadorea",
+            "key" : "Chromadorea",
             "children" : [
                {
-                  "title" : "Plectida",
+                  "isFolder" : true,
+                  "key" : "Plectida",
                   "children" : [
                      {
-                        "key" : "plectus_sambesii_prjna390260",
-                        "title" : "Plectus sambesii (PRJNA390260)"
+                        "title" : "Plectus sambesii (PRJNA390260)",
+                        "key" : "plectus_sambesii_prjna390260"
                      }
                   ],
-                  "isFolder" : true,
-                  "key" : "Plectida"
+                  "title" : "Plectida"
                },
                {
-                  "key" : "Rhabditida",
                   "isFolder" : true,
-                  "title" : "Rhabditida",
                   "children" : [
                      {
-                        "isFolder" : true,
-                        "key" : "Rhabditina",
                         "title" : "Rhabditina",
+                        "isFolder" : true,
                         "children" : [
                            {
+                              "isFolder" : true,
+                              "key" : "Diplogasteromorpha",
                               "children" : [
                                  {
-                                    "key" : "Diplogasteroidea",
-                                    "isFolder" : true,
-                                    "title" : "Diplogasteroidea",
                                     "children" : [
                                        {
                                           "children" : [
                                              {
-                                                "title" : "Micoletzkya",
+                                                "isFolder" : true,
+                                                "key" : "Micoletzkya",
                                                 "children" : [
                                                    {
                                                       "key" : "micoletzkya_japonica_prjeb27334",
                                                       "title" : "Micoletzkya japonica (PRJEB27334)"
                                                    }
                                                 ],
-                                                "key" : "Micoletzkya",
-                                                "isFolder" : true
+                                                "title" : "Micoletzkya"
                                              },
                                              {
-                                                "isFolder" : true,
-                                                "key" : "Parapristionchus",
-                                                "title" : "Parapristionchus",
                                                 "children" : [
                                                    {
-                                                      "title" : "Parapristionchus giblindavisi (PRJEB27334)",
-                                                      "key" : "parapristionchus_giblindavisi_prjeb27334"
+                                                      "key" : "parapristionchus_giblindavisi_prjeb27334",
+                                                      "title" : "Parapristionchus giblindavisi (PRJEB27334)"
                                                    }
-                                                ]
+                                                ],
+                                                "key" : "Parapristionchus",
+                                                "isFolder" : true,
+                                                "title" : "Parapristionchus"
                                              }
                                           ],
-                                          "title" : "Diplogasteridae",
                                           "key" : "Diplogasteridae",
-                                          "isFolder" : true
+                                          "isFolder" : true,
+                                          "title" : "Diplogasteridae"
                                        },
                                        {
-                                          "title" : "Neodiplogasteridae",
                                           "children" : [
                                              {
-                                                "isFolder" : true,
-                                                "key" : "Pristionchus",
                                                 "children" : [
                                                    {
-                                                      "key" : "pristionchus_arcanus_prjeb27334",
-                                                      "title" : "Pristionchus arcanus (PRJEB27334)"
+                                                      "title" : "Pristionchus arcanus (PRJEB27334)",
+                                                      "key" : "pristionchus_arcanus_prjeb27334"
                                                    },
                                                    {
                                                       "title" : "Pristionchus entomophagus (PRJEB27334)",
                                                       "key" : "pristionchus_entomophagus_prjeb27334"
                                                    },
                                                    {
-                                                      "key" : "pristionchus_exspectatus_prjeb24288",
-                                                      "title" : "Pristionchus exspectatus (PRJEB24288)"
+                                                      "title" : "Pristionchus exspectatus (PRJEB24288)",
+                                                      "key" : "pristionchus_exspectatus_prjeb24288"
                                                    },
                                                    {
-                                                      "key" : "pristionchus_fissidentatus_prjeb27334",
-                                                      "title" : "Pristionchus fissidentatus (PRJEB27334)"
+                                                      "title" : "Pristionchus fissidentatus (PRJEB27334)",
+                                                      "key" : "pristionchus_fissidentatus_prjeb27334"
                                                    },
                                                    {
                                                       "key" : "pristionchus_japonicus_prjeb27334",
                                                       "title" : "Pristionchus japonicus (PRJEB27334)"
                                                    },
                                                    {
-                                                      "title" : "Pristionchus maxplancki (PRJEB27334)",
-                                                      "key" : "pristionchus_maxplancki_prjeb27334"
+                                                      "key" : "pristionchus_maxplancki_prjeb27334",
+                                                      "title" : "Pristionchus maxplancki (PRJEB27334)"
                                                    },
                                                    {
-                                                      "title" : "Pristionchus mayeri (PRJEB27334)",
-                                                      "key" : "pristionchus_mayeri_prjeb27334"
+                                                      "key" : "pristionchus_mayeri_prjeb27334",
+                                                      "title" : "Pristionchus mayeri (PRJEB27334)"
                                                    },
                                                    {
                                                       "key" : "pristionchus_pacificus_prjna12644",
                                                       "title" : "Pristionchus pacificus (PRJNA12644)"
                                                    }
                                                 ],
+                                                "key" : "Pristionchus",
+                                                "isFolder" : true,
                                                 "title" : "Pristionchus"
                                              }
                                           ],
+                                          "key" : "Neodiplogasteridae",
                                           "isFolder" : true,
-                                          "key" : "Neodiplogasteridae"
+                                          "title" : "Neodiplogasteridae"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Diplogasteroidea",
+                                    "isFolder" : true,
+                                    "title" : "Diplogasteroidea"
                                  }
                               ],
-                              "title" : "Diplogasteromorpha",
-                              "key" : "Diplogasteromorpha",
-                              "isFolder" : true
+                              "title" : "Diplogasteromorpha"
                            },
                            {
                               "title" : "Rhabditomorpha",
+                              "isFolder" : true,
                               "children" : [
                                  {
                                     "title" : "Rhabditidae",
+                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "title" : "Mesorhabditinae",
+                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "title" : "Mesorhabditis belari (PRJEB30104)",
                                                 "key" : "mesorhabditis_belari_prjeb30104"
                                              }
                                           ],
-                                          "key" : "Mesorhabditinae",
-                                          "isFolder" : true
+                                          "key" : "Mesorhabditinae"
                                        },
                                        {
+                                          "title" : "Peloderinae",
+                                          "key" : "Peloderinae",
                                           "children" : [
                                              {
                                                 "key" : "Caenorhabditis",
-                                                "isFolder" : true,
-                                                "title" : "Caenorhabditis",
                                                 "children" : [
                                                    {
-                                                      "key" : "caenorhabditis_angaria_prjna51225",
-                                                      "title" : "Caenorhabditis angaria (PRJNA51225)"
+                                                      "title" : "Caenorhabditis angaria (PRJNA51225)",
+                                                      "key" : "caenorhabditis_angaria_prjna51225"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_becei_prjeb28243",
-                                                      "title" : "Caenorhabditis becei (PRJEB28243)"
+                                                      "title" : "Caenorhabditis becei (PRJEB28243)",
+                                                      "key" : "caenorhabditis_becei_prjeb28243"
                                                    },
                                                    {
                                                       "key" : "caenorhabditis_bovis_prjeb34497",
@@ -157,124 +158,129 @@ taxonTreeData = [
                                                       "key" : "caenorhabditis_brenneri_prjna20035"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_briggsae_prjna10731",
-                                                      "title" : "Caenorhabditis briggsae (PRJNA10731)"
+                                                      "title" : "Caenorhabditis briggsae (PRJNA10731)",
+                                                      "key" : "caenorhabditis_briggsae_prjna10731"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_elegans_prjna13758",
-                                                      "title" : "Caenorhabditis elegans (PRJNA13758)"
+                                                      "title" : "Caenorhabditis elegans (PRJNA13758)",
+                                                      "key" : "caenorhabditis_elegans_prjna13758"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_inopinata_prjdb5687",
-                                                      "title" : "Caenorhabditis inopinata (PRJDB5687)"
+                                                      "title" : "Caenorhabditis inopinata (PRJDB5687)",
+                                                      "key" : "caenorhabditis_inopinata_prjdb5687"
                                                    },
                                                    {
-                                                      "title" : "Caenorhabditis japonica (PRJNA12591)",
-                                                      "key" : "caenorhabditis_japonica_prjna12591"
+                                                      "key" : "caenorhabditis_japonica_prjna12591",
+                                                      "title" : "Caenorhabditis japonica (PRJNA12591)"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_latens_prjna248912",
-                                                      "title" : "Caenorhabditis latens (PRJNA248912)"
+                                                      "title" : "Caenorhabditis latens (PRJNA248912)",
+                                                      "key" : "caenorhabditis_latens_prjna248912"
                                                    },
                                                    {
                                                       "title" : "Caenorhabditis nigoni (PRJNA384657)",
                                                       "key" : "caenorhabditis_nigoni_prjna384657"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_panamensis_prjeb28259",
-                                                      "title" : "Caenorhabditis panamensis (PRJEB28259)"
+                                                      "title" : "Caenorhabditis panamensis (PRJEB28259)",
+                                                      "key" : "caenorhabditis_panamensis_prjeb28259"
                                                    },
                                                    {
-                                                      "title" : "Caenorhabditis remanei (PRJNA248909)",
-                                                      "key" : "caenorhabditis_remanei_prjna248909"
+                                                      "key" : "caenorhabditis_remanei_prjna248909",
+                                                      "title" : "Caenorhabditis remanei (PRJNA248909)"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_remanei_prjna248911",
-                                                      "title" : "Caenorhabditis remanei (PRJNA248911)"
+                                                      "title" : "Caenorhabditis remanei (PRJNA248911)",
+                                                      "key" : "caenorhabditis_remanei_prjna248911"
                                                    },
                                                    {
-                                                      "title" : "Caenorhabditis remanei (PRJNA53967)",
-                                                      "key" : "caenorhabditis_remanei_prjna53967"
+                                                      "key" : "caenorhabditis_remanei_prjna53967",
+                                                      "title" : "Caenorhabditis remanei (PRJNA53967)"
                                                    },
                                                    {
-                                                      "title" : "Caenorhabditis remanei (PRJNA577507)",
-                                                      "key" : "caenorhabditis_remanei_prjna577507"
+                                                      "key" : "caenorhabditis_remanei_prjna577507",
+                                                      "title" : "Caenorhabditis remanei (PRJNA577507)"
                                                    },
                                                    {
-                                                      "title" : "Caenorhabditis sinica (PRJNA194557)",
-                                                      "key" : "caenorhabditis_sinica_prjna194557"
+                                                      "key" : "caenorhabditis_sinica_prjna194557",
+                                                      "title" : "Caenorhabditis sinica (PRJNA194557)"
                                                    },
                                                    {
-                                                      "key" : "caenorhabditis_tropicalis_prjna53597",
-                                                      "title" : "Caenorhabditis tropicalis (PRJNA53597)"
+                                                      "title" : "Caenorhabditis tropicalis (PRJNA53597)",
+                                                      "key" : "caenorhabditis_tropicalis_prjna53597"
                                                    },
                                                    {
-                                                      "title" : "unclassified Caenorhabditis",
                                                       "children" : [
                                                          {
                                                             "key" : "caenorhabditis_parvicauda_prjeb12595",
                                                             "title" : "Caenorhabditis sp. 21 LS-2015 (PRJEB12595)"
                                                          },
                                                          {
-                                                            "title" : "Caenorhabditis sp. 26 LS-2015 (PRJEB12596)",
-                                                            "key" : "caenorhabditis_zanzibari_prjeb12596"
+                                                            "key" : "caenorhabditis_zanzibari_prjeb12596",
+                                                            "title" : "Caenorhabditis sp. 26 LS-2015 (PRJEB12596)"
                                                          },
                                                          {
-                                                            "key" : "caenorhabditis_uteleia_prjeb12600",
-                                                            "title" : "Caenorhabditis sp. 31 LS-2015 (PRJEB12600)"
+                                                            "title" : "Caenorhabditis sp. 31 LS-2015 (PRJEB12600)",
+                                                            "key" : "caenorhabditis_uteleia_prjeb12600"
                                                          },
                                                          {
                                                             "title" : "Caenorhabditis sp. 32 LS-2015 (PRJEB12601)",
                                                             "key" : "caenorhabditis_sulstoni_prjeb12601"
                                                          },
                                                          {
-                                                            "key" : "caenorhabditis_quiockensis_prjeb11354",
-                                                            "title" : "Caenorhabditis sp. 38 MB-2015 (PRJEB11354)"
+                                                            "title" : "Caenorhabditis sp. 38 MB-2015 (PRJEB11354)",
+                                                            "key" : "caenorhabditis_quiockensis_prjeb11354"
                                                          },
                                                          {
-                                                            "key" : "caenorhabditis_waitukubuli_prjeb12602",
-                                                            "title" : "Caenorhabditis sp. 39 LS-2015 (PRJEB12602)"
+                                                            "title" : "Caenorhabditis sp. 39 LS-2015 (PRJEB12602)",
+                                                            "key" : "caenorhabditis_waitukubuli_prjeb12602"
                                                          },
                                                          {
-                                                            "title" : "Caenorhabditis sp. 40 LS-2015 (PRJEB12608)",
-                                                            "key" : "caenorhabditis_tribulationis_prjeb12608"
+                                                            "key" : "caenorhabditis_tribulationis_prjeb12608",
+                                                            "title" : "Caenorhabditis sp. 40 LS-2015 (PRJEB12608)"
                                                          }
                                                       ],
+                                                      "key" : "unclassified Caenorhabditis",
                                                       "isFolder" : true,
-                                                      "key" : "unclassified Caenorhabditis"
+                                                      "title" : "unclassified Caenorhabditis"
                                                    }
-                                                ]
+                                                ],
+                                                "isFolder" : true,
+                                                "title" : "Caenorhabditis"
                                              }
                                           ],
-                                          "title" : "Peloderinae",
-                                          "key" : "Peloderinae",
                                           "isFolder" : true
                                        },
                                        {
+                                          "title" : "Rhabditidae incertae sedis",
+                                          "isFolder" : true,
+                                          "key" : "Rhabditidae incertae sedis",
                                           "children" : [
                                              {
+                                                "title" : "Diploscapter",
                                                 "key" : "Diploscapter",
-                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "title" : "Diploscapter coronatus (PRJDB3143)",
                                                       "key" : "diploscapter_coronatus_prjdb3143"
                                                    },
                                                    {
-                                                      "title" : "Diploscapter pachys (PRJNA280107)",
-                                                      "key" : "diploscapter_pachys_prjna280107"
+                                                      "key" : "diploscapter_pachys_prjna280107",
+                                                      "title" : "Diploscapter pachys (PRJNA280107)"
                                                    }
                                                 ],
-                                                "title" : "Diploscapter"
+                                                "isFolder" : true
                                              }
-                                          ],
-                                          "title" : "Rhabditidae incertae sedis",
-                                          "key" : "Rhabditidae incertae sedis",
-                                          "isFolder" : true
+                                          ]
                                        },
                                        {
+                                          "title" : "Rhabditinae",
+                                          "key" : "Rhabditinae",
                                           "children" : [
                                              {
+                                                "title" : "Oscheius",
+                                                "isFolder" : true,
+                                                "key" : "Oscheius",
                                                 "children" : [
                                                    {
                                                       "key" : "oscheius_tipulae_prjeb15512",
@@ -284,192 +290,180 @@ taxonTreeData = [
                                                       "title" : "Oscheius tipulae (PRJNA644888)",
                                                       "key" : "oscheius_tipulae_prjna644888"
                                                    }
-                                                ],
-                                                "title" : "Oscheius",
-                                                "isFolder" : true,
-                                                "key" : "Oscheius"
+                                                ]
                                              }
                                           ],
-                                          "title" : "Rhabditinae",
-                                          "isFolder" : true,
-                                          "key" : "Rhabditinae"
+                                          "isFolder" : true
                                        }
                                     ],
-                                    "key" : "Rhabditidae",
-                                    "isFolder" : true
+                                    "key" : "Rhabditidae"
                                  }
                               ],
-                              "key" : "Rhabditomorpha",
-                              "isFolder" : true
+                              "key" : "Rhabditomorpha"
                            }
-                        ]
+                        ],
+                        "key" : "Rhabditina"
                      },
                      {
-                        "key" : "Spirurina",
+                        "title" : "Spirurina",
                         "isFolder" : true,
                         "children" : [
                            {
-                              "title" : "Ascaridomorpha",
+                              "isFolder" : true,
+                              "key" : "Ascaridomorpha",
                               "children" : [
                                  {
-                                    "key" : "Ascaridoidea",
-                                    "isFolder" : true,
                                     "title" : "Ascaridoidea",
+                                    "isFolder" : true,
+                                    "key" : "Ascaridoidea",
                                     "children" : [
                                        {
+                                          "title" : "Anisakidae",
+                                          "key" : "Anisakidae",
                                           "children" : [
                                              {
                                                 "title" : "Anisakis simplex (PRJEB496)",
                                                 "key" : "anisakis_simplex_prjeb496"
                                              }
                                           ],
-                                          "title" : "Anisakidae",
-                                          "key" : "Anisakidae",
                                           "isFolder" : true
                                        },
                                        {
-                                          "key" : "Ascarididae",
-                                          "isFolder" : true,
-                                          "title" : "Ascarididae",
                                           "children" : [
                                              {
                                                 "children" : [
                                                    {
-                                                      "title" : "Ascaris lumbricoides (PRJEB4950)",
-                                                      "key" : "ascaris_lumbricoides_prjeb4950"
+                                                      "key" : "ascaris_lumbricoides_prjeb4950",
+                                                      "title" : "Ascaris lumbricoides (PRJEB4950)"
                                                    },
                                                    {
-                                                      "title" : "Ascaris suum (PRJNA62057)",
-                                                      "key" : "ascaris_suum_prjna62057"
+                                                      "key" : "ascaris_suum_prjna62057",
+                                                      "title" : "Ascaris suum (PRJNA62057)"
                                                    },
                                                    {
                                                       "key" : "ascaris_suum_prjna80881",
                                                       "title" : "Ascaris suum (PRJNA80881)"
                                                    }
                                                 ],
-                                                "title" : "Ascaris",
+                                                "key" : "Ascaris",
                                                 "isFolder" : true,
-                                                "key" : "Ascaris"
+                                                "title" : "Ascaris"
                                              },
                                              {
-                                                "key" : "Parascaris",
-                                                "isFolder" : true,
                                                 "title" : "Parascaris",
+                                                "isFolder" : true,
+                                                "key" : "Parascaris",
                                                 "children" : [
                                                    {
-                                                      "key" : "parascaris_equorum_prjeb514",
-                                                      "title" : "Parascaris equorum (PRJEB514)"
+                                                      "title" : "Parascaris equorum (PRJEB514)",
+                                                      "key" : "parascaris_equorum_prjeb514"
                                                    },
                                                    {
-                                                      "key" : "parascaris_univalens_prjna386823",
-                                                      "title" : "Parascaris univalens (PRJNA386823)"
+                                                      "title" : "Parascaris univalens (PRJNA386823)",
+                                                      "key" : "parascaris_univalens_prjna386823"
                                                    }
                                                 ]
                                              }
-                                          ]
+                                          ],
+                                          "key" : "Ascarididae",
+                                          "isFolder" : true,
+                                          "title" : "Ascarididae"
                                        },
                                        {
-                                          "isFolder" : true,
-                                          "key" : "Toxocaridae",
                                           "title" : "Toxocaridae",
                                           "children" : [
                                              {
+                                                "isFolder" : true,
+                                                "key" : "Toxocara",
                                                 "children" : [
                                                    {
-                                                      "title" : "Toxocara canis (PRJEB533)",
-                                                      "key" : "toxocara_canis_prjeb533"
+                                                      "key" : "toxocara_canis_prjeb533",
+                                                      "title" : "Toxocara canis (PRJEB533)"
                                                    },
                                                    {
-                                                      "title" : "Toxocara canis (PRJNA248777)",
-                                                      "key" : "toxocara_canis_prjna248777"
+                                                      "key" : "toxocara_canis_prjna248777",
+                                                      "title" : "Toxocara canis (PRJNA248777)"
                                                    }
                                                 ],
-                                                "title" : "Toxocara",
-                                                "isFolder" : true,
-                                                "key" : "Toxocara"
+                                                "title" : "Toxocara"
                                              }
-                                          ]
+                                          ],
+                                          "key" : "Toxocaridae",
+                                          "isFolder" : true
                                        }
                                     ]
                                  }
                               ],
-                              "key" : "Ascaridomorpha",
-                              "isFolder" : true
+                              "title" : "Ascaridomorpha"
                            },
                            {
-                              "title" : "Dracunculoidea",
+                              "isFolder" : true,
+                              "key" : "Dracunculoidea",
                               "children" : [
                                  {
                                     "key" : "dracunculus_medinensis_prjeb500",
                                     "title" : "Dracunculus medinensis (PRJEB500)"
                                  }
                               ],
-                              "key" : "Dracunculoidea",
-                              "isFolder" : true
+                              "title" : "Dracunculoidea"
                            },
                            {
-                              "title" : "Oxyuridomorpha",
                               "children" : [
                                  {
-                                    "key" : "Oxyuridae",
-                                    "isFolder" : true,
                                     "title" : "Oxyuridae",
                                     "children" : [
                                        {
-                                          "title" : "Enterobius",
+                                          "key" : "Enterobius",
                                           "children" : [
                                              {
                                                 "key" : "enterobius_vermicularis_prjeb503",
                                                 "title" : "Enterobius vermicularis (PRJEB503)"
                                              }
                                           ],
-                                          "key" : "Enterobius",
-                                          "isFolder" : true
+                                          "isFolder" : true,
+                                          "title" : "Enterobius"
                                        },
                                        {
-                                          "isFolder" : true,
-                                          "key" : "Syphacia",
-                                          "title" : "Syphacia",
                                           "children" : [
                                              {
-                                                "title" : "Syphacia muris (PRJEB524)",
-                                                "key" : "syphacia_muris_prjeb524"
+                                                "key" : "syphacia_muris_prjeb524",
+                                                "title" : "Syphacia muris (PRJEB524)"
                                              }
-                                          ]
+                                          ],
+                                          "key" : "Syphacia",
+                                          "isFolder" : true,
+                                          "title" : "Syphacia"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Oxyuridae",
+                                    "isFolder" : true
                                  }
                               ],
                               "key" : "Oxyuridomorpha",
-                              "isFolder" : true
+                              "isFolder" : true,
+                              "title" : "Oxyuridomorpha"
                            },
                            {
-                              "isFolder" : true,
                               "key" : "Spiruromorpha",
                               "children" : [
                                  {
-                                    "isFolder" : true,
-                                    "key" : "Filarioidea",
-                                    "title" : "Filarioidea",
                                     "children" : [
                                        {
-                                          "isFolder" : true,
-                                          "key" : "Onchocercidae",
                                           "title" : "Onchocercidae",
                                           "children" : [
                                              {
                                                 "title" : "Acanthocheilonema",
+                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "key" : "acanthocheilonema_viteae_prjeb1697",
-                                                      "title" : "Acanthocheilonema viteae (PRJEB1697)"
+                                                      "title" : "Acanthocheilonema viteae (PRJEB1697)",
+                                                      "key" : "acanthocheilonema_viteae_prjeb1697"
                                                    }
                                                 ],
-                                                "key" : "Acanthocheilonema",
-                                                "isFolder" : true
+                                                "key" : "Acanthocheilonema"
                                              },
                                              {
-                                                "title" : "Brugia",
+                                                "key" : "Brugia",
                                                 "children" : [
                                                    {
                                                       "key" : "brugia_malayi_prjna10729",
@@ -484,33 +478,44 @@ taxonTreeData = [
                                                       "title" : "Brugia timori (PRJEB4663)"
                                                    }
                                                 ],
-                                                "key" : "Brugia",
+                                                "isFolder" : true,
+                                                "title" : "Brugia"
+                                             },
+                                             {
+                                                "title" : "Cercopithifilaria",
+                                                "key" : "Cercopithifilaria",
+                                                "children" : [
+                                                   {
+                                                      "title" : "Cercopithifilaria johnstoni (PRJEB47283)",
+                                                      "key" : "cercopithifilaria_johnstoni_prjeb47283"
+                                                   }
+                                                ],
                                                 "isFolder" : true
                                              },
                                              {
+                                                "key" : "Dirofilaria",
                                                 "children" : [
                                                    {
                                                       "key" : "dirofilaria_immitis_prjeb1797",
                                                       "title" : "Dirofilaria immitis (PRJEB1797)"
                                                    }
                                                 ],
-                                                "title" : "Dirofilaria",
-                                                "key" : "Dirofilaria",
-                                                "isFolder" : true
+                                                "isFolder" : true,
+                                                "title" : "Dirofilaria"
                                              },
                                              {
                                                 "isFolder" : true,
                                                 "key" : "Elaeophora",
-                                                "title" : "Elaeophora",
                                                 "children" : [
                                                    {
                                                       "key" : "elaeophora_elaphi_prjeb502",
                                                       "title" : "Elaeophora elaphi (PRJEB502)"
                                                    }
-                                                ]
+                                                ],
+                                                "title" : "Elaeophora"
                                              },
                                              {
-                                                "title" : "Litomosoides",
+                                                "isFolder" : true,
                                                 "children" : [
                                                    {
                                                       "key" : "litomosoides_sigmodontis_prjeb3075",
@@ -518,11 +523,9 @@ taxonTreeData = [
                                                    }
                                                 ],
                                                 "key" : "Litomosoides",
-                                                "isFolder" : true
+                                                "title" : "Litomosoides"
                                              },
                                              {
-                                                "key" : "Loa",
-                                                "isFolder" : true,
                                                 "title" : "Loa",
                                                 "children" : [
                                                    {
@@ -533,38 +536,38 @@ taxonTreeData = [
                                                       "key" : "loa_loa_prjna37757",
                                                       "title" : "Loa loa (PRJNA37757)"
                                                    }
-                                                ]
+                                                ],
+                                                "key" : "Loa",
+                                                "isFolder" : true
                                              },
                                              {
+                                                "isFolder" : true,
+                                                "key" : "Onchocerca",
                                                 "children" : [
                                                    {
                                                       "title" : "Onchocerca flexuosa (PRJEB512)",
                                                       "key" : "onchocerca_flexuosa_prjeb512"
                                                    },
                                                    {
-                                                      "key" : "onchocerca_flexuosa_prjna230512",
-                                                      "title" : "Onchocerca flexuosa (PRJNA230512)"
+                                                      "title" : "Onchocerca flexuosa (PRJNA230512)",
+                                                      "key" : "onchocerca_flexuosa_prjna230512"
                                                    },
                                                    {
                                                       "key" : "onchocerca_ochengi_prjeb1204",
                                                       "title" : "Onchocerca ochengi (PRJEB1204)"
                                                    },
                                                    {
-                                                      "key" : "onchocerca_ochengi_prjeb1465",
-                                                      "title" : "Onchocerca ochengi (PRJEB1465)"
+                                                      "title" : "Onchocerca ochengi (PRJEB1465)",
+                                                      "key" : "onchocerca_ochengi_prjeb1465"
                                                    },
                                                    {
                                                       "title" : "Onchocerca volvulus (PRJEB513)",
                                                       "key" : "onchocerca_volvulus_prjeb513"
                                                    }
                                                 ],
-                                                "title" : "Onchocerca",
-                                                "key" : "Onchocerca",
-                                                "isFolder" : true
+                                                "title" : "Onchocerca"
                                              },
                                              {
-                                                "key" : "Wuchereria",
-                                                "isFolder" : true,
                                                 "title" : "Wuchereria",
                                                 "children" : [
                                                    {
@@ -575,101 +578,115 @@ taxonTreeData = [
                                                       "title" : "Wuchereria bancrofti (PRJNA275548)",
                                                       "key" : "wuchereria_bancrofti_prjna275548"
                                                    }
-                                                ]
+                                                ],
+                                                "key" : "Wuchereria",
+                                                "isFolder" : true
                                              }
-                                          ]
+                                          ],
+                                          "key" : "Onchocercidae",
+                                          "isFolder" : true
                                        },
                                        {
-                                          "key" : "Setariidae",
                                           "isFolder" : true,
-                                          "title" : "Setariidae",
+                                          "key" : "Setariidae",
                                           "children" : [
                                              {
-                                                "key" : "setaria_digitata_prjna479729",
-                                                "title" : "Setaria digitata (PRJNA479729)"
+                                                "title" : "Setaria digitata (PRJNA479729)",
+                                                "key" : "setaria_digitata_prjna479729"
                                              }
-                                          ]
+                                          ],
+                                          "title" : "Setariidae"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Filarioidea",
+                                    "isFolder" : true,
+                                    "title" : "Filarioidea"
                                  },
                                  {
-                                    "key" : "Spiruroidea",
-                                    "isFolder" : true,
                                     "title" : "Spiruroidea",
+                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "key" : "gongylonema_pulchrum_prjeb505",
-                                          "title" : "Gongylonema pulchrum (PRJEB505)"
+                                          "title" : "Gongylonema pulchrum (PRJEB505)",
+                                          "key" : "gongylonema_pulchrum_prjeb505"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Spiruroidea"
                                  },
                                  {
+                                    "title" : "Thelazioidea",
+                                    "key" : "Thelazioidea",
                                     "children" : [
                                        {
                                           "title" : "Thelazia callipaeda (PRJEB1205)",
                                           "key" : "thelazia_callipaeda_prjeb1205"
                                        }
                                     ],
-                                    "title" : "Thelazioidea",
-                                    "isFolder" : true,
-                                    "key" : "Thelazioidea"
+                                    "isFolder" : true
                                  }
                               ],
+                              "isFolder" : true,
                               "title" : "Spiruromorpha"
                            }
                         ],
-                        "title" : "Spirurina"
+                        "key" : "Spirurina"
                      },
                      {
+                        "key" : "Tylenchina",
                         "children" : [
                            {
                               "title" : "Cephalobomorpha",
+                              "key" : "Cephalobomorpha",
                               "children" : [
                                  {
-                                    "title" : "Acrobeloides nanus (PRJEB26554)",
-                                    "key" : "acrobeloides_nanus_prjeb26554"
+                                    "key" : "acrobeloides_nanus_prjeb26554",
+                                    "title" : "Acrobeloides nanus (PRJEB26554)"
                                  }
                               ],
-                              "key" : "Cephalobomorpha",
                               "isFolder" : true
                            },
                            {
                               "isFolder" : true,
-                              "key" : "Panagrolaimomorpha",
-                              "title" : "Panagrolaimomorpha",
                               "children" : [
                                  {
-                                    "title" : "Panagrolaimoidea",
                                     "children" : [
                                        {
-                                          "title" : "Panagrolaimidae",
+                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "title" : "Halicephalobus",
+                                                "isFolder" : true,
                                                 "children" : [
                                                    {
-                                                      "title" : "Halicephalobus sp. WB-2010a (PRJNA528747)",
-                                                      "key" : "halicephalobus_mephisto_prjna528747"
+                                                      "title" : "unclassified Halicephalobus",
+                                                      "children" : [
+                                                         {
+                                                            "title" : "Halicephalobus sp. NKZ332 (PRJNA555616)",
+                                                            "key" : "halicephalobus_nkz332_prjna555616"
+                                                         },
+                                                         {
+                                                            "key" : "halicephalobus_mephisto_prjna528747",
+                                                            "title" : "Halicephalobus sp. WB-2010a (PRJNA528747)"
+                                                         }
+                                                      ],
+                                                      "key" : "unclassified Halicephalobus",
+                                                      "isFolder" : true
                                                    }
                                                 ],
-                                                "key" : "Halicephalobus",
-                                                "isFolder" : true
+                                                "key" : "Halicephalobus"
                                              },
                                              {
+                                                "isFolder" : true,
+                                                "key" : "Panagrellus",
                                                 "children" : [
                                                    {
                                                       "title" : "Panagrellus redivivus (PRJNA186477)",
                                                       "key" : "panagrellus_redivivus_prjna186477"
                                                    }
                                                 ],
-                                                "title" : "Panagrellus",
-                                                "key" : "Panagrellus",
-                                                "isFolder" : true
+                                                "title" : "Panagrellus"
                                              },
                                              {
-                                                "isFolder" : true,
-                                                "key" : "Panagrolaimus",
-                                                "title" : "Panagrolaimus",
                                                 "children" : [
                                                    {
                                                       "key" : "panagrolaimus_davidi_prjeb32708",
@@ -681,64 +698,68 @@ taxonTreeData = [
                                                    },
                                                    {
                                                       "title" : "unclassified Panagrolaimus",
+                                                      "isFolder" : true,
+                                                      "key" : "unclassified Panagrolaimus",
                                                       "children" : [
                                                          {
                                                             "key" : "panagrolaimus_es5_prjeb32708",
                                                             "title" : "Panagrolaimus sp. ES5 (PRJEB32708)"
                                                          },
                                                          {
-                                                            "key" : "propanagrolaimus_ju765_prjeb32708",
-                                                            "title" : "Panagrolaimus sp. JU765 (PRJEB32708)"
+                                                            "title" : "Panagrolaimus sp. JU765 (PRJEB32708)",
+                                                            "key" : "propanagrolaimus_ju765_prjeb32708"
                                                          },
                                                          {
                                                             "title" : "Panagrolaimus sp. PS1159 (PRJEB32708)",
                                                             "key" : "panagrolaimus_ps1159_prjeb32708"
                                                          }
-                                                      ],
-                                                      "key" : "unclassified Panagrolaimus",
-                                                      "isFolder" : true
+                                                      ]
                                                    }
-                                                ]
+                                                ],
+                                                "key" : "Panagrolaimus",
+                                                "isFolder" : true,
+                                                "title" : "Panagrolaimus"
                                              }
                                           ],
-                                          "isFolder" : true,
-                                          "key" : "Panagrolaimidae"
+                                          "key" : "Panagrolaimidae",
+                                          "title" : "Panagrolaimidae"
                                        }
                                     ],
                                     "key" : "Panagrolaimoidea",
-                                    "isFolder" : true
+                                    "isFolder" : true,
+                                    "title" : "Panagrolaimoidea"
                                  },
                                  {
-                                    "isFolder" : true,
-                                    "key" : "Strongyloidoidea",
                                     "children" : [
                                        {
+                                          "title" : "Alloionematidae",
+                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "title" : "Rhabditophanes sp. KR3021 (PRJEB1297)",
-                                                "key" : "rhabditophanes_kr3021_prjeb1297"
+                                                "key" : "rhabditophanes_kr3021_prjeb1297",
+                                                "title" : "Rhabditophanes sp. KR3021 (PRJEB1297)"
                                              }
                                           ],
-                                          "title" : "Alloionematidae",
-                                          "key" : "Alloionematidae",
-                                          "isFolder" : true
+                                          "key" : "Alloionematidae"
                                        },
                                        {
+                                          "isFolder" : true,
                                           "children" : [
                                              {
                                                 "title" : "Steinernema",
+                                                "key" : "Steinernema",
                                                 "children" : [
                                                    {
                                                       "title" : "Steinernema carpocapsae (PRJNA202318)",
                                                       "key" : "steinernema_carpocapsae_prjna202318"
                                                    },
                                                    {
-                                                      "key" : "steinernema_carpocapsae_v1prjna202318",
-                                                      "title" : "Steinernema carpocapsae (V1PRJNA202318)"
+                                                      "title" : "Steinernema carpocapsae (V1PRJNA202318)",
+                                                      "key" : "steinernema_carpocapsae_v1prjna202318"
                                                    },
                                                    {
-                                                      "key" : "steinernema_feltiae_prjna204661",
-                                                      "title" : "Steinernema feltiae (PRJNA204661)"
+                                                      "title" : "Steinernema feltiae (PRJNA204661)",
+                                                      "key" : "steinernema_feltiae_prjna204661"
                                                    },
                                                    {
                                                       "key" : "steinernema_feltiae_prjna353610",
@@ -753,96 +774,103 @@ taxonTreeData = [
                                                       "title" : "Steinernema monticolum (PRJNA205067)"
                                                    },
                                                    {
-                                                      "key" : "steinernema_scapterisci_prjna204942",
-                                                      "title" : "Steinernema scapterisci (PRJNA204942)"
+                                                      "title" : "Steinernema scapterisci (PRJNA204942)",
+                                                      "key" : "steinernema_scapterisci_prjna204942"
                                                    }
                                                 ],
-                                                "key" : "Steinernema",
                                                 "isFolder" : true
                                              }
                                           ],
-                                          "title" : "Steinernematidae",
                                           "key" : "Steinernematidae",
-                                          "isFolder" : true
+                                          "title" : "Steinernematidae"
                                        },
                                        {
-                                          "key" : "Strongyloididae",
+                                          "title" : "Strongyloididae",
                                           "isFolder" : true,
+                                          "key" : "Strongyloididae",
                                           "children" : [
                                              {
+                                                "title" : "Parastrongyloides",
                                                 "isFolder" : true,
                                                 "key" : "Parastrongyloides",
                                                 "children" : [
                                                    {
-                                                      "key" : "parastrongyloides_trichosuri_prjeb515",
-                                                      "title" : "Parastrongyloides trichosuri (PRJEB515)"
+                                                      "title" : "Parastrongyloides trichosuri (PRJEB515)",
+                                                      "key" : "parastrongyloides_trichosuri_prjeb515"
                                                    }
-                                                ],
-                                                "title" : "Parastrongyloides"
+                                                ]
                                              },
                                              {
-                                                "key" : "Strongyloides",
-                                                "isFolder" : true,
+                                                "title" : "Strongyloides",
                                                 "children" : [
                                                    {
-                                                      "title" : "Strongyloides papillosus (PRJEB525)",
-                                                      "key" : "strongyloides_papillosus_prjeb525"
+                                                      "key" : "strongyloides_papillosus_prjeb525",
+                                                      "title" : "Strongyloides papillosus (PRJEB525)"
                                                    },
                                                    {
-                                                      "key" : "strongyloides_ratti_prjeb125",
-                                                      "title" : "Strongyloides ratti (PRJEB125)"
+                                                      "title" : "Strongyloides ratti (PRJEB125)",
+                                                      "key" : "strongyloides_ratti_prjeb125"
                                                    },
                                                    {
-                                                      "title" : "Strongyloides stercoralis (PRJEB528)",
-                                                      "key" : "strongyloides_stercoralis_prjeb528"
+                                                      "key" : "strongyloides_stercoralis_prjeb528",
+                                                      "title" : "Strongyloides stercoralis (PRJEB528)"
                                                    },
                                                    {
-                                                      "key" : "strongyloides_venezuelensis_prjeb530",
-                                                      "title" : "Strongyloides venezuelensis (PRJEB530)"
+                                                      "title" : "Strongyloides venezuelensis (PRJEB530)",
+                                                      "key" : "strongyloides_venezuelensis_prjeb530"
                                                    }
                                                 ],
-                                                "title" : "Strongyloides"
+                                                "key" : "Strongyloides",
+                                                "isFolder" : true
                                              }
-                                          ],
-                                          "title" : "Strongyloididae"
+                                          ]
                                        }
                                     ],
+                                    "key" : "Strongyloidoidea",
+                                    "isFolder" : true,
                                     "title" : "Strongyloidoidea"
                                  }
-                              ]
+                              ],
+                              "key" : "Panagrolaimomorpha",
+                              "title" : "Panagrolaimomorpha"
                            },
                            {
                               "children" : [
                                  {
-                                    "children" : [
-                                       {
-                                          "children" : [
-                                             {
-                                                "key" : "bursaphelenchus_okinawaensis_prjeb40023",
-                                                "title" : "Bursaphelenchus okinawaensis (PRJEB40023)"
-                                             },
-                                             {
-                                                "title" : "Bursaphelenchus xylophilus (PRJEA64437)",
-                                                "key" : "bursaphelenchus_xylophilus_prjea64437"
-                                             },
-                                             {
-                                                "key" : "bursaphelenchus_xylophilus_prjeb40022",
-                                                "title" : "Bursaphelenchus xylophilus (PRJEB40022)"
-                                             }
-                                          ],
-                                          "title" : "Bursaphelenchus",
-                                          "key" : "Bursaphelenchus",
-                                          "isFolder" : true
-                                       }
-                                    ],
                                     "title" : "Aphelenchoidea",
                                     "isFolder" : true,
-                                    "key" : "Aphelenchoidea"
+                                    "key" : "Aphelenchoidea",
+                                    "children" : [
+                                       {
+                                          "key" : "Bursaphelenchus",
+                                          "children" : [
+                                             {
+                                                "title" : "Bursaphelenchus okinawaensis (PRJEB40023)",
+                                                "key" : "bursaphelenchus_okinawaensis_prjeb40023"
+                                             },
+                                             {
+                                                "key" : "bursaphelenchus_xylophilus_prjea64437",
+                                                "title" : "Bursaphelenchus xylophilus (PRJEA64437)"
+                                             },
+                                             {
+                                                "title" : "Bursaphelenchus xylophilus (PRJEB40022)",
+                                                "key" : "bursaphelenchus_xylophilus_prjeb40022"
+                                             }
+                                          ],
+                                          "isFolder" : true,
+                                          "title" : "Bursaphelenchus"
+                                       }
+                                    ]
                                  },
                                  {
                                     "title" : "Sphaerularioidea",
+                                    "isFolder" : true,
+                                    "key" : "Sphaerularioidea",
                                     "children" : [
                                        {
+                                          "title" : "Ditylenchus",
+                                          "isFolder" : true,
+                                          "key" : "Ditylenchus",
                                           "children" : [
                                              {
                                                 "title" : "Ditylenchus destructor (PRJNA312427)",
@@ -852,82 +880,87 @@ taxonTreeData = [
                                                 "title" : "Ditylenchus dipsaci (PRJNA498219)",
                                                 "key" : "ditylenchus_dipsaci_prjna498219"
                                              }
-                                          ],
-                                          "title" : "Ditylenchus",
-                                          "isFolder" : true,
-                                          "key" : "Ditylenchus"
+                                          ]
                                        }
-                                    ],
-                                    "key" : "Sphaerularioidea",
-                                    "isFolder" : true
+                                    ]
                                  },
                                  {
-                                    "title" : "Tylenchoidea",
                                     "children" : [
                                        {
-                                          "isFolder" : true,
                                           "key" : "Heteroderidae",
-                                          "title" : "Heteroderidae",
                                           "children" : [
                                              {
-                                                "key" : "Heteroderinae",
+                                                "title" : "Heteroderinae",
                                                 "isFolder" : true,
+                                                "key" : "Heteroderinae",
                                                 "children" : [
                                                    {
-                                                      "isFolder" : true,
-                                                      "key" : "Globodera",
-                                                      "title" : "Globodera",
                                                       "children" : [
                                                          {
-                                                            "key" : "globodera_pallida_prjeb123",
-                                                            "title" : "Globodera pallida (PRJEB123)"
+                                                            "title" : "Globodera pallida (PRJEB123)",
+                                                            "key" : "globodera_pallida_prjeb123"
                                                          },
                                                          {
-                                                            "title" : "Globodera rostochiensis (PRJEB13504)",
-                                                            "key" : "globodera_rostochiensis_prjeb13504"
-                                                         }
-                                                      ]
-                                                   },
-                                                   {
-                                                      "children" : [
+                                                            "title" : "Globodera rostochiensis (L19PRJNA695196)",
+                                                            "key" : "globodera_rostochiensis_l19prjna695196"
+                                                         },
                                                          {
-                                                            "key" : "heterodera_glycines_prjna381081",
-                                                            "title" : "Heterodera glycines (PRJNA381081)"
+                                                            "title" : "Globodera rostochiensis (L22PRJNA695196)",
+                                                            "key" : "globodera_rostochiensis_l22prjna695196"
+                                                         },
+                                                         {
+                                                            "key" : "globodera_rostochiensis_prjeb13504",
+                                                            "title" : "Globodera rostochiensis (PRJEB13504)"
                                                          }
                                                       ],
-                                                      "title" : "Heterodera",
+                                                      "key" : "Globodera",
                                                       "isFolder" : true,
-                                                      "key" : "Heterodera"
+                                                      "title" : "Globodera"
+                                                   },
+                                                   {
+                                                      "title" : "Heterodera",
+                                                      "children" : [
+                                                         {
+                                                            "title" : "Heterodera glycines (PRJNA381081)",
+                                                            "key" : "heterodera_glycines_prjna381081"
+                                                         },
+                                                         {
+                                                            "key" : "heterodera_schachtii_prjna722882",
+                                                            "title" : "Heterodera schachtii (PRJNA722882)"
+                                                         }
+                                                      ],
+                                                      "key" : "Heterodera",
+                                                      "isFolder" : true
                                                    }
-                                                ],
-                                                "title" : "Heteroderinae"
+                                                ]
                                              }
-                                          ]
+                                          ],
+                                          "isFolder" : true,
+                                          "title" : "Heteroderidae"
                                        },
                                        {
-                                          "isFolder" : true,
-                                          "key" : "Meloidogynidae",
                                           "title" : "Meloidogynidae",
+                                          "key" : "Meloidogynidae",
                                           "children" : [
                                              {
+                                                "title" : "Meloidogyne",
                                                 "isFolder" : true,
-                                                "key" : "Meloidogyne",
                                                 "children" : [
                                                    {
-                                                      "title" : "Meloidogyne enterolobii (PRJNA340324)",
-                                                      "key" : "meloidogyne_enterolobii_prjna340324"
+                                                      "key" : "meloidogyne_enterolobii_prjna340324",
+                                                      "title" : "Meloidogyne enterolobii (PRJNA340324)"
                                                    },
                                                    {
                                                       "key" : "meloidogyne_floridensis_prjeb6016",
                                                       "title" : "Meloidogyne floridensis (PRJEB6016)"
                                                    },
                                                    {
-                                                      "title" : "Meloidogyne floridensis (PRJNA340324)",
-                                                      "key" : "meloidogyne_floridensis_prjna340324"
+                                                      "key" : "meloidogyne_floridensis_prjna340324",
+                                                      "title" : "Meloidogyne floridensis (PRJNA340324)"
                                                    },
                                                    {
-                                                      "title" : "Meloidogyne graminicola (PRJNA411966)",
-                                                      "key" : "meloidogyne_graminicola_prjna411966"
+                                                      "key" : "meloidogyne_graminicola_prjna411966",
+                                                      "title" : "Meloidogyne graminicola (PRJNA411966)"
                                                    },
                                                    {
                                                       "title" : "Meloidogyne hapla (PRJNA29083)",
@@ -935,12 +968,10 @@ taxonTreeData = [
                                                    },
                                                    {
                                                       "isFolder" : true,
-                                                      "key" : "Meloidogyne incognita group",
-                                                      "title" : "Meloidogyne incognita group",
                                                       "children" : [
                                                          {
-                                                            "title" : "Meloidogyne arenaria (PRJEB8714)",
-                                                            "key" : "meloidogyne_arenaria_prjeb8714"
+                                                            "key" : "meloidogyne_arenaria_prjeb8714",
+                                                            "title" : "Meloidogyne arenaria (PRJEB8714)"
                                                          },
                                                          {
                                                             "key" : "meloidogyne_arenaria_prjna340324",
@@ -951,8 +982,8 @@ taxonTreeData = [
                                                             "key" : "meloidogyne_arenaria_prjna438575"
                                                          },
                                                          {
-                                                            "key" : "meloidogyne_incognita_prjeb8714",
-                                                            "title" : "Meloidogyne incognita (PRJEB8714)"
+                                                            "title" : "Meloidogyne incognita (PRJEB8714)",
+                                                            "key" : "meloidogyne_incognita_prjeb8714"
                                                          },
                                                          {
                                                             "title" : "Meloidogyne incognita (PRJNA340324)",
@@ -966,111 +997,121 @@ taxonTreeData = [
                                                             "title" : "Meloidogyne javanica (PRJNA340324)",
                                                             "key" : "meloidogyne_javanica_prjna340324"
                                                          }
-                                                      ]
+                                                      ],
+                                                      "key" : "Meloidogyne incognita group",
+                                                      "title" : "Meloidogyne incognita group"
                                                    }
                                                 ],
-                                                "title" : "Meloidogyne"
+                                                "key" : "Meloidogyne"
                                              }
-                                          ]
+                                          ],
+                                          "isFolder" : true
                                        }
                                     ],
+                                    "key" : "Tylenchoidea",
                                     "isFolder" : true,
-                                    "key" : "Tylenchoidea"
+                                    "title" : "Tylenchoidea"
                                  }
                               ],
-                              "title" : "Tylenchomorpha",
                               "key" : "Tylenchomorpha",
-                              "isFolder" : true
+                              "isFolder" : true,
+                              "title" : "Tylenchomorpha"
                            }
                         ],
-                        "title" : "Tylenchina",
                         "isFolder" : true,
-                        "key" : "Tylenchina"
+                        "title" : "Tylenchina"
                      }
-                  ]
+                  ],
+                  "key" : "Rhabditida",
+                  "title" : "Rhabditida"
                },
                {
+                  "isFolder" : true,
                   "children" : [
                      {
+                        "title" : "Ancylostomatoidea",
                         "isFolder" : true,
                         "key" : "Ancylostomatoidea",
-                        "title" : "Ancylostomatoidea",
                         "children" : [
                            {
+                              "isFolder" : true,
                               "children" : [
                                  {
                                     "key" : "Ancylostomatinae",
-                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "title" : "Ancylostoma",
+                                          "isFolder" : true,
+                                          "key" : "Ancylostoma",
                                           "children" : [
                                              {
-                                                "title" : "Ancylostoma caninum (PRJNA72585)",
-                                                "key" : "ancylostoma_caninum_prjna72585"
+                                                "key" : "ancylostoma_caninum_prjna72585",
+                                                "title" : "Ancylostoma caninum (PRJNA72585)"
                                              },
                                              {
-                                                "key" : "ancylostoma_ceylanicum_prjna231479",
-                                                "title" : "Ancylostoma ceylanicum (PRJNA231479)"
+                                                "title" : "Ancylostoma ceylanicum (PRJNA231479)",
+                                                "key" : "ancylostoma_ceylanicum_prjna231479"
                                              },
                                              {
-                                                "title" : "Ancylostoma ceylanicum (PRJNA72583)",
-                                                "key" : "ancylostoma_ceylanicum_prjna72583"
+                                                "key" : "ancylostoma_ceylanicum_prjna72583",
+                                                "title" : "Ancylostoma ceylanicum (PRJNA72583)"
                                              },
                                              {
-                                                "key" : "ancylostoma_duodenale_prjna72581",
-                                                "title" : "Ancylostoma duodenale (PRJNA72581)"
+                                                "title" : "Ancylostoma duodenale (PRJNA72581)",
+                                                "key" : "ancylostoma_duodenale_prjna72581"
                                              }
                                           ],
-                                          "isFolder" : true,
-                                          "key" : "Ancylostoma"
+                                          "title" : "Ancylostoma"
                                        }
                                     ],
+                                    "isFolder" : true,
                                     "title" : "Ancylostomatinae"
                                  },
                                  {
+                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "key" : "necator_americanus_prjna72135",
                                           "title" : "Necator americanus (PRJNA72135)"
                                        }
                                     ],
-                                    "title" : "Bunostominae",
-                                    "isFolder" : true,
-                                    "key" : "Bunostominae"
+                                    "key" : "Bunostominae",
+                                    "title" : "Bunostominae"
                                  }
                               ],
-                              "title" : "Ancylostomatidae",
-                              "isFolder" : true,
-                              "key" : "Ancylostomatidae"
+                              "key" : "Ancylostomatidae",
+                              "title" : "Ancylostomatidae"
                            }
                         ]
                      },
                      {
+                        "title" : "Metastrongyloidea",
                         "key" : "Metastrongyloidea",
-                        "isFolder" : true,
                         "children" : [
                            {
-                              "title" : "Angiostrongylus",
+                              "isFolder" : true,
+                              "key" : "Angiostrongylus",
                               "children" : [
                                  {
                                     "title" : "Angiostrongylus cantonensis (PRJEB493)",
                                     "key" : "angiostrongylus_cantonensis_prjeb493"
                                  },
                                  {
-                                    "key" : "angiostrongylus_cantonensis_prjna350391",
-                                    "title" : "Angiostrongylus cantonensis (PRJNA350391)"
+                                    "title" : "Angiostrongylus cantonensis (PRJNA350391)",
+                                    "key" : "angiostrongylus_cantonensis_prjna350391"
                                  },
                                  {
-                                    "title" : "Angiostrongylus costaricensis (PRJEB494)",
-                                    "key" : "angiostrongylus_costaricensis_prjeb494"
+                                    "key" : "angiostrongylus_costaricensis_prjeb494",
+                                    "title" : "Angiostrongylus costaricensis (PRJEB494)"
+                                 },
+                                 {
+                                    "title" : "Angiostrongylus vasorum (PRJNA663250)",
+                                    "key" : "angiostrongylus_vasorum_prjna663250"
                                  }
                               ],
-                              "key" : "Angiostrongylus",
-                              "isFolder" : true
+                              "title" : "Angiostrongylus"
                            }
                         ],
-                        "title" : "Metastrongyloidea"
+                        "isFolder" : true
                      },
                      {
                         "title" : "Strongyloidea",
@@ -1082,197 +1123,198 @@ taxonTreeData = [
                                     "title" : "Oesophagostomum dentatum (PRJNA72579)"
                                  }
                               ],
-                              "title" : "Chabertiidae",
+                              "key" : "Chabertiidae",
                               "isFolder" : true,
-                              "key" : "Chabertiidae"
+                              "title" : "Chabertiidae"
                            },
                            {
-                              "key" : "Heterorhabditidae",
-                              "isFolder" : true,
                               "children" : [
                                  {
-                                    "title" : "Heterorhabditis bacteriophora (PRJNA13977)",
-                                    "key" : "heterorhabditis_bacteriophora_prjna13977"
+                                    "key" : "heterorhabditis_bacteriophora_prjna13977",
+                                    "title" : "Heterorhabditis bacteriophora (PRJNA13977)"
                                  }
                               ],
+                              "key" : "Heterorhabditidae",
+                              "isFolder" : true,
                               "title" : "Heterorhabditidae"
                            },
                            {
-                              "key" : "Strongylidae",
+                              "title" : "Strongylidae",
                               "isFolder" : true,
+                              "key" : "Strongylidae",
                               "children" : [
                                  {
                                     "isFolder" : true,
                                     "key" : "Cyathostominae",
-                                    "title" : "Cyathostominae",
                                     "children" : [
                                        {
                                           "title" : "Cylicostephanus goldi (PRJEB498)",
                                           "key" : "cylicostephanus_goldi_prjeb498"
                                        }
-                                    ]
+                                    ],
+                                    "title" : "Cyathostominae"
                                  },
                                  {
-                                    "isFolder" : true,
-                                    "key" : "Strongylinae",
-                                    "title" : "Strongylinae",
                                     "children" : [
                                        {
-                                          "title" : "Strongylus vulgaris (PRJEB531)",
-                                          "key" : "strongylus_vulgaris_prjeb531"
-                                       }
-                                    ]
-                                 }
-                              ],
-                              "title" : "Strongylidae"
-                           }
-                        ],
-                        "isFolder" : true,
-                        "key" : "Strongyloidea"
-                     },
-                     {
-                        "children" : [
-                           {
-                              "key" : "Dictyocaulidae",
-                              "isFolder" : true,
-                              "children" : [
-                                 {
-                                    "children" : [
-                                       {
-                                          "title" : "Dictyocaulus viviparus (PRJEB5116)",
-                                          "key" : "dictyocaulus_viviparus_prjeb5116"
-                                       },
-                                       {
-                                          "title" : "Dictyocaulus viviparus (PRJNA72587)",
-                                          "key" : "dictyocaulus_viviparus_prjna72587"
+                                          "key" : "strongylus_vulgaris_prjeb531",
+                                          "title" : "Strongylus vulgaris (PRJEB531)"
                                        }
                                     ],
+                                    "key" : "Strongylinae",
+                                    "isFolder" : true,
+                                    "title" : "Strongylinae"
+                                 }
+                              ]
+                           }
+                        ],
+                        "key" : "Strongyloidea",
+                        "isFolder" : true
+                     },
+                     {
+                        "title" : "Trichostrongyloidea",
+                        "children" : [
+                           {
+                              "title" : "Dictyocaulidae",
+                              "children" : [
+                                 {
                                     "title" : "Dictyocaulus",
+                                    "children" : [
+                                       {
+                                          "key" : "dictyocaulus_viviparus_prjeb5116",
+                                          "title" : "Dictyocaulus viviparus (PRJEB5116)"
+                                       },
+                                       {
+                                          "key" : "dictyocaulus_viviparus_prjna72587",
+                                          "title" : "Dictyocaulus viviparus (PRJNA72587)"
+                                       }
+                                    ],
                                     "key" : "Dictyocaulus",
                                     "isFolder" : true
                                  }
                               ],
-                              "title" : "Dictyocaulidae"
-                           },
-                           {
-                              "title" : "Haemonchidae",
-                              "children" : [
-                                 {
-                                    "key" : "Haemonchus",
-                                    "isFolder" : true,
-                                    "children" : [
-                                       {
-                                          "key" : "haemonchus_contortus_prjeb506",
-                                          "title" : "Haemonchus contortus (PRJEB506)"
-                                       },
-                                       {
-                                          "title" : "Haemonchus contortus (PRJNA205202)",
-                                          "key" : "haemonchus_contortus_prjna205202"
-                                       },
-                                       {
-                                          "key" : "haemonchus_placei_prjeb509",
-                                          "title" : "Haemonchus placei (PRJEB509)"
-                                       }
-                                    ],
-                                    "title" : "Haemonchus"
-                                 },
-                                 {
-                                    "isFolder" : true,
-                                    "key" : "Teladorsagia",
-                                    "title" : "Teladorsagia",
-                                    "children" : [
-                                       {
-                                          "title" : "Teladorsagia circumcincta (PRJNA72569)",
-                                          "key" : "teladorsagia_circumcincta_prjna72569"
-                                       }
-                                    ]
-                                 }
-                              ],
-                              "isFolder" : true,
-                              "key" : "Haemonchidae"
-                           },
-                           {
-                              "children" : [
-                                 {
-                                    "title" : "Nippostrongylus brasiliensis (PRJEB511)",
-                                    "key" : "nippostrongylus_brasiliensis_prjeb511"
-                                 }
-                              ],
-                              "title" : "Heligmonellidae",
-                              "key" : "Heligmonellidae",
+                              "key" : "Dictyocaulidae",
                               "isFolder" : true
                            },
                            {
+                              "isFolder" : true,
+                              "key" : "Haemonchidae",
+                              "children" : [
+                                 {
+                                    "title" : "Haemonchus",
+                                    "isFolder" : true,
+                                    "key" : "Haemonchus",
+                                    "children" : [
+                                       {
+                                          "title" : "Haemonchus contortus (PRJEB506)",
+                                          "key" : "haemonchus_contortus_prjeb506"
+                                       },
+                                       {
+                                          "key" : "haemonchus_contortus_prjna205202",
+                                          "title" : "Haemonchus contortus (PRJNA205202)"
+                                       },
+                                       {
+                                          "title" : "Haemonchus placei (PRJEB509)",
+                                          "key" : "haemonchus_placei_prjeb509"
+                                       }
+                                    ]
+                                 },
+                                 {
+                                    "title" : "Teladorsagia",
+                                    "isFolder" : true,
+                                    "children" : [
+                                       {
+                                          "key" : "teladorsagia_circumcincta_prjna72569",
+                                          "title" : "Teladorsagia circumcincta (PRJNA72569)"
+                                       }
+                                    ],
+                                    "key" : "Teladorsagia"
+                                 }
+                              ],
+                              "title" : "Haemonchidae"
+                           },
+                           {
+                              "isFolder" : true,
+                              "key" : "Heligmonellidae",
+                              "children" : [
+                                 {
+                                    "key" : "nippostrongylus_brasiliensis_prjeb511",
+                                    "title" : "Nippostrongylus brasiliensis (PRJEB511)"
+                                 }
+                              ],
+                              "title" : "Heligmonellidae"
+                           },
+                           {
+                              "title" : "Heligmosomatidae",
+                              "key" : "Heligmosomatidae",
                               "children" : [
                                  {
                                     "children" : [
                                        {
-                                          "key" : "heligmosomoides_polygyrus_prjeb1203",
-                                          "title" : "Heligmosomoides polygyrus (PRJEB1203)"
+                                          "title" : "Heligmosomoides polygyrus (PRJEB1203)",
+                                          "key" : "heligmosomoides_polygyrus_prjeb1203"
                                        },
                                        {
-                                          "title" : "Heligmosomoides polygyrus (PRJEB15396)",
-                                          "key" : "heligmosomoides_polygyrus_prjeb15396"
+                                          "key" : "heligmosomoides_polygyrus_prjeb15396",
+                                          "title" : "Heligmosomoides polygyrus (PRJEB15396)"
                                        }
                                     ],
-                                    "title" : "Heligmosomoides",
                                     "key" : "Heligmosomoides",
-                                    "isFolder" : true
+                                    "isFolder" : true,
+                                    "title" : "Heligmosomoides"
                                  }
                               ],
-                              "title" : "Heligmosomatidae",
-                              "key" : "Heligmosomatidae",
                               "isFolder" : true
                            }
                         ],
-                        "title" : "Trichostrongyloidea",
                         "key" : "Trichostrongyloidea",
                         "isFolder" : true
                      }
                   ],
-                  "title" : "Strongylida",
-                  "isFolder" : true,
-                  "key" : "Strongylida"
+                  "key" : "Strongylida",
+                  "title" : "Strongylida"
                }
             ],
-            "key" : "Chromadorea",
             "isFolder" : true
          },
          {
-            "key" : "Enoplea",
-            "isFolder" : true,
             "children" : [
                {
+                  "isFolder" : true,
                   "children" : [
                      {
-                        "isFolder" : true,
-                        "key" : "Dioctophymatida",
-                        "title" : "Dioctophymatida",
                         "children" : [
                            {
-                              "title" : "Soboliphyme baturini (PRJEB516)",
-                              "key" : "soboliphyme_baturini_prjeb516"
+                              "key" : "soboliphyme_baturini_prjeb516",
+                              "title" : "Soboliphyme baturini (PRJEB516)"
                            }
-                        ]
+                        ],
+                        "key" : "Dioctophymatida",
+                        "isFolder" : true,
+                        "title" : "Dioctophymatida"
                      },
                      {
-                        "isFolder" : true,
-                        "key" : "Mermithida",
                         "title" : "Mermithida",
+                        "isFolder" : true,
                         "children" : [
                            {
                               "title" : "Romanomermis culicivorax (PRJEB1358)",
                               "key" : "romanomermis_culicivorax_prjeb1358"
                            }
-                        ]
+                        ],
+                        "key" : "Mermithida"
                      },
                      {
                         "title" : "Trichinellida",
+                        "key" : "Trichinellida",
                         "children" : [
                            {
+                              "title" : "Trichinellidae",
+                              "isFolder" : true,
                               "children" : [
                                  {
                                     "title" : "Trichinella",
+                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "title" : "Trichinella britovi (PRJNA257433)",
@@ -1287,8 +1329,8 @@ taxonTreeData = [
                                           "key" : "trichinella_nativa_prjna179527"
                                        },
                                        {
-                                          "key" : "trichinella_nativa_prjna257433",
-                                          "title" : "Trichinella nativa (PRJNA257433)"
+                                          "title" : "Trichinella nativa (PRJNA257433)",
+                                          "key" : "trichinella_nativa_prjna257433"
                                        },
                                        {
                                           "key" : "trichinella_nelsoni_prjna257433",
@@ -1311,108 +1353,104 @@ taxonTreeData = [
                                           "title" : "Trichinella pseudospiralis (ISS141PRJNA257433)"
                                        },
                                        {
-                                          "title" : "Trichinella pseudospiralis (ISS176PRJNA257433)",
-                                          "key" : "trichinella_pseudospiralis_iss176prjna257433"
+                                          "key" : "trichinella_pseudospiralis_iss176prjna257433",
+                                          "title" : "Trichinella pseudospiralis (ISS176PRJNA257433)"
                                        },
                                        {
-                                          "key" : "trichinella_pseudospiralis_iss470prjna257433",
-                                          "title" : "Trichinella pseudospiralis (ISS470PRJNA257433)"
+                                          "title" : "Trichinella pseudospiralis (ISS470PRJNA257433)",
+                                          "key" : "trichinella_pseudospiralis_iss470prjna257433"
                                        },
                                        {
                                           "title" : "Trichinella pseudospiralis (ISS588PRJNA257433)",
                                           "key" : "trichinella_pseudospiralis_iss588prjna257433"
                                        },
                                        {
-                                          "key" : "trichinella_spiralis_prjna12603",
-                                          "title" : "Trichinella spiralis (PRJNA12603)"
+                                          "title" : "Trichinella spiralis (PRJNA12603)",
+                                          "key" : "trichinella_spiralis_prjna12603"
                                        },
                                        {
-                                          "key" : "trichinella_spiralis_prjna257433",
-                                          "title" : "Trichinella spiralis (PRJNA257433)"
+                                          "title" : "Trichinella spiralis (PRJNA257433)",
+                                          "key" : "trichinella_spiralis_prjna257433"
                                        },
                                        {
-                                          "key" : "trichinella_zimbabwensis_prjna257433",
-                                          "title" : "Trichinella zimbabwensis (PRJNA257433)"
+                                          "title" : "Trichinella zimbabwensis (PRJNA257433)",
+                                          "key" : "trichinella_zimbabwensis_prjna257433"
                                        },
                                        {
                                           "title" : "unclassified Trichinella",
+                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "key" : "trichinella_t6_prjna257433",
-                                                "title" : "Trichinella sp. T6 (PRJNA257433)"
+                                                "title" : "Trichinella sp. T6 (PRJNA257433)",
+                                                "key" : "trichinella_t6_prjna257433"
                                              },
                                              {
-                                                "title" : "Trichinella sp. T8 (PRJNA257433)",
-                                                "key" : "trichinella_t8_prjna257433"
+                                                "key" : "trichinella_t8_prjna257433",
+                                                "title" : "Trichinella sp. T8 (PRJNA257433)"
                                              },
                                              {
                                                 "title" : "Trichinella sp. T9 (PRJNA257433)",
                                                 "key" : "trichinella_t9_prjna257433"
                                              }
                                           ],
-                                          "isFolder" : true,
                                           "key" : "unclassified Trichinella"
                                        }
                                     ],
-                                    "isFolder" : true,
                                     "key" : "Trichinella"
                                  }
                               ],
-                              "title" : "Trichinellidae",
-                              "isFolder" : true,
                               "key" : "Trichinellidae"
                            },
                            {
-                              "title" : "Trichuridae",
+                              "isFolder" : true,
+                              "key" : "Trichuridae",
                               "children" : [
                                  {
-                                    "key" : "Trichuris",
-                                    "isFolder" : true,
                                     "title" : "Trichuris",
+                                    "isFolder" : true,
                                     "children" : [
                                        {
-                                          "key" : "trichuris_muris_prjeb126",
-                                          "title" : "Trichuris muris (PRJEB126)"
+                                          "title" : "Trichuris muris (PRJEB126)",
+                                          "key" : "trichuris_muris_prjeb126"
                                        },
                                        {
                                           "title" : "Trichuris suis (PRJNA179528)",
                                           "key" : "trichuris_suis_prjna179528"
                                        },
                                        {
-                                          "key" : "trichuris_suis_prjna208415",
-                                          "title" : "Trichuris suis (PRJNA208415)"
+                                          "title" : "Trichuris suis (PRJNA208415)",
+                                          "key" : "trichuris_suis_prjna208415"
                                        },
                                        {
                                           "title" : "Trichuris suis (PRJNA208416)",
                                           "key" : "trichuris_suis_prjna208416"
                                        },
                                        {
-                                          "title" : "Trichuris trichiura (PRJEB535)",
-                                          "key" : "trichuris_trichiura_prjeb535"
+                                          "key" : "trichuris_trichiura_prjeb535",
+                                          "title" : "Trichuris trichiura (PRJEB535)"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Trichuris"
                                  }
                               ],
-                              "isFolder" : true,
-                              "key" : "Trichuridae"
+                              "title" : "Trichuridae"
                            }
                         ],
-                        "key" : "Trichinellida",
                         "isFolder" : true
                      }
                   ],
-                  "title" : "Dorylaimia",
                   "key" : "Dorylaimia",
-                  "isFolder" : true
+                  "title" : "Dorylaimia"
                }
             ],
+            "key" : "Enoplea",
+            "isFolder" : true,
             "title" : "Enoplea"
          }
-      ],
-      "title" : "Nematoda"
+      ]
    },
    {
-      "title" : "Platyhelminthes",
+      "isFolder" : true,
       "children" : [
          {
             "children" : [
@@ -1420,19 +1458,19 @@ taxonTreeData = [
                   "title" : "Eucestoda",
                   "children" : [
                      {
-                        "title" : "Cyclophyllidea",
                         "children" : [
                            {
-                              "title" : "Hymenolepididae",
+                              "isFolder" : true,
+                              "key" : "Hymenolepididae",
                               "children" : [
                                  {
-                                    "key" : "Hymenolepis",
-                                    "isFolder" : true,
                                     "title" : "Hymenolepis",
+                                    "isFolder" : true,
+                                    "key" : "Hymenolepis",
                                     "children" : [
                                        {
-                                          "title" : "Hymenolepis diminuta (PRJEB30942)",
-                                          "key" : "hymenolepis_diminuta_prjeb30942"
+                                          "key" : "hymenolepis_diminuta_prjeb30942",
+                                          "title" : "Hymenolepis diminuta (PRJEB30942)"
                                        },
                                        {
                                           "title" : "Hymenolepis diminuta (PRJEB507)",
@@ -1445,7 +1483,6 @@ taxonTreeData = [
                                     ]
                                  },
                                  {
-                                    "title" : "Rodentolepis",
                                     "children" : [
                                        {
                                           "title" : "Rodentolepis nana (PRJEB508)",
@@ -1453,42 +1490,41 @@ taxonTreeData = [
                                        }
                                     ],
                                     "key" : "Rodentolepis",
-                                    "isFolder" : true
+                                    "isFolder" : true,
+                                    "title" : "Rodentolepis"
                                  }
                               ],
-                              "isFolder" : true,
-                              "key" : "Hymenolepididae"
+                              "title" : "Hymenolepididae"
                            },
                            {
-                              "children" : [
-                                 {
-                                    "title" : "Mesocestoides corti (PRJEB510)",
-                                    "key" : "mesocestoides_corti_prjeb510"
-                                 }
-                              ],
                               "title" : "Mesocestoididae",
                               "key" : "Mesocestoididae",
+                              "children" : [
+                                 {
+                                    "key" : "mesocestoides_corti_prjeb510",
+                                    "title" : "Mesocestoides corti (PRJEB510)"
+                                 }
+                              ],
                               "isFolder" : true
                            },
                            {
                               "children" : [
                                  {
-                                    "title" : "Echinococcus",
+                                    "isFolder" : true,
                                     "children" : [
                                        {
                                           "isFolder" : true,
-                                          "key" : "Echinococcus canadensis group",
-                                          "title" : "Echinococcus canadensis group",
                                           "children" : [
                                              {
-                                                "key" : "echinococcus_canadensis_prjeb8992",
-                                                "title" : "Echinococcus canadensis (PRJEB8992)"
+                                                "title" : "Echinococcus canadensis (PRJEB8992)",
+                                                "key" : "echinococcus_canadensis_prjeb8992"
                                              }
-                                          ]
+                                          ],
+                                          "key" : "Echinococcus canadensis group",
+                                          "title" : "Echinococcus canadensis group"
                                        },
                                        {
-                                          "key" : "Echinococcus granulosus group",
-                                          "isFolder" : true,
+                                          "title" : "Echinococcus granulosus group",
                                           "children" : [
                                              {
                                                 "title" : "Echinococcus granulosus (PRJEB121)",
@@ -1499,7 +1535,8 @@ taxonTreeData = [
                                                 "key" : "echinococcus_granulosus_prjna182977"
                                              }
                                           ],
-                                          "title" : "Echinococcus granulosus group"
+                                          "key" : "Echinococcus granulosus group",
+                                          "isFolder" : true
                                        },
                                        {
                                           "title" : "Echinococcus multilocularis (PRJEB122)",
@@ -1511,7 +1548,7 @@ taxonTreeData = [
                                        }
                                     ],
                                     "key" : "Echinococcus",
-                                    "isFolder" : true
+                                    "title" : "Echinococcus"
                                  },
                                  {
                                     "children" : [
@@ -1520,9 +1557,9 @@ taxonTreeData = [
                                           "key" : "hydatigera_taeniaeformis_prjeb534"
                                        }
                                     ],
-                                    "title" : "Hydatigera",
+                                    "key" : "Hydatigera",
                                     "isFolder" : true,
-                                    "key" : "Hydatigera"
+                                    "title" : "Hydatigera"
                                  },
                                  {
                                     "isFolder" : true,
@@ -1537,8 +1574,8 @@ taxonTreeData = [
                                           "title" : "Taenia asiatica (PRJNA299871)"
                                        },
                                        {
-                                          "key" : "taenia_multiceps_prjna307624",
-                                          "title" : "Taenia multiceps (PRJNA307624)"
+                                          "title" : "Taenia multiceps (PRJNA307624)",
+                                          "key" : "taenia_multiceps_prjna307624"
                                        },
                                        {
                                           "title" : "Taenia saginata (PRJNA71493)",
@@ -1552,134 +1589,147 @@ taxonTreeData = [
                                     "title" : "Taenia"
                                  }
                               ],
-                              "title" : "Taeniidae",
+                              "key" : "Taeniidae",
                               "isFolder" : true,
-                              "key" : "Taeniidae"
+                              "title" : "Taeniidae"
                            }
                         ],
                         "key" : "Cyclophyllidea",
-                        "isFolder" : true
+                        "isFolder" : true,
+                        "title" : "Cyclophyllidea"
                      },
                      {
                         "title" : "Diphyllobothriidea",
+                        "isFolder" : true,
                         "children" : [
                            {
-                              "key" : "Diphyllobothriidae",
-                              "isFolder" : true,
                               "title" : "Diphyllobothriidae",
+                              "key" : "Diphyllobothriidae",
                               "children" : [
                                  {
+                                    "key" : "Dibothriocephalus",
                                     "children" : [
                                        {
                                           "key" : "dibothriocephalus_latus_prjeb1206",
                                           "title" : "Dibothriocephalus latus (PRJEB1206)"
                                        }
                                     ],
-                                    "title" : "Dibothriocephalus",
                                     "isFolder" : true,
-                                    "key" : "Dibothriocephalus"
+                                    "title" : "Dibothriocephalus"
                                  },
                                  {
+                                    "title" : "Schistocephalus",
                                     "isFolder" : true,
                                     "key" : "Schistocephalus",
-                                    "title" : "Schistocephalus",
                                     "children" : [
                                        {
-                                          "title" : "Schistocephalus solidus (PRJEB527)",
-                                          "key" : "schistocephalus_solidus_prjeb527"
+                                          "key" : "schistocephalus_solidus_prjeb527",
+                                          "title" : "Schistocephalus solidus (PRJEB527)"
                                        }
                                     ]
                                  },
                                  {
                                     "title" : "Spirometra",
+                                    "isFolder" : true,
+                                    "key" : "Spirometra",
                                     "children" : [
                                        {
-                                          "title" : "Spirometra erinaceieuropaei (PRJEB1202)",
-                                          "key" : "spirometra_erinaceieuropaei_prjeb1202"
+                                          "key" : "spirometra_erinaceieuropaei_prjeb1202",
+                                          "title" : "Spirometra erinaceieuropaei (PRJEB1202)"
                                        }
-                                    ],
-                                    "key" : "Spirometra",
-                                    "isFolder" : true
+                                    ]
                                  }
-                              ]
+                              ],
+                              "isFolder" : true
                            }
                         ],
-                        "key" : "Diphyllobothriidea",
-                        "isFolder" : true
+                        "key" : "Diphyllobothriidea"
                      }
                   ],
                   "key" : "Eucestoda",
                   "isFolder" : true
                }
             ],
-            "title" : "Cestoda",
             "key" : "Cestoda",
-            "isFolder" : true
+            "isFolder" : true,
+            "title" : "Cestoda"
          },
          {
             "title" : "Monogenea",
+            "key" : "Monogenea",
             "children" : [
                {
+                  "title" : "Monopisthocotylea",
+                  "key" : "Monopisthocotylea",
                   "children" : [
                      {
-                        "title" : "Gyrodactylus salaris (PRJNA244375)",
-                        "key" : "gyrodactylus_salaris_prjna244375"
+                        "title" : "Gyrodactylus",
+                        "children" : [
+                           {
+                              "key" : "gyrodactylus_bullatarudis_prjna532341",
+                              "title" : "Gyrodactylus bullatarudis (PRJNA532341)"
+                           },
+                           {
+                              "key" : "gyrodactylus_salaris_prjna244375",
+                              "title" : "Gyrodactylus salaris (PRJNA244375)"
+                           }
+                        ],
+                        "key" : "Gyrodactylus",
+                        "isFolder" : true
                      }
                   ],
-                  "title" : "Monopisthocotylea",
-                  "isFolder" : true,
-                  "key" : "Monopisthocotylea"
+                  "isFolder" : true
                },
                {
                   "key" : "Polyopisthocotylea",
-                  "isFolder" : true,
-                  "title" : "Polyopisthocotylea",
                   "children" : [
                      {
                         "title" : "Protopolystoma xenopodis (PRJEB1201)",
                         "key" : "protopolystoma_xenopodis_prjeb1201"
                      }
-                  ]
+                  ],
+                  "isFolder" : true,
+                  "title" : "Polyopisthocotylea"
                }
             ],
-            "key" : "Monogenea",
             "isFolder" : true
          },
          {
             "title" : "Rhabditophora",
+            "key" : "Rhabditophora",
             "children" : [
                {
-                  "key" : "Macrostomorpha",
-                  "isFolder" : true,
                   "title" : "Macrostomorpha",
+                  "key" : "Macrostomorpha",
                   "children" : [
                      {
-                        "title" : "Macrostomum",
                         "children" : [
                            {
                               "title" : "Macrostomum lignano (PRJNA284736)",
                               "key" : "macrostomum_lignano_prjna284736"
                            },
                            {
-                              "key" : "macrostomum_lignano_prjna371498",
-                              "title" : "Macrostomum lignano (PRJNA371498)"
+                              "title" : "Macrostomum lignano (PRJNA371498)",
+                              "key" : "macrostomum_lignano_prjna371498"
                            }
                         ],
                         "key" : "Macrostomum",
-                        "isFolder" : true
+                        "isFolder" : true,
+                        "title" : "Macrostomum"
                      }
-                  ]
+                  ],
+                  "isFolder" : true
                },
                {
-                  "key" : "Seriata",
+                  "title" : "Seriata",
                   "isFolder" : true,
                   "children" : [
                      {
                         "title" : "Schmidtea",
                         "children" : [
                            {
-                              "title" : "Schmidtea mediterranea (PRJNA12585)",
-                              "key" : "schmidtea_mediterranea_prjna12585"
+                              "key" : "schmidtea_mediterranea_prjna12585",
+                              "title" : "Schmidtea mediterranea (PRJNA12585)"
                            },
                            {
                               "key" : "schmidtea_mediterranea_prjna379262",
@@ -1690,42 +1740,41 @@ taxonTreeData = [
                         "isFolder" : true
                      }
                   ],
-                  "title" : "Seriata"
+                  "key" : "Seriata"
                }
             ],
-            "key" : "Rhabditophora",
             "isFolder" : true
          },
          {
+            "title" : "Trematoda",
+            "key" : "Trematoda",
             "children" : [
                {
                   "isFolder" : true,
-                  "key" : "Digenea",
-                  "title" : "Digenea",
                   "children" : [
                      {
-                        "key" : "Opisthorchiida",
-                        "isFolder" : true,
-                        "title" : "Opisthorchiida",
                         "children" : [
                            {
+                              "title" : "Opisthorchiidae",
                               "children" : [
                                  {
-                                    "key" : "Clonorchis",
-                                    "isFolder" : true,
-                                    "title" : "Clonorchis",
                                     "children" : [
                                        {
-                                          "title" : "Clonorchis sinensis (PRJDA72781)",
-                                          "key" : "clonorchis_sinensis_prjda72781"
+                                          "key" : "clonorchis_sinensis_prjda72781",
+                                          "title" : "Clonorchis sinensis (PRJDA72781)"
                                        },
                                        {
-                                          "title" : "Clonorchis sinensis (PRJNA386618)",
-                                          "key" : "clonorchis_sinensis_prjna386618"
+                                          "key" : "clonorchis_sinensis_prjna386618",
+                                          "title" : "Clonorchis sinensis (PRJNA386618)"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Clonorchis",
+                                    "isFolder" : true,
+                                    "title" : "Clonorchis"
                                  },
                                  {
+                                    "isFolder" : true,
+                                    "key" : "Opisthorchis",
                                     "children" : [
                                        {
                                           "key" : "opisthorchis_felineus_prjna413383",
@@ -1736,47 +1785,44 @@ taxonTreeData = [
                                           "title" : "Opisthorchis viverrini (PRJNA222628)"
                                        }
                                     ],
-                                    "title" : "Opisthorchis",
-                                    "key" : "Opisthorchis",
-                                    "isFolder" : true
+                                    "title" : "Opisthorchis"
                                  }
                               ],
-                              "title" : "Opisthorchiidae",
-                              "isFolder" : true,
-                              "key" : "Opisthorchiidae"
+                              "key" : "Opisthorchiidae",
+                              "isFolder" : true
                            }
-                        ]
+                        ],
+                        "key" : "Opisthorchiida",
+                        "isFolder" : true,
+                        "title" : "Opisthorchiida"
                      },
                      {
-                        "key" : "Plagiorchiida",
-                        "isFolder" : true,
+                        "title" : "Plagiorchiida",
                         "children" : [
                            {
-                              "key" : "Echinostomata",
-                              "isFolder" : true,
                               "title" : "Echinostomata",
+                              "isFolder" : true,
+                              "key" : "Echinostomata",
                               "children" : [
                                  {
                                     "title" : "Echinostomatoidea",
+                                    "key" : "Echinostomatoidea",
                                     "children" : [
                                        {
+                                          "title" : "Echinostomatidae",
                                           "key" : "Echinostomatidae",
-                                          "isFolder" : true,
                                           "children" : [
                                              {
-                                                "key" : "echinostoma_caproni_prjeb1207",
-                                                "title" : "Echinostoma caproni (PRJEB1207)"
+                                                "title" : "Echinostoma caproni (PRJEB1207)",
+                                                "key" : "echinostoma_caproni_prjeb1207"
                                              }
                                           ],
-                                          "title" : "Echinostomatidae"
+                                          "isFolder" : true
                                        },
                                        {
-                                          "key" : "Fasciolidae",
                                           "isFolder" : true,
-                                          "title" : "Fasciolidae",
                                           "children" : [
                                              {
-                                                "title" : "Fasciola",
                                                 "children" : [
                                                    {
                                                       "title" : "Fasciola gigantica (PRJNA230515)",
@@ -1787,67 +1833,82 @@ taxonTreeData = [
                                                       "title" : "Fasciola hepatica (PRJEB25283)"
                                                    },
                                                    {
-                                                      "title" : "Fasciola hepatica (PRJNA179522)",
-                                                      "key" : "fasciola_hepatica_prjna179522"
+                                                      "key" : "fasciola_hepatica_prjna179522",
+                                                      "title" : "Fasciola hepatica (PRJNA179522)"
                                                    }
                                                 ],
+                                                "key" : "Fasciola",
                                                 "isFolder" : true,
-                                                "key" : "Fasciola"
+                                                "title" : "Fasciola"
+                                             },
+                                             {
+                                                "title" : "Fasciolopsis",
+                                                "children" : [
+                                                   {
+                                                      "title" : "Fasciolopsis buski (PRJNA284521)",
+                                                      "key" : "fasciolopsis_buski_prjna284521"
+                                                   }
+                                                ],
+                                                "key" : "Fasciolopsis",
+                                                "isFolder" : true
                                              }
-                                          ]
+                                          ],
+                                          "key" : "Fasciolidae",
+                                          "title" : "Fasciolidae"
                                        }
                                     ],
-                                    "isFolder" : true,
-                                    "key" : "Echinostomatoidea"
+                                    "isFolder" : true
                                  }
                               ]
                            },
                            {
-                              "children" : [
-                                 {
-                                    "title" : "Paragonimus westermani (PRJNA454344)",
-                                    "key" : "paragonimus_westermani_prjna454344"
-                                 }
-                              ],
-                              "title" : "Troglotremata",
-                              "key" : "Troglotremata",
-                              "isFolder" : true
-                           },
-                           {
-                              "key" : "Xiphidiata",
                               "isFolder" : true,
                               "children" : [
                                  {
-                                    "key" : "atriophallophorus_winterbourni_prjna636673",
-                                    "title" : "Atriophallophorus winterbourni (PRJNA636673)"
+                                    "key" : "paragonimus_westermani_prjna454344",
+                                    "title" : "Paragonimus westermani (PRJNA454344)"
                                  }
                               ],
-                              "title" : "Xiphidiata"
+                              "key" : "Troglotremata",
+                              "title" : "Troglotremata"
+                           },
+                           {
+                              "title" : "Xiphidiata",
+                              "isFolder" : true,
+                              "children" : [
+                                 {
+                                    "title" : "Atriophallophorus winterbourni (PRJNA636673)",
+                                    "key" : "atriophallophorus_winterbourni_prjna636673"
+                                 }
+                              ],
+                              "key" : "Xiphidiata"
                            }
                         ],
-                        "title" : "Plagiorchiida"
+                        "key" : "Plagiorchiida",
+                        "isFolder" : true
                      },
                      {
                         "key" : "Strigeidida",
-                        "isFolder" : true,
-                        "title" : "Strigeidida",
                         "children" : [
                            {
+                              "isFolder" : true,
+                              "key" : "Schistosomatidae",
                               "children" : [
                                  {
-                                    "title" : "Schistosoma",
+                                    "isFolder" : true,
+                                    "key" : "Schistosoma",
                                     "children" : [
                                        {
                                           "title" : "Schistosoma bovis (PRJNA451066)",
                                           "key" : "schistosoma_bovis_prjna451066"
                                        },
                                        {
-                                          "key" : "schistosoma_curassoni_prjeb519",
-                                          "title" : "Schistosoma curassoni (PRJEB519)"
+                                          "title" : "Schistosoma curassoni (PRJEB519)",
+                                          "key" : "schistosoma_curassoni_prjeb519"
                                        },
                                        {
-                                          "key" : "schistosoma_haematobium_prjna78265",
-                                          "title" : "Schistosoma haematobium (PRJNA78265)"
+                                          "title" : "Schistosoma haematobium (PRJNA78265)",
+                                          "key" : "schistosoma_haematobium_prjna78265"
                                        },
                                        {
                                           "title" : "Schistosoma japonicum (PRJEA34885)",
@@ -1866,45 +1927,44 @@ taxonTreeData = [
                                           "title" : "Schistosoma margrebowiei (PRJEB522)"
                                        },
                                        {
-                                          "key" : "schistosoma_mattheei_prjeb523",
-                                          "title" : "Schistosoma mattheei (PRJEB523)"
+                                          "title" : "Schistosoma mattheei (PRJEB523)",
+                                          "key" : "schistosoma_mattheei_prjeb523"
                                        },
                                        {
-                                          "title" : "Schistosoma rodhaini (PRJEB526)",
-                                          "key" : "schistosoma_rodhaini_prjeb526"
+                                          "key" : "schistosoma_rodhaini_prjeb526",
+                                          "title" : "Schistosoma rodhaini (PRJEB526)"
                                        }
                                     ],
-                                    "isFolder" : true,
-                                    "key" : "Schistosoma"
+                                    "title" : "Schistosoma"
                                  },
                                  {
-                                    "key" : "Trichobilharzia",
-                                    "isFolder" : true,
                                     "title" : "Trichobilharzia",
                                     "children" : [
                                        {
-                                          "key" : "trichobilharzia_regenti_prjeb4662",
-                                          "title" : "Trichobilharzia regenti (PRJEB4662)"
+                                          "title" : "Trichobilharzia regenti (PRJEB4662)",
+                                          "key" : "trichobilharzia_regenti_prjeb4662"
                                        }
-                                    ]
+                                    ],
+                                    "key" : "Trichobilharzia",
+                                    "isFolder" : true
                                  }
                               ],
-                              "title" : "Schistosomatidae",
-                              "key" : "Schistosomatidae",
-                              "isFolder" : true
+                              "title" : "Schistosomatidae"
                            }
-                        ]
+                        ],
+                        "isFolder" : true,
+                        "title" : "Strigeidida"
                      }
-                  ]
+                  ],
+                  "key" : "Digenea",
+                  "title" : "Digenea"
                }
             ],
-            "title" : "Trematoda",
-            "isFolder" : true,
-            "key" : "Trematoda"
+            "isFolder" : true
          }
       ],
       "key" : "Platyhelminthes",
-      "isFolder" : true
+      "title" : "Platyhelminthes"
    }
 ]
 ;
