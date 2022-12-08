@@ -29,9 +29,10 @@ sub content {
   my $wbps_release = $hub->species_defs->SITE_RELEASE_VERSION;
   my $wb_release = $hub->species_defs->WORMBASE_RELEASE_VERSION;
   my $version = sprintf("WBPS%s (WS%s)", $wbps_release, $wb_release);
+  my $archive = sprintf("WBPS%s", $wbps_release - 1);
 
-  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;<a href="/info/about/release-log.html">%s</a></span>',
-    '/', $self->img_url, 'parasite.png', $alt, $alt, 34, $version
+  return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;<a href="/info/about/release-log.html">%s</a></span><span class="header-version">-&nbsp;&nbsp;Archive:&nbsp;<a href="https://release-%s.parasite.wormbase.org">%s</a></span>',
+    '/', $self->img_url, 'parasite.png', $alt, $alt, 34, $version, $wbps_release - 1, $archive
   );
 
 }
