@@ -47,7 +47,8 @@ sub send_help_contact_email {
   my $sd          = $hub->species_defs;
 
   $self->to       = $sd->ENSEMBL_HELPDESK_EMAIL;
-  $self->from     = $hub->param('address');
+  $self->from     = $sd->ENSEMBL_NO_REPLY_EMAIL; #To satisfy strict DMARC policy, From field need to be an address authenticated by EBI mail server.
+  $self->reply    = $hub->param('address');
   $self->subject  = $hub->param('subject') || '(no subject)';
   $self->message  = sprintf "Support question from %s\n\n%s\n\nComments:\n\n%s",
     $sd->ENSEMBL_SERVERNAME,
@@ -55,6 +56,11 @@ sub send_help_contact_email {
     $hub->param('message')
   ;
   $self->attachment = $hub->param('attachment');
+
+  #Ignore the spam bot
+  if ($hub->param('message') =~ /Muchas/) {
+    return;
+  }
 
   return $self->send;
 }
