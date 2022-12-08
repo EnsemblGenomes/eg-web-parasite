@@ -35,6 +35,7 @@ sub update_conf {
     $SiteDefs::GENOMIC_UNIT = 'parasite';
     $SiteDefs::ENSEMBL_PORT = 8032;
     $SiteDefs::ENSEMBL_SERVERNAME = 'parasite.wormbase.org';
+    $SiteDefs::ENSEMBL_NO_REPLY_EMAIL = 'wbps-noreply@ebi.ac.uk';
     $SiteDefs::SITE_FTP= 'https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
     
     $SiteDefs::ENSEMBL_PRIMARY_SPECIES = 'Romanomermis_culicivorax_prjeb1358';
