@@ -54,7 +54,7 @@ sub assembly_lookup {
 sub species_label {
   my ($self, $key, $no_formatting) = @_;
 
-  if( my $sdhash          = $self->SPECIES_DISPLAY_NAME) {
+  if( my $sdhash          = $self->SPECIES_DISPLAY_NAME_PS) {
       (my $lcspecies = lc $key) =~ s/ /_/g;
       return $sdhash->{$lcspecies} if $sdhash->{$lcspecies};
   }

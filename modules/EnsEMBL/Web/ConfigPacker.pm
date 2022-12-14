@@ -129,6 +129,7 @@ sub _munge_meta {
     }
 
     $self->tree($production_name)->{'DISPLAY_NAME'} = $self->tree($production_name)->{'SPECIES_COMMON_NAME'};
+    $self->tree($production_name)->{'SPECIES_DISPLAY_NAME'} = $self->tree($production_name)->{'SPECIES_COMMON_NAME'};
 
     ## Do species group
     my $taxonomy = $meta_hash->{'species.classification'};
