@@ -31,12 +31,13 @@ sub content {
   <div class="copyright">
     Release %d - %s
     <ul>
-      <li><a href="http://www.ebi.ac.uk"><img src="/img/ebi_logo.png" title="European Molecular Biology Laboratory - European Bioinformatics Institute" /></a></li>
-      <li><a href="http://www.sanger.ac.uk"><img src="/img/sanger_logo.png" title="Wellcome Trust Sanger Institute" /></a></li>
-      <li><a href="http://www.ensembl.org"><img src="/img/empowered.png" title="Powered by Ensembl" /></a></li>
-      <li><a href="http://www.bbsrc.ac.uk"><img src="/img/bbsrc_logo.gif" title="Funded by BBSRC" /></a></li>
+      <li><a href="https://www.ebi.ac.uk" target="_blank"><img src="/img/ebi_logo.png" title="European Molecular Biology Laboratory - European Bioinformatics Institute" /></a></li>
+      <li><a href="https://www.gla.ac.uk" target="_blank"><img src="/img/gla_logo.png" title="University of Glasgow" /></a></li>
+      <li><a href="https://www.ensembl.org" target="_blank"><img src="/img/empowered.png" title="Powered by Ensembl" /></a></li>
+      <li><a href="https://www.ukri.org/councils/mrc" target="_blank"><img src="/img/mrc_logo.png" title="Medical Research Council" /></a></li>
+      <li><a href="https://globalbiodata.org/scientific-activities/global-core-biodata-resources" target="_blank"><img src="/img/biodata_logo.png" title="Global Core Biodata Resources" /></a></li>
     </ul>
-    WormBase ParaSite is funded by the <a href="http://www.bbsrc.ac.uk">UK Biotechnology and Biological Sciences Research Council</a> under grant numbers BB/P024610/1 and BB/P024602/1.
+    WormBase ParaSite is funded by the <a href="https://www.ukri.org/councils/mrc/">UK Medical Research Council (MRC)</a> under grant number MR/S000453/1.
   </div>
   ), $sd->SITE_RELEASE_VERSION, $sd->SITE_RELEASE_DATE);
 }
