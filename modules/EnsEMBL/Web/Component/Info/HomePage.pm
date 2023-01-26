@@ -28,7 +28,7 @@ use EnsEMBL::Web::Component::GenomicAlignments;
 use JSON;
 use List::MoreUtils qw /first_index/;
 
-use base qw(EnsEMBL::Web::Component);
+use parent qw(EnsEMBL::Web::Component::Shared);
 
 sub _init {
   my $self = shift;
