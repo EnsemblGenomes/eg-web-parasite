@@ -22,10 +22,10 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '17';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '282';
-    $SiteDefs::SITE_RELEASE_DATE = 'July 2022';
-    $SiteDefs::EG_RELEASE_VERSION = 52;
+    $SiteDefs::SITE_RELEASE_VERSION = '18';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '285';
+    $SiteDefs::SITE_RELEASE_DATE = 'March 2023';
+    $SiteDefs::EG_RELEASE_VERSION = 55;
  
     ### Website Configuration
     $SiteDefs::SITE_NAME = 'WormBase ParaSite';
@@ -104,6 +104,12 @@ sub update_conf {
          angiostrongylus_costaricensis_prjeb494
          angiostrongylus_vasorum_prjna663250
          anisakis_simplex_prjeb496
+         aphelenchoides_besseyi_aorjprjna834627
+         aphelenchoides_besseyi_aortprjna834627
+         aphelenchoides_besseyi_apftprjna834627
+         aphelenchoides_besseyi_apvtprjna834627
+         aphelenchoides_bicaudatus_prjna834627
+         aphelenchoides_fujianensis_prjna834627
          ascaris_lumbricoides_prjeb4950
          ascaris_suum_prjna62057
          ascaris_suum_prjna80881
@@ -115,10 +121,13 @@ sub update_conf {
          bursaphelenchus_xylophilus_prjea64437
          bursaphelenchus_xylophilus_prjeb40022
          caenorhabditis_angaria_prjna51225
+         caenorhabditis_auriculariae_prjeb40642
          caenorhabditis_becei_prjeb28243
          caenorhabditis_bovis_prjeb34497
          caenorhabditis_brenneri_prjna20035
          caenorhabditis_briggsae_prjna10731
+         caenorhabditis_briggsae_qx1410prjna784955
+         caenorhabditis_briggsae_vx34prjna784955
          caenorhabditis_elegans_prjna13758
          caenorhabditis_inopinata_prjdb5687
          caenorhabditis_japonica_prjna12591
@@ -143,11 +152,13 @@ sub update_conf {
          clonorchis_sinensis_prjna386618
          cylicostephanus_goldi_prjeb498
          dibothriocephalus_latus_prjeb1206
+         dicrocoelium_dendriticum_prjeb44434
          dictyocaulus_viviparus_prjeb5116
          dictyocaulus_viviparus_prjna72587
          diploscapter_coronatus_prjdb3143
          diploscapter_pachys_prjna280107
          dirofilaria_immitis_prjeb1797
+         dirofilaria_immitis_prjna723804
          ditylenchus_destructor_prjna312427
          ditylenchus_dipsaci_prjna498219
          dracunculus_medinensis_prjeb500
@@ -164,6 +175,8 @@ sub update_conf {
          fasciola_hepatica_prjna179522
          fasciolopsis_buski_prjna284521
          globodera_pallida_prjeb123
+         globodera_pallida_prjna702104
+         globodera_pallida_prjna764088
          globodera_rostochiensis_l19prjna695196
          globodera_rostochiensis_l22prjna695196
          globodera_rostochiensis_prjeb13504
@@ -177,8 +190,11 @@ sub update_conf {
          halicephalobus_nkz332_prjna555616
          heligmosomoides_polygyrus_prjeb1203
          heligmosomoides_polygyrus_prjeb15396
+         heterobilharzia_americana_td1prjeb44434
+         heterobilharzia_americana_td2prjeb44434
          heterodera_glycines_prjna381081
          heterodera_schachtii_prjna722882
+         heterodera_schachtii_prjna767548
          heterorhabditis_bacteriophora_prjna13977
          hydatigera_taeniaeformis_prjeb534
          hymenolepis_diminuta_prjeb30942
@@ -193,6 +209,7 @@ sub update_conf {
          meloidogyne_arenaria_prjeb8714
          meloidogyne_arenaria_prjna340324
          meloidogyne_arenaria_prjna438575
+         meloidogyne_chitwoodi_race1prjna666745
          meloidogyne_enterolobii_prjna340324
          meloidogyne_floridensis_prjeb6016
          meloidogyne_floridensis_prjna340324
@@ -220,38 +237,50 @@ sub update_conf {
          panagrellus_redivivus_prjna186477
          panagrolaimus_davidi_prjeb32708
          panagrolaimus_es5_prjeb32708
-         panagrolaimus_ps1159_prjeb32708
+         panagrolaimus_ju765_prjeb32708
+         panagrolaimus_sp1159_prjeb32708
          panagrolaimus_superbus_prjeb32708
          paragonimus_westermani_prjna454344
-         parapristionchus_giblindavisi_prjeb27334
+         parapristionchus_giblindavisi_prjeb53331
          parascaris_equorum_prjeb514
          parascaris_univalens_prjna386823
          parastrongyloides_trichosuri_prjeb515
          plectus_sambesii_prjna390260
          pristionchus_arcanus_prjeb27334
          pristionchus_entomophagus_prjeb27334
-         pristionchus_exspectatus_prjeb24288
+         pristionchus_exspectatus_prjeb46690
          pristionchus_fissidentatus_prjeb27334
          pristionchus_japonicus_prjeb27334
          pristionchus_maxplancki_prjeb27334
          pristionchus_mayeri_prjeb27334
          pristionchus_pacificus_prjna12644
-         propanagrolaimus_ju765_prjeb32708
          protopolystoma_xenopodis_prjeb1201
          rhabditophanes_kr3021_prjeb1297
          romanomermis_culicivorax_prjeb1358
          schistocephalus_solidus_prjeb527
          schistosoma_bovis_prjna451066
+         schistosoma_bovis_td1prjeb44434
+         schistosoma_bovis_td2prjeb44434
+         schistosoma_curassoni_prjeb44434
          schistosoma_curassoni_prjeb519
+         schistosoma_guineensis_prjeb44434
          schistosoma_haematobium_prjna78265
+         schistosoma_haematobium_td1prjeb44434
+         schistosoma_haematobium_td2prjeb44434
+         schistosoma_intercalatum_td1prjeb44434
+         schistosoma_intercalatum_td2prjeb44434
          schistosoma_japonicum_prjea34885
          schistosoma_japonicum_prjna520774
          schistosoma_mansoni_prjea36577
-         schistosoma_margrebowiei_prjeb522
-         schistosoma_mattheei_prjeb523
-         schistosoma_rodhaini_prjeb526
+         schistosoma_margrebowiei_prjeb44434
+         schistosoma_mattheei_prjeb44434
+         schistosoma_rodhaini_td1prjeb44434
+         schistosoma_rodhaini_td2prjeb44434
+         schistosoma_spindale_prjeb44434
+         schistosoma_turkestanicum_prjeb44434
          schmidtea_mediterranea_prjna12585
-         schmidtea_mediterranea_prjna379262
+         schmidtea_mediterranea_s2f19h1prjna885486
+         schmidtea_mediterranea_s2f19h2prjna885486
          setaria_digitata_prjna479729
          soboliphyme_baturini_prjeb516
          spirometra_erinaceieuropaei_prjeb1202
@@ -295,7 +324,8 @@ sub update_conf {
          trichinella_t8_prjna257433
          trichinella_t9_prjna257433
          trichinella_zimbabwensis_prjna257433
-         trichobilharzia_regenti_prjeb4662
+         trichobilharzia_regenti_prjeb44434
+         trichobilharzia_szidati_prjeb44434
          trichuris_muris_prjeb126
          trichuris_suis_prjna179528
          trichuris_suis_prjna208415
