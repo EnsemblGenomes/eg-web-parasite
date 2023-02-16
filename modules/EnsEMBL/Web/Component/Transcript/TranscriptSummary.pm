@@ -139,7 +139,7 @@ sub content {
   }
 
   ## add alternative transcript info
-  my $alt_trans = $self->_matches('alternative_transcripts', 'Alternative transcripts', 'ALT_TRANS', 'show_version');
+  my $alt_trans = $self->get_matches('alternative_transcripts', 'Alternative transcripts', 'ALT_TRANS', 'show_version');
   $table->add_row('Alternative transcripts', $alt_trans) if $alt_trans;
 
   my $cv_terms = $object->get_cv_terms;
