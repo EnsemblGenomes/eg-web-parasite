@@ -85,7 +85,7 @@ sub gene_phenotypes {
       $phenotypes{$phe}{'loci_url'} = $loci_url;
 
       my $allelic_requirement = '-';
-      if ($self->_inheritance($attribs)) {
+      if ($attribs->{'inheritance_type'}) {
         $phenotypes{$phe}{'allelic_requirement'}{$attribs->{'inheritance_type'}} = 1;
         $has_allelic = 1;
       }
