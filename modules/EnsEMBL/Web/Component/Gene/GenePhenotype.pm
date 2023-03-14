@@ -110,7 +110,7 @@ sub gene_phenotypes {
     # Loop after each phenotype entry
     foreach my $phe (@sorted_phes) {
       my @pmids = keys(%{$phenotypes{$phe}{'pmids'}});
-      my $study = (scalar(@pmids) != 0) ? $self->display_items_list($phenotypes{$phe}{'id'}.'pmids', 'Study links', 'Study links', \@pmids, \@pmids, 1) : '-';
+      my $study = (scalar(@pmids) != 0) ? display_items_list($phenotypes{$phe}{'id'}.'pmids', 'Study links', 'Study links', \@pmids, \@pmids, 1) : '-';
 
       push @rows, {
         phenotype => $phenotypes{$phe}{'ext_url'},
