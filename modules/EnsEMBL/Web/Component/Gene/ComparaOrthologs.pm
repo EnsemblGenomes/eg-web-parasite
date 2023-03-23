@@ -200,30 +200,35 @@ sub content {
       
       # PARASITE
       # Check if we need to form an external link
-      my $link_url; my $location_link;
-      if(grep(/$domain/, keys %$species_sets) || $domain eq $species_defs->GENOMIC_UNIT || $domain =~ /^wormbase$/i) {
-        $link_url = $hub->url({
-          species => $spp,
-          action  => 'Summary',
-          g       => $stable_id,
-          __clear => 1
-        });
-        $location_link = $hub->url({
+      my $link_url;
+      my $location_link = $hub->url({
           species => $spp,
           type    => 'Location',
           action  => 'View',
           r       => $orthologue->{'location'},
           g       => $stable_id,
           __clear => 1
-        });
+        }); 
+
+      if($domain eq $species_defs->GENOMIC_UNIT || $domain =~ /^wormbase$/i) {
+        $link_url = $hub->url({
+          species => $spp,
+          action  => 'Summary',
+          g       => $stable_id,
+          __clear => 1
+        }); 
       } else {
         $link_url  = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id});
-        $location_link = $hub->get_ExtURL(uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$orthologue->{'location'}});
+        $location_link = $hub->get_ExtURL(uc "$domain\_location", {'SPECIES'=>$species, 'ID'=>$stable_id, 'LOCID'=>$orthologue->{'location'}});
       }
       (my $jbrowse_region = $orthologue->{'location'}) =~ s/-/../;
-      my $jbrowse_url = $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in JBrowse]</span>', 'PARASITE_JBROWSE', {'SPECIES'=>lc($species), 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''});
+      # Remove dnafrag_strand part in the location like :-1 or :1 as jbrowse raises an error with it
+      my $dnafrag_strand = $orthologue->{'homologue'}{'dnafrag_strand'};
+      $jbrowse_region =~ s/,//g;
+      $jbrowse_region = substr($jbrowse_region, 0, -length(":$dnafrag_strand"));
+      my $jbrowse_url = $domain =~ /^parasite$/i ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in JBrowse]</span>', 'PARASITE_JBROWSE', {'SPECIES'=>lc($species), 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''}) : '';
       my $wb_gene_url = $domain =~ /^wormbase$/i ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View gene at WormBase Central]</span>', uc "$domain\_gene", {'SPECIES'=>$species, 'ID'=>$stable_id}) : '';
-      my $wb_location_url = defined($hub->species_defs->ENSEMBL_EXTERNAL_URLS->{uc("$spp\_jbrowse")}) ? $hub->get_ExtURL_link('<br /><span class="wb-compara-out">[View region in WormBase JBrowse]</span>', uc "$spp\_jbrowse", {'SPECIES'=>$species, 'REGION'=>$jbrowse_region, 'HIGHLIGHT'=>''}) : '';
+
       # PARASITE
 
       my $target_links = ($link_url =~ /^\// 
@@ -296,7 +301,7 @@ sub content {
         'Species'   => $splink,
         'Type'       => ucfirst $orthologue_desc,
         'identifier' => $self->html_format ? $id_info : $stable_id,
-        'Location'   => qq{<a href="$location_link">$orthologue->{'location'}</a>$jbrowse_url$wb_location_url},
+        'Location'   => qq{<a href="$location_link">$orthologue->{'location'}</a>$jbrowse_url},
         $column_name => $self->html_format ? qq{<span class="small">$target_links</span>} : $description,
         'Target %id' => $target,
         'Query %id'  => $query,

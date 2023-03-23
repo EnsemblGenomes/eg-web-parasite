@@ -92,5 +92,59 @@ sub insdc_accession {
   return undef;
 }
 
+sub fetch_homology_species_hash {
+  my $self                 = shift;
+  my $homology_source      = shift;
+  my $homology_description = shift;
+  my $compara_db           = shift || 'compara';
+  my $name_lookup          = {};
+  if ($compara_db =~ /pan/) {
+    my $pan_info = $self->hub->species_defs->multi_val('PAN_COMPARA_LOOKUP');
+    foreach (keys %$pan_info) {
+      $name_lookup->{$_} = $pan_info->{$_}{'species_url'};
+    }
+  }
+  else {
+    $name_lookup = $self->hub->species_defs->prodnames_to_urls_lookup;
+  }
+  my ($homologies, $classification, $query_member) = $self->get_homologies($homology_source, $homology_description, $compara_db);
+  my %homologues;
+
+  foreach my $homology (@$homologies) {
+    my ($query_perc_id, $target_perc_id, $genome_db_name, $target_member, $dnds_ratio, $goc_score, $wgac, $highconfidence, $goc_threshold, $wga_threshold);
+    
+    foreach my $member (@{$homology->get_all_Members}) {
+      my $gene_member = $member->gene_member;
+
+      if ($gene_member->stable_id eq $query_member->stable_id) {
+        $query_perc_id = $member->perc_id;
+      } else {
+        $target_perc_id = $member->perc_id;
+        $genome_db_name = $member->genome_db->name;
+        $target_member  = $gene_member;
+        $dnds_ratio     = $homology->dnds_ratio; 
+        $goc_score      = $homology->goc_score;
+        $goc_threshold  = $homology->method_link_species_set->get_value_for_tag('goc_quality_threshold');        
+        $wgac           = $homology->wga_coverage;
+        $wga_threshold  = $homology->method_link_species_set->get_value_for_tag('wga_quality_threshold');
+        $highconfidence = $homology->is_high_confidence;
+      }      
+    }
+
+    ## In case of data bugs, make sure this is a genuine node
+    my $species_tree_node = eval { $homology->species_tree_node(); };
+    ## ParaSite: deal with comparator species being empty
+    my $species_url = $name_lookup->{$genome_db_name} eq '' ? ucfirst $genome_db_name : $name_lookup->{$genome_db_name};
+    ## ParaSite
+
+    if ($species_tree_node) {
+      push @{$homologues{$species_url}}, [ $target_member, $homology->description, $species_tree_node, $query_perc_id, $target_perc_id, $dnds_ratio, $homology->{_gene_tree_node_id}, $homology->dbID, $goc_score, $goc_threshold, $wgac, $wga_threshold, $highconfidence ];    
+    }
+  }
+
+  @{$homologues{$_}} = sort { $classification->{$a->[2]} <=> $classification->{$b->[2]} } @{$homologues{$_}} for keys %homologues;  
+
+  return \%homologues;
+}
 1;
 
