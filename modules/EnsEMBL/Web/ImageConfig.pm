@@ -89,11 +89,11 @@ sub menus {
     functional          => 'Regulation',
 
     # Compara
-    compara             => 'Comparative genomics',
+    compara             => 'Pairwise whole genome alignments',
     pairwise_blastz     => [ 'BLASTz/LASTz alignments',    'compara' ],
     pairwise_other      => [ 'Pairwise alignment',         'compara' ],
     pairwise_tblat      => [ 'Translated blat alignments', 'compara' ],
-    multiple_align      => [ 'Multiple alignments',        'compara' ],
+#    multiple_align      => [ 'Multiple alignments',        'compara' ],
     conservation        => [ 'Conservation regions',       'compara' ],
     synteny             => 'Synteny',
 
