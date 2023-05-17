@@ -317,6 +317,182 @@ sub _build_identifiers {
   return @fieldsets;
 }
 
+sub _build_additional_annotations {
+  my ($self, $form) = @_;
+
+  my $hub       = $self->hub;
+  my $object    = $self->object;
+  my $sd        = $hub->species_defs;
+  my $species   = $object->species_list;
+  my $fd        = $object->get_form_details;
+
+  my @fieldsets;
+
+  ## TRANSCRIPT ANNOTATION SECTION
+  my $current_section = 'Transcript annotation';
+  my $fieldset  = $form->add_fieldset({'legend' => $current_section, 'no_required_notes' => 1});
+
+  $fieldset->add_field({
+    'type'        => 'checkbox',
+    'name'        => 'biotype',
+    'label'       => $fd->{biotype}->{label},
+    'helptip'     => $fd->{biotype}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 1
+  });
+
+  $fieldset->add_field({
+    'type'        => 'checkbox',
+    'name'        => 'numbers',
+    'label'       => $fd->{numbers}->{label},
+    'helptip'     => $fd->{numbers}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 0
+  });
+
+  $fieldset->add_field({
+    'field_class' => '_stt_core _stt_gencode_basic _stt_merged _stt_Homo_sapiens',
+    'type'        => 'checkbox',
+    'name'        => 'tsl',
+    'label'       => $fd->{tsl}->{label},
+    'helptip'     => $fd->{tsl}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 1,
+  }) if (first { $_->{'value'} eq 'Homo_sapiens' } @$species);
+
+  $fieldset->add_field({
+    'field_class' => '_stt_core _stt_gencode_basic _stt_merged _stt_Homo_sapiens',
+    'type'        => 'checkbox',
+    'name'        => 'appris',
+    'label'       => $fd->{appris}->{label},
+    'helptip'     => $fd->{appris}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 1,
+  }) if (first { $_->{'value'} eq 'Homo_sapiens' } @$species);
+
+  $fieldset->add_field({
+    'field_class' => '_stt_core _stt_gencode_basic _stt_merged _stt_Homo_sapiens',
+    'type'        => 'checkbox',
+    'name'        => 'mane',
+    'label'       => $fd->{mane}->{label},
+    'helptip'     => $fd->{mane}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 1,
+  }) if (first { $_->{'value'} eq 'Homo_sapiens' } @$species);
+
+  $fieldset->add_field({
+    'field_class' => '_stt_core _stt_gencode_basic _stt_merged',
+    'type'        => 'checkbox',
+    'name'        => 'canonical',
+    'label'       => $fd->{canonical}->{label},
+    'helptip'     => $fd->{canonical}->{helptip},
+    'value'       => 'yes',
+    'checked'     => 0,
+  });
+
+  $fieldset->add_field({
+    'type'        => 'string',
+    'name'        => 'distance',
+    'label'       => $fd->{distance}->{label},
+    'helptip'     => $fd->{distance}->{helptip},
+    'value'       => $fd->{distance}->{value},
+    'checked'     => 0,
+  });
+
+  $self->_end_section(\@fieldsets, $fieldset, $current_section);
+
+
+  ## PROTEIN ANNOTATION SECTION
+  $current_section = 'Protein annotation';
+  $fieldset = $form->add_fieldset({'legend' => $current_section, 'no_required_notes' => 1});
+
+  $fieldset->add_field({
+    'field_class' => '_stt_core _stt_gencode_basic _stt_merged',
+    'type'        => 'checkbox',
+    'name'        => 'domains',
+    'label'       => $fd->{domains}->{label},
+    'helptip'     => $fd->{domains}->{helptip},
+    'value'       => 'yes',
+    ## ParaSite: enable this checkbox by default
+    'checked'     => 1,
+    ##
+  });
+
+  $self->_end_section(\@fieldsets, $fieldset, $current_section);
+
+
+  ## REGULATORY DATA
+  $current_section = 'Regulatory data';
+  my @regu_species = map { $_->{'value'} } grep {$hub->get_adaptor('get_EpigenomeAdaptor', 'funcgen', $_->{'value'})} grep {$_->{'regulatory'}} @$species;
+
+  if(@regu_species) {
+    my @regu_species_classes = map { "_stt_".$_ } @regu_species;
+
+    my $regu_class = (scalar(@regu_species_classes)) ? join(' ',@regu_species_classes) : '';
+
+    $fieldset = $form->add_fieldset({'legend' => $current_section, 'no_required_notes' => 1, class => $regu_class});
+
+    for (@regu_species) {
+      # get available cell types
+      my $regulatory_build_adaptor = $hub->get_adaptor('get_RegulatoryBuildAdaptor', 'funcgen', $_);
+      my $regulatory_build = $regulatory_build_adaptor->fetch_current_regulatory_build;
+      my @cell_types = ();
+      foreach (sort {$a->short_name cmp $b->short_name} @{$regulatory_build->get_all_Epigenomes}) {
+        my $short_name = $_->short_name;
+        my $rm_white_space_label = $short_name;
+        $rm_white_space_label =~ s/ /\_/g;
+        push @cell_types, { value => $rm_white_space_label, caption => $short_name };
+      }
+
+      $fieldset->add_field({
+        'field_class'   => "_stt_$_",
+        'label'         => $fd->{regulatory}->{label},
+        'helptip'       => $fd->{regulatory}->{helptip},
+        'elements'      => [{
+          'type'          => 'dropdown',
+          'name'          => "regulatory_$_",
+          'class'         => '_stt',
+          'value'         => 'reg',
+          'values'        => [
+            { 'value'       => 'no',   'caption' => 'No'                                                      },
+            { 'value'       => 'reg',  'caption' => 'Yes'                                                     },
+            { 'value'       => 'cell', 'caption' => 'Yes and limit by cell type', 'class' => "_stt__cell_$_"  }
+          ]
+        }, {
+          'type'          => 'noedit',
+          'caption'       => $fd->{cell_type}->{helptip},
+          'no_input'      => 1,
+          'element_class' => "_stt_cell_$_"
+        }, {
+          'element_class' => "_stt_cell_$_",
+          'type'          => 'dropdown',
+          'multiple'      => 1,
+          'label'         => $fd->{cell_type}->{label},
+          'name'          => "cell_type_$_",
+          'values'        => [ map { 'value' => $_->{value}, 'caption' => $_->{caption} }, @cell_types ]
+        }]
+      });
+    }
+
+    $self->_end_section(\@fieldsets, $fieldset, $current_section);
+  }
+
+  ## PHENOTYPE DATA
+  my @phen_species = map { $_->{'value'} } grep {$_->{'phenotypes'} } @$species;
+
+  if(@phen_species) {
+    my @phen_species_classes = map { "_stt_".$_ } @phen_species;
+
+    my $phen_class = (scalar(@phen_species_classes)) ? join(' ',@phen_species_classes) : '';
+
+    $current_section = 'Phenotype data and citations';
+    $fieldset = $form->add_fieldset({'legend' => $current_section, 'no_required_notes' => 1, class => $phen_class});
+    $self->_end_section(\@fieldsets, $fieldset, $current_section);
+  }
+
+  return @fieldsets;
+}
+
 sub _plugin_footer {
   my ($self, $fieldset) = @_;
 
