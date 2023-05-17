@@ -3,6 +3,17 @@ package EnsEMBL::Web::Component::Tools::VEP::Results;
 use strict;
 use warnings;
 
+our %PROTEIN_DOMAIN_LABELS = (
+  'Pfam_domain'         => 'PFAM',
+  'Prints_domain'       => 'PRINTS',
+  'TIGRFAM_domain'      => 'TIGRFAM',
+  'SMART_domains'       => 'SMART',
+  'Superfamily_domains' => 'SUPERFAMILY',
+  'hmmpanther'          => 'PANTHERDB',
+  'PROSITE_profiles'    => 'PROSITE_PROFILES',
+  'PROSITE_patterns'    => 'PROSITE_PATTERNS',
+);
+
 # Get a list of comma separated items and transforms it into a bullet point list
 sub get_items_in_list {
   my $self    = shift;
