@@ -158,13 +158,13 @@ sub render_protein_matches {
     $self,
     $row_data,
     $row_id,
+    $gene_id,
     $feature_id,
     $consequence,
     $species
   ) = @_;
 
   my $hub = $self->hub;
-  my $gene_id = $row_data->{'Gene'};
   my $domain_ids = $row_data->{'DOMAINS'};
 
   my $should_add_pdb_view_button = $domain_ids =~ /PDB-ENSP/i;
