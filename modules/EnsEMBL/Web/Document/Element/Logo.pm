@@ -31,10 +31,13 @@ sub content {
   my $version = sprintf("WBPS%s (WS%s)", $wbps_release, $wb_release);
   my $archive = sprintf("WBPS%s", $wbps_release - 1);
 
+  if ($SiteDefs::ENSEMBL_SERVERNAME =~ /release-/) {
+    # Header for Archive site
+    return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;<a href="/info/about/release-log.html">%s</a></span>','/', $self->img_url, 'parasite.png', $alt, $alt, 34, $version );
+  }
   return sprintf( '<a href="%s"><img src="%s%s" alt="%s" title="%s" style="height:%spx" /></a><span class="header-version">Version:&nbsp;<a href="/info/about/release-log.html">%s</a></span><span class="header-version">-&nbsp;&nbsp;Archive:&nbsp;<a href="https://release-%s.parasite.wormbase.org">%s</a></span>',
     '/', $self->img_url, 'parasite.png', $alt, $alt, 34, $version, $wbps_release - 1, $archive
   );
-
 }
 
 1;
