@@ -41,7 +41,6 @@ sub modify_tree {
   $self->delete_node('SecondaryStructure');
   $self->delete_node('Regulation');
   $self->delete_node('Expression');
-  $self->delete_node('Compara_Alignments');
   $self->delete_node('SpeciesTree');
   $self->delete_node('Variation');
   $self->delete_node('StructuralVariation_Gene');
