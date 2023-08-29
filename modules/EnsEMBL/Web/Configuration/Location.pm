@@ -28,6 +28,9 @@ sub modify_tree {
   my $view = $self->get_node('View');
   $view->set_data('genoverse', 1) if $view;
 
+  my $compara_alignments_node = $self->get_node('Compara_Alignments/Image');
+  $compara_alignments_node->set_data('genoverse', 1) if $compara_alignments_node;
+
   $self->delete_node('Variation');
   $self->delete_node('Marker');
   $self->delete_node('Compara');
