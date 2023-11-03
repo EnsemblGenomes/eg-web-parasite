@@ -38,7 +38,7 @@ sub update_conf {
     $SiteDefs::ENSEMBL_NO_REPLY_EMAIL = 'wbps-noreply@ebi.ac.uk';
     $SiteDefs::SITE_FTP= 'https://ftp.ebi.ac.uk/pub/databases/wormbase/parasite';
     
-    $SiteDefs::ENSEMBL_PRIMARY_SPECIES = 'Romanomermis_culicivorax_prjeb1358';
+    $SiteDefs::ENSEMBL_PRIMARY_SPECIES = 'Strongyloides_ratti_prjeb125';
 
     ### Database Configuration
     $SiteDefs::ENSEMBL_USERDB_NAME = 'ensembl_accounts_wbps';
