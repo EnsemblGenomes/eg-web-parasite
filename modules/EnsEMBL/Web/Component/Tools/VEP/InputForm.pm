@@ -54,7 +54,7 @@ sub get_cacheable_form_node {
   # Species dropdown list with stt classes to dynamically toggle other fields
   if ( @$species <= 100 ) {
     $input_fieldset->add_field({
-      'label'         => 'Species',
+      'label'         => 'Click to search for your species',
       'elements'      => [{
         'type'          => 'speciesdropdown',
         'name'          => 'species',
@@ -79,7 +79,7 @@ sub get_cacheable_form_node {
   }
   else {
     $input_fieldset->add_field({
-      'label' => 'Species',
+      'label' => 'Click to search for your species',
       'field_class' => 'long_species_field',
        'elements' => [{
          'type'   => 'DropDown',
