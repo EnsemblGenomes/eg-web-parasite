@@ -22,9 +22,9 @@ use strict;
 sub update_conf {
 
     ### Release Configuration - to be updated for each release
-    $SiteDefs::SITE_RELEASE_VERSION = '18';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '285';
-    $SiteDefs::SITE_RELEASE_DATE = 'April 2023';
+    $SiteDefs::SITE_RELEASE_VERSION = '19';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '290';
+    $SiteDefs::SITE_RELEASE_DATE = 'December 2023';
     $SiteDefs::EG_RELEASE_VERSION = 55;
  
     ### Website Configuration
@@ -95,6 +95,7 @@ sub update_conf {
     $SiteDefs::PRODUCTION_NAMES = [sort qw(
          acanthocheilonema_viteae_prjeb1697
          acrobeloides_nanus_prjeb26554
+         allodiplogaster_sudhausi_prjeb48369
          ancylostoma_caninum_prjna72585
          ancylostoma_ceylanicum_prjna231479
          ancylostoma_ceylanicum_prjna72583
@@ -114,9 +115,12 @@ sub update_conf {
          ascaris_suum_prjna62057
          ascaris_suum_prjna80881
          atriophallophorus_winterbourni_prjna636673
+         auanema_ju1783_prjeb51845
+         bradynema_listronoti_prjna842945
          brugia_malayi_prjna10729
          brugia_pahangi_prjeb497
          brugia_timori_prjeb4663
+         bunonema_rgd898_prjna655932
          bursaphelenchus_okinawaensis_prjeb40023
          bursaphelenchus_xylophilus_prjea64437
          bursaphelenchus_xylophilus_prjeb40022
@@ -150,28 +154,34 @@ sub update_conf {
          cercopithifilaria_johnstoni_prjeb47283
          clonorchis_sinensis_prjda72781
          clonorchis_sinensis_prjna386618
+         cylicocyclus_nassatus_prjeb63274
          cylicostephanus_goldi_prjeb498
          dibothriocephalus_latus_prjeb1206
          dicrocoelium_dendriticum_prjeb44434
          dictyocaulus_viviparus_prjeb5116
          dictyocaulus_viviparus_prjna72587
+         diplogasteroides_magnus_prjna655932
          diploscapter_coronatus_prjdb3143
          diploscapter_pachys_prjna280107
          dirofilaria_immitis_prjeb1797
          dirofilaria_immitis_prjna723804
          ditylenchus_destructor_prjna312427
+         ditylenchus_destructor_prjna800207
          ditylenchus_dipsaci_prjna498219
          dracunculus_medinensis_prjeb500
          echinococcus_canadensis_prjeb8992
          echinococcus_granulosus_prjeb121
          echinococcus_granulosus_prjna182977
+         echinococcus_granulosus_prjna754835
          echinococcus_multilocularis_prjeb122
          echinococcus_oligarthrus_prjeb31222
          echinostoma_caproni_prjeb1207
          elaeophora_elaphi_prjeb502
+         enoplolaimus_lenunculus_prjna953805
          enterobius_vermicularis_prjeb503
+         epsilonema_zab32_prjna953805
          fasciola_gigantica_prjna230515
-         fasciola_hepatica_prjeb25283
+         fasciola_hepatica_prjeb58756
          fasciola_hepatica_prjna179522
          fasciolopsis_buski_prjna284521
          globodera_pallida_prjeb123
@@ -193,7 +203,7 @@ sub update_conf {
          heterobilharzia_americana_td1prjeb44434
          heterobilharzia_americana_td2prjeb44434
          heterodera_glycines_prjna381081
-         heterodera_schachtii_prjna722882
+         heterodera_schachtii_prjna522950
          heterodera_schachtii_prjna767548
          heterorhabditis_bacteriophora_prjna13977
          hydatigera_taeniaeformis_prjeb534
@@ -201,6 +211,9 @@ sub update_conf {
          hymenolepis_diminuta_prjeb507
          hymenolepis_microstoma_prjeb124
          hymenolepis_nana_prjeb508
+         koerneria_luziae_prjna655932
+         levipalatum_texanum_prjna655932
+         linhomoeus_gsco22_prjna953805
          litomosoides_sigmodontis_prjeb3075
          loa_loa_prjna246086
          loa_loa_prjna37757
@@ -210,6 +223,7 @@ sub update_conf {
          meloidogyne_arenaria_prjna340324
          meloidogyne_arenaria_prjna438575
          meloidogyne_chitwoodi_race1prjna666745
+         meloidogyne_enterolobii_prjeb36431
          meloidogyne_enterolobii_prjna340324
          meloidogyne_floridensis_prjeb6016
          meloidogyne_floridensis_prjna340324
@@ -220,10 +234,15 @@ sub update_conf {
          meloidogyne_javanica_prjeb8714
          meloidogyne_javanica_prjna340324
          mesocestoides_corti_prjeb510
-         mesorhabditis_belari_prjeb30104
+         mesodorylaimus_yzb24_prjna953805
+         mesorhabditis_belari_prjeb61636
+         mesorhabditis_spiculigera_prjeb59059
          micoletzkya_japonica_prjeb27334
+         microlaimidae_yzb23_prjna953805
+         necator_americanus_prjna1007425
          necator_americanus_prjna72135
          nippostrongylus_brasiliensis_prjeb511
+         nippostrongylus_brasiliensis_prjna994163
          oesophagostomum_dentatum_prjna72579
          onchocerca_flexuosa_prjeb512
          onchocerca_flexuosa_prjna230512
@@ -240,11 +259,17 @@ sub update_conf {
          panagrolaimus_ju765_prjeb32708
          panagrolaimus_sp1159_prjeb32708
          panagrolaimus_superbus_prjeb32708
+         paragonimus_heterotremus_prjna284523
+         paragonimus_kellicotti_prjna179523
+         paragonimus_skrjabinimiyazakii_prjna245325
+         paragonimus_westermani_prjna219632
          paragonimus_westermani_prjna454344
+         paralinhomoeus_gsco26_prjna953805
          parapristionchus_giblindavisi_prjeb53331
          parascaris_equorum_prjeb514
          parascaris_univalens_prjna386823
          parastrongyloides_trichosuri_prjeb515
+         parelaphostrongylus_tenuis_prjna729714
          plectus_sambesii_prjna390260
          pristionchus_arcanus_prjeb27334
          pristionchus_entomophagus_prjeb27334
@@ -255,8 +280,11 @@ sub update_conf {
          pristionchus_mayeri_prjeb27334
          pristionchus_pacificus_prjna12644
          protopolystoma_xenopodis_prjeb1201
+         ptycholaimellus_gst110_prjna953805
          rhabditophanes_kr3021_prjeb1297
+         rhynchonema_jsb14_prjna953805
          romanomermis_culicivorax_prjeb1358
+         sabatieria_punctata_prjna953805
          schistocephalus_solidus_prjeb527
          schistosoma_bovis_prjna451066
          schistosoma_bovis_td1prjeb44434
@@ -271,6 +299,7 @@ sub update_conf {
          schistosoma_intercalatum_td2prjeb44434
          schistosoma_japonicum_prjea34885
          schistosoma_japonicum_prjna520774
+         schistosoma_japonicum_prjna724792
          schistosoma_mansoni_prjea36577
          schistosoma_margrebowiei_prjeb44434
          schistosoma_mattheei_prjeb44434
@@ -289,11 +318,12 @@ sub update_conf {
          steinernema_feltiae_prjna204661
          steinernema_feltiae_prjna353610
          steinernema_glaseri_prjna204943
+         steinernema_hermaphroditum_prjna982879
          steinernema_monticolum_prjna205067
          steinernema_scapterisci_prjna204942
          strongyloides_papillosus_prjeb525
          strongyloides_ratti_prjeb125
-         strongyloides_stercoralis_prjeb528
+         strongyloides_stercoralis_prjna930454
          strongyloides_venezuelensis_prjeb530
          strongylus_vulgaris_prjeb531
          syphacia_muris_prjeb524
@@ -304,6 +334,7 @@ sub update_conf {
          taenia_solium_prjna170813
          teladorsagia_circumcincta_prjna72569
          thelazia_callipaeda_prjeb1205
+         theristus_lff411_prjna953805
          toxocara_canis_prjeb533
          toxocara_canis_prjna248777
          trichinella_britovi_prjna257433
@@ -331,6 +362,9 @@ sub update_conf {
          trichuris_suis_prjna208415
          trichuris_suis_prjna208416
          trichuris_trichiura_prjeb535
+         trileptium_ribeirensis_prjna953805
+         trissonchulus_latispiculum_prjna953805
+         trissonchulus_wlg14_prjna953805
          wuchereria_bancrofti_prjeb536
          wuchereria_bancrofti_prjna275548
     )];
