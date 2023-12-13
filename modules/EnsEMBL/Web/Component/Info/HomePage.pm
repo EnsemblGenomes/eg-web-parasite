@@ -406,13 +406,19 @@ sub _has_compara {
   my $has_compara    = 0;
   
   if ($db) {
+    my $genome_db_adaptor = $db->get_GenomeDBAdaptor;
+    my $genome_db;
+    eval{ 
+      $genome_db = $genome_db_adaptor->fetch_by_registry_name($hub->species);
+    };
+
     if ($object_type) { 
-      if ($sample_gene_id) {
+      if ($sample_gene_id and $genome_db) {
         # check existence of a specific data type for the sample gene
         my $member_adaptor = $db->get_GeneMemberAdaptor;
         my $object_adaptor = $db->get_adaptor($object_type);
   
-        if (my $member = $member_adaptor->fetch_by_stable_id($sample_gene_id)) {
+        if (my $member = $member_adaptor->fetch_by_stable_id_GenomeDB($sample_gene_id, $genome_db)) {
           if ($object_type eq 'Family' and $self->is_bacteria) {
             $member = $member->get_all_SeqMembers->[0];
           }
@@ -422,11 +428,6 @@ sub _has_compara {
       }
     } else { 
       # no object type specified, simply check if this species is in the db
-      my $genome_db_adaptor = $db->get_GenomeDBAdaptor;
-      my $genome_db;
-      eval{ 
-        $genome_db = $genome_db_adaptor->fetch_by_registry_name($hub->species);
-      };
       $has_compara = $genome_db ? 1 : 0;
     }
   }
