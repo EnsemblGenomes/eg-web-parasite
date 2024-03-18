@@ -23,8 +23,8 @@ sub update_conf {
 
     ### Release Configuration - to be updated for each release
     $SiteDefs::SITE_RELEASE_VERSION = '19';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '290';
-    $SiteDefs::SITE_RELEASE_DATE = 'December 2023';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '291';
+    $SiteDefs::SITE_RELEASE_DATE = 'March 2024';
     $SiteDefs::EG_RELEASE_VERSION = 55;
  
     ### Website Configuration
