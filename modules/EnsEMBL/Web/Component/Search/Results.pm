@@ -330,21 +330,21 @@ sub process_orthologs {
   my ($self, $orthologs, $source) = @_;
   my $cdb = 'compara';
   my $formatted;
-  if($self->hub->database('compara')) {
-    my $database = $self->hub->database($cdb);
-    foreach(@{$orthologs}) {
-      my $member = $database->get_GeneMemberAdaptor->fetch_by_stable_id($_);
-      my $label = $member->display_label || $_;
-      $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
-      $_ = $self->hub->get_ExtURL_link($label, $source, $_);
-    }
-  } else {
+ # if($self->hub->database('compara')) {
+ #   my $database = $self->hub->database($cdb);
+ #   foreach(@{$orthologs}) {
+ #     my $member = $database->get_GeneMemberAdaptor->fetch_by_stable_id($_);
+ #     my $label = $member->display_label || $_;
+ #     $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
+     # $_ = $self->hub->get_ExtURL_link($label, $source, $_);
+ #   }
+ # } else {
     foreach(@{$orthologs}) {
       my $label = $_;
       $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
       $_ = $self->hub->get_ExtURL_link($label, $source, $_);
     }
-  }
+ # }
   $formatted = join(', ', @{$orthologs});
   return $formatted;
 }
