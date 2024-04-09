@@ -324,6 +324,7 @@ sub update_conf {
          strongyloides_papillosus_prjeb525
          strongyloides_ratti_prjeb125
          strongyloides_stercoralis_prjna930454
+         strongyloides_stercoralis_prjeb528
          strongyloides_venezuelensis_prjeb530
          strongylus_vulgaris_prjeb531
          syphacia_muris_prjeb524
