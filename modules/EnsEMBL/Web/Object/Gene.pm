@@ -33,9 +33,10 @@ sub get_homologue_alignments {
   my $database    = $self->database($compara_db);
   my $hub         = $self->hub;
   my $msa;
-
   if ($database) {
-    my $member  = $database->get_GeneMemberAdaptor->fetch_by_stable_id($self->Obj->stable_id);
+    my $args = {'stable_id' => $self->Obj->stable_id, 'cdb' => $compara_db};
+    my $member  = $self->get_compara_Member($args);
+    #my $member  = $database->get_FamilyAdaptor->fetch_by_stable_id($self->Obj->stable_id);
     my $tree    = $database->get_GeneTreeAdaptor->fetch_default_for_Member($member);
     my @params  = ($member, $type);
     my $species = [];
