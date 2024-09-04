@@ -23,8 +23,8 @@ sub update_conf {
 
     ### Release Configuration - to be updated for each release
     $SiteDefs::SITE_RELEASE_VERSION = '19';
-    $SiteDefs::WORMBASE_RELEASE_VERSION = '290';
-    $SiteDefs::SITE_RELEASE_DATE = 'December 2023';
+    $SiteDefs::WORMBASE_RELEASE_VERSION = '291';
+    $SiteDefs::SITE_RELEASE_DATE = 'March 2024';
     $SiteDefs::EG_RELEASE_VERSION = 55;
  
     ### Website Configuration
@@ -324,6 +324,7 @@ sub update_conf {
          strongyloides_papillosus_prjeb525
          strongyloides_ratti_prjeb125
          strongyloides_stercoralis_prjna930454
+         strongyloides_stercoralis_prjeb528
          strongyloides_venezuelensis_prjeb530
          strongylus_vulgaris_prjeb531
          syphacia_muris_prjeb524
