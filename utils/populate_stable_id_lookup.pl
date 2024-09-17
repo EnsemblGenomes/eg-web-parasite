@@ -148,7 +148,7 @@ sub create_index {
     if ($port) {
       $cmd .= " -P $port";
     }
-    $cmd .= " -u $user --password=$pass $dbname < ./sql/indices.sql";
+    $cmd .= " -u $user --password=$pass $dbname < /nfs/public/release/ensweb/staging/parasite/current/browser/ensembl/misc-scripts/stable_id_lookup/sql/indices.sql";
     system($cmd) == 0 or die("error encountered when creating index for database $dbname\n");
   };
 
@@ -185,7 +185,7 @@ sub create_db {
   if ($port) {
     $cmd .= " -P $port";
   }
-  $cmd .= " -u $user --password=$pass $dbname < ./sql/tables.sql";
+  $cmd .= " -u $user --password=$pass $dbname < /nfs/public/release/ensweb/staging/parasite/current/browser/ensembl/misc-scripts/stable_id_lookup/sql/tables.sql";
   system($cmd) == 0 or die("error encountered when creating schema for database $dbname\n");
 
   $dbh->do("use $dbname");

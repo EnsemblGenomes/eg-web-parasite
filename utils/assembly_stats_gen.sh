@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-DB_SERVER=mysql-ps-staging-2
-DB_PORT=4467
-PS_VERSION=16
-ENS_VERSION=101
+DB_SERVER=mysql-ps-staging-1
+DB_PORT=4451
+PS_VERSION=19
+ENS_VERSION=111
 OUTPUT_PATH=/nfs/public/rw/ensweb/parasite/assembly_stats
 
 function generate_stat() {
@@ -12,7 +12,7 @@ function generate_stat() {
 	species_json="assembly_$species.json"
 	echo "New json file: $species_json"
 
-	bsub -o /dev/null -e /dev/null perl -I ensembl/modules/ eg-web-parasite/utils/assembly_stats.pl --host $DB_SERVER --port $DB_PORT --user ensro --busco-an --busco-as --assembly --dbname $DB --outfile $OUTPUT_PATH/$species_json
+	bsub -o /dev/null -e /dev/null perl -I ensembl/modules/ eg-web-parasite/utils/assembly_stats.pl --host $DB_SERVER --port $DB_PORT --user ensro --busco-an --busco-as --omark-completeness --omark-consistency  --assembly --dbname $DB --outfile $OUTPUT_PATH/$species_json
 }
 
 echo "Cleaning the output dir: $OUTPUT_PATH"

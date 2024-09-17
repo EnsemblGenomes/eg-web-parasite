@@ -98,7 +98,7 @@ sub get_items_in_list {
         $item_url = "$1&nbsp;".$hub->get_ExtURL_link($2, 'PDB', $3);
       }
       ## ParaSite: different prefix and id format 
-      elsif ($item =~ /^AlphaFold_DB_import:(.+)$/i) {
+      elsif ($item =~ /^AFDB-ENSP:(.+)$/i) {
         # The alphafold ids we store in Ensembl databases (e.g. AF-P63151-F1.A)
         # are fake ids, which consist of the real alphafold id followed by a dot and a chain name.
         # Meanwhile, the alphafold site uses Uniprot ids as accession ids.
@@ -106,7 +106,7 @@ sub get_items_in_list {
         # Hopefully, things will improve in the future.
         my $actual_alphafold_id = $1;
         my ( $uniprot_id ) = $actual_alphafold_id =~ /-(.+)-/; # the middle part of an alphafold id
-        $item_url = "AlphaFold_DB_import:" . "&nbsp" . $hub->get_ExtURL_link($actual_alphafold_id, 'ALPHAFOLD', $uniprot_id);
+        $item_url = "AFDB-ENSP:" . "&nbsp" . $hub->get_ExtURL_link($actual_alphafold_id, 'ALPHAFOLD', $uniprot_id);
       }
       ##
       elsif ($type eq 'mastermind_mmid3') {
@@ -170,7 +170,7 @@ sub render_protein_matches {
   my $should_add_pdb_view_button = $domain_ids =~ /PDB-ENSP/i;
   # we are currently only comfortable with showing the alphafold view only in case of missense variants
   ## ParaSite: change prefix
-  my $should_add_afdb_view_button = $domain_ids =~ /AlphaFold_DB_import/i && $consequence =~ /missense_variant/i;
+  my $should_add_afdb_view_button = $domain_ids =~ /AFDB-ENSP/i && $consequence =~ /missense_variant/i;
   ##
   my $should_add_protein_view_buttons = $should_add_pdb_view_button || $should_add_afdb_view_button;
 

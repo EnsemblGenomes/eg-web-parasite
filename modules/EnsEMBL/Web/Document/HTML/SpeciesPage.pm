@@ -152,6 +152,8 @@ sub make_html {
     { key => 'genome_browser',   title => 'Genome Browser',                             align => 'left', width => '8%'  },
     { key => 'BUSCO ANNOTATION', title => 'BUSCO ANNOTATION', sort => 'numeric_hidden', align => 'left', width => '4%', style => 'white-space: normal', class => "_no_export", help => "BUSCO is a method of measuring assembly and annotation quality, developed at the University of Geneva. BUSCO ANNOTATION is running at the protein level, assessing not only the assembly but also the annotation quality of a genome. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of the animals. The percentages of complete, duplicated and partial genes recovered are reported." },
     { key => 'BUSCO ASSEMBLY',   title => 'BUSCO ASSEMBLY',   sort => 'numeric_hidden', align => 'left', width => '4%', style => 'white-space: normal', class => "_no_export", help => "BUSCO is a method of measuring assembly quality developed at the University of Geneva. In the genome assembly, we look for single-copy orthologs that are present in more than 90% of animals. The percentages of complete, duplicated and partial genes recovered are reported." },
+    { key => 'OMARK Completeness', title => 'OMARK Completeness', sort => 'numeric_hidden', align => 'left', width =>     '4%', style => 'white-space: normal', class => "_no_export", help => "OMArk, developed at the Dessimoz Lab, University     of Lausanne (UNIL) is a method for proteome quality assessment based on fast placement of protein sequences within kn    own gene families. OMArk Completeness, similar to BUSCO Annotation, runs on the protein level, assessing not only the     assembly but also the annotation of a genome. The method assigns the genome's proteins to gene families (Hierarchical     Orthologous Groups - HOGs). It then defines the “conserved ancestral repertoire” of the query species and looks for HO    Gs defined at this ancestral level which cover more than 80% of the species in the clade. Since a HOG at the selected     taxonomic level represents a single ancestral gene, conserved HOGs are classified as one of the following: Single, Dup    licated and Missing." },
+    { key => 'OMARK Consistency', title => 'OMARK Consistency', sort => 'numeric_hidden', align => 'left', width => '4%',     style => 'white-space: normal', class => "_no_export", help => "OMArk, developed at the Dessimoz Lab, University of La    usanne (UNIL) is a method for proteome quality assessment based on fast placement of protein sequences within known ge    ne families. OMArk Consistency, runs on the protein level, assessing not only the assembly but also the annotation of     a genome. The method assigns the genome's proteins gene families (Hierarchical Orthologous Groups - HOGs). It then def    ines the “lineage repertoire” of the query species consisting of all the HOGs from the conserved ancestral repertoire     plus those that originated later on and are still present in at least one species of the lineage. It uses this lineage     repertoire to classify proteins as: Consistent (placed into a HOG consistent with the lineage), Inconsistent (placed     into a HOG not consistent with the lineage), Contaminant (mapped to a lineage consistent with the lineage of a contami    nant species), Unknown (not placed into an existing HOG)." },
     { key => 'N50',              title => 'N50',              sort => 'numeric_hidden', align => 'left', width => '4%', help => "N50 is the length of the smallest contig such as the sum of the sequences larger than this contig covers half of the genome assembly." },
     { key => 'genome_size',     title => 'Genome Size'           , sort => 'numeric_hidden',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
     { key => 'scaffold_size',   title => 'Number of Scaffolds'   , sort => 'numeric_hidden',         align => 'left', width => '4%', style => 'white-space: normal', 'hidden' => 1},
@@ -257,7 +259,42 @@ sub make_html {
               push(@row, '-');
             }
          }
- 
+
+            my $omark = $assembly->{'omark_completeness'};
+            if($omark) {
+              my $omark_s = $omark->{S};
+              my $omark_d = $omark->{D};
+              my $omark_m = $omark->{M};
+              push(@row, sprintf(q(
+                <span class="hidden">%s</span>
+                <div style="display: none;">
+                  <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s]" />
+                </div>
+                <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="OMARK Completeness score: Single %s , Duplicated %s, Missing %s"></div>
+              ),$omark_s, $j, $omark_d / 100,  $omark_m / 100, $omark_s / 100, $j, $omark_s,  $omark_m , $omark_d)) ;
+              $j++;
+            } else {
+              push(@row, '-');
+            }
+            my $omark = $assembly->{'omark_consistency'};
+            if($omark) {
+              my $omark_s = $omark->{S};
+              my $omark_p = $omark->{P};
+              my $omark_f = $omark->{F};
+              my $omark_t = $omark->{T};
+              my $omark_u = $omark->{U};
+              my $omark_e = $omark->{E};
+              push(@row, sprintf(q(
+                <span class="hidden">%s</span>
+                <div style="display: none;">
+                  <input id="graph_data_item_%s" class="graph_data_ordered" type="hidden" value="[%s,%s,%s,%.2f,%s]" />
+                </div>
+                <div id="graphHolder%s" style="width: 30px; height: 30px; margin: auto;" title="OMARK Consistency score: Consistent: %s [Complete %s, Partial %s, Fragmented %s], Inconsistent %.2f, Unknown %s"></div>
+              ), $omark_e, $j, $omark_u / 100, (100 - ($omark_s + $omark_u + $omark_t)) / 100, $omark_f / 100, $omark_p / 100, $omark_e / 100, $j, $omark_s , $omark_e, $omark_p, $omark_f, (100 - ($omark_s + $omark_u + $omark_t)), $omark_u));
+              $j++;
+            } else {
+              push(@row, '-');
+            } 
           my $n50 = $assembly->{binned_scaffold_lengths}[500];
           push(@row, $n50 ? sprintf(qq(<span class="hidden">%s</span>%s), $n50, format_number($n50)) : '-');
         } else {

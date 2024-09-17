@@ -28,7 +28,7 @@ my (
   $dbport,
   $dbpass,
   $outfile, $outfh,
-  $do_assembly, $do_cegma, $do_busco_assembly, $do_busco_annotation,
+  $do_assembly, $do_cegma, $do_busco_assembly, $do_busco_annotation, $do_omark_completeness, $do_omark_consistency,
 );
 
 
@@ -42,6 +42,8 @@ my (
   'cegma'    => \$do_cegma,
   'busco-as' => \$do_busco_assembly,
   'busco-an' => \$do_busco_annotation,
+  'omark-completeness' => \$do_omark_completeness,
+  'omark-consistency' => \$do_omark_consistency,
   'outfile=s' => \$outfile,
 );
 
@@ -140,7 +142,33 @@ if ($do_busco_annotation) {
 
   $output->{busco_annotation} = $h;
 }  
+if ($do_omark_completeness) {
 
+  my $mc = $db->get_MetaContainerAdaptor;
+
+  my $h = {
+    M => $mc->single_value_by_key('omark.missing') * 1,
+    S => $mc->single_value_by_key('omark.single') * 1,
+    D => $mc->single_value_by_key('omark.duplicated') * 1,
+  };
+
+  $output->{omark_completeness} = $h;
+}
+if ($do_omark_consistency) {
+
+  my $mc = $db->get_MetaContainerAdaptor;
+
+  my $h = {
+    U => $mc->single_value_by_key('omark.unknown') * 1,
+    F => $mc->single_value_by_key('omark.fragmented') * 1,
+    P => $mc->single_value_by_key('omark.partial') * 1,
+    S => $mc->single_value_by_key('omark.consistent') * 1,
+    E => $mc->single_value_by_key('omark.consistent_complete') * 1,
+    T => $mc->single_value_by_key('omark.contamination') * 1,
+  };
+
+  $output->{omark_consistency} = $h;
+}
 my $json = JSON->new;
 $json->pretty(1);
 print $outfh $json->encode($output),"\n";
