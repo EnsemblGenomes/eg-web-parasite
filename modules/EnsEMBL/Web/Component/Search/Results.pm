@@ -342,13 +342,12 @@ sub process_orthologs {
       $_ = $self->hub->get_ExtURL_link($label, $source, $_);
     }
   } else {
-
     foreach(@{$orthologs}) {
       my $label = $_;
       $label = "<strong>$label</strong>" if ($_ eq $self->object->Obj->query_term || $label eq $self->object->Obj->query_term);
       $_ = $self->hub->get_ExtURL_link($label, $source, $_);
     }
- # }
+  }
   $formatted = join(', ', @{$orthologs});
   return $formatted;
 }
