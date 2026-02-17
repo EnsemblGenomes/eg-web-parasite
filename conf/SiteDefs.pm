@@ -223,7 +223,6 @@ sub update_conf {
          meloidogyne_arenaria_prjna340324
          meloidogyne_arenaria_prjna438575
          meloidogyne_chitwoodi_race1prjna666745
-         meloidogyne_enterolobii_prjeb36431
          meloidogyne_enterolobii_prjna340324
          meloidogyne_floridensis_prjeb6016
          meloidogyne_floridensis_prjna340324
