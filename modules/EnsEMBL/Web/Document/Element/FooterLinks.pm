@@ -34,7 +34,7 @@ sub content {
        <li><a href="/info/about/datausage.html">Citing WormBase ParaSite</a></li>
        <li><a href="/info/about/">About&nbsp;WormBase ParaSite</a></li>
        <li><a href="/info/about/datausage.html">Data Usage</a></li>
-       <li><a href="/Help/Contact" class="popup">Contact&nbsp;Us</a></li>
+       <li><a href="mailto:parasite-help\@wormbase.org">Contact&nbsp;Us</a></li>
        <li><a href="/legal">Disclaimer</a></li>
      </ul>
    </div>
